@@ -1,0 +1,37 @@
+$this: '.Radio';
+
+@mixin size ($height) {
+  #{$this}__element {
+    height: $height;
+    width: $height;
+  }
+
+  #{$this}__label {
+    font-size: $height;
+  }
+
+  &#{$this}_variant {
+    &_button {
+      $_height: $height * 2.45;
+      #{$this}__container {
+        height: $_height;
+        padding: (($_height - $height) / 2) ($_height / 2);
+        border-radius: ($_height / 2);
+      }
+    }
+  }
+}
+
+@mixin color ($color) {
+  #{$this}__element {
+    color: $color;
+  }
+
+  &#{$this}_variant {
+    &_button {
+      #{$this}__container {
+        color: $color;
+      }
+    }
+  }
+}

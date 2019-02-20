@@ -1,0 +1,52 @@
+@import '../variables';
+
+$this: '.TableList';
+
+#{$this} {
+  border-top: 1px solid $palette-grey-300;
+  border-bottom: 1px solid $palette-grey-300;
+
+  &Row {
+    display: block;
+    padding: 10px 0;
+    border-top: 1px solid $palette-grey-300;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &:hover {
+      background-color: $palette-grey-50;
+    }
+  }
+
+  &Cell {
+    display: block;
+    padding: 5px 0;
+  }
+
+  @media (min-width: $width-tablet), print {
+    display: table;
+    width: 100%;
+
+    &Row {
+      display: table-row;
+      padding: 0;
+
+      &:first-child #{$this}Cell {
+        border-top: none;
+      }
+    }
+
+    &Cell {
+      display: table-cell;
+      vertical-align: top;
+      padding: 15px 0 15px 30px;
+      border-top: 1px solid $palette-grey-300;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+}

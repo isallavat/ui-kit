@@ -1,0 +1,94 @@
+.Radio {
+  display: inline-block;
+  position: relative; }
+  .Radio__container {
+    box-sizing: border-box;
+    display: flex; }
+  .Radio__element {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #ADB4BA;
+    background-color: #F4F4F5;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+    .Radio__element-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-block;
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      background-color: white;
+      visibility: hidden; }
+  .Radio__label {
+    line-height: 1.1; }
+    .Radio__label_position_start {
+      order: -1;
+      margin-right: 10px; }
+    .Radio__label_position_end {
+      margin-left: 10px; }
+  .Radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    opacity: 0; }
+    .Radio input:checked ~ .Radio__container .Radio__element {
+      background-color: currentColor;
+      border-color: currentColor; }
+      .Radio input:checked ~ .Radio__container .Radio__element-handle {
+        visibility: visible; }
+    .Radio input:disabled ~ .Radio__container {
+      opacity: .5; }
+      .Radio input:disabled ~ .Radio__container .Radio__element {
+        cursor: default; }
+  .Radio_size_s .Radio__element {
+    height: 18px;
+    width: 18px; }
+  .Radio_size_s .Radio__label {
+    font-size: 18px; }
+  .Radio_size_s.Radio_variant_button .Radio__container {
+    height: 44.1px;
+    padding: 13.05px 22.05px;
+    border-radius: 22.05px; }
+  .Radio_size_m .Radio__element {
+    height: 22px;
+    width: 22px; }
+  .Radio_size_m .Radio__label {
+    font-size: 22px; }
+  .Radio_size_m.Radio_variant_button .Radio__container {
+    height: 53.9px;
+    padding: 15.95px 26.95px;
+    border-radius: 26.95px; }
+  .Radio_size_l .Radio__element {
+    height: 27px;
+    width: 27px; }
+  .Radio_size_l .Radio__label {
+    font-size: 27px; }
+  .Radio_size_l.Radio_variant_button .Radio__container {
+    height: 66.15px;
+    padding: 19.575px 33.075px;
+    border-radius: 33.075px; }
+  .Radio_color_default .Radio__element {
+    color: #398DFA; }
+  .Radio_color_default.Radio_variant_button .Radio__container {
+    color: #398DFA; }
+  .Radio_variant_button .Radio__container {
+    background-color: #F4F4F5;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+  .Radio_variant_button .Radio__element {
+    display: none; }
+  .Radio_variant_button .Radio__label {
+    margin: 0; }
+  .Radio_variant_button input:checked ~ .Radio__container {
+    background-color: currentColor; }
+    .Radio_variant_button input:checked ~ .Radio__container .Radio__label {
+      color: white; }
+  .Radio.-invalid .Radio__element {
+    border-color: #F04539; }

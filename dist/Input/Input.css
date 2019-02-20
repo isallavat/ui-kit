@@ -1,0 +1,171 @@
+.Input {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .Input:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid currentColor;
+    opacity: .5;
+    border-radius: inherit;
+    pointer-events: none; }
+  .Input__element {
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    background: none;
+    resize: none;
+    font: inherit;
+    line-height: 1;
+    color: inherit;
+    text-align: inherit;
+    border-radius: inherit; }
+    .Input__element:focus {
+      outline: none; }
+    .Input__element:disabled {
+      opacity: 1; }
+    .Input__element::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      opacity: .5; }
+    .Input__element::-moz-placeholder {
+      /* Firefox 19+ */
+      opacity: .5; }
+    .Input__element:-ms-input-placeholder {
+      /* IE 10+ */
+      opacity: .5; }
+    .Input__element:-moz-placeholder {
+      /* Firefox 18- */
+      opacity: .5; }
+    .Input__element::-ms-clear {
+      display: none; }
+    .Input__element::-webkit-outer-spin-button, .Input__element::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0; }
+    .Input__element_fake {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%; }
+    .Input__element-container {
+      flex-grow: 1;
+      height: 100%; }
+  .Input__label {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    font: inherit;
+    line-height: 1;
+    text-align: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: .6;
+    transition: 300ms;
+    pointer-events: none; }
+  .Input__adornment_start {
+    order: -1;
+    margin-right: 10px; }
+  .Input__adornment_end {
+    margin-left: 10px; }
+  .Input__dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 5px 20px 0 rgba(128, 128, 128, 0.1);
+    z-index: 2; }
+  .Input__menu {
+    padding: 0;
+    max-height: 250px; }
+    .Input__menu-item {
+      min-height: 50px; }
+  .Input_variant_default:before {
+    border-left: none;
+    border-top: none;
+    border-right: none; }
+  .Input_size_s {
+    height: 44px;
+    font-size: 17.6px; }
+    .Input_size_s.Input_rounded {
+      border-radius: 22px; }
+    .Input_size_s.Input_labeled {
+      padding-top: 14.66667px; }
+      .Input_size_s.Input_labeled .Input__element {
+        height: 29.33333px; }
+    .Input_size_s .Input__label {
+      top: 14.66667px;
+      padding-top: 5.86667px;
+      padding-bottom: 5.86667px; }
+    .Input_size_s.Input_type_select:after {
+      height: 6.28571px;
+      width: 6.28571px; }
+  .Input_size_m {
+    height: 54px;
+    font-size: 21.6px; }
+    .Input_size_m.Input_rounded {
+      border-radius: 27px; }
+    .Input_size_m.Input_labeled {
+      padding-top: 18px; }
+      .Input_size_m.Input_labeled .Input__element {
+        height: 36px; }
+    .Input_size_m .Input__label {
+      top: 18px;
+      padding-top: 7.2px;
+      padding-bottom: 7.2px; }
+    .Input_size_m.Input_type_select:after {
+      height: 7.71429px;
+      width: 7.71429px; }
+  .Input_size_l {
+    height: 66px;
+    font-size: 26.4px; }
+    .Input_size_l.Input_rounded {
+      border-radius: 33px; }
+    .Input_size_l.Input_labeled {
+      padding-top: 22px; }
+      .Input_size_l.Input_labeled .Input__element {
+        height: 44px; }
+    .Input_size_l .Input__label {
+      top: 22px;
+      padding-top: 8.8px;
+      padding-bottom: 8.8px; }
+    .Input_size_l.Input_type_select:after {
+      height: 9.42857px;
+      width: 9.42857px; }
+  .Input_color_default {
+    color: #172A3F; }
+  .Input_type_date .Input__dropdown {
+    width: auto; }
+  .Input_type_select:after {
+    content: '';
+    display: inline-block;
+    margin-left: auto;
+    transform: rotate(45deg);
+    transform-origin: right top;
+    border-style: solid;
+    border-color: currentColor;
+    border-width: 0 2px 2px 0;
+    opacity: .5; }
+  .Input.-focus:before, .Input.-focus:after {
+    opacity: 1; }
+  .Input.-focus.Input_variant_default:before {
+    border-bottom-width: 2px; }
+  .Input.-focus .Input__label, .Input.-filled .Input__label {
+    padding-top: 0;
+    padding-bottom: 0;
+    top: 0;
+    font-size: 72%; }
+  .Input.-invalid:before {
+    border-color: #F04539; }
+  .Input.-disabled {
+    opacity: .5; }

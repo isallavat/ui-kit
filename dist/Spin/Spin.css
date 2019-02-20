@@ -1,0 +1,32 @@
+.Spin {
+  display: inline-block; }
+  .Spin svg {
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    animation: spinRotator 1.5s linear infinite; }
+  .Spin circle {
+    stroke-dasharray: 90;
+    stroke-dashoffset: 0;
+    stroke: currentColor;
+    transform-origin: center;
+    animation: spinDash 1.5s ease-in-out infinite; }
+  .Spin_size_default {
+    height: 36px;
+    width: 36px; }
+
+@keyframes spinRotator {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes spinDash {
+  0% {
+    stroke-dashoffset: 90; }
+  50% {
+    stroke-dashoffset: 18;
+    transform: rotate(90deg); }
+  100% {
+    stroke-dashoffset: 90;
+    transform: rotate(360deg); } }

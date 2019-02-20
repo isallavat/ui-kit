@@ -1,0 +1,24 @@
+$this: '.Switch';
+
+@mixin size ($height) {
+  #{$this}__element {
+    height: $height;
+    width: ($height * 1.8);
+    border-radius: ($height / 2);
+
+    &-handle {
+      width: ($height - 2);
+      height: ($height - 2);
+    }
+  }
+
+  #{$this}__label {
+    font-size: $height;
+  }
+}
+
+@mixin color ($color) {
+  #{$this}__element {
+    color: $color;
+  }
+}

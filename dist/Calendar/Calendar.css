@@ -1,0 +1,54 @@
+.Calendar {
+  width: 280px;
+  padding: 16px;
+  font-size: 14px;
+  background-color: white; }
+  .Calendar__cells {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    max-height: 240px;
+    overflow-y: auto; }
+    .Calendar__cells_weekdays {
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ADB4BA;
+      opacity: .6; }
+  .Calendar__cell {
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    padding: 3px; }
+    .Calendar__cell_type_day, .Calendar__cell_type_weekday {
+      width: 14.28571%; }
+    .Calendar__cell_type_month {
+      width: 33.33333%; }
+    .Calendar__cell_type_year {
+      width: 25%; }
+    .Calendar__cell-button {
+      min-width: 34px;
+      height: 34px;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 4px;
+      border: none;
+      background: none;
+      border-radius: 17px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent; }
+      .Calendar__cell-button:focus {
+        outline: none; }
+      .Calendar__cell-button:hover:not(:disabled):not(.-selected) {
+        background-color: #E8EAEC; }
+      .Calendar__cell-button_overrange {
+        opacity: .5; }
+      .Calendar__cell-button:disabled {
+        opacity: .2;
+        cursor: default; }
+      .Calendar__cell-button.-selected {
+        color: white;
+        background-color: #172A3F; }
+  .Calendar__header {
+    justify-content: space-between; }

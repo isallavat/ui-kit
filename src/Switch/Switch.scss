@@ -1,0 +1,116 @@
+@import '../variables';
+@import 'mixins.scss';
+
+$this: '.Switch';
+
+#{$this} {
+  display: inline-block;
+  position: relative;
+
+  &__container {
+    box-sizing: border-box;
+    display: flex;
+  }
+
+  &__element {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $palette-grey-400;
+    background-color: $palette-grey-100;
+    position: relative;
+    transition:
+      border-color 300ms,
+      background-color 300ms;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &-handle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: $shadow-1;
+      transition:
+        transform 300ms,
+        left 300ms;
+    }
+  }
+
+  &__label {
+    line-height: 1.1;
+
+    &_position {
+      &_start {
+        order: -1;
+        margin-right: 10px;
+      }
+
+      &_end {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+
+    &:checked {
+      & ~ #{$this}__container {
+        #{$this}__element {
+          background-color: currentColor;
+          border-color: currentColor;
+
+          &-handle {
+            left: 100%;
+            transform: translateX(-100%);
+          }
+        }
+      }
+    }
+
+    &:disabled {
+      & ~ #{$this}__container {
+        opacity: .5;
+
+        #{$this}__element {
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  &_size {
+    &_s {
+      @include size(18px);
+    }
+
+    &_m {
+      @include size(22px);
+    }
+
+    &_l {
+      @include size(27px);
+    }
+  }
+
+  &_color {
+    &_default {
+       @include color($palette-primary);
+    }
+  }
+
+  &.-invalid {
+    #{$this}__element {
+      border-color: $palette-red;
+    }
+  }
+}

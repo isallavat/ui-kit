@@ -1,0 +1,112 @@
+@import '../variables';
+
+$this: '.Grid';
+
+#{$this} {
+  &Container {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+
+    &:empty {
+      display: none;
+    }
+
+    &_spacing {
+      @for $i from 0 through 32 {
+        &_#{($i * 2)} {
+          margin-left: -(2px * $i / 2);
+          margin-right: -(2px * $i / 2);
+
+          & > #{$this}Item {
+            padding-left: (2px * $i / 2);
+            padding-right: (2px * $i / 2);
+          }
+        }
+      }
+    }
+
+    &_align {
+      &_left {
+        justify-content: flex-start;
+      }
+
+      &_center {
+        justify-content: center;
+      }
+
+      &_right {
+        justify-content: flex-end;
+      }
+    }
+
+    &_valign {
+      &_top {
+        align-items: flex-start;
+      }
+
+      &_center {
+        align-items: center;
+      }
+
+      &_bottom {
+        align-items: flex-end;
+      }
+    }
+  }
+
+  &Item {
+    box-sizing: border-box;
+
+    &:empty {
+      padding: 0;
+    }
+
+    @for $i from 1 through 12 {
+      &_mobile_#{$i} {
+        flex-grow: 0;
+        width: (100% / 12 * $i);
+      }
+    }
+
+    &_mobile_true {
+      flex-grow: 1;
+      flex-basis: 0;
+      width: auto;
+    }
+  }
+
+  @media (min-width: $width-tablet), print {
+    &Item {
+      @for $i from 1 through 12 {
+        &_tablet_#{$i} {
+          flex-grow: 0;
+          width: (100% / 12 * $i);
+        }
+      }
+
+      &_tablet_true {
+        flex-grow: 1;
+        flex-basis: 0;
+        width: auto;
+      }
+    }
+  }
+
+  @media (min-width: $width-desktop) {
+    &Item {
+      @for $i from 1 through 12 {
+        &_desktop_#{$i} {
+          flex-grow: 0;
+          width: (100% / 12 * $i);
+        }
+      }
+
+      &_desktop_true {
+        flex-grow: 1;
+        flex-basis: 0;
+        width: auto;
+      }
+    }
+  }
+}

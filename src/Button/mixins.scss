@@ -1,0 +1,95 @@
+$this: '.Button';
+
+@mixin variantTextColor ($color, $amount: 1) {
+  $_color: lighten($color, $amount);
+  $lightness: lightness($_color);
+
+  @if $lightness > 90% {
+    border-color: lighten($color, $amount * .8);
+
+    &:hover {
+      border-color: lighten($color, $amount * .6);
+      background-color: lighten($color, $amount);
+    }
+
+    &:active {
+      border-color: lighten($color, $amount * .4);
+      background-color: lighten($color, $amount * .8);
+    }
+  } @else {
+    @include variantTextColor($color, $amount + 1);
+  }
+}
+
+@mixin variantDefaultColor ($color, $amount: 1) {
+  $_color: darken($color, $amount);
+  $lightness: lightness($_color);
+
+  @if $lightness < 45% {
+    background-color: $color;
+
+    &:hover {
+      background-color: darken($color, $amount);
+    }
+
+    &:active {
+      background-color: darken($color, $amount * 1.8);
+    }
+  } @else {
+    @include variantDefaultColor($color, $amount + 1);
+  }
+}
+
+@mixin color ($color, $text-color: null) {
+  $lightness: lightness($color);
+
+  &#{$this}_variant {
+    &_text, &_outlined {
+      @if $text-color {
+        color: $text-color;
+      } @else {
+        color: $color;
+      }
+
+      @include variantTextColor($color);
+    }
+
+    &_default {
+      @if $text-color {
+        color: $text-color;
+      } @else {
+        @if $lightness > 70% {
+          color: black;
+        } @else {
+          color: white;
+        }
+      }
+
+      @include variantDefaultColor($color);
+    }
+  }
+}
+
+@mixin size ($height) {
+  $innerHeight: $height - 2;
+  $font-size: ($height / 3.3);
+  $vertical-padding: ($innerHeight - $font-size) / 2;
+
+  min-height: $height;
+  min-width: $height;
+  padding: $vertical-padding ($innerHeight / 2);
+  font-size: $font-size;
+
+  &#{$this}_rounded {
+    border-radius: ($height / 2);
+  }
+
+  &#{$this}_circular {
+    padding: $vertical-padding;
+  }
+
+  #{$this}__spin {
+    width: ($height * .6);
+    height: ($height * .6);
+  }
+}

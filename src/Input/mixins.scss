@@ -1,0 +1,33 @@
+$this: '.Input';
+
+@mixin size ($height) {
+  $font-size: ($height / 2.5);
+  $offset-top: ($height / 3);
+
+  height: $height;
+  font-size: $font-size;
+
+  &#{$this}_rounded {
+    border-radius: ($height / 2);
+  }
+
+  &#{$this}_labeled {
+    padding-top: $offset-top;
+
+    #{$this}__element {
+      height: ($height - $offset-top);
+    }
+  }
+
+  #{$this}__label {
+    $label-padding: ($height - $offset-top - $font-size) / 2;
+    top: $offset-top;
+    padding-top: $label-padding;
+    padding-bottom: $label-padding;
+  }
+
+  &#{$this}_type_select:after {
+    height: ($height / 7);
+    width: ($height / 7);
+  }
+}

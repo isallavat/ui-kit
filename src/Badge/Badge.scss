@@ -1,0 +1,33 @@
+@import '../variables';
+
+$this: '.Badge';
+
+#{$this} {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+
+  &__sticker {
+    box-sizing: border-box;
+    position: absolute;
+    top: -11px;
+    right: -11px;
+    display: inline-block;
+    vertical-align: top;
+    height: 22px;
+    min-width: 22px;
+    font-size: 12px;
+    line-height: 22px;
+    padding: 0 3px;
+    text-align: center;
+    border-radius: (22px / 2);
+    background-color: $palette-red;
+    color: white;
+    transform: scale(0);
+    transition: scale 300ms;
+
+    &.-visible {
+      transform: scale(1);
+    }
+  }
+}

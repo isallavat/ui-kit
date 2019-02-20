@@ -1,0 +1,134 @@
+@import '../variables';
+
+$this: '.Modal';
+
+#{$this} {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  &__overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.4);
+    animation: dialogOverlay 300ms;
+  }
+
+  &__container {
+    box-sizing: border-box;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  &__window {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 32px;
+    position: relative;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 20px 30px rgba(0,0,0,.15);
+    animation: dialogWindow 300ms;
+  }
+
+  &__header {
+    display: flex;
+    margin: 0 0 24px;
+  }
+
+  &__title {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 24px;
+  }
+
+  &__content {
+    font-size: 16px;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
+    position: relative;
+    opacity: 0.6;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1px;
+      height: 60%;
+      background-color: currentColor;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  &_size {
+    &_s {
+      #{$this}__window {
+        max-width: 320px;
+      }
+    }
+
+    &_m {
+      #{$this}__window {
+        max-width: 640px;
+      }
+    }
+
+    &_l {
+      #{$this}__window {
+        max-width: 960px;
+      }
+    }
+  }
+
+  @media (min-width: $width-tablet), print {
+    &__container {
+      padding: 32px;
+    }
+
+    &__window {
+      padding: 50px 40px;
+    }
+  }
+
+  @keyframes dialogOverlay {
+    0% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes dialogWindow {
+    0% {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  }
+}

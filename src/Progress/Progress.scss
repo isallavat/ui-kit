@@ -1,0 +1,77 @@
+@import '../variables';
+
+$this: '.Progress';
+
+#{$this} {
+  position: relative;
+
+  &_color {
+    &_default {
+      color: $palette-primary;
+    }
+  }
+
+  &_variant {
+    &_circle {
+      width: 150px;
+      height: 150px;
+
+      svg {
+        transform: rotate(-90deg);
+        animation: progressRotator 1s linear infinite;
+      }
+
+      #{$this}__value {
+        font-size: 38px;
+      }
+    }
+
+    &_line {
+      height: 6px;
+    }
+  }
+
+  svg {
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__circle {
+    stroke: currentColor;
+
+    &_1 {
+      opacity: .3;
+    }
+
+    &_2 {
+      transition: 300ms;
+    }
+  }
+
+  &__line {
+    fill: currentColor;
+
+    &_1 {
+      opacity: .3;
+    }
+
+    &_2 {
+      transition: 300ms;
+    }
+  }
+
+  #{$this}__value {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-family: Helvetica;
+    color: $palette-primary-text;
+  }
+
+  @keyframes progressRotator {
+    100% { transform: rotate(270deg); }
+  }
+}

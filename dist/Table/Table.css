@@ -1,0 +1,28 @@
+.Table__container {
+  overflow-x: auto; }
+
+.Table__table {
+  width: 100%;
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse; }
+
+.Table__th-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .9rem; }
+
+.Table__td, .Table__th {
+  padding: 8px 16px;
+  text-align: left;
+  border: 1px solid #E8EAEC; }
+
+.Table__pagination {
+  display: flex;
+  align-items: center;
+  padding: 8px; }
+  .Table__pagination-button {
+    flex: 1;
+    margin: 0 8px; }

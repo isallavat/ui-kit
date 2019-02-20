@@ -1,0 +1,42 @@
+.Progress {
+  position: relative; }
+  .Progress_color_default {
+    color: #398DFA; }
+  .Progress_variant_circle {
+    width: 150px;
+    height: 150px; }
+    .Progress_variant_circle svg {
+      transform: rotate(-90deg);
+      animation: progressRotator 1s linear infinite; }
+    .Progress_variant_circle .Progress__value {
+      font-size: 38px; }
+  .Progress_variant_line {
+    height: 6px; }
+  .Progress svg {
+    vertical-align: top;
+    width: 100%;
+    height: 100%; }
+  .Progress__circle {
+    stroke: currentColor; }
+    .Progress__circle_1 {
+      opacity: .3; }
+    .Progress__circle_2 {
+      transition: 300ms; }
+  .Progress__line {
+    fill: currentColor; }
+    .Progress__line_1 {
+      opacity: .3; }
+    .Progress__line_2 {
+      transition: 300ms; }
+  .Progress .Progress__value {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-family: Helvetica;
+    color: #172A3F; }
+
+@keyframes progressRotator {
+  100% {
+    transform: rotate(270deg); } }

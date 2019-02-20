@@ -1,0 +1,8 @@
+$this: '.Avatar';
+
+@mixin size ($height) {
+  height: $height;
+  width: $height;
+  font-size: ($height / 2.4);
+  line-height: $height;
+}

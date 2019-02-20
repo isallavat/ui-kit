@@ -1,0 +1,119 @@
+.Camera {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  color: white;
+  background-color: black;
+  transform: translateX(100%);
+  transition: transform 300ms; }
+  .Camera__viewport {
+    position: relative;
+    visibility: hidden; }
+  .Camera__video {
+    vertical-align: top; }
+  .Camera__canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+  .Camera__spin {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white; }
+  .Camera__snapshot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; }
+  .Camera__controls {
+    position: absolute;
+    top: 50%;
+    width: 80px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    visibility: hidden; }
+    .Camera__controls_left {
+      left: 0; }
+    .Camera__controls_right {
+      right: 0; }
+  .Camera__control {
+    box-sizing: border-box;
+    display: block;
+    margin: 10px auto;
+    width: 50px;
+    height: 50px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+    .Camera__control_capture {
+      background-color: white;
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.5); }
+      .Camera__control_capture.-animate {
+        animation: capturing 1s linear infinite; }
+    .Camera__control-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 25%; }
+  .Camera__close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 24px;
+    height: 24px; }
+    .Camera__close:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      right: 0;
+      border-top: 3px solid currentColor;
+      border-radius: 3px;
+      transform: translateY(-50%); }
+    .Camera__close:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 60%;
+      height: 60%;
+      border-style: solid;
+      border-color: currentColor;
+      border-width: 0 0 3px 3px;
+      border-radius: 3px;
+      transform: translateY(-50%) rotate(45deg); }
+  .Camera.-visible {
+    transform: translateX(0); }
+    .Camera.-visible .Camera__viewport,
+    .Camera.-visible .Camera__controls {
+      visibility: visible; }
+  @media (min-width: 640px), print {
+    .Camera__controls {
+      width: 110px; }
+    .Camera__control {
+      width: 64px;
+      height: 64px; } }
+
+@keyframes capturing {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
