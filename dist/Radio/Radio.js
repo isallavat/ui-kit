@@ -17,7 +17,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _classnames2 = _interopRequireDefault(require("classnames"));
+var _classnames3 = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
@@ -26,11 +26,41 @@ var Radio =
 function (_React$Component) {
   (0, _inheritsLoose2["default"])(Radio, _React$Component);
 
-  function Radio() {
-    return _React$Component.apply(this, arguments) || this;
+  function Radio(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.state = {
+      checked: props.checked !== undefined ? Boolean(props.checked) : Boolean(props.defaultChecked)
+    };
+    return _this;
   }
 
   var _proto = Radio.prototype;
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var checked = this.props.checked;
+
+    if (checked !== prevProps.checked && checked !== this.state.checked) {
+      this.setState({
+        checked: Boolean(checked)
+      });
+    }
+  };
+
+  _proto.handleChange = function handleChange(event) {
+    var onChange = this.props.onChange;
+    this.setState({
+      checked: event.target.checked
+    });
+    onChange && onChange(event);
+  };
+
+  _proto.renderElement = function renderElement() {
+    return _react["default"].createElement("div", {
+      className: "Radio__element"
+    });
+  };
 
   _proto.render = function render() {
     var _classnames;
@@ -43,22 +73,25 @@ function (_React$Component) {
         variant = _this$props.variant,
         label = _this$props.label,
         labelPosition = _this$props.labelPosition,
-        invalid = _this$props.invalid;
-    var classNames = (0, _classnames2["default"])((_classnames = {
+        invalid = _this$props.invalid,
+        disabled = _this$props.disabled;
+    var checked = this.state.checked;
+    var classNames = (0, _classnames3["default"])((_classnames = {
       'Radio': true
-    }, (0, _defineProperty2["default"])(_classnames, "Radio_size_".concat(size), !!size), (0, _defineProperty2["default"])(_classnames, "Radio_color_".concat(color), !!color), (0, _defineProperty2["default"])(_classnames, "Radio_variant_".concat(variant), !!variant), (0, _defineProperty2["default"])(_classnames, '-invalid', invalid), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Radio_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Radio_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Radio_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, 'Radio_checked', checked), (0, _defineProperty2["default"])(_classnames, 'Radio_invalid', invalid), (0, _defineProperty2["default"])(_classnames, 'Radio_disabled', disabled), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, componentProps), _react["default"].createElement("input", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
-      type: "radio"
-    })), _react["default"].createElement("div", {
+    }, componentProps), _react["default"].createElement("label", {
       className: "Radio__container"
-    }, _react["default"].createElement("span", {
-      className: "Radio__element"
-    }, _react["default"].createElement("span", {
-      className: "Radio__element-handle"
-    })), !!label && _react["default"].createElement("div", {
-      className: (0, _classnames2["default"])('Radio__label', "Radio__label_position_".concat(labelPosition))
+    }, _react["default"].createElement("input", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
+      className: "Radio__input",
+      type: "radio",
+      checked: checked,
+      onChange: this.handleChange.bind(this)
+    })), variant !== 'button' && this.renderElement(), !!label && _react["default"].createElement("div", {
+      className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
+        'Radio__label': true
+      }, "Radio__label_position_".concat(labelPosition), true))
     }, label)));
   };
 
@@ -67,18 +100,20 @@ function (_React$Component) {
 
 exports.Radio = Radio;
 Radio.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   componentProps: _propTypes["default"].object,
-  size: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
-  color: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
-  variant: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
-  label: _propTypes["default"].string,
+  size: _propTypes["default"].string.isRequired,
+  color: _propTypes["default"].string.isRequired,
+  variant: _propTypes["default"].oneOf(['default', 'button']),
+  label: _propTypes["default"].any,
   labelPosition: _propTypes["default"].oneOf(['start', 'end']),
-  invalid: _propTypes["default"].bool
+  invalid: _propTypes["default"].bool,
+  checked: _propTypes["default"].bool,
+  defaultChecked: _propTypes["default"].bool
 };
 Radio.defaultProps = {
-  component: 'label',
+  component: 'div',
   size: 'm',
   color: 'default',
   variant: 'default',

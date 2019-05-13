@@ -277,7 +277,7 @@ function (_React$Component) {
 
   _proto.renderHeader = function renderHeader() {
     return _react["default"].createElement("div", {
-      className: (0, _classnames2["default"])('Calendar__cells', 'Calendar__header')
+      className: "Calendar__cells Calendar__cells_header"
     }, _react["default"].createElement("div", {
       className: "Calendar__cell"
     }, _react["default"].createElement("button", {
@@ -304,7 +304,7 @@ function (_React$Component) {
 
   _proto.renderWeekDays = function renderWeekDays() {
     return _react["default"].createElement("div", {
-      className: "Calendar__cells Calendar__cells_WEEKDAYS"
+      className: "Calendar__cells Calendar__cells_weekdays"
     }, WEEKDAYS.map(function (item, index) {
       return _react["default"].createElement("div", {
         className: (0, _classnames2["default"])({
@@ -338,8 +338,9 @@ function (_React$Component) {
       }, _react["default"].createElement("button", {
         className: (0, _classnames2["default"])({
           'Calendar__cell-button': true,
-          'Calendar__cell-button_overrange': _this2.isCellOverrange(key),
-          '-selected': _this2.isCellSelected(key)
+          'Calendar__cell-button_light': _this2.isCellOverrange(key),
+          'Calendar__cell-button_selected': _this2.isCellSelected(key) && !_this2.isCellDisabled(key),
+          'Calendar__cell-button_disabled': _this2.isCellDisabled(key)
         }),
         type: "button",
         tabIndex: "-1",
@@ -365,7 +366,7 @@ function (_React$Component) {
 
 exports.Calendar = Calendar;
 Calendar.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   value: _propTypes["default"].number,
   min: _propTypes["default"].number,

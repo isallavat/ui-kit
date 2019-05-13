@@ -4,12 +4,34 @@ import classnames from 'classnames'
 import { excludeProps } from '../helpers'
 
 export class CheckBox extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      checked: props.checked !== undefined ? Boolean(props.checked) : Boolean(props.defaultChecked)
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    const { checked } = this.props
+
+    if (checked !== prevProps.checked && checked !== this.state.checked) {
+      this.setState({ checked: Boolean(checked) })
+    }
+  }
+
   handleChange (event) {
     const { onChange } = this.props
 
-    event.target.value = event.target.checked
+    this.setState({ checked: event.target.checked })
 
     onChange && onChange(event)
+  }
+
+  renderElement () {
+    return (
+      <div className='CheckBox__element' />
+    )
   }
 
   render () {
@@ -20,38 +42,41 @@ export class CheckBox extends React.Component {
       color,
       variant,
       label,
-      value,
       labelPosition,
-      invalid
+      invalid,
+      disabled
     } = this.props
+    const { checked } = this.state
 
     const classNames = classnames({
       'CheckBox': true,
-      [`CheckBox_size_${size}`]: !!size,
-      [`CheckBox_color_${color}`]: !!color,
-      [`Radio_variant_${variant}`]: !!variant,
-      '-invalid': invalid
+      [`CheckBox_size_${size}`]: true,
+      [`CheckBox_color_${color}`]: true,
+      [`CheckBox_variant_${variant}`]: true,
+      'CheckBox_checked': checked,
+      'CheckBox_invalid': invalid,
+      'CheckBox_disabled': disabled
     }, className)
 
     return (
       <this.props.component className={classNames} {...componentProps}>
-        <input
-          {...excludeProps(this)}
-          type='checkbox'
-          defaultChecked={String(value) === 'true'}
-          onChange={::this.handleChange}
-        />
-        <div className='CheckBox__container'>
-          <span className='CheckBox__element'>
-            <span className='CheckBox__element-handle' />
-          </span>
+        <label className='CheckBox__container'>
+          <input
+            {...excludeProps(this)}
+            className='CheckBox__input'
+            type='checkbox'
+            checked={checked}
+            value={String(checked)}
+            onChange={::this.handleChange}
+          />
+          {variant !== 'button' && this.renderElement()}
           {!!label &&
-            <div className={classnames(
-              'CheckBox__label',
-              `CheckBox__label_position_${labelPosition}`
-            )}>{label}</div>
+            <div className={classnames({
+              'CheckBox__label': true,
+              [`CheckBox__label_position_${labelPosition}`]: true
+            })}>{label}</div>
           }
-        </div>
+        </label>
       </this.props.component>
     )
   }
@@ -60,7 +85,8 @@ export class CheckBox extends React.Component {
 CheckBox.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
@@ -68,27 +94,22 @@ CheckBox.propTypes = {
     PropTypes.array.isRequired
   ]),
   componentProps: PropTypes.object,
-  size: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  color: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  variant: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  label: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf([
+    'default', 'button'
+  ]),
+  label: PropTypes.any,
   labelPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
+  checked: PropTypes.bool,
+  defaultChecked: PropTypes.bool
 }
 
 CheckBox.defaultProps = {
-  component: 'label',
+  component: 'div',
   size: 'm',
   color: 'default',
   variant: 'default',

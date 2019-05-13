@@ -1,15 +1,17 @@
 @import '../variables';
-@import 'mixins.scss';
+@import './mixins.scss';
 
 $this: '.CheckBox';
 
 #{$this} {
-  display: inline-block;
-  position: relative;
-
   &__container {
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
+    vertical-align: top;
+    position: relative;
+    transition: 100ms;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   &__element {
@@ -20,12 +22,12 @@ $this: '.CheckBox';
     border: 1px solid $palette-grey-400;
     background-color: $palette-grey-100;
     border-radius: 5px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    transition: 100ms;
 
-    &-handle {
+    &:before {
+      content: '';
       position: absolute;
-      top: 25%;
+      top: 10%;
       left: 50%;
       transform: translateX(-50%) rotate(-45deg);
       display: inline-block;
@@ -34,105 +36,62 @@ $this: '.CheckBox';
       border-style: solid;
       border-color: white;
       border-width: 0 0 2px 2px;
-      visibility: hidden;
+      opacity: 0;
+      transition: 100ms;
     }
   }
 
   &__label {
-    line-height: 1.1;
-
     &_position {
       &_start {
         order: -1;
-        margin-right: 10px;
-      }
-
-      &_end {
-        margin-left: 10px;
       }
     }
   }
 
-  input {
+  &_variant_default {
+    #{$this}__label {
+      &_position {
+        &_start {
+          margin-right: 10px;
+        }
+
+        &_end {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  &__input {
     position: absolute;
     top: 0;
     left: 0;
     margin: 0;
     opacity: 0;
+  }
 
-    &:checked {
-      & ~ #{$this}__container {
-        #{$this}__element {
-          background-color: currentColor;
-          border-color: currentColor;
+  @include size('s', 20px, 16px);
+  @include size('m', 22px, 18px);
+  @include size('l', 24px, 20px);
+  @include sizeButton('s', 40px, 16px);
+  @include sizeButton('m', 50px, 18px);
+  @include sizeButton('l', 60px, 20px);
 
-          &-handle {
-            visibility: visible;
-          }
-        }
-      }
-    }
+  @include color('default', $palette-primary);
 
-    &:disabled {
-      & ~ #{$this}__container {
-        opacity: .5;
-
-        #{$this}__element {
-          cursor: default;
-        }
-      }
+  &_checked {
+    #{$this}__element:before {
+      top: 25%;
+      opacity: 1;
     }
   }
 
-  &_size {
-    &_s {
-      @include size(18px);
-    }
+  &_disabled {
+    opacity: .5;
 
-    &_m {
-      @include size(22px);
-    }
-
-    &_l {
-      @include size(27px);
-    }
-  }
-
-  &_color {
-    &_default {
-       @include color($palette-primary);
-    }
-  }
-
-  &_variant {
-    &_button {
-      #{$this}__container {
-        background-color: $palette-grey-100;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      #{$this}__element {
-        display: none;
-      }
-
-      #{$this}__label {
-        margin: 0;
-      }
-
-      input:checked ~ #{$this}__container {
-        background-color: currentColor;
-
-        #{$this}__label {
-          color: white;
-        }
-      }
-    }
-  }
-
-  &.-invalid {
-    #{$this}__element {
-      border-color: $palette-red;
+    #{$this}__container {
+      cursor: default;
     }
   }
 }

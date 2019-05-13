@@ -11,6 +11,8 @@
     flex-wrap: wrap;
     max-height: 240px;
     overflow-y: auto; }
+    .Calendar__cells_header {
+      justify-content: space-between; }
     .Calendar__cells_weekdays {
       padding: 10px 0;
       margin-bottom: 20px;
@@ -40,15 +42,13 @@
       -webkit-tap-highlight-color: transparent; }
       .Calendar__cell-button:focus {
         outline: none; }
-      .Calendar__cell-button:hover:not(:disabled):not(.-selected) {
+      .Calendar__cell-button:hover:not(.Calendar__cell-button_disabled):not(.Calendar__cell-button_selected) {
         background-color: #E8EAEC; }
-      .Calendar__cell-button_overrange {
+      .Calendar__cell-button_light {
         opacity: .5; }
-      .Calendar__cell-button:disabled {
-        opacity: .2;
-        cursor: default; }
-      .Calendar__cell-button.-selected {
+      .Calendar__cell-button_selected {
         color: white;
         background-color: #172A3F; }
-  .Calendar__header {
-    justify-content: space-between; }
+      .Calendar__cell-button_disabled {
+        opacity: .3;
+        cursor: default; }

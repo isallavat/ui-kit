@@ -53,7 +53,7 @@ function (_React$Component) {
 
 exports.GridContainer = GridContainer;
 GridContainer.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   spacing: _propTypes["default"].number,
   align: _propTypes["default"].oneOf(['left', 'center', 'right']),

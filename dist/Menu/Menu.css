@@ -11,12 +11,12 @@
     padding: 12px 16px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent; }
-    .MenuItem:hover, .MenuItem.-hover {
+    .MenuItem:hover {
       background-color: #F4F4F5; }
-    .MenuItem.-selected {
-      background-color: #E8EAEC; }
-    .MenuItem_divider {
+    .MenuItem.MenuItem_divider {
       border-bottom: 1px solid #D8D8D8; }
+    .MenuItem.MenuItem_selected {
+      background-color: #E8EAEC; }
     .MenuItem__icon {
       display: inline-block;
       margin-right: 16px; }
@@ -24,11 +24,9 @@
       display: inline-block;
       flex-grow: 1;
       align-self: center; }
-      .MenuItem__text-primary {
-        font-size: 18px; }
       .MenuItem__text-secondary {
         margin-top: 5px;
-        font-size: 12px;
+        font-size: 75%;
         opacity: .6; }
     .MenuItem__action {
       margin-left: 16px; }

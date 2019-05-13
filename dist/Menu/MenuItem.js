@@ -38,13 +38,11 @@ function (_React$Component) {
         primary = _this$props.primary,
         secondary = _this$props.secondary,
         action = _this$props.action,
-        selected = _this$props.selected,
-        hover = _this$props.hover;
+        selected = _this$props.selected;
     var classNames = (0, _classnames["default"])({
       'MenuItem': true,
       'MenuItem_divider': divider,
-      '-hover': hover,
-      '-selected': selected
+      'MenuItem_selected': selected
     }, className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
@@ -66,14 +64,13 @@ function (_React$Component) {
 
 exports.MenuItem = MenuItem;
 MenuItem.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   divider: _propTypes["default"].bool,
   icon: _propTypes["default"].any,
   primary: _propTypes["default"].any,
   secondary: _propTypes["default"].any,
   action: _propTypes["default"].any,
-  hover: _propTypes["default"].bool,
   selected: _propTypes["default"].bool
 };
 MenuItem.defaultProps = {

@@ -1,0 +1,19 @@
+.FlexTableRow {
+  display: block;
+  padding: 10px 0; }
+
+.FlexTableCell {
+  display: block;
+  padding: 5px 0; }
+
+@media (min-width: 640px), print {
+  .FlexTable {
+    display: table;
+    width: 100%; }
+    .FlexTableRow {
+      display: table-row;
+      padding: 0; }
+    .FlexTableCell {
+      display: table-cell;
+      vertical-align: top;
+      padding: 15px 0; } }

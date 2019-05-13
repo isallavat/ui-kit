@@ -37,11 +37,13 @@ function (_React$Component) {
 
     var _this$props = this.props,
         className = _this$props.className,
+        full = _this$props.full,
         mobile = _this$props.mobile,
         tablet = _this$props.tablet,
         desktop = _this$props.desktop;
     var classNames = (0, _classnames2["default"])((_classnames = {
-      'GridItem': true
+      'GridItem': true,
+      'GridItem_full': full
     }, (0, _defineProperty2["default"])(_classnames, "GridItem_mobile_".concat(mobile), !!mobile), (0, _defineProperty2["default"])(_classnames, "GridItem_tablet_".concat(tablet), !!tablet), (0, _defineProperty2["default"])(_classnames, "GridItem_desktop_".concat(desktop), !!desktop), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
@@ -53,11 +55,12 @@ function (_React$Component) {
 
 exports.GridItem = GridItem;
 GridItem.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
-  mobile: _propTypes["default"].oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, true]),
-  tablet: _propTypes["default"].oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, true]),
-  desktop: _propTypes["default"].oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, true])
+  full: _propTypes["default"].bool,
+  mobile: _propTypes["default"].number,
+  tablet: _propTypes["default"].number,
+  desktop: _propTypes["default"].number
 };
 GridItem.defaultProps = {
   component: 'div'

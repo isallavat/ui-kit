@@ -23,7 +23,8 @@ export class GridContainer extends React.Component {
 GridContainer.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,

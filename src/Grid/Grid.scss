@@ -1,4 +1,5 @@
 @import '../variables';
+@import './mixins.scss';
 
 $this: '.Grid';
 
@@ -12,18 +13,8 @@ $this: '.Grid';
       display: none;
     }
 
-    &_spacing {
-      @for $i from 0 through 32 {
-        &_#{($i * 2)} {
-          margin-left: -(2px * $i / 2);
-          margin-right: -(2px * $i / 2);
-
-          & > #{$this}Item {
-            padding-left: (2px * $i / 2);
-            padding-right: (2px * $i / 2);
-          }
-        }
-      }
+    @for $i from 0 through 32 {
+      @include spacing($i * 2);
     }
 
     &_align {
@@ -62,17 +53,15 @@ $this: '.Grid';
       padding: 0;
     }
 
+    &_full {
+      width: 100%;
+    }
+
     @for $i from 1 through 12 {
       &_mobile_#{$i} {
         flex-grow: 0;
         width: (100% / 12 * $i);
       }
-    }
-
-    &_mobile_true {
-      flex-grow: 1;
-      flex-basis: 0;
-      width: auto;
     }
   }
 
@@ -84,12 +73,6 @@ $this: '.Grid';
           width: (100% / 12 * $i);
         }
       }
-
-      &_tablet_true {
-        flex-grow: 1;
-        flex-basis: 0;
-        width: auto;
-      }
     }
   }
 
@@ -100,12 +83,6 @@ $this: '.Grid';
           flex-grow: 0;
           width: (100% / 12 * $i);
         }
-      }
-
-      &_desktop_true {
-        flex-grow: 1;
-        flex-basis: 0;
-        width: auto;
       }
     }
   }

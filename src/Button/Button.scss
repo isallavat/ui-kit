@@ -1,9 +1,7 @@
 @import '../variables';
-@import 'mixins.scss';
+@import './mixins.scss';
 
 $this: '.Button';
-$spinOffset: 90;
-$spinDuration: 1.5s;
 
 #{$this} {
   box-sizing: border-box;
@@ -11,12 +9,10 @@ $spinDuration: 1.5s;
   font-family: inherit;
   font-weight: 500;
   line-height: 1;
-  text-align: center;
   text-decoration: none;
   color: inherit;
   background: none;
-  border-style: solid;
-  border-width: 0;
+  border: 1px solid transparent;
   border-radius: 8px;
   overflow: hidden;
   position: relative;
@@ -34,17 +30,6 @@ $spinDuration: 1.5s;
     outline: none;
   }
 
-  &__spin {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  &_progress &__content {
-    opacity: 0;
-  }
-
   &_circular {
     border-radius: 50%;
   }
@@ -53,34 +38,38 @@ $spinDuration: 1.5s;
     width: 100%;
   }
 
-  &_size {
-    &_s {
-      @include size(44px);
+  &__progress-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &_centered {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    &_m {
-      @include size(54px);
-    }
-
-    &_l {
-      @include size(66px);
+    &_hidden {
+      opacity: 0;
     }
   }
 
-  &_color {
-    &_default {
-      @include color($palette-primary);
-    }
-  }
+  @include size('s', 40px, 16px);
+  @include size('m', 50px, 18px);
+  @include size('l', 60px, 20px);
 
-  &_variant {
-    &_outlined {
-      border-width: 1px;
-      border-color: currentColor;
-    }
-  }
+  @include color('default', $palette-primary);
 
-  &:disabled {
+  &_disabled {
     cursor: default;
     pointer-events: none;
     opacity: .5;

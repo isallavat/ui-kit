@@ -1,52 +1,50 @@
 .Camera {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 99;
+  position: relative;
   color: white;
   background-color: black;
-  transform: translateX(100%);
-  transition: transform 300ms; }
-  .Camera__viewport {
-    position: relative;
-    visibility: hidden; }
+  overflow: hidden; }
+  .Camera:focus {
+    outline: none; }
+  .Camera_fullscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    transform: translateX(100%);
+    transition: 300ms; }
+    .Camera_fullscreen.Camera_visible {
+      transform: translateX(0); }
   .Camera__video {
-    vertical-align: top; }
-  .Camera__canvas {
+    vertical-align: top;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); }
-  .Camera__spin {
+  .Camera__progress {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: white; }
+    width: 100px;
+    height: 100px; }
   .Camera__snapshot {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%; }
-  .Camera__controls {
+  .Camera__side {
+    box-sizing: border-box;
     position: absolute;
     top: 50%;
-    width: 80px;
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    visibility: hidden; }
-    .Camera__controls_left {
+    padding: 20px;
+    text-align: center; }
+    .Camera__side_left {
       left: 0; }
-    .Camera__controls_right {
+    .Camera__side_right {
       right: 0; }
   .Camera__control {
     box-sizing: border-box;
@@ -63,8 +61,8 @@
     .Camera__control_capture {
       background-color: white;
       box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.5); }
-      .Camera__control_capture.-animate {
-        animation: capturing 1s linear infinite; }
+      .Camera__control_capture.Camera__control_animate {
+        animation: Camera__control-capturing 1s linear infinite; }
     .Camera__control-icon {
       position: absolute;
       left: 50%;
@@ -83,7 +81,7 @@
       left: 0;
       top: 50%;
       right: 0;
-      border-top: 3px solid currentColor;
+      border-top: 3px solid white;
       border-radius: 3px;
       transform: translateY(-50%); }
     .Camera__close:after {
@@ -94,23 +92,16 @@
       width: 60%;
       height: 60%;
       border-style: solid;
-      border-color: currentColor;
+      border-color: white;
       border-width: 0 0 3px 3px;
       border-radius: 3px;
       transform: translateY(-50%) rotate(45deg); }
-  .Camera.-visible {
-    transform: translateX(0); }
-    .Camera.-visible .Camera__viewport,
-    .Camera.-visible .Camera__controls {
-      visibility: visible; }
   @media (min-width: 640px), print {
-    .Camera__controls {
-      width: 110px; }
     .Camera__control {
       width: 64px;
       height: 64px; } }
 
-@keyframes capturing {
+@keyframes Camera__control-capturing {
   0% {
     opacity: 1; }
   50% {

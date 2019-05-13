@@ -3,43 +3,45 @@
 $this: '.Camera';
 
 #{$this} {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 99;
+  position: relative;
   color: white;
   background-color: black;
-  transform: translateX(100%);
-  transition: transform 300ms;
+  overflow: hidden;
 
-  &__viewport {
-    position: relative;
-    visibility: hidden;
+  &:focus {
+    outline: none;
+  }
+
+  &_fullscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    transform: translateX(100%);
+    transition: 300ms;
+
+    &#{$this}_visible {
+      transform: translateX(0);
+    }
   }
 
   &__video {
     vertical-align: top;
-  }
-
-  &__canvas {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  &__spin {
+  &__progress {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    width: 100px;
+    height: 100px;
   }
 
   &__snapshot {
@@ -50,15 +52,13 @@ $this: '.Camera';
     height: 100%;
   }
 
-  &__controls {
+  &__side {
+    box-sizing: border-box;
     position: absolute;
     top: 50%;
-    width: 80px;
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    visibility: hidden;
+    padding: 20px;
+    text-align: center;
 
     &_left {
       left: 0;
@@ -70,6 +70,7 @@ $this: '.Camera';
   }
 
   &__control {
+    $control: &;
     box-sizing: border-box;
     display: block;
     margin: 10px auto;
@@ -86,8 +87,8 @@ $this: '.Camera';
       background-color: white;
       box-shadow: 0 0 0 8px rgba(255,255,255,.5);
 
-      &.-animate {
-        animation: capturing 1s linear infinite;
+      &#{$control}_animate {
+        animation: Camera__control-capturing 1s linear infinite;
       }
     }
 
@@ -113,7 +114,7 @@ $this: '.Camera';
       left: 0;
       top: 50%;
       right: 0;
-      border-top: 3px solid currentColor;
+      border-top: 3px solid white;
       border-radius: 3px;
       transform: translateY(-50%);
     }
@@ -126,34 +127,21 @@ $this: '.Camera';
       width: 60%;
       height: 60%;
       border-style: solid;
-      border-color: currentColor;
+      border-color: white;
       border-width: 0 0 3px 3px;
       border-radius: 3px;
       transform: translateY(-50%) rotate(45deg);
     }
   }
 
-  &.-visible {
-    transform: translateX(0);
-
-    #{$this}__viewport,
-    #{$this}__controls, {
-      visibility: visible;
-    }
-  }
-
   @media (min-width: $width-tablet), print {
-    &__controls {
-      width: 110px;
-    }
-
     &__control {
       width: 64px;
       height: 64px;
     }
   }
 
-  @keyframes capturing {
+  @keyframes Camera__control-capturing {
     0% {
       opacity: 1;
     }

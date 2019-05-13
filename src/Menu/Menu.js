@@ -9,7 +9,7 @@ export class Menu extends React.Component {
     const rootEl = findDOMNode(this.refs.root)
 
     if (index >= 0) {
-      let selectedItemEl = rootEl.childNodes[index]
+      const selectedItemEl = rootEl.childNodes[index]
       if (exact) {
         rootEl.scrollTop = selectedItemEl.offsetTop
       } else if (selectedItemEl.offsetTop < rootEl.scrollTop) {
@@ -40,7 +40,8 @@ export class Menu extends React.Component {
 Menu.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,

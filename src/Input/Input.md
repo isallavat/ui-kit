@@ -3,20 +3,20 @@ import { Input } from '../Input';
 import { GridContainer, GridItem } from '../Grid';
 
 <GridContainer spacing={16}>
-  <GridItem mobile={12} tablet>
+  <GridItem mobile={12} tablet={4}>
     <Input label='Default' />
   </GridItem>
-  <GridItem mobile={12} tablet>
+  <GridItem mobile={12} tablet={4}>
     <Input label='Disabled' disabled />
   </GridItem>
-  <GridItem mobile={12} tablet>
+  <GridItem mobile={12} tablet={4}>
     <Input label='Invalid' invalid />
   </GridItem>
 </GridContainer>
 ```
 
 ```js
-import { Input } from '../Input';
+import { Input, InputDate, InputSelect } from '../Input';
 import { GridContainer, GridItem } from '../Grid';
 import menu from './menu';
 
@@ -26,26 +26,39 @@ min.setYear(min.getFullYear() - 1);
 max.setYear(max.getFullYear() + 1);
 
 <GridContainer spacing={16}>
-  <GridItem mobile={12} tablet>
+  <GridItem mobile={12} tablet={6}>
     <Input
-      type='date'
+      type='number'
+      label='Number'
+    />
+  </GridItem>
+  <GridItem mobile={12} tablet={6}>
+    <InputDate
       label='Date'
-      value='2019-05-10'
       min={min.getTime()}
       max={max.getTime()}
     />
   </GridItem>
-  <GridItem mobile={12} tablet>
-    <Input
-      type='select'
+  <GridItem mobile={12} tablet={6}>
+    <InputSelect
       label='Select'
       menu={menu}
     />
   </GridItem>
-  <GridItem mobile={12} tablet>
+  <GridItem mobile={12} tablet={6}>
     <Input
       label='Suggestions'
       menu={menu}
+      filterMenu
+    />
+  </GridItem>
+  <GridItem mobile={12} tablet={6}>
+    <Input
+      type='range'
+      label='Range'
+      min={0}
+      max={100}
+      step={1}
     />
   </GridItem>
 </GridContainer>

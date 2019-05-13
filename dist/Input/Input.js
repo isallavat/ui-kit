@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -15,9 +13,13 @@ var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/obje
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
+
+var _reactDom = require("react-dom");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -25,9 +27,7 @@ var _classnames3 = _interopRequireDefault(require("classnames"));
 
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
-var _Menu = require("../Menu");
-
-var _Calendar = require("../Calendar");
+var _reactRangeslider = _interopRequireDefault(require("react-rangeslider"));
 
 var _helpers = require("../helpers");
 
@@ -41,36 +41,38 @@ function (_React$Component) {
 
     _this = _React$Component.call(this, props) || this;
     _this.state = {
-      value: props.value
+      value: _this.noramlizeValue(props.value) || _this.noramlizeValue(props.defaultValue)
     };
     return _this;
-  } // static getDerivedStateFromProps (nextProps, prevState) {
-  //   if ([prevState.value, prevState.propsValue].indexOf(nextProps.value) < 0) {
-  //     return {
-  //       value: nextProps.value,
-  //       propsValue: nextProps.value
-  //     }
-  //   }
-  //
-  //   return null
-  // }
-
+  }
 
   var _proto = Input.prototype;
 
   _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
     var value = this.props.value;
 
-    if (value !== prevProps.value && value !== this.state.value) {
+    if (value !== prevProps.value && this.noramlizeValue(value) !== this.state.value) {
       this.setState({
-        value: value
+        value: this.noramlizeValue(value)
       });
     }
   };
 
-  _proto.prepareMenu = function prepareMenu() {
-    var menu = this.props.menu;
+  _proto.noramlizeValue = function noramlizeValue(value) {
+    return ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
+  };
+
+  _proto.getMenu = function getMenu() {
+    var _this$props = this.props,
+        type = _this$props.type,
+        menu = _this$props.menu,
+        filterMenu = _this$props.filterMenu;
+    var value = this.state.value;
     var _menu = [];
+
+    if (type !== 'select' && !value) {
+      return _menu;
+    }
 
     if (menu instanceof Array) {
       _menu = menu;
@@ -83,21 +85,54 @@ function (_React$Component) {
       });
     }
 
-    return _menu.map(function (item) {
+    _menu.map(function (item) {
       if (item.primary === undefined) {
         item.primary = item.value;
       }
 
       return item;
+    }, []);
+
+    return filterMenu ? this.filterMenu(_menu, value) : _menu;
+  };
+
+  _proto.filterMenu = function filterMenu(menu, value) {
+    return menu.filter(function (item) {
+      return item.primary.match(new RegExp(value, 'i'));
     });
   };
 
-  _proto.scrollMenu = function scrollMenu(exact) {
-    var selectedMenuItemIndex = this.state.selectedMenuItemIndex;
-    var menuEl = this.refs.menu;
+  _proto.getMenuSeletedItemIndex = function getMenuSeletedItemIndex() {
+    var value = this.state.value;
+    return this.getMenu().reduce(function (accumulator, item, index) {
+      if (String(item.value) === String(value)) {
+        accumulator = index;
+      }
 
-    if (menuEl) {
-      menuEl.scrollToSelected(selectedMenuItemIndex);
+      return accumulator;
+    }, -1);
+  };
+
+  _proto.scrollMenuToSelected = function scrollMenuToSelected(exact) {
+    var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
+    var menuEl = (0, _reactDom.findDOMNode)(this.refs.menu);
+
+    if (!menuEl) {
+      return;
+    }
+
+    var selectedItemEl = menuEl.childNodes[menuSeletedItemIndex];
+
+    if (menuSeletedItemIndex >= 0 && selectedItemEl) {
+      if (exact) {
+        menuEl.scrollTop = selectedItemEl.offsetTop;
+      } else if (selectedItemEl.offsetTop < menuEl.scrollTop) {
+        menuEl.scrollTop = selectedItemEl.offsetTop;
+      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > menuEl.offsetHeight + menuEl.scrollTop) {
+        menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - menuEl.offsetHeight;
+      }
+    } else {
+      menuEl.scrollTop = 0;
     }
   };
 
@@ -124,217 +159,202 @@ function (_React$Component) {
     });
   };
 
-  _proto.formatDate = function formatDate(date, format) {
-    if (date instanceof Date) {
-      return format.replace('YYYY', date.getFullYear()).replace('MM', ('0' + (date.getMonth() + 1)).slice(-2)).replace('DD', ('0' + date.getDate()).slice(-2));
-    } else if (date) {
-      var year = date.substr(format.indexOf('YYYY'), 4) * 1;
-      var month = date.substr(format.indexOf('MM'), 2) * 1 - 1;
-      var day = date.substr(format.indexOf('DD'), 2) * 1;
-      return new Date(year, month, day);
-    }
-  };
-
-  _proto.valueToDate = function valueToDate(value) {
-    var arr = value.split('-');
-    var year = arr[0] * 1;
-    var month = arr[1] * 1 - 1;
-    var day = arr[2] * 1;
-
-    if (year && month && day) {
-      return new Date(year, month, day);
-    }
-  };
-
   _proto.handleFocus = function handleFocus(event) {
+    var _this3 = this;
+
     var onFocus = this.props.onFocus;
     this.setState({
       focus: true,
-      menuVisible: true
+      dropdownVisible: true,
+      menuVisible: true,
+      menuSeletedItemIndex: this.getMenuSeletedItemIndex()
+    }, function () {
+      _this3.getMenu().length && _this3.scrollMenuToSelected();
     });
     onFocus && onFocus(event);
   };
 
   _proto.handleBlur = function handleBlur(event) {
+    var _this4 = this;
+
     var onBlur = this.props.onBlur;
 
-    if (this.dropdownMouseDown) {
-      this.dropdownMouseDown = false;
+    if (this.dropdownMouseEnter) {
       this.inputEl.focus();
       return;
     }
 
     this.setState({
       focus: false,
-      menuVisible: false
+      dropdownVisible: false
     });
+    setTimeout(function () {
+      _this4.setState({
+        menuVisible: false
+      });
+    }, 300);
     onBlur && onBlur(event);
   };
 
   _proto.handleChange = function handleChange(event) {
     var onChange = this.props.onChange;
-    this.setState({
+    var state = {
       value: event.target.value,
-      menuVisible: true
-    });
+      dropdownVisible: true
+    };
+
+    if (event.type === 'change') {
+      state.menuSeletedItemIndex = -1;
+    }
+
+    this.setState(state);
     onChange && onChange(event);
   };
 
+  _proto.handleSliderChange = function handleSliderChange(value) {
+    var event = {
+      type: 'change',
+      target: this.inputEl
+    };
+    event.target.value = value;
+    this.handleChange(event);
+  };
+
   _proto.handleKeyDown = function handleKeyDown(event) {
-    var selectedMenuItemIndex = this.state.selectedMenuItemIndex;
-    var menu = this.prepareMenu();
+    var _this$state = this.state,
+        menuSeletedItemIndex = _this$state.menuSeletedItemIndex,
+        dropdownVisible = _this$state.dropdownVisible;
+    var menu = this.getMenu();
     var state = {};
 
     if (!menu.length) {
       return;
+    } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
+      state.dropdownVisible = true;
     } else if (event.keyCode === 38) {
-      state.selectedMenuItemIndex = selectedMenuItemIndex > 0 ? selectedMenuItemIndex - 1 : menu.length - 1;
+      state.menuSeletedItemIndex = menuSeletedItemIndex > 0 ? menuSeletedItemIndex - 1 : menu.length - 1;
     } else if (event.keyCode === 40) {
-      state.selectedMenuItemIndex = selectedMenuItemIndex < menu.length - 1 ? selectedMenuItemIndex + 1 : 0;
+      state.menuSeletedItemIndex = menuSeletedItemIndex < menu.length - 1 ? menuSeletedItemIndex + 1 : 0;
     } else if (event.keyCode === 13) {
       event.preventDefault();
-      var selectedMenuItem = menu[selectedMenuItemIndex];
-      state.selectedMenuItemIndex = undefined;
-      state.menuVisible = false;
-      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem.value, event);
-    } else if ([37, 39].indexOf(event.keyCode) === -1) {
-      state.selectedMenuItemIndex = undefined;
+      var selectedMenuItem = menu[menuSeletedItemIndex];
+      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSeletedItemIndex, event);
     }
 
-    this.setState(state, this.scrollMenu);
+    this.setState(state, this.scrollMenuToSelected);
   };
 
-  _proto.handleMenuItemClick = function handleMenuItemClick(value, event) {
-    var _this3 = this;
+  _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
+    var _this5 = this;
 
     event.target = this.inputEl;
-    event.target.value = value;
+    event.target.value = item.value;
+    event.target.index = index;
     this.handleChange(event);
+    setTimeout(function () {
+      _this5.dropdownMouseEnter = false;
 
-    if (this.refs.dropdown && event.type === 'click') {
-      setTimeout(function () {
-        _this3.inputEl.blur();
+      _this5.setState({
+        dropdownVisible: false
       });
-    }
-  };
-
-  _proto.handleCalendarChange = function handleCalendarChange(value) {
-    var _this4 = this;
-
-    var date = new Date(value);
-    var event = {
-      target: this.inputElHidden
-    };
-    event.target.value = this.formatDate(date, 'YYYY-MM-DD');
-    this.handleChange(event);
-
-    if (this.refs.dropdown) {
-      setTimeout(function () {
-        _this4.inputEl.blur();
-      });
-    }
-  };
-
-  _proto.handleDateChange = function handleDateChange(event) {
-    var _this$props = this.props,
-        dateFormat = _this$props.dateFormat,
-        onChange = _this$props.onChange;
-    var value = event.target.value;
-    var year = value.substr(dateFormat.indexOf('YYYY'), 4) * 1;
-    var month = value.substr(dateFormat.indexOf('MM'), 2) * 1 - 1;
-    var day = value.substr(dateFormat.indexOf('DD'), 2) * 1;
-    event.target = this.inputElHidden;
-
-    if (year && month && day) {
-      var date = new Date(year, month, day);
-      event.target.value = this.formatDate(date, 'YYYY-MM-DD');
-      this.handleChange(event);
-    } else {
-      this.setState({
-        value: value
-      });
-      event.target.value = '';
-      onChange && onChange(event);
-    }
-  };
-
-  _proto.handleDropdownMouseDown = function handleDropdownMouseDown() {
-    this.dropdownMouseDown = true;
+    });
   };
 
   _proto.renderElement = function renderElement(props) {
-    var _this5 = this;
+    var _this6 = this;
+
+    if (this.getMenu().length) {
+      props.autoComplete = 'off';
+    }
+
+    if (props.type === 'plain') {
+      return _react["default"].createElement("div", {
+        className: props.className
+      }, props.value);
+    }
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {
-        _this5.inputEl = node;
+        _this6.inputEl = node;
       }
     }));
   };
 
-  _proto.renderElementDate = function renderElementDate(props) {
-    var _this6 = this;
-
-    var _this$props2 = this.props,
-        min = _this$props2.min,
-        max = _this$props2.max,
-        dateFormat = _this$props2.dateFormat;
-    var _this$state = this.state,
-        value = _this$state.value,
-        focus = _this$state.focus;
-    var date = this.valueToDate(value);
-    props.type = 'text';
-    props.value = date ? this.formatDate(date, dateFormat) : value;
-    props.mask = dateFormat.replace('DD', 99).replace('MM', 99).replace('YYYY', 9999);
-    props.onChange = this.handleDateChange.bind(this);
-    return _react["default"].createElement(_react.Fragment, null, this.renderElement(props), _react["default"].createElement("input", {
-      type: "hidden",
-      value: date ? value : '',
-      name: props.name,
-      ref: function ref(node) {
-        _this6.inputElHidden = node;
-      }
-    }), focus && this.renderDropdown(_react["default"].createElement(_Calendar.Calendar, {
-      value: date ? date.getTime() : 0,
-      min: min,
-      max: max,
-      onChange: this.handleCalendarChange.bind(this)
-    })));
-  };
-
   _proto.renderDropdown = function renderDropdown(children) {
+    var _this7 = this;
+
+    var dropdownVisible = this.state.dropdownVisible;
     return _react["default"].createElement("div", {
       ref: "dropdown",
-      className: "Input__dropdown",
-      onMouseDown: this.handleDropdownMouseDown.bind(this)
+      className: (0, _classnames3["default"])({
+        'Input__dropdown': true,
+        'Input__dropdown_visible': dropdownVisible
+      }),
+      onMouseEnter: function onMouseEnter() {
+        _this7.dropdownMouseEnter = true;
+      },
+      onMouseLeave: function onMouseLeave() {
+        _this7.dropdownMouseEnter = false;
+      }
     }, children);
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this7 = this;
+    var _this8 = this;
 
     var _this$state2 = this.state,
-        value = _this$state2.value,
-        selectedMenuItemIndex = _this$state2.selectedMenuItemIndex;
-    var menu = this.prepareMenu();
-    return !!menu.length && this.renderDropdown(_react["default"].createElement(_Menu.Menu, {
+        menuVisible = _this$state2.menuVisible,
+        menuSeletedItemIndex = _this$state2.menuSeletedItemIndex;
+    var menu = this.getMenu();
+    return this.renderDropdown(menuVisible && _react["default"].createElement("div", {
       className: "Input__menu",
       ref: "menu"
     }, menu.map(function (item, index) {
-      return _react["default"].createElement(_Menu.MenuItem, {
-        className: "Input__menu-item",
+      return _react["default"].createElement("div", {
+        className: (0, _classnames3["default"])({
+          'Input__menu-item': true,
+          'Input__menu-item_selected': index === menuSeletedItemIndex
+        }),
         key: index,
-        primary: item.primary,
-        secondary: item.secondary,
-        hover: index === selectedMenuItemIndex,
-        selected: item.value === value,
-        onClick: _this7.handleMenuItemClick.bind(_this7, item.value)
-      });
+        onMouseMove: function onMouseMove() {
+          return _this8.setState({
+            menuSeletedItemIndex: index
+          });
+        },
+        onMouseDown: _this8.handleMenuItemClick.bind(_this8, item, index)
+      }, _react["default"].createElement("div", {
+        className: "Input__menu-item-primary"
+      }, item.primary), !!item.secondary && _react["default"].createElement("div", {
+        className: "Input__menu-item-secondary"
+      }, item.secondary));
     })));
   };
 
+  _proto.renderSlider = function renderSlider() {
+    var _this$props2 = this.props,
+        min = _this$props2.min,
+        max = _this$props2.max,
+        step = _this$props2.step,
+        rangeProps = _this$props2.rangeProps;
+    var value = this.state.value;
+    return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
+      min: min,
+      max: max,
+      step: step,
+      value: +value,
+      tooltip: false,
+      labels: {
+        0: min,
+        100: max
+      }
+    }, rangeProps, {
+      onChange: this.handleSliderChange.bind(this)
+    }));
+  };
+
   _proto.render = function render() {
-    var _classnames;
+    var _classnames,
+        _this9 = this;
 
     var _this$props3 = this.props,
         className = _this$props3.className,
@@ -348,54 +368,54 @@ function (_React$Component) {
         type = _this$props3.type,
         label = _this$props3.label,
         mask = _this$props3.mask,
+        maskChar = _this$props3.maskChar,
         adornment = _this$props3.adornment,
         adornmentPosition = _this$props3.adornmentPosition;
     var _this$state3 = this.state,
         value = _this$state3.value,
-        focus = _this$state3.focus,
-        menuVisible = _this$state3.menuVisible;
+        focus = _this$state3.focus;
     var inputProps = (0, _objectSpread2["default"])({}, (0, _helpers.excludeProps)(this), {
-      className: 'Input__element Input__element_native',
+      className: 'Input__element',
+      disabled: disabled,
       type: type,
       value: value,
-      disabled: disabled,
       mask: mask,
+      maskChar: maskChar,
+      onClick: this.handleFocus.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       onChange: this.handleChange.bind(this),
       onKeyDown: this.handleKeyDown.bind(this)
     });
 
-    if (type === 'number' && inputProps.mask) {
+    if (['number', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text';
       inputProps.inputMode = 'numeric';
-    } else if (type === 'select') {
-      inputProps.readOnly = true;
-    }
 
-    var element;
-
-    switch (type) {
-      case 'date':
-        element = this.renderElementDate(inputProps);
-        break;
-
-      default:
-        element = this.renderElement(inputProps);
+      if (!inputProps.mask) {
+        inputProps.mask = (value || '').replace(/\w/g, '9') + '9';
+        inputProps.maskChar = null;
+      }
     }
 
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), !!size), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), !!color), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), !!variant), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), !!type), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '-filled', !!value), (0, _defineProperty2["default"])(_classnames, '-focus', focus), (0, _defineProperty2["default"])(_classnames, '-invalid', invalid), (0, _defineProperty2["default"])(_classnames, '-disabled', disabled), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, 'Input_focus', focus), (0, _defineProperty2["default"])(_classnames, 'Input_filled', !!value), (0, _defineProperty2["default"])(_classnames, 'Input_invalid', invalid), (0, _defineProperty2["default"])(_classnames, 'Input_disabled', disabled), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, componentProps), label && _react["default"].createElement("div", {
+    }, componentProps, {
+      onClick: function onClick() {
+        _this9.inputEl && _this9.inputEl.focus();
+      }
+    }), _react["default"].createElement("div", {
+      className: "Input__container"
+    }, label && _react["default"].createElement("div", {
       className: "Input__label"
-    }, label), element, adornment && _react["default"].createElement("div", {
+    }, label), this.renderElement(inputProps)), adornment && _react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Input__adornment': true
       }, "Input__adornment_".concat(adornmentPosition), true))
-    }, adornment), menuVisible && this.renderMenu());
+    }, adornment), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderSlider());
   };
 
   return Input;
@@ -403,27 +423,27 @@ function (_React$Component) {
 
 exports.Input = Input;
 Input.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   componentProps: _propTypes["default"].object,
-  size: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
-  color: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
-  variant: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
+  size: _propTypes["default"].string.isRequired,
+  color: _propTypes["default"].string.isRequired,
+  variant: _propTypes["default"].string.isRequired,
   rounded: _propTypes["default"].bool,
   type: _propTypes["default"].string.isRequired,
-  label: _propTypes["default"].string,
+  label: _propTypes["default"].any,
   mask: _propTypes["default"].string,
-  dateFormat: _propTypes["default"].string,
+  maskChar: _propTypes["default"].string,
   disabled: _propTypes["default"].bool,
   invalid: _propTypes["default"].bool,
-  value: _propTypes["default"].any.isRequired,
+  defaultValue: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
+  value: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   adornment: _propTypes["default"].any,
   adornmentPosition: _propTypes["default"].oneOf(['start', 'end']),
-  menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].arrayOf(_propTypes["default"].shape({
-    value: _propTypes["default"].string.isRequired,
-    primary: _propTypes["default"].any,
-    secondary: _propTypes["default"].any
-  }).isRequired).isRequired])
+  menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
+  filterMenu: _propTypes["default"].bool,
+  step: _propTypes["default"].number,
+  rangeProps: _propTypes["default"].object
 };
 Input.defaultProps = {
   component: 'div',
@@ -431,7 +451,5 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
-  value: '',
-  dateFormat: 'DD.MM.YYYY',
   adornmentPosition: 'end'
 };

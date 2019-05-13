@@ -1,33 +1,66 @@
 $this: '.Input';
 
-@mixin size ($height) {
-  $font-size: ($height / 2.5);
-  $offset-top: ($height / 3);
+@mixin size ($name, $height, $font-size) {
+  &_size_#{$name} {
+    font-size: $font-size;
 
-  height: $height;
-  font-size: $font-size;
-
-  &#{$this}_rounded {
-    border-radius: ($height / 2);
-  }
-
-  &#{$this}_labeled {
-    padding-top: $offset-top;
+    &#{$this}_rounded {
+      border-radius: ($height / 2);
+    }
 
     #{$this}__element {
-      height: ($height - $offset-top);
+      height: $height;
+      line-height: $height;
+    }
+
+    &#{$this}_labeled {
+      #{$this}__element {
+        $padding-top: ($height / 4);
+        $element-height: $height - $padding-top;
+
+        padding-top: $padding-top;
+        line-height: $element-height;
+      }
+    }
+
+    #{$this}__label {
+      $top: ($height / 4);
+      $label-height: $height - $top;
+      $padding-top: ($label-height - $font-size) / 2;
+
+      top: $top;
+      padding: $padding-top 0;
+    }
+
+    &#{$this}_focus, &#{$this}_filled {
+      #{$this}__label {
+        top: 0;
+        padding: 1px 0;
+        font-size: 75%;
+      }
+    }
+
+    #{$this}__icon {
+      height: ($height * .5);
+      width: ($height * .5);
     }
   }
+}
 
-  #{$this}__label {
-    $label-padding: ($height - $offset-top - $font-size) / 2;
-    top: $offset-top;
-    padding-top: $label-padding;
-    padding-bottom: $label-padding;
+@mixin color ($name, $color, $text-color: null) {
+  @if $text-color == null {
+    $text-color: $color;
   }
 
-  &#{$this}_type_select:after {
-    height: ($height / 7);
-    width: ($height / 7);
+  &_color_#{$name} {
+    color: $text-color;
+
+    &:before {
+      border-color: $color;
+    }
+
+    &#{$this}_invalid:before {
+      border-color: $palette-red;
+    }
   }
 }

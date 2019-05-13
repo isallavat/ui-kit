@@ -1,36 +1,66 @@
 $this: '.CheckBox';
 
-@mixin size ($height) {
-  #{$this}__element {
-    height: $height;
-    width: $height;
-  }
+@mixin size ($name, $height, $font-size) {
+  &_size_#{$name} {
+    &#{$this}_variant_default {
+      font-size: $font-size;
+      line-height: $font-size;
 
-  #{$this}__label {
-    font-size: $height;
-  }
+      #{$this}__element {
+        height: $height;
+        width: $height;
+      }
 
-  &#{$this}_variant {
-    &_button {
-      $_height: $height * 2.45;
-      #{$this}__container {
-        height: $_height;
-        padding: (($_height - $height) / 2) ($_height / 2);
-        border-radius: ($_height / 2);
+      #{$this}__label {
+        margin-top: ($height - $font-size) / 2;
       }
     }
   }
 }
 
-@mixin color ($color) {
-  #{$this}__element {
-    color: $color;
-  }
+@mixin sizeButton ($name, $height, $font-size) {
+  &_size_#{$name} {
+    &#{$this}_variant_button {
+      font-size: $font-size;
+      line-height: $font-size;
 
-  &#{$this}_variant {
-    &_button {
       #{$this}__container {
-        color: $color;
+        $vertical-padding: ($height - $font-size) / 2;
+
+        min-height: $height;
+        min-width: $height;
+        padding: $vertical-padding ($height / 2);
+        border-radius: ($height / 2);
+      }
+    }
+  }
+}
+
+@mixin color ($name, $color) {
+  &_color_#{$name} {
+    &#{$this}_variant_button {
+      #{$this}__container {
+        background-color: $palette-grey-200;
+      }
+
+      &#{$this}_checked {
+        #{$this}__container {
+          background-color: $color;
+          color: white;
+        }
+      }
+    }
+
+    &#{$this}_checked {
+      #{$this}__element {
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+
+    &#{$this}_invalid {
+      #{$this}__element {
+        border-color: $palette-red;
       }
     }
   }

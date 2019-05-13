@@ -4,12 +4,34 @@ import classnames from 'classnames'
 import { excludeProps } from '../helpers'
 
 export class Switch extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      checked: props.checked !== undefined ? Boolean(props.checked) : Boolean(props.defaultChecked)
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    const { checked } = this.props
+
+    if (checked !== prevProps.checked && checked !== this.state.checked) {
+      this.setState({ checked: Boolean(checked) })
+    }
+  }
+
   handleChange (event) {
     const { onChange } = this.props
 
-    event.target.value = event.target.checked
+    this.setState({ checked: event.target.checked })
 
     onChange && onChange(event)
+  }
+
+  renderElement () {
+    return (
+      <div className='Switch__element' />
+    )
   }
 
   render () {
@@ -18,38 +40,43 @@ export class Switch extends React.Component {
       componentProps,
       size,
       color,
+      variant,
       label,
-      value,
+      labelPosition,
       invalid,
-      labelPosition
+      disabled
     } = this.props
+    const { checked } = this.state
 
     const classNames = classnames({
       'Switch': true,
-      [`Switch_size_${size}`]: !!size,
-      [`Switch_color_${color}`]: !!color,
-      '-invalid': invalid
+      [`Switch_size_${size}`]: true,
+      [`Switch_color_${color}`]: true,
+      [`Switch_variant_${variant}`]: true,
+      'Switch_checked': checked,
+      'Switch_invalid': invalid,
+      'Switch_disabled': disabled
     }, className)
 
     return (
       <this.props.component className={classNames} {...componentProps}>
-        <input
-          {...excludeProps(this)}
-          type='checkbox'
-          defaultChecked={String(value) === 'true'}
-          onChange={::this.handleChange}
-        />
-        <div className='Switch__container'>
-          <span className='Switch__element'>
-            <span className='Switch__element-handle' />
-          </span>
+        <label className='Switch__container'>
+          <input
+            {...excludeProps(this)}
+            className='Switch__input'
+            type='checkbox'
+            checked={checked}
+            value={String(checked)}
+            onChange={::this.handleChange}
+          />
+          {variant !== 'button' && this.renderElement()}
           {!!label &&
-            <div className={classnames(
-              'Switch__label',
-              `Switch__label_position_${labelPosition}`
-            )}>{label}</div>
+            <div className={classnames({
+              'Switch__label': true,
+              [`Switch__label_position_${labelPosition}`]: true
+            })}>{label}</div>
           }
-        </div>
+        </label>
       </this.props.component>
     )
   }
@@ -58,7 +85,8 @@ export class Switch extends React.Component {
 Switch.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
@@ -66,24 +94,24 @@ Switch.propTypes = {
     PropTypes.array.isRequired
   ]),
   componentProps: PropTypes.object,
-  size: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  color: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  label: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf([
+    'default'
+  ]),
+  label: PropTypes.any,
   labelPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
+  checked: PropTypes.bool,
+  defaultChecked: PropTypes.bool
 }
 
 Switch.defaultProps = {
-  component: 'label',
+  component: 'div',
   size: 'm',
   color: 'default',
+  variant: 'default',
   labelPosition: 'end'
 }

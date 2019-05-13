@@ -12,15 +12,13 @@ export class MenuItem extends React.Component {
       primary,
       secondary,
       action,
-      selected,
-      hover
+      selected
     } = this.props
 
     const classNames = classnames({
       'MenuItem': true,
       'MenuItem_divider': divider,
-      '-hover': hover,
-      '-selected': selected
+      'MenuItem_selected': selected
     }, className)
 
     return (
@@ -47,7 +45,8 @@ export class MenuItem extends React.Component {
 MenuItem.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
@@ -59,7 +58,6 @@ MenuItem.propTypes = {
   primary: PropTypes.any,
   secondary: PropTypes.any,
   action: PropTypes.any,
-  hover: PropTypes.bool,
   selected: PropTypes.bool
 }
 

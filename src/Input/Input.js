@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
-import { Menu, MenuItem } from '../Menu'
-import { Calendar } from '../Calendar'
+import Slider from 'react-rangeslider'
 import { excludeProps } from '../helpers'
 
 export class Input extends React.Component {
@@ -11,34 +11,30 @@ export class Input extends React.Component {
     super(props)
 
     this.state = {
-      value: props.value
+      value: this.noramlizeValue(props.value) || this.noramlizeValue(props.defaultValue)
     }
   }
-
-  // static getDerivedStateFromProps (nextProps, prevState) {
-  //   if ([prevState.value, prevState.propsValue].indexOf(nextProps.value) < 0) {
-  //     return {
-  //       value: nextProps.value,
-  //       propsValue: nextProps.value
-  //     }
-  //   }
-  //
-  //   return null
-  // }
 
   componentDidUpdate (prevProps) {
     const { value } = this.props
 
-    if (value !== prevProps.value && value !== this.state.value) {
-      this.setState({ value })
+    if (value !== prevProps.value && this.noramlizeValue(value) !== this.state.value) {
+      this.setState({ value: this.noramlizeValue(value) })
     }
   }
 
-  prepareMenu () {
-    const { menu } = this.props
+  noramlizeValue (value) {
+    return ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
+  }
+
+  getMenu () {
+    const { type, menu, filterMenu } = this.props
+    const { value } = this.state
     let _menu = []
 
-    if (menu instanceof Array) {
+    if (type !== 'select' && !value) {
+      return _menu
+    } if (menu instanceof Array) {
       _menu = menu
     } else if (menu instanceof Object) {
       _menu = Object.keys(menu || {}).map((key) => {
@@ -49,21 +45,55 @@ export class Input extends React.Component {
       })
     }
 
-    return _menu.map((item) => {
+    _menu.map((item) => {
       if (item.primary === undefined) {
         item.primary = item.value
       }
 
       return item
+    }, [])
+
+    return filterMenu ? this.filterMenu(_menu, value) : _menu
+  }
+
+  filterMenu (menu, value) {
+    return menu.filter((item) => {
+      return item.primary.match(new RegExp(value, 'i'))
     })
   }
 
-  scrollMenu (exact) {
-    const { selectedMenuItemIndex } = this.state
-    const menuEl = this.refs.menu
+  getMenuSeletedItemIndex () {
+    const { value } = this.state
 
-    if (menuEl) {
-      menuEl.scrollToSelected(selectedMenuItemIndex)
+    return this.getMenu().reduce((accumulator, item, index) => {
+      if (String(item.value) === String(value)) {
+        accumulator = index
+      }
+
+      return accumulator
+    }, -1)
+  }
+
+  scrollMenuToSelected (exact) {
+    const { menuSeletedItemIndex } = this.state
+    const menuEl = findDOMNode(this.refs.menu)
+
+    if (!menuEl) {
+      return
+    }
+
+    const selectedItemEl = menuEl.childNodes[menuSeletedItemIndex]
+
+    if (menuSeletedItemIndex >= 0 && selectedItemEl) {
+      if (exact) {
+        menuEl.scrollTop = selectedItemEl.offsetTop
+      } else if (selectedItemEl.offsetTop < menuEl.scrollTop) {
+        menuEl.scrollTop = selectedItemEl.offsetTop
+      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > menuEl.offsetHeight + menuEl.scrollTop) {
+        menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - menuEl.offsetHeight
+      }
+    } else {
+      menuEl.scrollTop = 0
     }
   }
 
@@ -88,38 +118,16 @@ export class Input extends React.Component {
     })
   }
 
-  formatDate (date, format) {
-    if (date instanceof Date) {
-      return format
-        .replace('YYYY', date.getFullYear())
-        .replace('MM', ('0' + (date.getMonth() + 1)).slice(-2))
-        .replace('DD', ('0' + date.getDate()).slice(-2))
-    } else if (date) {
-      let year = date.substr(format.indexOf('YYYY'), 4) * 1
-      let month = date.substr(format.indexOf('MM'), 2) * 1 - 1
-      let day = date.substr(format.indexOf('DD'), 2) * 1
-
-      return new Date(year, month, day)
-    }
-  }
-
-  valueToDate (value) {
-    const arr = value.split('-')
-    const year = arr[0] * 1
-    const month = arr[1] * 1 - 1
-    const day = arr[2] * 1
-
-    if (year && month && day) {
-      return new Date(year, month, day)
-    }
-  }
-
   handleFocus (event) {
     const { onFocus } = this.props
 
     this.setState({
       focus: true,
-      menuVisible: true
+      dropdownVisible: true,
+      menuVisible: true,
+      menuSeletedItemIndex: this.getMenuSeletedItemIndex()
+    }, () => {
+      this.getMenu().length && this.scrollMenuToSelected()
     })
 
     onFocus && onFocus(event)
@@ -128,107 +136,97 @@ export class Input extends React.Component {
   handleBlur (event) {
     const { onBlur } = this.props
 
-    if (this.dropdownMouseDown) {
-      this.dropdownMouseDown = false
+    if (this.dropdownMouseEnter) {
       this.inputEl.focus()
       return
     }
 
     this.setState({
       focus: false,
-      menuVisible: false
+      dropdownVisible: false
     })
+
+    setTimeout(() => {
+      this.setState({ menuVisible: false })
+    }, 300)
 
     onBlur && onBlur(event)
   }
 
   handleChange (event) {
     const { onChange } = this.props
-
-    this.setState({
+    const state = {
       value: event.target.value,
-      menuVisible: true
-    })
+      dropdownVisible: true
+    }
 
+    if (event.type === 'change') {
+      state.menuSeletedItemIndex = -1
+    }
+
+    this.setState(state)
     onChange && onChange(event)
   }
 
+  handleSliderChange (value) {
+    const event = {
+      type: 'change',
+      target: this.inputEl
+    }
+
+    event.target.value = value
+
+    this.handleChange(event)
+  }
+
   handleKeyDown (event) {
-    const { selectedMenuItemIndex } = this.state
-    const menu = this.prepareMenu()
+    const { menuSeletedItemIndex, dropdownVisible } = this.state
+    const menu = this.getMenu()
     const state = {}
 
     if (!menu.length) {
       return
+    } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
+      state.dropdownVisible = true
     } else if (event.keyCode === 38) {
-      state.selectedMenuItemIndex = selectedMenuItemIndex > 0 ? selectedMenuItemIndex - 1 : menu.length - 1
+      state.menuSeletedItemIndex = menuSeletedItemIndex > 0 ? menuSeletedItemIndex - 1 : menu.length - 1
     } else if (event.keyCode === 40) {
-      state.selectedMenuItemIndex = selectedMenuItemIndex < menu.length - 1 ? selectedMenuItemIndex + 1 : 0
+      state.menuSeletedItemIndex = menuSeletedItemIndex < menu.length - 1 ? menuSeletedItemIndex + 1 : 0
     } else if (event.keyCode === 13) {
       event.preventDefault()
-      let selectedMenuItem = menu[selectedMenuItemIndex]
-      state.selectedMenuItemIndex = undefined
-      state.menuVisible = false
-      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem.value, event)
-    } else if ([37, 39].indexOf(event.keyCode) === -1) {
-      state.selectedMenuItemIndex = undefined
+      const selectedMenuItem = menu[menuSeletedItemIndex]
+      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSeletedItemIndex, event)
     }
 
-    this.setState(state, this.scrollMenu)
+    this.setState(state, this.scrollMenuToSelected)
   }
 
-  handleMenuItemClick (value, event) {
+  handleMenuItemClick (item, index, event) {
     event.target = this.inputEl
-    event.target.value = value
+    event.target.value = item.value
+    event.target.index = index
 
     this.handleChange(event)
 
-    if (this.refs.dropdown && event.type === 'click') {
-      setTimeout(() => {
-        this.inputEl.blur()
-      })
-    }
-  }
-
-  handleCalendarChange (value) {
-    const date = new Date(value)
-    const event = { target: this.inputElHidden }
-    event.target.value = this.formatDate(date, 'YYYY-MM-DD')
-
-    this.handleChange(event)
-
-    if (this.refs.dropdown) {
-      setTimeout(() => {
-        this.inputEl.blur()
-      })
-    }
-  }
-
-  handleDateChange (event) {
-    const { dateFormat, onChange } = this.props
-    const { value } = event.target
-    const year = value.substr(dateFormat.indexOf('YYYY'), 4) * 1
-    const month = value.substr(dateFormat.indexOf('MM'), 2) * 1 - 1
-    const day = value.substr(dateFormat.indexOf('DD'), 2) * 1
-
-    event.target = this.inputElHidden
-
-    if (year && month && day) {
-      let date = new Date(year, month, day)
-      event.target.value = this.formatDate(date, 'YYYY-MM-DD')
-      this.handleChange(event)
-    } else {
-      this.setState({ value })
-      event.target.value = ''
-      onChange && onChange(event)
-    }
-  }
-
-  handleDropdownMouseDown () {
-    this.dropdownMouseDown = true
+    setTimeout(() => {
+      this.dropdownMouseEnter = false
+      this.setState({ dropdownVisible: false })
+    })
   }
 
   renderElement (props) {
+    if (this.getMenu().length) {
+      props.autoComplete = 'off'
+    }
+
+    if (props.type === 'plain') {
+      return (
+        <div className={props.className}>
+          {props.value}
+        </div>
+      )
+    }
+
     return (
       <InputMask
         {...props}
@@ -237,47 +235,18 @@ export class Input extends React.Component {
     )
   }
 
-  renderElementDate (props) {
-    const { min, max, dateFormat } = this.props
-    const { value, focus } = this.state
-    const date = this.valueToDate(value)
-
-    props.type = 'text'
-    props.value = date ? this.formatDate(date, dateFormat) : value
-    props.mask = dateFormat
-      .replace('DD', 99)
-      .replace('MM', 99)
-      .replace('YYYY', 9999)
-
-    props.onChange = ::this.handleDateChange
-
-    return (
-      <Fragment>
-        {this.renderElement(props)}
-        <input
-          type='hidden'
-          value={date ? value : ''}
-          name={props.name}
-          ref={(node) => { this.inputElHidden = node }}
-        />
-        {focus && this.renderDropdown(
-          <Calendar
-            value={date ? date.getTime() : 0}
-            min={min}
-            max={max}
-            onChange={::this.handleCalendarChange}
-          />
-        )}
-      </Fragment>
-    )
-  }
-
   renderDropdown (children) {
+    const { dropdownVisible } = this.state
+
     return (
       <div
         ref='dropdown'
-        className='Input__dropdown'
-        onMouseDown={::this.handleDropdownMouseDown}
+        className={classnames({
+          'Input__dropdown': true,
+          'Input__dropdown_visible': dropdownVisible
+        })}
+        onMouseEnter={() => { this.dropdownMouseEnter = true }}
+        onMouseLeave={() => { this.dropdownMouseEnter = false }}
       >
         {children}
       </div>
@@ -285,25 +254,46 @@ export class Input extends React.Component {
   }
 
   renderMenu () {
-    const { value, selectedMenuItemIndex } = this.state
-    const menu = this.prepareMenu()
+    const { menuVisible, menuSeletedItemIndex } = this.state
+    const menu = this.getMenu()
+
+    return this.renderDropdown(
+      menuVisible && <div className='Input__menu' ref='menu'>
+        {menu.map((item, index) =>
+          <div
+            className={classnames({
+              'Input__menu-item': true,
+              'Input__menu-item_selected': index === menuSeletedItemIndex
+            })}
+            key={index}
+            onMouseMove={() => this.setState({ menuSeletedItemIndex: index })}
+            onMouseDown={this.handleMenuItemClick.bind(this, item, index)}
+          >
+            <div className='Input__menu-item-primary'>{item.primary}</div>
+            {!!item.secondary &&
+              <div className='Input__menu-item-secondary'>{item.secondary}</div>
+            }
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  renderSlider () {
+    const { min, max, step, rangeProps } = this.props
+    const { value } = this.state
 
     return (
-      !!menu.length && this.renderDropdown(
-        <Menu className='Input__menu' ref='menu'>
-          {menu.map((item, index) =>
-            <MenuItem
-              className='Input__menu-item'
-              key={index}
-              primary={item.primary}
-              secondary={item.secondary}
-              hover={index === selectedMenuItemIndex}
-              selected={item.value === value}
-              onClick={this.handleMenuItemClick.bind(this, item.value)}
-            />
-          )}
-        </Menu>
-      )
+      <Slider
+        min={min}
+        max={max}
+        step={step}
+        value={+value}
+        tooltip={false}
+        labels={{ 0: min, 100: max }}
+        {...rangeProps}
+        onChange={::this.handleSliderChange}
+      />
     )
   }
 
@@ -320,67 +310,74 @@ export class Input extends React.Component {
       type,
       label,
       mask,
+      maskChar,
       adornment,
       adornmentPosition
     } = this.props
-    const { value, focus, menuVisible } = this.state
+    const { value, focus } = this.state
     const inputProps = {
       ...excludeProps(this),
-      className: 'Input__element Input__element_native',
+      className: 'Input__element',
+      disabled,
       type,
       value,
-      disabled,
       mask,
+      maskChar,
+      onClick: ::this.handleFocus,
       onFocus: ::this.handleFocus,
       onBlur: ::this.handleBlur,
       onChange: ::this.handleChange,
       onKeyDown: ::this.handleKeyDown
     }
 
-    if (type === 'number' && inputProps.mask) {
+    if (['number', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text'
       inputProps.inputMode = 'numeric'
-    } else if (type === 'select') {
-      inputProps.readOnly = true
-    }
 
-    let element
-
-    switch (type) {
-      case 'date':
-        element = this.renderElementDate(inputProps)
-        break
-      default:
-        element = this.renderElement(inputProps)
+      if (!inputProps.mask) {
+        inputProps.mask = (value || '').replace(/\w/g, '9') + '9'
+        inputProps.maskChar = null
+      }
     }
 
     const classNames = classnames({
       'Input': true,
-      [`Input_size_${size}`]: !!size,
-      [`Input_color_${color}`]: !!color,
-      [`Input_variant_${variant}`]: !!variant,
-      [`Input_type_${type}`]: !!type,
+      [`Input_size_${size}`]: true,
+      [`Input_color_${color}`]: true,
+      [`Input_variant_${variant}`]: true,
+      [`Input_type_${type}`]: true,
       'Input_rounded': rounded,
       'Input_labeled': !!label,
-      '-filled': !!value,
-      '-focus': focus,
-      '-invalid': invalid,
-      '-disabled': disabled
+      'Input_focus': focus,
+      'Input_filled': !!value,
+      'Input_invalid': invalid,
+      'Input_disabled': disabled
     }, className)
 
     return (
-      <this.props.component className={classNames} {...componentProps}>
-        {label &&
-          <div className='Input__label'>{label}</div>
-        }
-        {element}
+      <this.props.component
+        className={classNames}
+        {...componentProps}
+        onClick={() => { this.inputEl && this.inputEl.focus() }}
+      >
+        <div className='Input__container'>
+          {label &&
+            <div className='Input__label'>{label}</div>
+          }
+          {this.renderElement(inputProps)}
+        </div>
         {adornment &&
-          <div className={classnames({
-            'Input__adornment': true,
-            [`Input__adornment_${adornmentPosition}`]: true
-          })}>{adornment}</div>
+          <div
+            className={classnames({
+              'Input__adornment': true,
+              [`Input__adornment_${adornmentPosition}`]: true
+            })}
+          >
+            {adornment}
+          </div>
         }
-        {menuVisible && this.renderMenu()}
+        {!!this.getMenu().length && this.renderMenu()}
+        {type === 'range' && this.renderSlider()}
       </this.props.component>
     )
   }
@@ -389,7 +386,8 @@ export class Input extends React.Component {
 Input.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
@@ -397,40 +395,35 @@ Input.propTypes = {
     PropTypes.array.isRequired
   ]),
   componentProps: PropTypes.object,
-  size: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  color: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  variant: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
   rounded: PropTypes.bool,
   type: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.any,
   mask: PropTypes.string,
-  dateFormat: PropTypes.string,
+  maskChar: PropTypes.string,
   disabled: PropTypes.bool,
   invalid: PropTypes.bool,
-  value: PropTypes.any.isRequired,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
+  value: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
   adornment: PropTypes.any,
   adornmentPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
   menu: PropTypes.oneOfType([
     PropTypes.object.isRequired,
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.string.isRequired,
-        primary: PropTypes.any,
-        secondary: PropTypes.any
-      }).isRequired
-    ).isRequired
-  ])
+    PropTypes.array.isRequired
+  ]),
+  filterMenu: PropTypes.bool,
+  step: PropTypes.number,
+  rangeProps: PropTypes.object
 }
 
 Input.defaultProps = {
@@ -439,7 +432,5 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
-  value: '',
-  dateFormat: 'DD.MM.YYYY',
   adornmentPosition: 'end'
 }

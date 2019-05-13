@@ -1,95 +1,125 @@
-.CheckBox {
+.CheckBox__container {
+  box-sizing: border-box;
+  display: inline-flex;
+  vertical-align: top;
+  position: relative;
+  transition: 100ms;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.CheckBox__element {
+  flex-shrink: 0;
+  box-sizing: border-box;
   display: inline-block;
-  position: relative; }
-  .CheckBox__container {
-    box-sizing: border-box;
-    display: flex; }
-  .CheckBox__element {
-    flex-shrink: 0;
-    box-sizing: border-box;
-    display: inline-block;
-    position: relative;
-    border: 1px solid #ADB4BA;
-    background-color: #F4F4F5;
-    border-radius: 5px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent; }
-    .CheckBox__element-handle {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translateX(-50%) rotate(-45deg);
-      display: inline-block;
-      width: 50%;
-      height: 25%;
-      border-style: solid;
-      border-color: white;
-      border-width: 0 0 2px 2px;
-      visibility: hidden; }
-  .CheckBox__label {
-    line-height: 1.1; }
-    .CheckBox__label_position_start {
-      order: -1;
-      margin-right: 10px; }
-    .CheckBox__label_position_end {
-      margin-left: 10px; }
-  .CheckBox input {
+  position: relative;
+  border: 1px solid #ADB4BA;
+  background-color: #F4F4F5;
+  border-radius: 5px;
+  transition: 100ms; }
+  .CheckBox__element:before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    opacity: 0; }
-    .CheckBox input:checked ~ .CheckBox__container .CheckBox__element {
-      background-color: currentColor;
-      border-color: currentColor; }
-      .CheckBox input:checked ~ .CheckBox__container .CheckBox__element-handle {
-        visibility: visible; }
-    .CheckBox input:disabled ~ .CheckBox__container {
-      opacity: .5; }
-      .CheckBox input:disabled ~ .CheckBox__container .CheckBox__element {
-        cursor: default; }
-  .CheckBox_size_s .CheckBox__element {
-    height: 18px;
-    width: 18px; }
-  .CheckBox_size_s .CheckBox__label {
-    font-size: 18px; }
-  .CheckBox_size_s.CheckBox_variant_button .CheckBox__container {
-    height: 44.1px;
-    padding: 13.05px 22.05px;
-    border-radius: 22.05px; }
-  .CheckBox_size_m .CheckBox__element {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    display: inline-block;
+    width: 50%;
+    height: 25%;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 0 2px 2px;
+    opacity: 0;
+    transition: 100ms; }
+
+.CheckBox__label_position_start {
+  order: -1; }
+
+.CheckBox_variant_default .CheckBox__label_position_start {
+  margin-right: 10px; }
+
+.CheckBox_variant_default .CheckBox__label_position_end {
+  margin-left: 10px; }
+
+.CheckBox__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  opacity: 0; }
+
+.CheckBox_size_s.CheckBox_variant_default {
+  font-size: 16px;
+  line-height: 16px; }
+  .CheckBox_size_s.CheckBox_variant_default .CheckBox__element {
+    height: 20px;
+    width: 20px; }
+  .CheckBox_size_s.CheckBox_variant_default .CheckBox__label {
+    margin-top: 2px; }
+
+.CheckBox_size_m.CheckBox_variant_default {
+  font-size: 18px;
+  line-height: 18px; }
+  .CheckBox_size_m.CheckBox_variant_default .CheckBox__element {
     height: 22px;
     width: 22px; }
-  .CheckBox_size_m .CheckBox__label {
-    font-size: 22px; }
+  .CheckBox_size_m.CheckBox_variant_default .CheckBox__label {
+    margin-top: 2px; }
+
+.CheckBox_size_l.CheckBox_variant_default {
+  font-size: 20px;
+  line-height: 20px; }
+  .CheckBox_size_l.CheckBox_variant_default .CheckBox__element {
+    height: 24px;
+    width: 24px; }
+  .CheckBox_size_l.CheckBox_variant_default .CheckBox__label {
+    margin-top: 2px; }
+
+.CheckBox_size_s.CheckBox_variant_button {
+  font-size: 16px;
+  line-height: 16px; }
+  .CheckBox_size_s.CheckBox_variant_button .CheckBox__container {
+    min-height: 40px;
+    min-width: 40px;
+    padding: 12px 20px;
+    border-radius: 20px; }
+
+.CheckBox_size_m.CheckBox_variant_button {
+  font-size: 18px;
+  line-height: 18px; }
   .CheckBox_size_m.CheckBox_variant_button .CheckBox__container {
-    height: 53.9px;
-    padding: 15.95px 26.95px;
-    border-radius: 26.95px; }
-  .CheckBox_size_l .CheckBox__element {
-    height: 27px;
-    width: 27px; }
-  .CheckBox_size_l .CheckBox__label {
-    font-size: 27px; }
+    min-height: 50px;
+    min-width: 50px;
+    padding: 16px 25px;
+    border-radius: 25px; }
+
+.CheckBox_size_l.CheckBox_variant_button {
+  font-size: 20px;
+  line-height: 20px; }
   .CheckBox_size_l.CheckBox_variant_button .CheckBox__container {
-    height: 66.15px;
-    padding: 19.575px 33.075px;
-    border-radius: 33.075px; }
-  .CheckBox_color_default .CheckBox__element {
-    color: #398DFA; }
-  .CheckBox_color_default.CheckBox_variant_button .CheckBox__container {
-    color: #398DFA; }
-  .CheckBox_variant_button .CheckBox__container {
-    background-color: #F4F4F5;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent; }
-  .CheckBox_variant_button .CheckBox__element {
-    display: none; }
-  .CheckBox_variant_button .CheckBox__label {
-    margin: 0; }
-  .CheckBox_variant_button input:checked ~ .CheckBox__container {
-    background-color: currentColor; }
-    .CheckBox_variant_button input:checked ~ .CheckBox__container .CheckBox__label {
-      color: white; }
-  .CheckBox.-invalid .CheckBox__element {
-    border-color: #F04539; }
+    min-height: 60px;
+    min-width: 60px;
+    padding: 20px 30px;
+    border-radius: 30px; }
+
+.CheckBox_color_default.CheckBox_variant_button .CheckBox__container {
+  background-color: #E8EAEC; }
+
+.CheckBox_color_default.CheckBox_variant_button.CheckBox_checked .CheckBox__container {
+  background-color: #398DFA;
+  color: white; }
+
+.CheckBox_color_default.CheckBox_checked .CheckBox__element {
+  background-color: #398DFA;
+  border-color: #398DFA; }
+
+.CheckBox_color_default.CheckBox_invalid .CheckBox__element {
+  border-color: #F04539; }
+
+.CheckBox_checked .CheckBox__element:before {
+  top: 25%;
+  opacity: 1; }
+
+.CheckBox_disabled {
+  opacity: .5; }
+  .CheckBox_disabled .CheckBox__container {
+    cursor: default; }

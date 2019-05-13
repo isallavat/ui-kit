@@ -17,16 +17,16 @@ $this: '.Menu';
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 
-    &:hover, &.-hover {
+    &:hover {
       background-color: $palette-grey-100;
     }
 
-    &.-selected {
-      background-color: $palette-grey-200;
+    &#{&}_divider {
+      border-bottom: 1px solid $palette-grey-300;
     }
 
-    &_divider {
-      border-bottom: 1px solid $palette-grey-300;
+    &#{&}_selected {
+      background-color: $palette-grey-200;
     }
 
     &__icon {
@@ -39,13 +39,9 @@ $this: '.Menu';
       flex-grow: 1;
       align-self: center;
 
-      &-primary {
-        font-size: 18px;
-      }
-
       &-secondary {
         margin-top: 5px;
-        font-size: 12px;
+        font-size: 75%;
         opacity: .6;
       }
     }

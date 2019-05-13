@@ -12,13 +12,14 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.4);
-    animation: dialogOverlay 300ms; }
+    animation: Dialog__overlay 300ms; }
   .Modal__container {
     box-sizing: border-box;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
-    padding: 16px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
     max-height: 100%;
     overflow-y: auto; }
   .Modal__window {
@@ -29,7 +30,7 @@
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
-    animation: dialogWindow 300ms; }
+    animation: Dialog__window 300ms; }
   .Modal__header {
     display: flex;
     margin: 0 0 24px; }
@@ -37,15 +38,13 @@
     flex-grow: 1;
     margin: 0;
     font-size: 24px; }
-  .Modal__content {
-    font-size: 16px; }
   .Modal__close {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     margin-left: 20px;
     position: relative;
-    opacity: 0.6;
+    opacity: .6;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent; }
     .Modal__close:hover {
@@ -56,7 +55,7 @@
       left: 50%;
       top: 50%;
       width: 1px;
-      height: 60%;
+      height: 80%;
       background-color: currentColor; }
     .Modal__close:before {
       transform: translate(-50%, -50%) rotate(45deg); }
@@ -70,15 +69,15 @@
     max-width: 960px; }
   @media (min-width: 640px), print {
     .Modal__container {
-      padding: 32px; }
+      padding: 30px; }
     .Modal__window {
       padding: 50px 40px; } }
 
-@keyframes dialogOverlay {
+@keyframes Dialog__overlay {
   0% {
     opacity: 0; } }
 
-@keyframes dialogWindow {
+@keyframes Dialog__window {
   0% {
     opacity: 0;
     transform: scale(1.1); } }

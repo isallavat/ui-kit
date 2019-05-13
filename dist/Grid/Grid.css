@@ -219,6 +219,8 @@
   box-sizing: border-box; }
   .GridItem:empty {
     padding: 0; }
+  .GridItem_full {
+    width: 100%; }
   .GridItem_mobile_1 {
     flex-grow: 0;
     width: 8.33333%; }
@@ -255,10 +257,6 @@
   .GridItem_mobile_12 {
     flex-grow: 0;
     width: 100%; }
-  .GridItem_mobile_true {
-    flex-grow: 1;
-    flex-basis: 0;
-    width: auto; }
 
 @media (min-width: 640px), print {
   .GridItem_tablet_1 {
@@ -296,11 +294,7 @@
     width: 91.66667%; }
   .GridItem_tablet_12 {
     flex-grow: 0;
-    width: 100%; }
-  .GridItem_tablet_true {
-    flex-grow: 1;
-    flex-basis: 0;
-    width: auto; } }
+    width: 100%; } }
 
 @media (min-width: 960px) {
   .GridItem_desktop_1 {
@@ -338,8 +332,4 @@
     width: 91.66667%; }
   .GridItem_desktop_12 {
     flex-grow: 0;
-    width: 100%; }
-  .GridItem_desktop_true {
-    flex-grow: 1;
-    flex-basis: 0;
-    width: auto; } }
+    width: 100%; } }

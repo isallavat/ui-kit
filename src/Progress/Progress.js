@@ -53,7 +53,7 @@ export class Progress extends React.Component {
 
     const classNames = classnames({
       'Progress': true,
-      [`Progress_color_${color}`]: !!color,
+      [`Progress_color_${color}`]: true,
       [`Progress_variant_${variant}`]: true
     }, className)
 
@@ -83,7 +83,7 @@ export class Progress extends React.Component {
             />
           </svg>
         }
-        {value && <span className='Progress__value'>{value}</span>}
+        {value && <div className='Progress__value'>{value}</div>}
       </this.props.component>
     )
   }
@@ -92,17 +92,15 @@ export class Progress extends React.Component {
 Progress.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ]),
-  color: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
+  color: PropTypes.string.isRequired,
   variant: PropTypes.oneOf([
     'circle', 'line'
   ]).isRequired,

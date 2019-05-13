@@ -10,11 +10,19 @@ export class Modal extends React.Component {
     this.state = {}
 
     this.handleKeyUp = ::this.handleKeyUp
+    this.preventWindowScroll = ::this.preventWindowScroll
   }
 
-  open () {
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.preventWindowScroll)
+    document.removeEventListener('keyup', this.handleKeyUp)
+  }
+
+  open (props) {
+    this._props = props
     this.setState({ visible: true })
-    document.body.style.overflow = 'hidden'
+    this.pageYOffset = window.pageYOffset
+    window.addEventListener('scroll', this.preventWindowScroll)
     document.addEventListener('keyup', this.handleKeyUp)
   }
 
@@ -26,11 +34,14 @@ export class Modal extends React.Component {
     onClose && onClose()
   }
 
-  componentWillUnmount () {
-    if (this.state.visible) {
-      document.body.style.overflow = 'visible'
-      document.removeEventListener('keyup', this.handleKeyUp)
-    }
+  preventWindowScroll (event) {
+    window.scrollTo(0, this.pageYOffset)
+    event.preventDefault()
+    event.returnValue = false
+  }
+
+  getMergedProps () {
+    return { ...this.props, ...this._props }
   }
 
   handleKeyUp (event) {
@@ -39,34 +50,49 @@ export class Modal extends React.Component {
     }
   }
 
+  handleClick (event) {
+    const window = this.refs.window
+
+    if (window !== event.target && !window.contains(event.target)) {
+      this.close()
+    }
+  }
+
+  renderContent () {
+    return this.getMergedProps().children
+  }
+
   render () {
     const {
       className,
-      children,
       size,
       title,
       closeButton
-    } = this.props
+    } = this.getMergedProps()
     const { visible } = this.state
 
     const classNames = classnames({
       'Modal': true,
-      [`Modal_size_${size}`]: !!size
+      [`Modal_size_${size}`]: true
     }, className)
 
     return (
       visible
-        ? <this.props.component className={classNames} {...excludeProps(this)}>
-          <div className='Modal__overlay' onClick={::this.close} />
+        ? <this.props.component
+          className={classNames}
+          {...excludeProps(this)}
+          onClick={::this.handleClick}
+        >
+          <div className='Modal__overlay' />
           <div className='Modal__container'>
-            <div className='Modal__window'>
+            <div className='Modal__window' ref='window'>
               <div className='Modal__header'>
                 <h3 className='Modal__title'>{title}</h3>
                 {closeButton &&
                 <div className='Modal__close' onClick={::this.close} />
                 }
               </div>
-              <div className='Modal__content'>{children}</div>
+              <div className='Modal__content'>{this.renderContent()}</div>
             </div>
           </div>
         </this.props.component>
@@ -78,17 +104,15 @@ export class Modal extends React.Component {
 Modal.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ]),
-  size: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
+  size: PropTypes.string.isRequired,
   title: PropTypes.any,
   closeButton: PropTypes.bool,
   onClose: PropTypes.func

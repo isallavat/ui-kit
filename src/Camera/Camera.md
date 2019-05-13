@@ -11,10 +11,7 @@ openCamera = (err) => {
 }
 
 onApply = (snapshot) => {
-  setState({
-    isOpen: false,
-    snapshot: snapshot
-  })
+  setState({ snapshot: snapshot })
   modal.open()
 }
 

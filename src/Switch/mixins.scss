@@ -1,24 +1,55 @@
 $this: '.Switch';
 
-@mixin size ($height) {
-  #{$this}__element {
-    height: $height;
-    width: ($height * 1.8);
-    border-radius: ($height / 2);
+@mixin size ($name, $height, $font-size) {
+  &_size_#{$name} {
+    &#{$this}_variant_default {
+      font-size: $font-size;
+      line-height: $font-size;
 
-    &-handle {
-      width: ($height - 2);
-      height: ($height - 2);
+      #{$this}__element {
+        height: $height;
+        width: ($height * 1.8);
+        border-radius: ($height / 2);
+
+        &:before {
+          width: ($height - 2);
+          height: ($height - 2);
+        }
+      }
+
+      #{$this}__label {
+        margin-top: ($height - $font-size) / 2;
+      }
     }
-  }
-
-  #{$this}__label {
-    font-size: $height;
   }
 }
 
-@mixin color ($color) {
-  #{$this}__element {
-    color: $color;
+@mixin color ($name, $color) {
+  &_color_#{$name} {
+    &#{$this}_variant_button {
+      #{$this}__container {
+        background-color: $palette-grey-200;
+      }
+
+      &#{$this}_checked {
+        #{$this}__container {
+          background-color: $color;
+          color: white;
+        }
+      }
+    }
+
+    &#{$this}_checked {
+      #{$this}__element {
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+
+    &#{$this}_invalid {
+      #{$this}__element {
+        border-color: $palette-red;
+      }
+    }
   }
 }

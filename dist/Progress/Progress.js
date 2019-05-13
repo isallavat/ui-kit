@@ -85,7 +85,7 @@ function (_React$Component) {
         circleLength = _this$state.circleLength;
     var classNames = (0, _classnames2["default"])((_classnames = {
       'Progress': true
-    }, (0, _defineProperty2["default"])(_classnames, "Progress_color_".concat(color), !!color), (0, _defineProperty2["default"])(_classnames, "Progress_variant_".concat(variant), true), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Progress_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Progress_variant_".concat(variant), true), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
@@ -121,7 +121,7 @@ function (_React$Component) {
       y: "0",
       width: percent + '%',
       height: "100%"
-    })), value && _react["default"].createElement("span", {
+    })), value && _react["default"].createElement("div", {
       className: "Progress__value"
     }, value));
   };
@@ -131,9 +131,9 @@ function (_React$Component) {
 
 exports.Progress = Progress;
 Progress.propTypes = {
-  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired]).isRequired,
+  component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
-  color: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].bool.isRequired]).isRequired,
+  color: _propTypes["default"].string.isRequired,
   variant: _propTypes["default"].oneOf(['circle', 'line']).isRequired,
   seconds: _propTypes["default"].number,
   percent: _propTypes["default"].number

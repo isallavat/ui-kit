@@ -126,10 +126,10 @@ export class Calendar extends React.Component {
     const maxDate = new Date(max)
 
     if (cellType === 'day') {
-      let date = new Date(+cellValue)
+      const date = new Date(+cellValue)
       return date > maxDate || date < minDate
     } else if (cellType === 'month') {
-      let date = new Date(currentValue)
+      const date = new Date(currentValue)
       date.setMonth(cellValue)
       date.setDate(1)
       if (date > maxDate) {
@@ -226,10 +226,7 @@ export class Calendar extends React.Component {
 
   renderHeader () {
     return (
-      <div className={classnames(
-        'Calendar__cells',
-        'Calendar__header'
-      )}>
+      <div className='Calendar__cells Calendar__cells_header'>
         <div className='Calendar__cell'>
           <button
             className='Calendar__cell-button'
@@ -266,7 +263,7 @@ export class Calendar extends React.Component {
 
   renderWeekDays () {
     return (
-      <div className='Calendar__cells Calendar__cells_WEEKDAYS'>
+      <div className='Calendar__cells Calendar__cells_weekdays'>
         {WEEKDAYS.map((item, index) =>
           <div className={classnames({
             'Calendar__cell': true,
@@ -302,8 +299,9 @@ export class Calendar extends React.Component {
             <button
               className={classnames({
                 'Calendar__cell-button': true,
-                'Calendar__cell-button_overrange': this.isCellOverrange(key),
-                '-selected': this.isCellSelected(key)
+                'Calendar__cell-button_light': this.isCellOverrange(key),
+                'Calendar__cell-button_selected': this.isCellSelected(key) && !this.isCellDisabled(key),
+                'Calendar__cell-button_disabled': this.isCellDisabled(key)
               })}
               type='button'
               tabIndex='-1'
@@ -339,7 +337,8 @@ export class Calendar extends React.Component {
 Calendar.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,

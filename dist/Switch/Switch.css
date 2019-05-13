@@ -1,81 +1,105 @@
-.Switch {
+.Switch__container {
+  box-sizing: border-box;
+  display: inline-flex;
+  vertical-align: top;
+  position: relative;
+  transition: 100ms;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.Switch__element {
+  flex-shrink: 0;
+  box-sizing: border-box;
   display: inline-block;
-  position: relative; }
-  .Switch__container {
-    box-sizing: border-box;
-    display: flex; }
-  .Switch__element {
-    flex-shrink: 0;
-    box-sizing: border-box;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ADB4BA;
-    background-color: #F4F4F5;
-    position: relative;
-    transition: border-color 300ms, background-color 300ms;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent; }
-    .Switch__element-handle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: inline-block;
-      background-color: white;
-      border-radius: 50%;
-      box-shadow: 0 3px 5px 0 rgba(128, 128, 128, 0.2);
-      transition: transform 300ms, left 300ms; }
-  .Switch__label {
-    line-height: 1.1; }
-    .Switch__label_position_start {
-      order: -1;
-      margin-right: 10px; }
-    .Switch__label_position_end {
-      margin-left: 10px; }
-  .Switch input {
+  border: 1px solid #ADB4BA;
+  background-color: #F4F4F5;
+  position: relative;
+  transition: border-color 100ms, background-color 100ms; }
+  .Switch__element:before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0;
-    opacity: 0; }
-    .Switch input:checked ~ .Switch__container .Switch__element {
-      background-color: currentColor;
-      border-color: currentColor; }
-      .Switch input:checked ~ .Switch__container .Switch__element-handle {
-        left: 100%;
-        transform: translateX(-100%); }
-    .Switch input:disabled ~ .Switch__container {
-      opacity: .5; }
-      .Switch input:disabled ~ .Switch__container .Switch__element {
-        cursor: default; }
-  .Switch_size_s .Switch__element {
-    height: 18px;
-    width: 32.4px;
-    border-radius: 9px; }
-    .Switch_size_s .Switch__element-handle {
-      width: 16px;
-      height: 16px; }
-  .Switch_size_s .Switch__label {
-    font-size: 18px; }
-  .Switch_size_m .Switch__element {
+    display: inline-block;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 3px 5px 0 rgba(128, 128, 128, 0.2);
+    transition: transform 100ms, left 100ms; }
+
+.Switch__label_position_start {
+  order: -1; }
+
+.Switch_variant_default .Switch__label_position_start {
+  margin-right: 10px; }
+
+.Switch_variant_default .Switch__label_position_end {
+  margin-left: 10px; }
+
+.Switch__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  opacity: 0; }
+
+.Switch_size_s.Switch_variant_default {
+  font-size: 16px;
+  line-height: 16px; }
+  .Switch_size_s.Switch_variant_default .Switch__element {
+    height: 20px;
+    width: 36px;
+    border-radius: 10px; }
+    .Switch_size_s.Switch_variant_default .Switch__element:before {
+      width: 18px;
+      height: 18px; }
+  .Switch_size_s.Switch_variant_default .Switch__label {
+    margin-top: 2px; }
+
+.Switch_size_m.Switch_variant_default {
+  font-size: 18px;
+  line-height: 18px; }
+  .Switch_size_m.Switch_variant_default .Switch__element {
     height: 22px;
     width: 39.6px;
     border-radius: 11px; }
-    .Switch_size_m .Switch__element-handle {
+    .Switch_size_m.Switch_variant_default .Switch__element:before {
       width: 20px;
       height: 20px; }
-  .Switch_size_m .Switch__label {
-    font-size: 22px; }
-  .Switch_size_l .Switch__element {
-    height: 27px;
-    width: 48.6px;
-    border-radius: 13.5px; }
-    .Switch_size_l .Switch__element-handle {
-      width: 25px;
-      height: 25px; }
-  .Switch_size_l .Switch__label {
-    font-size: 27px; }
-  .Switch_color_default .Switch__element {
-    color: #398DFA; }
-  .Switch.-invalid .Switch__element {
-    border-color: #F04539; }
+  .Switch_size_m.Switch_variant_default .Switch__label {
+    margin-top: 2px; }
+
+.Switch_size_l.Switch_variant_default {
+  font-size: 20px;
+  line-height: 20px; }
+  .Switch_size_l.Switch_variant_default .Switch__element {
+    height: 24px;
+    width: 43.2px;
+    border-radius: 12px; }
+    .Switch_size_l.Switch_variant_default .Switch__element:before {
+      width: 22px;
+      height: 22px; }
+  .Switch_size_l.Switch_variant_default .Switch__label {
+    margin-top: 2px; }
+
+.Switch_color_default.Switch_variant_button .Switch__container {
+  background-color: #E8EAEC; }
+
+.Switch_color_default.Switch_variant_button.Switch_checked .Switch__container {
+  background-color: #398DFA;
+  color: white; }
+
+.Switch_color_default.Switch_checked .Switch__element {
+  background-color: #398DFA;
+  border-color: #398DFA; }
+
+.Switch_color_default.Switch_invalid .Switch__element {
+  border-color: #F04539; }
+
+.Switch_checked .Switch__element:before {
+  left: 100%;
+  transform: translateX(-100%); }
+
+.Switch_disabled {
+  opacity: .5; }
+  .Switch_disabled .Switch__container {
+    cursor: default; }

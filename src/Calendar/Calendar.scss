@@ -17,6 +17,10 @@ $this: '.Calendar';
     max-height: (40px * 6);
     overflow-y: auto;
 
+    &_header {
+      justify-content: space-between;
+    }
+
     &_weekdays {
       padding: 10px 0;
       margin-bottom: 20px;
@@ -61,27 +65,23 @@ $this: '.Calendar';
         outline: none;
       }
 
-      &:hover:not(:disabled):not(.-selected) {
+      &:hover:not(&_disabled):not(&_selected) {
         background-color: $palette-grey-200;
       }
 
-      &_overrange {
+      &_light {
         opacity: .5;
       }
 
-      &:disabled {
-        opacity: .2;
-        cursor: default;
-      }
-
-      &.-selected {
+      &_selected {
         color: white;
         background-color: $palette-primary-text;
       }
-    }
-  }
 
-  &__header {
-    justify-content: space-between;
+      &_disabled {
+        opacity: .3;
+        cursor: default;
+      }
+    }
   }
 }

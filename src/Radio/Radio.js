@@ -4,6 +4,36 @@ import classnames from 'classnames'
 import { excludeProps } from '../helpers'
 
 export class Radio extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      checked: props.checked !== undefined ? Boolean(props.checked) : Boolean(props.defaultChecked)
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    const { checked } = this.props
+
+    if (checked !== prevProps.checked && checked !== this.state.checked) {
+      this.setState({ checked: Boolean(checked) })
+    }
+  }
+
+  handleChange (event) {
+    const { onChange } = this.props
+
+    this.setState({ checked: event.target.checked })
+
+    onChange && onChange(event)
+  }
+
+  renderElement () {
+    return (
+      <div className='Radio__element' />
+    )
+  }
+
   render () {
     const {
       className,
@@ -13,34 +43,39 @@ export class Radio extends React.Component {
       variant,
       label,
       labelPosition,
-      invalid
+      invalid,
+      disabled
     } = this.props
+    const { checked } = this.state
 
     const classNames = classnames({
       'Radio': true,
-      [`Radio_size_${size}`]: !!size,
-      [`Radio_color_${color}`]: !!color,
-      [`Radio_variant_${variant}`]: !!variant,
-      '-invalid': invalid
+      [`Radio_size_${size}`]: true,
+      [`Radio_color_${color}`]: true,
+      [`Radio_variant_${variant}`]: true,
+      'Radio_checked': checked,
+      'Radio_invalid': invalid,
+      'Radio_disabled': disabled
     }, className)
 
     return (
       <this.props.component className={classNames} {...componentProps}>
-        <input
-          {...excludeProps(this)}
-          type='radio'
-        />
-        <div className='Radio__container'>
-          <span className='Radio__element'>
-            <span className='Radio__element-handle' />
-          </span>
+        <label className='Radio__container'>
+          <input
+            {...excludeProps(this)}
+            className='Radio__input'
+            type='radio'
+            checked={checked}
+            onChange={::this.handleChange}
+          />
+          {variant !== 'button' && this.renderElement()}
           {!!label &&
-            <div className={classnames(
-              'Radio__label',
-              `Radio__label_position_${labelPosition}`
-            )}>{label}</div>
+            <div className={classnames({
+              'Radio__label': true,
+              [`Radio__label_position_${labelPosition}`]: true
+            })}>{label}</div>
           }
-        </div>
+        </label>
       </this.props.component>
     )
   }
@@ -49,7 +84,8 @@ export class Radio extends React.Component {
 Radio.propTypes = {
   component: PropTypes.oneOfType([
     PropTypes.string.isRequired,
-    PropTypes.func.isRequired
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired
   ]).isRequired,
   className: PropTypes.oneOfType([
     PropTypes.string.isRequired,
@@ -57,27 +93,22 @@ Radio.propTypes = {
     PropTypes.array.isRequired
   ]),
   componentProps: PropTypes.object,
-  size: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  color: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  variant: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired
-  ]).isRequired,
-  label: PropTypes.string,
+  size: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf([
+    'default', 'button'
+  ]),
+  label: PropTypes.any,
   labelPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
+  checked: PropTypes.bool,
+  defaultChecked: PropTypes.bool
 }
 
 Radio.defaultProps = {
-  component: 'label',
+  component: 'div',
   size: 'm',
   color: 'default',
   variant: 'default',

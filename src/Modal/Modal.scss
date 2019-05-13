@@ -1,4 +1,5 @@
 @import '../variables';
+@import './mixins.scss';
 
 $this: '.Modal';
 
@@ -17,15 +18,16 @@ $this: '.Modal';
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,.4);
-    animation: dialogOverlay 300ms;
+    animation: Dialog__overlay 300ms;
   }
 
   &__container {
     box-sizing: border-box;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
-    padding: 16px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
     max-height: 100%;
     overflow-y: auto;
   }
@@ -38,7 +40,7 @@ $this: '.Modal';
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 20px 30px rgba(0,0,0,.15);
-    animation: dialogWindow 300ms;
+    animation: Dialog__window 300ms;
   }
 
   &__header {
@@ -52,17 +54,13 @@ $this: '.Modal';
     font-size: 24px;
   }
 
-  &__content {
-    font-size: 16px;
-  }
-
   &__close {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     margin-left: 20px;
     position: relative;
-    opacity: 0.6;
+    opacity: .6;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 
@@ -76,7 +74,7 @@ $this: '.Modal';
       left: 50%;
       top: 50%;
       width: 1px;
-      height: 60%;
+      height: 80%;
       background-color: currentColor;
     }
 
@@ -89,29 +87,13 @@ $this: '.Modal';
     }
   }
 
-  &_size {
-    &_s {
-      #{$this}__window {
-        max-width: 320px;
-      }
-    }
-
-    &_m {
-      #{$this}__window {
-        max-width: 640px;
-      }
-    }
-
-    &_l {
-      #{$this}__window {
-        max-width: 960px;
-      }
-    }
-  }
+  @include size('s', 320px);
+  @include size('m', 640px);
+  @include size('l', 960px);
 
   @media (min-width: $width-tablet), print {
     &__container {
-      padding: 32px;
+      padding: 30px;
     }
 
     &__window {
@@ -119,13 +101,13 @@ $this: '.Modal';
     }
   }
 
-  @keyframes dialogOverlay {
+  @keyframes Dialog__overlay {
     0% {
       opacity: 0;
     }
   }
 
-  @keyframes dialogWindow {
+  @keyframes Dialog__window {
     0% {
       opacity: 0;
       transform: scale(1.1);

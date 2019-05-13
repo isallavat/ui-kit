@@ -1,0 +1,13 @@
+$this: '.Grid';
+
+@mixin spacing ($number) {
+  &_spacing_#{$number} {
+    margin-left: -(1px * $number / 2);
+    margin-right: -(1px * $number / 2);
+
+    & > #{$this}Item {
+      padding-left: (1px * $number / 2);
+      padding-right: (1px * $number / 2);
+    }
+  }
+}

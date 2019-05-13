@@ -1,15 +1,10 @@
 @import '../variables';
+@import './mixins.scss';
 
 $this: '.Progress';
 
 #{$this} {
   position: relative;
-
-  &_color {
-    &_default {
-      color: $palette-primary;
-    }
-  }
 
   &_variant {
     &_circle {
@@ -18,7 +13,7 @@ $this: '.Progress';
 
       svg {
         transform: rotate(-90deg);
-        animation: progressRotator 1s linear infinite;
+        animation: Progress__circle 1s linear infinite;
       }
 
       #{$this}__value {
@@ -61,7 +56,7 @@ $this: '.Progress';
     }
   }
 
-  #{$this}__value {
+  &__value {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -71,7 +66,9 @@ $this: '.Progress';
     color: $palette-primary-text;
   }
 
-  @keyframes progressRotator {
+  @include color('default', $palette-primary);
+
+  @keyframes Progress__circle {
     100% { transform: rotate(270deg); }
   }
 }

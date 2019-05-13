@@ -1,13 +1,11 @@
 .Progress {
   position: relative; }
-  .Progress_color_default {
-    color: #398DFA; }
   .Progress_variant_circle {
     width: 150px;
     height: 150px; }
     .Progress_variant_circle svg {
       transform: rotate(-90deg);
-      animation: progressRotator 1s linear infinite; }
+      animation: Progress__circle 1s linear infinite; }
     .Progress_variant_circle .Progress__value {
       font-size: 38px; }
   .Progress_variant_line {
@@ -28,7 +26,7 @@
       opacity: .3; }
     .Progress__line_2 {
       transition: 300ms; }
-  .Progress .Progress__value {
+  .Progress__value {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -36,7 +34,9 @@
     font-weight: bold;
     font-family: Helvetica;
     color: #172A3F; }
+  .Progress.Progress_color_default {
+    color: #398DFA; }
 
-@keyframes progressRotator {
+@keyframes Progress__circle {
   100% {
     transform: rotate(270deg); } }
