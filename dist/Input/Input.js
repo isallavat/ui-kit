@@ -341,7 +341,7 @@ function (_React$Component) {
       min: min,
       max: max,
       step: step,
-      value: +value,
+      value: Number(value),
       tooltip: false,
       labels: {
         0: min,

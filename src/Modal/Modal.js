@@ -50,7 +50,7 @@ export class Modal extends React.Component {
     }
   }
 
-  handleClick (event) {
+  handleMouseDown (event) {
     const window = this.refs.window
 
     if (window !== event.target && !window.contains(event.target)) {
@@ -81,7 +81,7 @@ export class Modal extends React.Component {
         ? <this.props.component
           className={classNames}
           {...excludeProps(this)}
-          onClick={::this.handleClick}
+          onMouseDown={::this.handleMouseDown}
         >
           <div className='Modal__overlay' />
           <div className='Modal__container'>
@@ -89,7 +89,7 @@ export class Modal extends React.Component {
               <div className='Modal__header'>
                 <h3 className='Modal__title'>{title}</h3>
                 {closeButton &&
-                <div className='Modal__close' onClick={::this.close} />
+                <div className='Modal__close' onMouseDown={::this.close} />
                 }
               </div>
               <div className='Modal__content'>{this.renderContent()}</div>

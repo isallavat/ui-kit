@@ -157,7 +157,7 @@ function (_React$Component) {
     var maxDate = new Date(max);
 
     if (cellType === 'day') {
-      var date = new Date(+cellValue);
+      var date = new Date(Number(cellValue));
       return date > maxDate || date < minDate;
     } else if (cellType === 'month') {
       var _date = new Date(currentValue);
@@ -185,7 +185,7 @@ function (_React$Component) {
         currentValue = _this$state3.currentValue,
         cellType = _this$state3.cellType;
     var date = new Date(currentValue);
-    var cellDate = new Date(+cellValue);
+    var cellDate = new Date(Number(cellValue));
 
     if (cellType === 'day') {
       return cellDate.getMonth() !== date.getMonth();
@@ -194,7 +194,7 @@ function (_React$Component) {
 
   _proto.isCellSelected = function isCellSelected(cellValue) {
     var value = this.state.value;
-    return +cellValue === +value;
+    return Number(cellValue) === Number(value);
   };
 
   _proto.handleHeaderTitleClick = function handleHeaderTitleClick() {

@@ -417,15 +417,17 @@ function (_React$Component) {
     }, (0, _helpers.excludeProps)(this), {
       ref: "root",
       tabIndex: "1"
-    }), visible && _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("video", {
+    }), visible && _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
+      className: "Camera__video-container"
+    }, _react["default"].createElement("video", {
       className: "Camera__video",
       ref: "video",
       width: "0",
       height: "0"
-    }), progress ? _react["default"].createElement(_Progress.Progress, {
+    })), progress ? _react["default"].createElement(_Progress.Progress, {
       className: "Camera__progress",
       color: "current"
-    }) : visible && _react["default"].createElement(_react.Fragment, null, this.renderContent(), _react["default"].createElement("div", {
+    }) : _react["default"].createElement(_react.Fragment, null, this.renderContent(), _react["default"].createElement("div", {
       className: "Camera__side Camera__side_left",
       ref: "leftSide"
     }, this.renderLeftSide()), _react["default"].createElement("div", {

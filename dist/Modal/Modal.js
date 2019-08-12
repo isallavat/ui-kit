@@ -82,7 +82,7 @@ function (_React$Component) {
     }
   };
 
-  _proto.handleClick = function handleClick(event) {
+  _proto.handleMouseDown = function handleMouseDown(event) {
     var window = this.refs.window;
 
     if (window !== event.target && !window.contains(event.target)) {
@@ -108,7 +108,7 @@ function (_React$Component) {
     return visible ? _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
-      onClick: this.handleClick.bind(this)
+      onMouseDown: this.handleMouseDown.bind(this)
     }), _react["default"].createElement("div", {
       className: "Modal__overlay"
     }), _react["default"].createElement("div", {
@@ -122,7 +122,7 @@ function (_React$Component) {
       className: "Modal__title"
     }, title), closeButton && _react["default"].createElement("div", {
       className: "Modal__close",
-      onClick: this.close.bind(this)
+      onMouseDown: this.close.bind(this)
     })), _react["default"].createElement("div", {
       className: "Modal__content"
     }, this.renderContent())))) : '';

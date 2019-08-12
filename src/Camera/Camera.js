@@ -378,10 +378,12 @@ export class Camera extends React.Component {
       <this.props.component className={classNames} {...excludeProps(this)} ref='root' tabIndex='1'>
         {visible &&
           <Fragment>
-            <video className='Camera__video' ref='video' width='0' height='0' />
+            <div className='Camera__video-container'>
+              <video className='Camera__video' ref='video' width='0' height='0' />
+            </div>
             {progress
               ? <Progress className='Camera__progress' color='current' />
-              : visible && <Fragment>
+              : <Fragment>
                 {this.renderContent()}
                 <div className='Camera__side Camera__side_left' ref='leftSide'>
                   {this.renderLeftSide()}

@@ -126,7 +126,7 @@ export class Calendar extends React.Component {
     const maxDate = new Date(max)
 
     if (cellType === 'day') {
-      const date = new Date(+cellValue)
+      const date = new Date(Number(cellValue))
       return date > maxDate || date < minDate
     } else if (cellType === 'month') {
       const date = new Date(currentValue)
@@ -146,7 +146,7 @@ export class Calendar extends React.Component {
   isCellOverrange (cellValue) {
     const { currentValue, cellType } = this.state
     const date = new Date(currentValue)
-    const cellDate = new Date(+cellValue)
+    const cellDate = new Date(Number(cellValue))
 
     if (cellType === 'day') {
       return cellDate.getMonth() !== date.getMonth()
@@ -155,7 +155,7 @@ export class Calendar extends React.Component {
 
   isCellSelected (cellValue) {
     const { value } = this.state
-    return +cellValue === +value
+    return Number(cellValue) === Number(value)
   }
 
   handleHeaderTitleClick () {

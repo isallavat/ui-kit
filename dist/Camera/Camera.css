@@ -1,8 +1,7 @@
 .Camera {
   position: relative;
   color: white;
-  background-color: black;
-  overflow: hidden; }
+  background-color: black; }
   .Camera:focus {
     outline: none; }
   .Camera_fullscreen {
@@ -22,6 +21,13 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); }
+    .Camera__video-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden; }
   .Camera__progress {
     position: absolute;
     left: 50%;
