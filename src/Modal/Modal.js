@@ -62,6 +62,10 @@ export class Modal extends React.Component {
     return this.getMergedProps().children
   }
 
+  renderClose () {
+    return <div className='Modal__close' onClick={::this.close} />
+  }
+
   render () {
     const {
       className,
@@ -88,13 +92,12 @@ export class Modal extends React.Component {
             <div className='Modal__window' ref='window'>
               <div className='Modal__header'>
                 <h3 className='Modal__title'>{title}</h3>
-                {closeButton &&
-                <div className='Modal__close' onMouseDown={::this.close} />
-                }
+                {closeButton === 'inside' && this.renderClose()}
               </div>
               <div className='Modal__content'>{this.renderContent()}</div>
             </div>
           </div>
+          {closeButton === 'outside' && this.renderClose()}
         </this.props.component>
         : ''
     )
@@ -114,12 +117,14 @@ Modal.propTypes = {
   ]),
   size: PropTypes.string.isRequired,
   title: PropTypes.any,
-  closeButton: PropTypes.bool,
+  closeButton: PropTypes.oneOf([
+    'inside', 'outside', false
+  ]),
   onClose: PropTypes.func
 }
 
 Modal.defaultProps = {
   component: 'div',
   size: 'm',
-  closeButton: true
+  closeButton: 'inside'
 }

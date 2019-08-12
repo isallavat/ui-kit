@@ -94,6 +94,13 @@ function (_React$Component) {
     return this.getMergedProps().children;
   };
 
+  _proto.renderClose = function renderClose() {
+    return _react["default"].createElement("div", {
+      className: "Modal__close",
+      onClick: this.close.bind(this)
+    });
+  };
+
   _proto.render = function render() {
     var _this$getMergedProps = this.getMergedProps(),
         className = _this$getMergedProps.className,
@@ -120,12 +127,9 @@ function (_React$Component) {
       className: "Modal__header"
     }, _react["default"].createElement("h3", {
       className: "Modal__title"
-    }, title), closeButton && _react["default"].createElement("div", {
-      className: "Modal__close",
-      onMouseDown: this.close.bind(this)
-    })), _react["default"].createElement("div", {
+    }, title), closeButton === 'inside' && this.renderClose()), _react["default"].createElement("div", {
       className: "Modal__content"
-    }, this.renderContent())))) : '';
+    }, this.renderContent()))), closeButton === 'outside' && this.renderClose()) : '';
   };
 
   return Modal;
@@ -137,11 +141,11 @@ Modal.propTypes = {
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   size: _propTypes["default"].string.isRequired,
   title: _propTypes["default"].any,
-  closeButton: _propTypes["default"].bool,
+  closeButton: _propTypes["default"].oneOf(['inside', 'outside', false]),
   onClose: _propTypes["default"].func
 };
 Modal.defaultProps = {
   component: 'div',
   size: 'm',
-  closeButton: true
+  closeButton: 'inside'
 };
