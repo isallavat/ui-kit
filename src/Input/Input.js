@@ -135,7 +135,7 @@ export class Input extends React.Component {
   handleBlur (event) {
     const { onBlur } = this.props
 
-    if (this.dropdownMouseEnter) {
+    if (this.mouseEnter) {
       this.inputEl.focus()
       return
     }
@@ -204,7 +204,7 @@ export class Input extends React.Component {
     this.handleChange(event)
 
     setTimeout(() => {
-      this.dropdownMouseEnter = false
+      this.mouseEnter = false
       this.setState({ dropdownVisible: false })
     })
   }
@@ -240,8 +240,6 @@ export class Input extends React.Component {
           'Input__dropdown': true,
           'Input__dropdown_visible': dropdownVisible
         })}
-        onMouseEnter={() => { this.dropdownMouseEnter = true }}
-        onMouseLeave={() => { this.dropdownMouseEnter = false }}
       >
         {children}
       </div>
@@ -353,6 +351,8 @@ export class Input extends React.Component {
       <this.props.component
         className={classNames}
         {...componentProps}
+        onMouseEnter={() => { this.mouseEnter = true }}
+        onMouseLeave={() => { this.mouseEnter = false }}
         onClick={() => { this.inputEl && this.inputEl.focus() }}
       >
         <div className='Input__container'>

@@ -176,7 +176,7 @@ function (_React$Component) {
   _proto.handleBlur = function handleBlur(event) {
     var onBlur = this.props.onBlur;
 
-    if (this.dropdownMouseEnter) {
+    if (this.mouseEnter) {
       this.inputEl.focus();
       return;
     }
@@ -244,7 +244,7 @@ function (_React$Component) {
     event.target.index = index;
     this.handleChange(event);
     setTimeout(function () {
-      _this4.dropdownMouseEnter = false;
+      _this4.mouseEnter = false;
 
       _this4.setState({
         dropdownVisible: false
@@ -273,26 +273,18 @@ function (_React$Component) {
   };
 
   _proto.renderDropdown = function renderDropdown(children) {
-    var _this6 = this;
-
     var dropdownVisible = this.state.dropdownVisible;
     return _react["default"].createElement("div", {
       ref: "dropdown",
       className: (0, _classnames3["default"])({
         'Input__dropdown': true,
         'Input__dropdown_visible': dropdownVisible
-      }),
-      onMouseEnter: function onMouseEnter() {
-        _this6.dropdownMouseEnter = true;
-      },
-      onMouseLeave: function onMouseLeave() {
-        _this6.dropdownMouseEnter = false;
-      }
+      })
     }, children);
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this7 = this;
+    var _this6 = this;
 
     var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
     var menu = this.getMenu();
@@ -307,11 +299,11 @@ function (_React$Component) {
         }),
         key: index,
         onMouseMove: function onMouseMove() {
-          return _this7.setState({
+          return _this6.setState({
             menuSeletedItemIndex: index
           });
         },
-        onMouseDown: _this7.handleMenuItemClick.bind(_this7, item, index)
+        onMouseDown: _this6.handleMenuItemClick.bind(_this6, item, index)
       }, _react["default"].createElement("div", {
         className: "Input__menu-item-primary"
       }, item.primary), !!item.secondary && _react["default"].createElement("div", {
@@ -344,7 +336,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classnames,
-        _this8 = this;
+        _this7 = this;
 
     var _this$props3 = this.props,
         className = _this$props3.className,
@@ -394,8 +386,14 @@ function (_React$Component) {
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {
+      onMouseEnter: function onMouseEnter() {
+        _this7.mouseEnter = true;
+      },
+      onMouseLeave: function onMouseLeave() {
+        _this7.mouseEnter = false;
+      },
       onClick: function onClick() {
-        _this8.inputEl && _this8.inputEl.focus();
+        _this7.inputEl && _this7.inputEl.focus();
       }
     }), _react["default"].createElement("div", {
       className: "Input__container"
