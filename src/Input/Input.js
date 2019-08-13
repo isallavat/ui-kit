@@ -124,7 +124,6 @@ export class Input extends React.Component {
     this.setState({
       focus: true,
       dropdownVisible: true,
-      menuVisible: true,
       menuSeletedItemIndex: this.getMenuSeletedItemIndex()
     }, () => {
       this.getMenu().length && this.scrollMenuToSelected()
@@ -145,10 +144,6 @@ export class Input extends React.Component {
       focus: false,
       dropdownVisible: false
     })
-
-    setTimeout(() => {
-      this.setState({ menuVisible: false })
-    }, 300)
 
     onBlur && onBlur(event)
   }
@@ -254,11 +249,11 @@ export class Input extends React.Component {
   }
 
   renderMenu () {
-    const { menuVisible, menuSeletedItemIndex } = this.state
+    const { menuSeletedItemIndex } = this.state
     const menu = this.getMenu()
 
     return this.renderDropdown(
-      menuVisible && <div className='Input__menu' ref='menu'>
+      <div className='Input__menu' ref='menu'>
         {menu.map((item, index) =>
           <div
             className={classnames({

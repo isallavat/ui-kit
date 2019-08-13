@@ -166,7 +166,6 @@ function (_React$Component) {
     this.setState({
       focus: true,
       dropdownVisible: true,
-      menuVisible: true,
       menuSeletedItemIndex: this.getMenuSeletedItemIndex()
     }, function () {
       _this3.getMenu().length && _this3.scrollMenuToSelected();
@@ -175,8 +174,6 @@ function (_React$Component) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    var _this4 = this;
-
     var onBlur = this.props.onBlur;
 
     if (this.dropdownMouseEnter) {
@@ -188,11 +185,6 @@ function (_React$Component) {
       focus: false,
       dropdownVisible: false
     });
-    setTimeout(function () {
-      _this4.setState({
-        menuVisible: false
-      });
-    }, 300);
     onBlur && onBlur(event);
   };
 
@@ -245,23 +237,23 @@ function (_React$Component) {
   };
 
   _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
-    var _this5 = this;
+    var _this4 = this;
 
     event.target = this.inputEl;
     event.target.value = item.value;
     event.target.index = index;
     this.handleChange(event);
     setTimeout(function () {
-      _this5.dropdownMouseEnter = false;
+      _this4.dropdownMouseEnter = false;
 
-      _this5.setState({
+      _this4.setState({
         dropdownVisible: false
       });
     });
   };
 
   _proto.renderElement = function renderElement(props) {
-    var _this6 = this;
+    var _this5 = this;
 
     if (this.getMenu().length) {
       props.autoComplete = 'off';
@@ -275,13 +267,13 @@ function (_React$Component) {
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {
-        _this6.inputEl = node;
+        _this5.inputEl = node;
       }
     }));
   };
 
   _proto.renderDropdown = function renderDropdown(children) {
-    var _this7 = this;
+    var _this6 = this;
 
     var dropdownVisible = this.state.dropdownVisible;
     return _react["default"].createElement("div", {
@@ -291,22 +283,20 @@ function (_React$Component) {
         'Input__dropdown_visible': dropdownVisible
       }),
       onMouseEnter: function onMouseEnter() {
-        _this7.dropdownMouseEnter = true;
+        _this6.dropdownMouseEnter = true;
       },
       onMouseLeave: function onMouseLeave() {
-        _this7.dropdownMouseEnter = false;
+        _this6.dropdownMouseEnter = false;
       }
     }, children);
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this8 = this;
+    var _this7 = this;
 
-    var _this$state2 = this.state,
-        menuVisible = _this$state2.menuVisible,
-        menuSeletedItemIndex = _this$state2.menuSeletedItemIndex;
+    var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
     var menu = this.getMenu();
-    return this.renderDropdown(menuVisible && _react["default"].createElement("div", {
+    return this.renderDropdown(_react["default"].createElement("div", {
       className: "Input__menu",
       ref: "menu"
     }, menu.map(function (item, index) {
@@ -317,11 +307,11 @@ function (_React$Component) {
         }),
         key: index,
         onMouseMove: function onMouseMove() {
-          return _this8.setState({
+          return _this7.setState({
             menuSeletedItemIndex: index
           });
         },
-        onMouseDown: _this8.handleMenuItemClick.bind(_this8, item, index)
+        onMouseDown: _this7.handleMenuItemClick.bind(_this7, item, index)
       }, _react["default"].createElement("div", {
         className: "Input__menu-item-primary"
       }, item.primary), !!item.secondary && _react["default"].createElement("div", {
@@ -354,7 +344,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classnames,
-        _this9 = this;
+        _this8 = this;
 
     var _this$props3 = this.props,
         className = _this$props3.className,
@@ -371,9 +361,9 @@ function (_React$Component) {
         maskChar = _this$props3.maskChar,
         adornment = _this$props3.adornment,
         adornmentPosition = _this$props3.adornmentPosition;
-    var _this$state3 = this.state,
-        value = _this$state3.value,
-        focus = _this$state3.focus;
+    var _this$state2 = this.state,
+        value = _this$state2.value,
+        focus = _this$state2.focus;
     var inputProps = (0, _objectSpread2["default"])({}, (0, _helpers.excludeProps)(this), {
       className: 'Input__element',
       disabled: disabled,
@@ -405,7 +395,7 @@ function (_React$Component) {
       className: classNames
     }, componentProps, {
       onClick: function onClick() {
-        _this9.inputEl && _this9.inputEl.focus();
+        _this8.inputEl && _this8.inputEl.focus();
       }
     }), _react["default"].createElement("div", {
       className: "Input__container"
