@@ -103,23 +103,23 @@
 .Radio_color_default.Radio_variant_button .Radio__container {
   background-color: #E8EAEC; }
 
-.Radio_color_default.Radio_variant_button.Radio_checked .Radio__container {
+.Radio_color_default.Radio_variant_button.--checked .Radio__container {
   background-color: #398DFA;
   color: white; }
 
-.Radio_color_default.Radio_checked .Radio__element {
+.Radio_color_default.--checked .Radio__element {
   background-color: #398DFA;
   border-color: #398DFA; }
 
-.Radio_color_default.Radio_invalid .Radio__element {
+.Radio_color_default.--invalid .Radio__element {
   border-color: #F04539; }
 
-.Radio_checked .Radio__element:before {
+.Radio.--checked .Radio__element:before {
   width: 50%;
   height: 50%;
   opacity: 1; }
 
-.Radio_disabled {
+.Radio.--disabled {
   opacity: .5; }
-  .Radio_disabled .Radio__container {
+  .Radio.--disabled .Radio__container {
     cursor: default; }

@@ -164,7 +164,7 @@ function (_React$Component) {
 
     var onFocus = this.props.onFocus;
     this.setState({
-      focus: true,
+      focused: true,
       dropdownVisible: true,
       menuSeletedItemIndex: this.getMenuSeletedItemIndex()
     }, function () {
@@ -182,7 +182,7 @@ function (_React$Component) {
     }
 
     this.setState({
-      focus: false,
+      focused: false,
       dropdownVisible: false
     });
     onBlur && onBlur(event);
@@ -278,7 +278,7 @@ function (_React$Component) {
       ref: "dropdown",
       className: (0, _classnames3["default"])({
         'Input__dropdown': true,
-        'Input__dropdown_visible': dropdownVisible
+        '--visible': dropdownVisible
       })
     }, children);
   };
@@ -295,7 +295,7 @@ function (_React$Component) {
       return _react["default"].createElement("div", {
         className: (0, _classnames3["default"])({
           'Input__menu-item': true,
-          'Input__menu-item_selected': index === menuSeletedItemIndex
+          '--selected': index === menuSeletedItemIndex
         }),
         key: index,
         onMouseMove: function onMouseMove() {
@@ -355,7 +355,7 @@ function (_React$Component) {
         adornmentPosition = _this$props3.adornmentPosition;
     var _this$state2 = this.state,
         value = _this$state2.value,
-        focus = _this$state2.focus;
+        focused = _this$state2.focused;
     var inputProps = (0, _objectSpread2["default"])({}, (0, _helpers.excludeProps)(this), {
       className: 'Input__element',
       disabled: disabled,
@@ -382,7 +382,7 @@ function (_React$Component) {
 
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, 'Input_focus', focus), (0, _defineProperty2["default"])(_classnames, 'Input_filled', !!value), (0, _defineProperty2["default"])(_classnames, 'Input_invalid', invalid), (0, _defineProperty2["default"])(_classnames, 'Input_disabled', disabled), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '--focused', focused), (0, _defineProperty2["default"])(_classnames, '--filled', !!value), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {

@@ -21,7 +21,7 @@ $this: '.Camera';
     transform: translateX(100%);
     transition: 300ms;
 
-    &#{$this}_visible {
+    &.--visible {
       transform: translateX(0);
     }
   }
@@ -78,7 +78,6 @@ $this: '.Camera';
   }
 
   &__control {
-    $control: &;
     box-sizing: border-box;
     display: block;
     margin: 10px auto;
@@ -95,7 +94,7 @@ $this: '.Camera';
       background-color: white;
       box-shadow: 0 0 0 8px rgba(255,255,255,.5);
 
-      &#{$control}_animate {
+      &.--animated {
         animation: Camera__control-capturing 1s linear infinite;
       }
     }

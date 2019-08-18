@@ -78,7 +78,7 @@ function (_React$Component) {
     var checked = this.state.checked;
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Switch': true
-    }, (0, _defineProperty2["default"])(_classnames, "Switch_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Switch_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Switch_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, 'Switch_checked', checked), (0, _defineProperty2["default"])(_classnames, 'Switch_invalid', invalid), (0, _defineProperty2["default"])(_classnames, 'Switch_disabled', disabled), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Switch_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Switch_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Switch_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, '--checked', checked), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps), _react["default"].createElement("label", {

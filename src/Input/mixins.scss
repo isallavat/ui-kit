@@ -32,7 +32,7 @@ $this: '.Input';
       padding: $padding-top 0;
     }
 
-    &#{$this}_focus, &#{$this}_filled {
+    &.--focused, &.--filled {
       #{$this}__label {
         top: 0;
         padding: 1px 0;
@@ -59,7 +59,7 @@ $this: '.Input';
       border-color: $color;
     }
 
-    &#{$this}_invalid:before {
+    &.--invalid:before {
       border-color: $palette-red;
     }
   }

@@ -21,11 +21,11 @@ $this: '.Menu';
       background-color: $palette-grey-100;
     }
 
-    &#{&}_divider {
+    &_borderedr {
       border-bottom: 1px solid $palette-grey-300;
     }
 
-    &#{&}_selected {
+    &.--selected {
       background-color: $palette-grey-200;
     }
 

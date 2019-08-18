@@ -41,8 +41,8 @@ function (_React$Component) {
         selected = _this$props.selected;
     var classNames = (0, _classnames["default"])({
       'MenuItem': true,
-      'MenuItem_divider': divider,
-      'MenuItem_selected': selected
+      'MenuItem_bordered': divider,
+      '--selected': selected
     }, className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames

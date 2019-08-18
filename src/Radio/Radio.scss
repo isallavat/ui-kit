@@ -79,7 +79,7 @@ $this: '.Radio';
 
   @include color('default', $palette-primary);
 
-  &_checked {
+  &.--checked {
     #{$this}__element:before {
       width: 50%;
       height: 50%;
@@ -87,7 +87,7 @@ $this: '.Radio';
     }
   }
 
-  &_disabled {
+  &.--disabled {
     opacity: .5;
 
     #{$this}__container {

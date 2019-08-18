@@ -53,9 +53,9 @@ export class Radio extends React.Component {
       [`Radio_size_${size}`]: true,
       [`Radio_color_${color}`]: true,
       [`Radio_variant_${variant}`]: true,
-      'Radio_checked': checked,
-      'Radio_invalid': invalid,
-      'Radio_disabled': disabled
+      '--checked': checked,
+      '--invalid': invalid,
+      '--disabled': disabled
     }, className)
 
     return (

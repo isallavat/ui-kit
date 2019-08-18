@@ -53,9 +53,9 @@ export class Switch extends React.Component {
       [`Switch_size_${size}`]: true,
       [`Switch_color_${color}`]: true,
       [`Switch_variant_${variant}`]: true,
-      'Switch_checked': checked,
-      'Switch_invalid': invalid,
-      'Switch_disabled': disabled
+      '--checked': checked,
+      '--invalid': invalid,
+      '--disabled': disabled
     }, className)
 
     return (

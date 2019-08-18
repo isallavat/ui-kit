@@ -22,7 +22,7 @@ import { GridContainer, GridItem } from '../Grid';
     <Button rounded>Rounded</Button>
   </GridItem>
   <GridItem>
-    <Button noresize>C</Button>
+    <Button noresize circular>C</Button>
   </GridItem>
 </GridContainer>
 ```

@@ -65,7 +65,7 @@ $this: '.Calendar';
         outline: none;
       }
 
-      &:hover:not(&_disabled):not(&_selected) {
+      &:hover:not(.--disabled):not(.--selected) {
         background-color: $palette-grey-200;
       }
 
@@ -73,12 +73,12 @@ $this: '.Calendar';
         opacity: .5;
       }
 
-      &_selected {
+      &.--selected {
         color: white;
         background-color: $palette-primary-text;
       }
 
-      &_disabled {
+      &.--disabled {
         opacity: .3;
         cursor: default;
       }

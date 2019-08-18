@@ -13,9 +13,9 @@
     -webkit-tap-highlight-color: transparent; }
     .MenuItem:hover {
       background-color: #F4F4F5; }
-    .MenuItem.MenuItem_divider {
+    .MenuItem_borderedr {
       border-bottom: 1px solid #D8D8D8; }
-    .MenuItem.MenuItem_selected {
+    .MenuItem.--selected {
       background-color: #E8EAEC; }
     .MenuItem__icon {
       display: inline-block;

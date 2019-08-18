@@ -92,7 +92,7 @@
     .Button_color_default.Button_variant_outlined:active {
       border-color: #75affc;
       background-color: #b0d2fd; }
-  .Button_disabled {
+  .Button.--disabled {
     cursor: default;
     pointer-events: none;
     opacity: .5; }

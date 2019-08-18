@@ -80,14 +80,14 @@ $this: '.CheckBox';
 
   @include color('default', $palette-primary);
 
-  &_checked {
+  &.--checked {
     #{$this}__element:before {
       top: 25%;
       opacity: 1;
     }
   }
 
-  &_disabled {
+  &.--disabled {
     opacity: .5;
 
     #{$this}__container {

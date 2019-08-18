@@ -339,8 +339,8 @@ function (_React$Component) {
         className: (0, _classnames2["default"])({
           'Calendar__cell-button': true,
           'Calendar__cell-button_light': _this2.isCellOverrange(key),
-          'Calendar__cell-button_selected': _this2.isCellSelected(key) && !_this2.isCellDisabled(key),
-          'Calendar__cell-button_disabled': _this2.isCellDisabled(key)
+          '--selected': _this2.isCellSelected(key) && !_this2.isCellDisabled(key),
+          '--disabled': _this2.isCellDisabled(key)
         }),
         type: "button",
         tabIndex: "-1",

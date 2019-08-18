@@ -84,22 +84,22 @@
 .Switch_color_default.Switch_variant_button .Switch__container {
   background-color: #E8EAEC; }
 
-.Switch_color_default.Switch_variant_button.Switch_checked .Switch__container {
+.Switch_color_default.Switch_variant_button.--checked .Switch__container {
   background-color: #398DFA;
   color: white; }
 
-.Switch_color_default.Switch_checked .Switch__element {
+.Switch_color_default.--checked .Switch__element {
   background-color: #398DFA;
   border-color: #398DFA; }
 
-.Switch_color_default.Switch_invalid .Switch__element {
+.Switch_color_default.--invalid .Switch__element {
   border-color: #F04539; }
 
-.Switch_checked .Switch__element:before {
+.Switch.--checked .Switch__element:before {
   left: 100%;
   transform: translateX(-100%); }
 
-.Switch_disabled {
+.Switch.--disabled {
   opacity: .5; }
-  .Switch_disabled .Switch__container {
+  .Switch.--disabled .Switch__container {
     cursor: default; }

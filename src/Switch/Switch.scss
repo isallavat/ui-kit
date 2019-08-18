@@ -76,14 +76,14 @@ $this: '.Switch';
 
   @include color('default', $palette-primary);
 
-  &_checked {
+  &.--checked {
     #{$this}__element:before {
       left: 100%;
       transform: translateX(-100%);
     }
   }
 
-  &_disabled {
+  &.--disabled {
     opacity: .5;
 
     #{$this}__container {

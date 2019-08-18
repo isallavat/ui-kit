@@ -28,8 +28,8 @@ export class Button extends React.Component {
       'Button_full-width': fullWidth,
       'Button_rounded': rounded,
       'Button_circular': circular,
-      'Button_progress': progress,
-      'Button_disabled': disabled
+      '--progress': progress,
+      '--disabled': disabled
     }, className)
 
     return (

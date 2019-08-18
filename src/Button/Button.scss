@@ -69,7 +69,7 @@ $this: '.Button';
 
   @include color('default', $palette-primary);
 
-  &_disabled {
+  &.--disabled {
     cursor: default;
     pointer-events: none;
     opacity: .5;

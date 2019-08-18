@@ -17,8 +17,8 @@ export class MenuItem extends React.Component {
 
     const classNames = classnames({
       'MenuItem': true,
-      'MenuItem_divider': divider,
-      'MenuItem_selected': selected
+      'MenuItem_bordered': divider,
+      '--selected': selected
     }, className)
 
     return (

@@ -133,7 +133,7 @@ $this: '.Input';
     visibility: hidden;
     transition: 300ms;
 
-    &_visible {
+    &.--visible {
       opacity: 1;
       visibility: visible;
       transform: translateY(5px);
@@ -150,7 +150,7 @@ $this: '.Input';
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
 
-      &_selected {
+      &.--selected {
         background-color: $palette-grey-200;
       }
 
@@ -248,7 +248,7 @@ $this: '.Input';
     }
   }
 
-  &_focus {
+  &.--focused {
     &:before {
       opacity: 1;
     }
@@ -260,7 +260,7 @@ $this: '.Input';
     }
   }
 
-  &_disabled {
+  &.--disabled {
     opacity: .5;
   }
 }

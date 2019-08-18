@@ -389,8 +389,9 @@ function (_React$Component) {
     var capturing = this.state.capturing;
     return _react["default"].createElement("div", {
       className: (0, _classnames["default"])({
-        'Camera__control Camera__control_capture': true,
-        'Camera__control_animate': capturing
+        'Camera__control': true,
+        'Camera__control_capture': true,
+        '--animated': capturing
       }),
       onClick: this.handleCapture.bind(this)
     });
@@ -410,7 +411,7 @@ function (_React$Component) {
     var classNames = (0, _classnames["default"])({
       'Camera': true,
       'Camera_fullscreen': fullscreen,
-      'Camera_visible': visible
+      '--visible': visible
     }, className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames

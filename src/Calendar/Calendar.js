@@ -300,8 +300,8 @@ export class Calendar extends React.Component {
               className={classnames({
                 'Calendar__cell-button': true,
                 'Calendar__cell-button_light': this.isCellOverrange(key),
-                'Calendar__cell-button_selected': this.isCellSelected(key) && !this.isCellDisabled(key),
-                'Calendar__cell-button_disabled': this.isCellDisabled(key)
+                '--selected': this.isCellSelected(key) && !this.isCellDisabled(key),
+                '--disabled': this.isCellDisabled(key)
               })}
               type='button'
               tabIndex='-1'

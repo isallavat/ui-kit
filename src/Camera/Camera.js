@@ -352,8 +352,9 @@ export class Camera extends React.Component {
     return (
       <div
         className={classnames({
-          'Camera__control Camera__control_capture': true,
-          'Camera__control_animate': capturing
+          'Camera__control': true,
+          'Camera__control_capture': true,
+          '--animated': capturing
         })}
         onClick={::this.handleCapture}
       />
@@ -371,7 +372,7 @@ export class Camera extends React.Component {
     const classNames = classnames({
       'Camera': true,
       'Camera_fullscreen': fullscreen,
-      'Camera_visible': visible
+      '--visible': visible
     }, className)
 
     return (

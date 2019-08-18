@@ -43,7 +43,7 @@ $this: '.Radio';
         background-color: $palette-grey-200;
       }
 
-      &#{$this}_checked {
+      &.--checked {
         #{$this}__container {
           background-color: $color;
           color: white;
@@ -51,14 +51,14 @@ $this: '.Radio';
       }
     }
 
-    &#{$this}_checked {
+    &.--checked {
       #{$this}__element {
         background-color: $color;
         border-color: $color;
       }
     }
 
-    &#{$this}_invalid {
+    &.--invalid {
       #{$this}__element {
         border-color: $palette-red;
       }

@@ -53,9 +53,9 @@ export class CheckBox extends React.Component {
       [`CheckBox_size_${size}`]: true,
       [`CheckBox_color_${color}`]: true,
       [`CheckBox_variant_${variant}`]: true,
-      'CheckBox_checked': checked,
-      'CheckBox_invalid': invalid,
-      'CheckBox_disabled': disabled
+      '--checked': checked,
+      '--invalid': invalid,
+      '--disabled': disabled
     }, className)
 
     return (

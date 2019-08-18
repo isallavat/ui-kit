@@ -13,7 +13,7 @@
     z-index: 99;
     transform: translateX(100%);
     transition: 300ms; }
-    .Camera_fullscreen.Camera_visible {
+    .Camera_fullscreen.--visible {
       transform: translateX(0); }
   .Camera__video {
     vertical-align: top;
@@ -67,7 +67,7 @@
     .Camera__control_capture {
       background-color: white;
       box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.5); }
-      .Camera__control_capture.Camera__control_animate {
+      .Camera__control_capture.--animated {
         animation: Camera__control-capturing 1s linear infinite; }
     .Camera__control-icon {
       position: absolute;

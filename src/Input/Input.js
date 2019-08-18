@@ -122,7 +122,7 @@ export class Input extends React.Component {
     const { onFocus } = this.props
 
     this.setState({
-      focus: true,
+      focused: true,
       dropdownVisible: true,
       menuSeletedItemIndex: this.getMenuSeletedItemIndex()
     }, () => {
@@ -141,7 +141,7 @@ export class Input extends React.Component {
     }
 
     this.setState({
-      focus: false,
+      focused: false,
       dropdownVisible: false
     })
 
@@ -238,7 +238,7 @@ export class Input extends React.Component {
         ref='dropdown'
         className={classnames({
           'Input__dropdown': true,
-          'Input__dropdown_visible': dropdownVisible
+          '--visible': dropdownVisible
         })}
       >
         {children}
@@ -256,7 +256,7 @@ export class Input extends React.Component {
           <div
             className={classnames({
               'Input__menu-item': true,
-              'Input__menu-item_selected': index === menuSeletedItemIndex
+              '--selected': index === menuSeletedItemIndex
             })}
             key={index}
             onMouseMove={() => this.setState({ menuSeletedItemIndex: index })}
@@ -307,7 +307,7 @@ export class Input extends React.Component {
       adornment,
       adornmentPosition
     } = this.props
-    const { value, focus } = this.state
+    const { value, focused } = this.state
     const inputProps = {
       ...excludeProps(this),
       className: 'Input__element',
@@ -341,10 +341,10 @@ export class Input extends React.Component {
       [`Input_type_${type}`]: true,
       'Input_rounded': rounded,
       'Input_labeled': !!label,
-      'Input_focus': focus,
-      'Input_filled': !!value,
-      'Input_invalid': invalid,
-      'Input_disabled': disabled
+      '--focused': focused,
+      '--filled': !!value,
+      '--invalid': invalid,
+      '--disabled': disabled
     }, className)
 
     return (

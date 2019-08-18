@@ -104,22 +104,22 @@
 .CheckBox_color_default.CheckBox_variant_button .CheckBox__container {
   background-color: #E8EAEC; }
 
-.CheckBox_color_default.CheckBox_variant_button.CheckBox_checked .CheckBox__container {
+.CheckBox_color_default.CheckBox_variant_button.--checked .CheckBox__container {
   background-color: #398DFA;
   color: white; }
 
-.CheckBox_color_default.CheckBox_checked .CheckBox__element {
+.CheckBox_color_default.--checked .CheckBox__element {
   background-color: #398DFA;
   border-color: #398DFA; }
 
-.CheckBox_color_default.CheckBox_invalid .CheckBox__element {
+.CheckBox_color_default.--invalid .CheckBox__element {
   border-color: #F04539; }
 
-.CheckBox_checked .CheckBox__element:before {
+.CheckBox.--checked .CheckBox__element:before {
   top: 25%;
   opacity: 1; }
 
-.CheckBox_disabled {
+.CheckBox.--disabled {
   opacity: .5; }
-  .CheckBox_disabled .CheckBox__container {
+  .CheckBox.--disabled .CheckBox__container {
     cursor: default; }

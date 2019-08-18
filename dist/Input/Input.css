@@ -93,7 +93,7 @@
     opacity: 0;
     visibility: hidden;
     transition: 300ms; }
-    .Input__dropdown_visible {
+    .Input__dropdown.--visible {
       opacity: 1;
       visibility: visible;
       transform: translateY(5px); }
@@ -105,7 +105,7 @@
       padding: 12px 16px;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent; }
-      .Input__menu-item_selected {
+      .Input__menu-item.--selected {
         background-color: #E8EAEC; }
       .Input__menu-item-secondary {
         margin-top: 5px;
@@ -170,7 +170,7 @@
     .Input_size_s .Input__label {
       top: 10px;
       padding: 7px 0; }
-    .Input_size_s.Input_focus .Input__label, .Input_size_s.Input_filled .Input__label {
+    .Input_size_s.--focused .Input__label, .Input_size_s.--filled .Input__label {
       top: 0;
       padding: 1px 0;
       font-size: 75%; }
@@ -190,7 +190,7 @@
     .Input_size_m .Input__label {
       top: 12.5px;
       padding: 9.75px 0; }
-    .Input_size_m.Input_focus .Input__label, .Input_size_m.Input_filled .Input__label {
+    .Input_size_m.--focused .Input__label, .Input_size_m.--filled .Input__label {
       top: 0;
       padding: 1px 0;
       font-size: 75%; }
@@ -210,7 +210,7 @@
     .Input_size_l .Input__label {
       top: 15px;
       padding: 12.5px 0; }
-    .Input_size_l.Input_focus .Input__label, .Input_size_l.Input_filled .Input__label {
+    .Input_size_l.--focused .Input__label, .Input_size_l.--filled .Input__label {
       top: 0;
       padding: 1px 0;
       font-size: 75%; }
@@ -221,7 +221,7 @@
     color: #172A3F; }
     .Input_color_default:before {
       border-color: #172A3F; }
-    .Input_color_default.Input_invalid:before {
+    .Input_color_default.--invalid:before {
       border-color: #F04539; }
   .Input_variant_default:before {
     border-width: 0 0 1px; }
@@ -231,9 +231,9 @@
     border: none; }
   .Input_type_date .Input__dropdown {
     width: auto; }
-  .Input_focus:before {
+  .Input.--focused:before {
     opacity: 1; }
-  .Input_focus.Input_variant_default:before {
+  .Input.--focused.Input_variant_default:before {
     border-bottom-width: 2px; }
-  .Input_disabled {
+  .Input.--disabled {
     opacity: .5; }
