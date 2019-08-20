@@ -176,7 +176,7 @@ function (_React$Component) {
   _proto.handleBlur = function handleBlur(event) {
     var onBlur = this.props.onBlur;
 
-    if (this.mouseEnter) {
+    if (this.mouseDown) {
       this.inputEl.focus();
       return;
     }
@@ -244,7 +244,7 @@ function (_React$Component) {
     event.target.index = index;
     this.handleChange(event);
     setTimeout(function () {
-      _this4.mouseEnter = false;
+      _this4.mouseDown = false;
 
       _this4.setState({
         dropdownVisible: false
@@ -386,11 +386,11 @@ function (_React$Component) {
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {
-      onMouseEnter: function onMouseEnter() {
-        _this7.mouseEnter = true;
+      onMouseDown: function onMouseDown() {
+        _this7.mouseDown = true;
       },
-      onMouseLeave: function onMouseLeave() {
-        _this7.mouseEnter = false;
+      onMouseUp: function onMouseUp() {
+        _this7.mouseDown = false;
       },
       onClick: function onClick() {
         _this7.inputEl && _this7.inputEl.focus();
