@@ -119,7 +119,11 @@ export class Input extends React.Component {
   }
 
   handleFocus (event) {
-    const { onFocus } = this.props
+    const { readOnly, onFocus } = this.props
+
+    if (readOnly) {
+      return
+    }
 
     this.setState({
       focused: true,
@@ -133,7 +137,11 @@ export class Input extends React.Component {
   }
 
   handleBlur (event) {
-    const { onBlur } = this.props
+    const { readOnly, onBlur } = this.props
+
+    if (readOnly) {
+      return
+    }
 
     if (this.mouseDown) {
       this.inputEl.focus()
@@ -149,7 +157,12 @@ export class Input extends React.Component {
   }
 
   handleChange (event) {
-    const { onChange } = this.props
+    const { readOnly, onChange } = this.props
+
+    if (readOnly) {
+      return
+    }
+
     const state = {
       value: event.target.value,
       dropdownVisible: true
@@ -164,6 +177,12 @@ export class Input extends React.Component {
   }
 
   handleSliderChange (value) {
+    const { readOnly } = this.props
+
+    if (readOnly) {
+      return
+    }
+
     const event = {
       type: 'change',
       target: this.inputEl
@@ -175,11 +194,12 @@ export class Input extends React.Component {
   }
 
   handleKeyDown (event) {
+    const { readOnly } = this.props
     const { menuSeletedItemIndex, dropdownVisible } = this.state
     const menu = this.getMenu()
     const state = {}
 
-    if (!menu.length) {
+    if (!menu.length || readOnly) {
       return
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true
@@ -210,6 +230,8 @@ export class Input extends React.Component {
   }
 
   renderElement (props) {
+    const { readOnly } = this.props
+
     if (this.getMenu().length) {
       props.autoComplete = 'off'
     }
@@ -220,6 +242,10 @@ export class Input extends React.Component {
           {props.value}
         </div>
       )
+    }
+
+    if (readOnly) {
+      delete props.mask
     }
 
     return (

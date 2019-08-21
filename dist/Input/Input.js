@@ -162,7 +162,14 @@ function (_React$Component) {
   _proto.handleFocus = function handleFocus(event) {
     var _this3 = this;
 
-    var onFocus = this.props.onFocus;
+    var _this$props2 = this.props,
+        readOnly = _this$props2.readOnly,
+        onFocus = _this$props2.onFocus;
+
+    if (readOnly) {
+      return;
+    }
+
     this.setState({
       focused: true,
       dropdownVisible: true,
@@ -174,7 +181,13 @@ function (_React$Component) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    var onBlur = this.props.onBlur;
+    var _this$props3 = this.props,
+        readOnly = _this$props3.readOnly,
+        onBlur = _this$props3.onBlur;
+
+    if (readOnly) {
+      return;
+    }
 
     if (this.mouseDown) {
       this.inputEl.focus();
@@ -189,7 +202,14 @@ function (_React$Component) {
   };
 
   _proto.handleChange = function handleChange(event) {
-    var onChange = this.props.onChange;
+    var _this$props4 = this.props,
+        readOnly = _this$props4.readOnly,
+        onChange = _this$props4.onChange;
+
+    if (readOnly) {
+      return;
+    }
+
     var state = {
       value: event.target.value,
       dropdownVisible: true
@@ -204,6 +224,12 @@ function (_React$Component) {
   };
 
   _proto.handleSliderChange = function handleSliderChange(value) {
+    var readOnly = this.props.readOnly;
+
+    if (readOnly) {
+      return;
+    }
+
     var event = {
       type: 'change',
       target: this.inputEl
@@ -213,13 +239,14 @@ function (_React$Component) {
   };
 
   _proto.handleKeyDown = function handleKeyDown(event) {
+    var readOnly = this.props.readOnly;
     var _this$state = this.state,
         menuSeletedItemIndex = _this$state.menuSeletedItemIndex,
         dropdownVisible = _this$state.dropdownVisible;
     var menu = this.getMenu();
     var state = {};
 
-    if (!menu.length) {
+    if (!menu.length || readOnly) {
       return;
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true;
@@ -255,6 +282,8 @@ function (_React$Component) {
   _proto.renderElement = function renderElement(props) {
     var _this5 = this;
 
+    var readOnly = this.props.readOnly;
+
     if (this.getMenu().length) {
       props.autoComplete = 'off';
     }
@@ -263,6 +292,10 @@ function (_React$Component) {
       return _react["default"].createElement("div", {
         className: props.className
       }, props.value);
+    }
+
+    if (readOnly) {
+      delete props.mask;
     }
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
@@ -313,11 +346,11 @@ function (_React$Component) {
   };
 
   _proto.renderSlider = function renderSlider() {
-    var _this$props2 = this.props,
-        min = _this$props2.min,
-        max = _this$props2.max,
-        step = _this$props2.step,
-        rangeProps = _this$props2.rangeProps;
+    var _this$props5 = this.props,
+        min = _this$props5.min,
+        max = _this$props5.max,
+        step = _this$props5.step,
+        rangeProps = _this$props5.rangeProps;
     var value = this.state.value;
     return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
       min: min,
@@ -338,21 +371,21 @@ function (_React$Component) {
     var _classnames,
         _this7 = this;
 
-    var _this$props3 = this.props,
-        className = _this$props3.className,
-        componentProps = _this$props3.componentProps,
-        size = _this$props3.size,
-        color = _this$props3.color,
-        variant = _this$props3.variant,
-        rounded = _this$props3.rounded,
-        invalid = _this$props3.invalid,
-        disabled = _this$props3.disabled,
-        type = _this$props3.type,
-        label = _this$props3.label,
-        mask = _this$props3.mask,
-        maskChar = _this$props3.maskChar,
-        adornment = _this$props3.adornment,
-        adornmentPosition = _this$props3.adornmentPosition;
+    var _this$props6 = this.props,
+        className = _this$props6.className,
+        componentProps = _this$props6.componentProps,
+        size = _this$props6.size,
+        color = _this$props6.color,
+        variant = _this$props6.variant,
+        rounded = _this$props6.rounded,
+        invalid = _this$props6.invalid,
+        disabled = _this$props6.disabled,
+        type = _this$props6.type,
+        label = _this$props6.label,
+        mask = _this$props6.mask,
+        maskChar = _this$props6.maskChar,
+        adornment = _this$props6.adornment,
+        adornmentPosition = _this$props6.adornmentPosition;
     var _this$state2 = this.state,
         value = _this$state2.value,
         focused = _this$state2.focused;

@@ -49,7 +49,14 @@ function (_React$Component) {
   };
 
   _proto.handleChange = function handleChange(event) {
-    var onChange = this.props.onChange;
+    var _this$props = this.props,
+        readOnly = _this$props.readOnly,
+        onChange = _this$props.onChange;
+
+    if (readOnly) {
+      return;
+    }
+
     this.setState({
       checked: event.target.checked
     });
@@ -65,16 +72,16 @@ function (_React$Component) {
   _proto.render = function render() {
     var _classnames;
 
-    var _this$props = this.props,
-        className = _this$props.className,
-        componentProps = _this$props.componentProps,
-        size = _this$props.size,
-        color = _this$props.color,
-        variant = _this$props.variant,
-        label = _this$props.label,
-        labelPosition = _this$props.labelPosition,
-        invalid = _this$props.invalid,
-        disabled = _this$props.disabled;
+    var _this$props2 = this.props,
+        className = _this$props2.className,
+        componentProps = _this$props2.componentProps,
+        size = _this$props2.size,
+        color = _this$props2.color,
+        variant = _this$props2.variant,
+        label = _this$props2.label,
+        labelPosition = _this$props2.labelPosition,
+        invalid = _this$props2.invalid,
+        disabled = _this$props2.disabled;
     var checked = this.state.checked;
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Radio': true

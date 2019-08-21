@@ -21,7 +21,11 @@ export class CheckBox extends React.Component {
   }
 
   handleChange (event) {
-    const { onChange } = this.props
+    const { readOnly, onChange } = this.props
+
+    if (readOnly) {
+      return
+    }
 
     this.setState({ checked: event.target.checked })
 
