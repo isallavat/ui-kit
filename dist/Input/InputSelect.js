@@ -86,7 +86,7 @@ function (_Input) {
         value = _this$state.value;
     var menu = this.getMenu();
     var selectedItem = menu.filter(function (item) {
-      return item.value === value;
+      return String(item.value) === String(value);
     })[0];
     props.type = 'text';
     props.value = searchValue;

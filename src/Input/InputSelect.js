@@ -40,7 +40,7 @@ export class InputSelect extends Input {
   renderElement (props) {
     const { searchValue = '', value } = this.state
     const menu = this.getMenu()
-    const selectedItem = menu.filter((item) => item.value === value)[0]
+    const selectedItem = menu.filter((item) => String(item.value) === String(value))[0]
 
     props.type = 'text'
     props.value = searchValue
