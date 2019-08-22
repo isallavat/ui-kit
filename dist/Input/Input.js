@@ -224,9 +224,11 @@ function (_React$Component) {
   };
 
   _proto.handleSliderChange = function handleSliderChange(value) {
-    var readOnly = this.props.readOnly;
+    var _this$props5 = this.props,
+        disabled = _this$props5.disabled,
+        readOnly = _this$props5.readOnly;
 
-    if (readOnly) {
+    if (readOnly || disabled) {
       return;
     }
 
@@ -346,11 +348,11 @@ function (_React$Component) {
   };
 
   _proto.renderSlider = function renderSlider() {
-    var _this$props5 = this.props,
-        min = _this$props5.min,
-        max = _this$props5.max,
-        step = _this$props5.step,
-        rangeProps = _this$props5.rangeProps;
+    var _this$props6 = this.props,
+        min = _this$props6.min,
+        max = _this$props6.max,
+        step = _this$props6.step,
+        rangeProps = _this$props6.rangeProps;
     var value = this.state.value;
     return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
       min: min,
@@ -371,21 +373,21 @@ function (_React$Component) {
     var _classnames,
         _this7 = this;
 
-    var _this$props6 = this.props,
-        className = _this$props6.className,
-        componentProps = _this$props6.componentProps,
-        size = _this$props6.size,
-        color = _this$props6.color,
-        variant = _this$props6.variant,
-        rounded = _this$props6.rounded,
-        invalid = _this$props6.invalid,
-        disabled = _this$props6.disabled,
-        type = _this$props6.type,
-        label = _this$props6.label,
-        mask = _this$props6.mask,
-        maskChar = _this$props6.maskChar,
-        adornment = _this$props6.adornment,
-        adornmentPosition = _this$props6.adornmentPosition;
+    var _this$props7 = this.props,
+        className = _this$props7.className,
+        componentProps = _this$props7.componentProps,
+        size = _this$props7.size,
+        color = _this$props7.color,
+        variant = _this$props7.variant,
+        rounded = _this$props7.rounded,
+        invalid = _this$props7.invalid,
+        disabled = _this$props7.disabled,
+        type = _this$props7.type,
+        label = _this$props7.label,
+        mask = _this$props7.mask,
+        maskChar = _this$props7.maskChar,
+        adornment = _this$props7.adornment,
+        adornmentPosition = _this$props7.adornmentPosition;
     var _this$state2 = this.state,
         value = _this$state2.value,
         focused = _this$state2.focused;

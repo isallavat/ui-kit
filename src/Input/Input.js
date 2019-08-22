@@ -177,9 +177,9 @@ export class Input extends React.Component {
   }
 
   handleSliderChange (value) {
-    const { readOnly } = this.props
+    const { disabled, readOnly } = this.props
 
-    if (readOnly) {
+    if (readOnly || disabled) {
       return
     }
 
