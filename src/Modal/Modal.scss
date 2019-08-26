@@ -10,9 +10,10 @@ $this: '.Modal';
   right: 0;
   bottom: 0;
   z-index: 100;
+  overflow-y: auto;
 
   &__overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     right: 0;
@@ -23,20 +24,18 @@ $this: '.Modal';
 
   &__container {
     box-sizing: border-box;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
     padding: 20px;
-    max-height: 100%;
-    overflow-y: auto;
   }
 
   &__window {
     box-sizing: border-box;
-    margin: 0 auto;
-    padding: 32px;
     position: relative;
+    width: 100%;
+    padding: 32px;
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 20px 30px rgba(0,0,0,.15);

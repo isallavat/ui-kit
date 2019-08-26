@@ -4,9 +4,10 @@
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 100; }
+  z-index: 100;
+  overflow-y: auto; }
   .Modal__overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     right: 0;
@@ -15,18 +16,16 @@
     animation: Dialog__overlay 300ms; }
   .Modal__container {
     box-sizing: border-box;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    max-height: 100%;
-    overflow-y: auto; }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px; }
   .Modal__window {
     box-sizing: border-box;
-    margin: 0 auto;
-    padding: 32px;
     position: relative;
+    width: 100%;
+    padding: 32px;
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
