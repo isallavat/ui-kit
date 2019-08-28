@@ -2,6 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import escapeStringRegexp from 'escape-string-regexp'
 import InputMask from 'react-input-mask'
 import Slider from 'react-rangeslider'
 import { excludeProps } from '../helpers'
@@ -58,7 +59,7 @@ export class Input extends React.Component {
 
   filterMenu (menu, value) {
     return menu.filter((item) => {
-      return item.primary.match(new RegExp(value, 'i'))
+      return !value || item.primary.match(new RegExp(escapeStringRegexp(value), 'i'))
     })
   }
 
@@ -217,6 +218,9 @@ export class Input extends React.Component {
   }
 
   handleMenuItemClick (item, index, event) {
+    if (event.button) {
+      return
+    }
     event.target = this.inputEl
     event.target.value = item.value
     event.target.index = index
@@ -285,6 +289,7 @@ export class Input extends React.Component {
               '--selected': index === menuSeletedItemIndex
             })}
             key={index}
+            data-value={item.value}
             onMouseMove={() => this.setState({ menuSeletedItemIndex: index })}
             onMouseDown={this.handleMenuItemClick.bind(this, item, index)}
           >

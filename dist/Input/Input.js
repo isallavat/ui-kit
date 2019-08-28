@@ -25,6 +25,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames3 = _interopRequireDefault(require("classnames"));
 
+var _escapeStringRegexp = _interopRequireDefault(require("escape-string-regexp"));
+
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
 var _reactRangeslider = _interopRequireDefault(require("react-rangeslider"));
@@ -98,7 +100,7 @@ function (_React$Component) {
 
   _proto.filterMenu = function filterMenu(menu, value) {
     return menu.filter(function (item) {
-      return item.primary.match(new RegExp(value, 'i'));
+      return !value || item.primary.match(new RegExp((0, _escapeStringRegexp["default"])(value), 'i'));
     });
   };
 
@@ -268,6 +270,10 @@ function (_React$Component) {
   _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
     var _this4 = this;
 
+    if (event.button) {
+      return;
+    }
+
     event.target = this.inputEl;
     event.target.value = item.value;
     event.target.index = index;
@@ -333,6 +339,7 @@ function (_React$Component) {
           '--selected': index === menuSeletedItemIndex
         }),
         key: index,
+        "data-value": item.value,
         onMouseMove: function onMouseMove() {
           return _this6.setState({
             menuSeletedItemIndex: index
