@@ -68,8 +68,6 @@ function (_Input) {
   };
 
   _proto.handleCalendarChange = function handleCalendarChange(value) {
-    var _this = this;
-
     var dateFormat = this.props.dateFormat;
     var date = new Date(value);
     var event = {
@@ -77,13 +75,6 @@ function (_Input) {
     };
     event.target.value = this.formatDate(date, dateFormat);
     this.handleChange(event);
-    setTimeout(function () {
-      _this.dropdownMouseEnter = false;
-
-      _this.setState({
-        dropdownVisible: false
-      });
-    });
   };
 
   _proto.renderElement = function renderElement(props) {

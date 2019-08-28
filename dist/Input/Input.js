@@ -105,14 +105,17 @@ function (_React$Component) {
   };
 
   _proto.getMenuSeletedItemIndex = function getMenuSeletedItemIndex() {
-    var value = this.state.value;
+    var _this$state = this.state,
+        value = _this$state.value,
+        _this$state$menuSelet = _this$state.menuSeletedItemIndex,
+        menuSeletedItemIndex = _this$state$menuSelet === void 0 ? -1 : _this$state$menuSelet;
     return this.getMenu().reduce(function (accumulator, item, index) {
       if (String(item.value) === String(value)) {
         accumulator = index;
       }
 
       return accumulator;
-    }, -1);
+    }, menuSeletedItemIndex);
   };
 
   _proto.scrollMenuToSelected = function scrollMenuToSelected(exact) {
@@ -167,16 +170,22 @@ function (_React$Component) {
     var _this$props2 = this.props,
         readOnly = _this$props2.readOnly,
         onFocus = _this$props2.onFocus;
+    var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
 
     if (readOnly) {
       return;
     }
 
-    this.setState({
+    var state = {
       focused: true,
-      dropdownVisible: true,
-      menuSeletedItemIndex: this.getMenuSeletedItemIndex()
-    }, function () {
+      dropdownVisible: true
+    };
+
+    if (menuSeletedItemIndex < 0) {
+      state.menuSeletedItemIndex = this.getMenuSeletedItemIndex();
+    }
+
+    this.setState(state, function () {
       _this3.getMenu().length && _this3.scrollMenuToSelected();
     });
     onFocus && onFocus(event);
@@ -192,6 +201,7 @@ function (_React$Component) {
     }
 
     if (this.mouseDown) {
+      this.mouseDown = false;
       this.inputEl.focus();
       return;
     }
@@ -213,12 +223,14 @@ function (_React$Component) {
     }
 
     var state = {
-      value: event.target.value,
-      dropdownVisible: true
+      value: event.target.value
     };
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1;
+      state.dropdownVisible = true;
+    } else {
+      state.dropdownVisible = false;
     }
 
     this.setState(state);
@@ -244,9 +256,9 @@ function (_React$Component) {
 
   _proto.handleKeyDown = function handleKeyDown(event) {
     var readOnly = this.props.readOnly;
-    var _this$state = this.state,
-        menuSeletedItemIndex = _this$state.menuSeletedItemIndex,
-        dropdownVisible = _this$state.dropdownVisible;
+    var _this$state2 = this.state,
+        menuSeletedItemIndex = _this$state2.menuSeletedItemIndex,
+        dropdownVisible = _this$state2.dropdownVisible;
     var menu = this.getMenu();
     var state = {};
 
@@ -268,8 +280,6 @@ function (_React$Component) {
   };
 
   _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
-    var _this4 = this;
-
     if (event.button) {
       return;
     }
@@ -278,17 +288,10 @@ function (_React$Component) {
     event.target.value = item.value;
     event.target.index = index;
     this.handleChange(event);
-    setTimeout(function () {
-      _this4.mouseDown = false;
-
-      _this4.setState({
-        dropdownVisible: false
-      });
-    });
   };
 
   _proto.renderElement = function renderElement(props) {
-    var _this5 = this;
+    var _this4 = this;
 
     var readOnly = this.props.readOnly;
 
@@ -308,7 +311,7 @@ function (_React$Component) {
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {
-        _this5.inputEl = node;
+        _this4.inputEl = node;
       }
     }));
   };
@@ -325,9 +328,11 @@ function (_React$Component) {
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this6 = this;
+    var _this5 = this;
 
-    var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
+    var _this$state3 = this.state,
+        dropdownVisible = _this$state3.dropdownVisible,
+        menuSeletedItemIndex = _this$state3.menuSeletedItemIndex;
     var menu = this.getMenu();
     return this.renderDropdown(_react["default"].createElement("div", {
       className: "Input__menu",
@@ -341,11 +346,11 @@ function (_React$Component) {
         key: index,
         "data-value": item.value,
         onMouseMove: function onMouseMove() {
-          return _this6.setState({
+          return dropdownVisible && _this5.setState({
             menuSeletedItemIndex: index
           });
         },
-        onMouseDown: _this6.handleMenuItemClick.bind(_this6, item, index)
+        onClick: _this5.handleMenuItemClick.bind(_this5, item, index)
       }, _react["default"].createElement("div", {
         className: "Input__menu-item-primary"
       }, item.primary), !!item.secondary && _react["default"].createElement("div", {
@@ -378,7 +383,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classnames,
-        _this7 = this;
+        _this6 = this;
 
     var _this$props7 = this.props,
         className = _this$props7.className,
@@ -395,9 +400,9 @@ function (_React$Component) {
         maskChar = _this$props7.maskChar,
         adornment = _this$props7.adornment,
         adornmentPosition = _this$props7.adornmentPosition;
-    var _this$state2 = this.state,
-        value = _this$state2.value,
-        focused = _this$state2.focused;
+    var _this$state4 = this.state,
+        value = _this$state4.value,
+        focused = _this$state4.focused;
     var inputProps = (0, _objectSpread2["default"])({}, (0, _helpers.excludeProps)(this), {
       className: 'Input__element',
       disabled: disabled,
@@ -429,13 +434,11 @@ function (_React$Component) {
       className: classNames
     }, componentProps, {
       onMouseDown: function onMouseDown() {
-        _this7.mouseDown = true;
+        _this6.mouseDown = true;
+        _this6.inputEl && _this6.inputEl.focus();
       },
       onMouseUp: function onMouseUp() {
-        _this7.mouseDown = false;
-      },
-      onClick: function onClick() {
-        _this7.inputEl && _this7.inputEl.focus();
+        _this6.mouseDown = false;
       }
     }), _react["default"].createElement("div", {
       className: "Input__container"

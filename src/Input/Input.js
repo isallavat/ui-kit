@@ -64,7 +64,7 @@ export class Input extends React.Component {
   }
 
   getMenuSeletedItemIndex () {
-    const { value } = this.state
+    const { value, menuSeletedItemIndex = -1 } = this.state
 
     return this.getMenu().reduce((accumulator, item, index) => {
       if (String(item.value) === String(value)) {
@@ -72,7 +72,7 @@ export class Input extends React.Component {
       }
 
       return accumulator
-    }, -1)
+    }, menuSeletedItemIndex)
   }
 
   scrollMenuToSelected (exact) {
@@ -121,16 +121,22 @@ export class Input extends React.Component {
 
   handleFocus (event) {
     const { readOnly, onFocus } = this.props
+    const { menuSeletedItemIndex } = this.state
 
     if (readOnly) {
       return
     }
 
-    this.setState({
+    const state = {
       focused: true,
-      dropdownVisible: true,
-      menuSeletedItemIndex: this.getMenuSeletedItemIndex()
-    }, () => {
+      dropdownVisible: true
+    }
+
+    if (menuSeletedItemIndex < 0) {
+      state.menuSeletedItemIndex = this.getMenuSeletedItemIndex()
+    }
+
+    this.setState(state, () => {
       this.getMenu().length && this.scrollMenuToSelected()
     })
 
@@ -145,6 +151,7 @@ export class Input extends React.Component {
     }
 
     if (this.mouseDown) {
+      this.mouseDown = false
       this.inputEl.focus()
       return
     }
@@ -165,12 +172,14 @@ export class Input extends React.Component {
     }
 
     const state = {
-      value: event.target.value,
-      dropdownVisible: true
+      value: event.target.value
     }
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1
+      state.dropdownVisible = true
+    } else {
+      state.dropdownVisible = false
     }
 
     this.setState(state)
@@ -226,11 +235,6 @@ export class Input extends React.Component {
     event.target.index = index
 
     this.handleChange(event)
-
-    setTimeout(() => {
-      this.mouseDown = false
-      this.setState({ dropdownVisible: false })
-    })
   }
 
   renderElement (props) {
@@ -277,7 +281,7 @@ export class Input extends React.Component {
   }
 
   renderMenu () {
-    const { menuSeletedItemIndex } = this.state
+    const { dropdownVisible, menuSeletedItemIndex } = this.state
     const menu = this.getMenu()
 
     return this.renderDropdown(
@@ -290,8 +294,8 @@ export class Input extends React.Component {
             })}
             key={index}
             data-value={item.value}
-            onMouseMove={() => this.setState({ menuSeletedItemIndex: index })}
-            onMouseDown={this.handleMenuItemClick.bind(this, item, index)}
+            onMouseMove={() => dropdownVisible && this.setState({ menuSeletedItemIndex: index })}
+            onClick={this.handleMenuItemClick.bind(this, item, index)}
           >
             <div className='Input__menu-item-primary'>{item.primary}</div>
             {!!item.secondary &&
@@ -382,9 +386,11 @@ export class Input extends React.Component {
       <this.props.component
         className={classNames}
         {...componentProps}
-        onMouseDown={() => { this.mouseDown = true }}
+        onMouseDown={() => {
+          this.mouseDown = true
+          this.inputEl && this.inputEl.focus()
+        }}
         onMouseUp={() => { this.mouseDown = false }}
-        onClick={() => { this.inputEl && this.inputEl.focus() }}
       >
         <div className='Input__container'>
           {label &&

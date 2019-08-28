@@ -37,11 +37,6 @@ export class InputDate extends Input {
     event.target.value = this.formatDate(date, dateFormat)
 
     this.handleChange(event)
-
-    setTimeout(() => {
-      this.dropdownMouseEnter = false
-      this.setState({ dropdownVisible: false })
-    })
   }
 
   renderElement (props) {
