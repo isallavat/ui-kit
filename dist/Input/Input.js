@@ -9,9 +9,9 @@ exports.Input = void 0;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
@@ -305,8 +305,12 @@ function (_React$Component) {
       }, props.value);
     }
 
-    if (readOnly) {
-      delete props.mask;
+    if (readOnly && props.mask) {
+      props.beforeMaskedValueChange = function (newState, oldState, userInput) {
+        return (0, _objectSpread2["default"])({}, newState, {
+          value: oldState.value
+        });
+      };
     }
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
