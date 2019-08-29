@@ -305,13 +305,15 @@ function (_React$Component) {
       }, props.value);
     }
 
-    if (readOnly && props.mask) {
-      props.beforeMaskedValueChange = function (newState, oldState, userInput) {
-        return (0, _objectSpread2["default"])({}, newState, {
-          value: oldState.value
-        });
-      };
-    }
+    props.beforeMaskedValueChange = function (newState, oldState, userInput) {
+      var state = (0, _objectSpread2["default"])({}, newState);
+
+      if (readOnly && !oldState.value) {
+        state.value = oldState.value;
+      }
+
+      return state;
+    };
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {

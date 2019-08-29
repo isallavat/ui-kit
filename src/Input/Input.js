@@ -252,13 +252,16 @@ export class Input extends React.Component {
       )
     }
 
-    if (readOnly && props.mask) {
-      props.beforeMaskedValueChange = (newState, oldState, userInput) => {
-        return {
-          ...newState,
-          value: oldState.value
-        }
+    props.beforeMaskedValueChange = (newState, oldState, userInput) => {
+      const state = {
+        ...newState
       }
+
+      if (readOnly && !oldState.value) {
+        state.value = oldState.value
+      }
+
+      return state
     }
 
     return (
