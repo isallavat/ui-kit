@@ -18,8 +18,9 @@ export class InputSelect extends Input {
   }
 
   handleBlur (event) {
-    super.handleBlur(event)
-    this.setState({ searchValue: '' })
+    if (super.handleBlur(event) !== false) {
+      this.setState({ searchValue: '' })
+    }
   }
 
   handleSearch (event) {

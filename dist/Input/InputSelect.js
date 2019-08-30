@@ -55,11 +55,11 @@ function (_Input) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    _Input.prototype.handleBlur.call(this, event);
-
-    this.setState({
-      searchValue: ''
-    });
+    if (_Input.prototype.handleBlur.call(this, event) !== false) {
+      this.setState({
+        searchValue: ''
+      });
+    }
   };
 
   _proto.handleSearch = function handleSearch(event) {

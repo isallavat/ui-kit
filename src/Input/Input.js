@@ -99,24 +99,22 @@ export class Input extends React.Component {
   }
 
   setDropdownPosition () {
-    setTimeout(() => {
-      const { type } = this.props
-      const dropdown = this.refs.dropdown
+    const { type } = this.props
+    const dropdown = this.refs.dropdown
 
-      if (!dropdown) {
-        return
+    if (!dropdown) {
+      return
+    }
+
+    const dropdownBottom = dropdown.getBoundingClientRect().bottom
+
+    if (type === 'select') {
+      if (dropdownBottom > window.innerHeight) {
+        dropdown.style.top = -(dropdownBottom - window.innerHeight) + 'px'
+      } else {
+        dropdown.style.top = '0px'
       }
-
-      const dropdownBottom = dropdown.getBoundingClientRect().bottom
-
-      if (type === 'select') {
-        if (dropdownBottom > window.innerHeight) {
-          dropdown.style.top = -(dropdownBottom - window.innerHeight) + 'px'
-        } else {
-          dropdown.style.top = '0px'
-        }
-      }
-    })
+    }
   }
 
   handleFocus (event) {
@@ -153,7 +151,7 @@ export class Input extends React.Component {
     if (this.mouseDown) {
       this.mouseDown = false
       this.inputEl.focus()
-      return
+      return false
     }
 
     this.setState({
