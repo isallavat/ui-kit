@@ -12,6 +12,7 @@ export class Button extends React.Component {
       size,
       color,
       variant,
+      align,
       rounded,
       circular,
       noresize,
@@ -25,6 +26,7 @@ export class Button extends React.Component {
       [`Button_size_${size}`]: true,
       [`Button_color_${color}`]: true,
       [`Button_variant_${variant}`]: true,
+      [`Button_align_${align}`]: true,
       'Button_full-width': fullWidth,
       'Button_rounded': rounded,
       'Button_circular': circular,
@@ -70,7 +72,10 @@ Button.propTypes = {
   circular: PropTypes.bool,
   noresize: PropTypes.bool,
   progress: PropTypes.bool,
-  fullWidth: PropTypes.bool
+  fullWidth: PropTypes.bool,
+  align: PropTypes.oneOf([
+    'left', 'center', 'right', 'justify'
+  ]).isRequired
 }
 
 Button.defaultProps = {
@@ -78,5 +83,6 @@ Button.defaultProps = {
   size: 'm',
   color: 'default',
   variant: 'default',
+  align: 'center',
   type: 'button'
 }

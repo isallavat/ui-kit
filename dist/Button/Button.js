@@ -43,6 +43,7 @@ function (_React$Component) {
         size = _this$props.size,
         color = _this$props.color,
         variant = _this$props.variant,
+        align = _this$props.align,
         rounded = _this$props.rounded,
         circular = _this$props.circular,
         noresize = _this$props.noresize,
@@ -51,7 +52,7 @@ function (_React$Component) {
         disabled = _this$props.disabled;
     var classNames = (0, _classnames2["default"])((_classnames = {
       'Button': true
-    }, (0, _defineProperty2["default"])(_classnames, "Button_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Button_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Button_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, 'Button_full-width', fullWidth), (0, _defineProperty2["default"])(_classnames, 'Button_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Button_circular', circular), (0, _defineProperty2["default"])(_classnames, '--progress', progress), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Button_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Button_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Button_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Button_align_".concat(align), true), (0, _defineProperty2["default"])(_classnames, 'Button_full-width', fullWidth), (0, _defineProperty2["default"])(_classnames, 'Button_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Button_circular', circular), (0, _defineProperty2["default"])(_classnames, '--progress', progress), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this)), _react["default"].createElement("div", {
@@ -82,12 +83,14 @@ Button.propTypes = {
   circular: _propTypes["default"].bool,
   noresize: _propTypes["default"].bool,
   progress: _propTypes["default"].bool,
-  fullWidth: _propTypes["default"].bool
+  fullWidth: _propTypes["default"].bool,
+  align: _propTypes["default"].oneOf(['left', 'center', 'right', 'justify']).isRequired
 };
 Button.defaultProps = {
   component: 'button',
   size: 'm',
   color: 'default',
   variant: 'default',
+  align: 'center',
   type: 'button'
 };

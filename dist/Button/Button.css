@@ -31,9 +31,7 @@
     transform: translate(-50%, -50%); }
   .Button__content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center; }
+    align-items: center; }
     .Button__content_centered {
       position: absolute;
       left: 50%;
@@ -41,6 +39,16 @@
       transform: translate(-50%, -50%); }
     .Button__content_hidden {
       opacity: 0; }
+  .Button_align_left .Button__content {
+    justify-content: flex-start; }
+  .Button_align_right .Button__content {
+    justify-content: flex-end;
+    text-align: right; }
+  .Button_align_center .Button__content {
+    justify-content: center;
+    text-align: center; }
+  .Button_align_justify .Button__content {
+    justify-content: space-between; }
   .Button_size_s {
     min-height: 40px;
     min-width: 40px;

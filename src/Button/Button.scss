@@ -48,8 +48,6 @@ $this: '.Button';
   &__content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
 
     &_centered {
       position: absolute;
@@ -60,6 +58,34 @@ $this: '.Button';
 
     &_hidden {
       opacity: 0;
+    }
+  }
+
+  &_align {
+    &_left {
+      #{$this}__content {
+        justify-content: flex-start;
+      }
+    }
+
+    &_right {
+      #{$this}__content {
+        justify-content: flex-end;
+        text-align: right;
+      }
+    }
+
+    &_center {
+      #{$this}__content {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    &_justify {
+      #{$this}__content {
+        justify-content: space-between;
+      }
     }
   }
 
