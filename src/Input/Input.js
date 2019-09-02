@@ -2,7 +2,6 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import escapeStringRegexp from 'escape-string-regexp'
 import InputMask from 'react-input-mask'
 import Slider from 'react-rangeslider'
 import { excludeProps } from '../helpers'
@@ -26,6 +25,10 @@ export class Input extends React.Component {
 
   noramlizeValue (value) {
     return ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
+  }
+
+  escapeString (str) {
+    return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
   }
 
   getMenu () {
@@ -59,7 +62,7 @@ export class Input extends React.Component {
 
   filterMenu (menu, value) {
     return menu.filter((item) => {
-      return !value || item.primary.match(new RegExp(escapeStringRegexp(value), 'i'))
+      return !value || item.primary.match(new RegExp(this.escapeString(value), 'i'))
     })
   }
 

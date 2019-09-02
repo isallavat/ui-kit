@@ -25,8 +25,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames3 = _interopRequireDefault(require("classnames"));
 
-var _escapeStringRegexp = _interopRequireDefault(require("escape-string-regexp"));
-
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
 var _reactRangeslider = _interopRequireDefault(require("react-rangeslider"));
@@ -64,6 +62,10 @@ function (_React$Component) {
     return ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
   };
 
+  _proto.escapeString = function escapeString(str) {
+    return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
+
   _proto.getMenu = function getMenu() {
     var _this$props = this.props,
         type = _this$props.type,
@@ -99,8 +101,10 @@ function (_React$Component) {
   };
 
   _proto.filterMenu = function filterMenu(menu, value) {
+    var _this2 = this;
+
     return menu.filter(function (item) {
-      return !value || item.primary.match(new RegExp((0, _escapeStringRegexp["default"])(value), 'i'));
+      return !value || item.primary.match(new RegExp(_this2.escapeString(value), 'i'));
     });
   };
 
@@ -161,7 +165,7 @@ function (_React$Component) {
   };
 
   _proto.handleFocus = function handleFocus(event) {
-    var _this2 = this;
+    var _this3 = this;
 
     var _this$props2 = this.props,
         readOnly = _this$props2.readOnly,
@@ -182,7 +186,7 @@ function (_React$Component) {
     }
 
     this.setState(state, function () {
-      _this2.getMenu().length && _this2.scrollMenuToSelected();
+      _this3.getMenu().length && _this3.scrollMenuToSelected();
     });
     onFocus && onFocus(event);
   };
@@ -287,7 +291,7 @@ function (_React$Component) {
   };
 
   _proto.renderElement = function renderElement(props) {
-    var _this3 = this;
+    var _this4 = this;
 
     var readOnly = this.props.readOnly;
 
@@ -313,7 +317,7 @@ function (_React$Component) {
 
     return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {
-        _this3.inputEl = node;
+        _this4.inputEl = node;
       }
     }));
   };
@@ -330,7 +334,7 @@ function (_React$Component) {
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this4 = this;
+    var _this5 = this;
 
     var _this$state3 = this.state,
         dropdownVisible = _this$state3.dropdownVisible,
@@ -348,11 +352,11 @@ function (_React$Component) {
         key: index,
         "data-value": item.value,
         onMouseMove: function onMouseMove() {
-          return dropdownVisible && _this4.setState({
+          return dropdownVisible && _this5.setState({
             menuSeletedItemIndex: index
           });
         },
-        onClick: _this4.handleMenuItemClick.bind(_this4, item, index)
+        onClick: _this5.handleMenuItemClick.bind(_this5, item, index)
       }, _react["default"].createElement("div", {
         className: "Input__menu-item-primary"
       }, item.primary), !!item.secondary && _react["default"].createElement("div", {
@@ -385,7 +389,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classnames,
-        _this5 = this;
+        _this6 = this;
 
     var _this$props7 = this.props,
         className = _this$props7.className,
@@ -436,11 +440,11 @@ function (_React$Component) {
       className: classNames
     }, componentProps, {
       onMouseDown: function onMouseDown() {
-        _this5.mouseDown = true;
-        _this5.inputEl && _this5.inputEl.focus();
+        _this6.mouseDown = true;
+        _this6.inputEl && _this6.inputEl.focus();
       },
       onMouseUp: function onMouseUp() {
-        _this5.mouseDown = false;
+        _this6.mouseDown = false;
       }
     }), _react["default"].createElement("div", {
       className: "Input__container"
