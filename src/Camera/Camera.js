@@ -149,12 +149,10 @@ export class Camera extends React.Component {
 
   enumerateDevices () {
     return new Promise((resolve, reject) => {
-      if (navigator.mediaDevices) {
+      if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
         navigator.mediaDevices.enumerateDevices().then(resolve).catch(reject)
       } else {
-        navigator.getUserMedia = navigator.enumerateDevices || navigator.webkitEnumerateDevices ||
-          navigator.mozEnumerateDevices || navigator.msEnumerateDevices
-        navigator.enumerateDevices(resolve, reject)
+        resolve([])
       }
     })
   }
