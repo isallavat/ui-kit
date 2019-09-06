@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
 import { Calendar } from '../Calendar'
 import { Input } from './Input'
 
@@ -20,10 +19,10 @@ export class InputDate extends Input {
   }
 
   valueToDate (value) {
-    const { dateFormat } = this.props
-    const year = value.substr(dateFormat.indexOf('YYYY'), 4) * 1
-    const month = value.substr(dateFormat.indexOf('MM'), 2) * 1 - 1
-    const day = value.substr(dateFormat.indexOf('DD'), 2) * 1
+    const { format } = this.props
+    const year = value.substr(format.indexOf('YYYY'), 4) * 1
+    const month = value.substr(format.indexOf('MM'), 2) * 1 - 1
+    const day = value.substr(format.indexOf('DD'), 2) * 1
 
     if (year && month && day) {
       return new Date(year, month, day)
@@ -31,21 +30,21 @@ export class InputDate extends Input {
   }
 
   handleCalendarChange (value) {
-    const { dateFormat } = this.props
+    const { format } = this.props
     const date = new Date(value)
     const event = { target: this.inputEl }
-    event.target.value = this.formatDate(date, dateFormat)
+    event.target.value = this.formatDate(date, format)
 
     this.handleChange(event)
   }
 
   renderElement (props) {
-    const { min, max, dateFormat } = this.props
+    const { min, max, format } = this.props
     const { value } = this.state
     const date = this.valueToDate(value)
 
     props.type = 'text'
-    props.mask = dateFormat
+    props.mask = format
       .replace('DD', '99')
       .replace('MM', '99')
       .replace('YYYY', '9999')
@@ -66,14 +65,11 @@ export class InputDate extends Input {
   }
 }
 
-InputDate.propTypes = {
-  ...Input.propTypes,
-  dateFormat: PropTypes.string
-}
+InputDate.propTypes = Input.propTypes
 
 InputDate.defaultProps = {
   ...Input.defaultProps,
   type: 'date',
   adornment: iconCalendar,
-  dateFormat: 'DD.MM.YYYY'
+  format: 'DD.MM.YYYY'
 }

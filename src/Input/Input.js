@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import Slider from 'react-rangeslider'
-import { excludeProps } from '../helpers'
+import { excludeProps, formatPrice } from '../helpers'
 
 export class Input extends React.Component {
   constructor (props) {
@@ -24,7 +24,18 @@ export class Input extends React.Component {
   }
 
   noramlizeValue (value) {
-    return ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
+    const { type, format } = this.props
+    value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
+
+    if (format === 'price') {
+      value = formatPrice(value)
+    } else if (type === 'number') {
+      value = value.replace(/\D/, '')
+    } else if (type === 'range') {
+      value = value.replace(/\D/, '')
+    }
+
+    return value
   }
 
   escapeString (str) {
@@ -167,14 +178,17 @@ export class Input extends React.Component {
 
   handleChange (event) {
     const { readOnly, onChange } = this.props
+    const value = this.noramlizeValue(event.target.value)
 
     if (readOnly) {
       return
     }
 
     const state = {
-      value: event.target.value
+      value
     }
+
+    event.target.value = value
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1
@@ -370,11 +384,6 @@ export class Input extends React.Component {
     if (['number', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text'
       inputProps.inputMode = 'numeric'
-
-      if (!inputProps.mask) {
-        inputProps.mask = (value || '').replace(/\w/g, '9') + '9'
-        inputProps.maskChar = null
-      }
     }
 
     const classNames = classnames({
@@ -444,6 +453,7 @@ Input.propTypes = {
   label: PropTypes.any,
   mask: PropTypes.string,
   maskChar: PropTypes.string,
+  format: PropTypes.string,
   disabled: PropTypes.bool,
   invalid: PropTypes.bool,
   defaultValue: PropTypes.oneOfType([

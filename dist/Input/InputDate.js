@@ -15,8 +15,6 @@ var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inh
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _Calendar = require("../Calendar");
 
 var _Input2 = require("./Input");
@@ -57,10 +55,10 @@ function (_Input) {
   };
 
   _proto.valueToDate = function valueToDate(value) {
-    var dateFormat = this.props.dateFormat;
-    var year = value.substr(dateFormat.indexOf('YYYY'), 4) * 1;
-    var month = value.substr(dateFormat.indexOf('MM'), 2) * 1 - 1;
-    var day = value.substr(dateFormat.indexOf('DD'), 2) * 1;
+    var format = this.props.format;
+    var year = value.substr(format.indexOf('YYYY'), 4) * 1;
+    var month = value.substr(format.indexOf('MM'), 2) * 1 - 1;
+    var day = value.substr(format.indexOf('DD'), 2) * 1;
 
     if (year && month && day) {
       return new Date(year, month, day);
@@ -68,12 +66,12 @@ function (_Input) {
   };
 
   _proto.handleCalendarChange = function handleCalendarChange(value) {
-    var dateFormat = this.props.dateFormat;
+    var format = this.props.format;
     var date = new Date(value);
     var event = {
       target: this.inputEl
     };
-    event.target.value = this.formatDate(date, dateFormat);
+    event.target.value = this.formatDate(date, format);
     this.handleChange(event);
   };
 
@@ -81,11 +79,11 @@ function (_Input) {
     var _this$props = this.props,
         min = _this$props.min,
         max = _this$props.max,
-        dateFormat = _this$props.dateFormat;
+        format = _this$props.format;
     var value = this.state.value;
     var date = this.valueToDate(value);
     props.type = 'text';
-    props.mask = dateFormat.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
+    props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
     return _react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), this.renderDropdown(_react["default"].createElement(_Calendar.Calendar, {
       value: date ? date.getTime() : 0,
       min: min,
@@ -98,11 +96,9 @@ function (_Input) {
 }(_Input2.Input);
 
 exports.InputDate = InputDate;
-InputDate.propTypes = (0, _objectSpread2["default"])({}, _Input2.Input.propTypes, {
-  dateFormat: _propTypes["default"].string
-});
+InputDate.propTypes = _Input2.Input.propTypes;
 InputDate.defaultProps = (0, _objectSpread2["default"])({}, _Input2.Input.defaultProps, {
   type: 'date',
   adornment: iconCalendar,
-  dateFormat: 'DD.MM.YYYY'
+  format: 'DD.MM.YYYY'
 });

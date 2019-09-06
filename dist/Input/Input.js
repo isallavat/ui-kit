@@ -59,7 +59,20 @@ function (_React$Component) {
   };
 
   _proto.noramlizeValue = function noramlizeValue(value) {
-    return ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
+    var _this$props = this.props,
+        type = _this$props.type,
+        format = _this$props.format;
+    value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
+
+    if (format === 'price') {
+      value = (0, _helpers.formatPrice)(value);
+    } else if (type === 'number') {
+      value = value.replace(/\D/, '');
+    } else if (type === 'range') {
+      value = value.replace(/\D/, '');
+    }
+
+    return value;
   };
 
   _proto.escapeString = function escapeString(str) {
@@ -67,10 +80,10 @@ function (_React$Component) {
   };
 
   _proto.getMenu = function getMenu() {
-    var _this$props = this.props,
-        type = _this$props.type,
-        menu = _this$props.menu,
-        filterMenu = _this$props.filterMenu;
+    var _this$props2 = this.props,
+        type = _this$props2.type,
+        menu = _this$props2.menu,
+        filterMenu = _this$props2.filterMenu;
     var value = this.state.value;
     var _menu = [];
 
@@ -167,9 +180,9 @@ function (_React$Component) {
   _proto.handleFocus = function handleFocus(event) {
     var _this3 = this;
 
-    var _this$props2 = this.props,
-        readOnly = _this$props2.readOnly,
-        onFocus = _this$props2.onFocus;
+    var _this$props3 = this.props,
+        readOnly = _this$props3.readOnly,
+        onFocus = _this$props3.onFocus;
     var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
 
     if (readOnly) {
@@ -192,9 +205,9 @@ function (_React$Component) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    var _this$props3 = this.props,
-        readOnly = _this$props3.readOnly,
-        onBlur = _this$props3.onBlur;
+    var _this$props4 = this.props,
+        readOnly = _this$props4.readOnly,
+        onBlur = _this$props4.onBlur;
 
     if (readOnly) {
       return;
@@ -214,17 +227,19 @@ function (_React$Component) {
   };
 
   _proto.handleChange = function handleChange(event) {
-    var _this$props4 = this.props,
-        readOnly = _this$props4.readOnly,
-        onChange = _this$props4.onChange;
+    var _this$props5 = this.props,
+        readOnly = _this$props5.readOnly,
+        onChange = _this$props5.onChange;
+    var value = this.noramlizeValue(event.target.value);
 
     if (readOnly) {
       return;
     }
 
     var state = {
-      value: event.target.value
+      value: value
     };
+    event.target.value = value;
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1;
@@ -238,9 +253,9 @@ function (_React$Component) {
   };
 
   _proto.handleSliderChange = function handleSliderChange(value) {
-    var _this$props5 = this.props,
-        disabled = _this$props5.disabled,
-        readOnly = _this$props5.readOnly;
+    var _this$props6 = this.props,
+        disabled = _this$props6.disabled,
+        readOnly = _this$props6.readOnly;
 
     if (readOnly || disabled) {
       return;
@@ -366,11 +381,11 @@ function (_React$Component) {
   };
 
   _proto.renderSlider = function renderSlider() {
-    var _this$props6 = this.props,
-        min = _this$props6.min,
-        max = _this$props6.max,
-        step = _this$props6.step,
-        rangeProps = _this$props6.rangeProps;
+    var _this$props7 = this.props,
+        min = _this$props7.min,
+        max = _this$props7.max,
+        step = _this$props7.step,
+        rangeProps = _this$props7.rangeProps;
     var value = this.state.value;
     return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
       min: min,
@@ -391,21 +406,21 @@ function (_React$Component) {
     var _classnames,
         _this6 = this;
 
-    var _this$props7 = this.props,
-        className = _this$props7.className,
-        componentProps = _this$props7.componentProps,
-        size = _this$props7.size,
-        color = _this$props7.color,
-        variant = _this$props7.variant,
-        rounded = _this$props7.rounded,
-        invalid = _this$props7.invalid,
-        disabled = _this$props7.disabled,
-        type = _this$props7.type,
-        label = _this$props7.label,
-        mask = _this$props7.mask,
-        maskChar = _this$props7.maskChar,
-        adornment = _this$props7.adornment,
-        adornmentPosition = _this$props7.adornmentPosition;
+    var _this$props8 = this.props,
+        className = _this$props8.className,
+        componentProps = _this$props8.componentProps,
+        size = _this$props8.size,
+        color = _this$props8.color,
+        variant = _this$props8.variant,
+        rounded = _this$props8.rounded,
+        invalid = _this$props8.invalid,
+        disabled = _this$props8.disabled,
+        type = _this$props8.type,
+        label = _this$props8.label,
+        mask = _this$props8.mask,
+        maskChar = _this$props8.maskChar,
+        adornment = _this$props8.adornment,
+        adornmentPosition = _this$props8.adornmentPosition;
     var _this$state4 = this.state,
         value = _this$state4.value,
         focused = _this$state4.focused;
@@ -426,11 +441,6 @@ function (_React$Component) {
     if (['number', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text';
       inputProps.inputMode = 'numeric';
-
-      if (!inputProps.mask) {
-        inputProps.mask = (value || '').replace(/\w/g, '9') + '9';
-        inputProps.maskChar = null;
-      }
     }
 
     var classNames = (0, _classnames3["default"])((_classnames = {
@@ -473,6 +483,7 @@ Input.propTypes = {
   label: _propTypes["default"].any,
   mask: _propTypes["default"].string,
   maskChar: _propTypes["default"].string,
+  format: _propTypes["default"].string,
   disabled: _propTypes["default"].bool,
   invalid: _propTypes["default"].bool,
   defaultValue: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),

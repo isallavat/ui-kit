@@ -20,3 +20,23 @@ export function formatDate (date, format) {
     .replace('mm', ('0' + date.getMinutes()).slice(-2))
     .replace('ss', ('0' + date.getSeconds()).slice(-2))
 }
+
+export function formatPrice (value) {
+  const parts = String(value).replace('.', ',').replace(/[^\d,]/g, '').split(',')
+
+  let _value = parts[0].split('').reverse().reduce((accumulator, item, index, arr) => {
+    accumulator.unshift(item)
+
+    if ((index + 1) % 3 === 0 && index + 1 < arr.length) {
+      accumulator.unshift(' ')
+    }
+
+    return accumulator
+  }, []).join('')
+
+  if (parts.length > 1) {
+    _value += ',' + parts[1].slice(0, 2)
+  }
+
+  return _value
+}
