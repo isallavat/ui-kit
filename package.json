@@ -1,7 +1,7 @@
 {
   "name": "ui-kit",
   "description": "this config contains required dependency and scripts for frontend project",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Salavat Dautov <salavat.dautov@balance-pl.ru>",
   "license": "MIT",
   "main": "dist/index.js",
