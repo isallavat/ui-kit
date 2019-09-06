@@ -386,12 +386,12 @@ function (_React$Component) {
         max = _this$props7.max,
         step = _this$props7.step,
         rangeProps = _this$props7.rangeProps;
-    var value = this.state.value;
+    var value = Number(String(this.state.value).replace(/\D/g, ''));
     return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
       min: min,
       max: max,
       step: step,
-      value: Number(value),
+      value: value,
       tooltip: false,
       labels: {
         0: min,

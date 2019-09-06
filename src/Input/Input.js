@@ -332,14 +332,14 @@ export class Input extends React.Component {
 
   renderSlider () {
     const { min, max, step, rangeProps } = this.props
-    const { value } = this.state
+    const value = Number(String(this.state.value).replace(/\D/g, ''))
 
     return (
       <Slider
         min={min}
         max={max}
         step={step}
-        value={Number(value)}
+        value={value}
         tooltip={false}
         labels={{ 0: min, 100: max }}
         {...rangeProps}
