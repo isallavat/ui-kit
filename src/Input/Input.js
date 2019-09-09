@@ -24,14 +24,12 @@ export class Input extends React.Component {
   }
 
   noramlizeValue (value) {
-    const { type, format } = this.props
+    const { type, format, mask } = this.props
     value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
     if (format === 'price') {
       value = formatPrice(value)
-    } else if (type === 'number') {
-      value = value.replace(/\D/, '')
-    } else if (type === 'range') {
+    } else if (['number', 'range'].indexOf(type) >= 0 && !mask) {
       value = value.replace(/\D/, '')
     }
 

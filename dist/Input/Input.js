@@ -61,14 +61,13 @@ function (_React$Component) {
   _proto.noramlizeValue = function noramlizeValue(value) {
     var _this$props = this.props,
         type = _this$props.type,
-        format = _this$props.format;
+        format = _this$props.format,
+        mask = _this$props.mask;
     value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
     if (format === 'price') {
       value = (0, _helpers.formatPrice)(value);
-    } else if (type === 'number') {
-      value = value.replace(/\D/, '');
-    } else if (type === 'range') {
+    } else if (['number', 'range'].indexOf(type) >= 0 && !mask) {
       value = value.replace(/\D/, '');
     }
 
