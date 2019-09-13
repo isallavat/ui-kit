@@ -381,7 +381,9 @@ function (_React$Component) {
         readOnly = _this$props6.readOnly,
         disabled = _this$props6.disabled,
         rangeProps = _this$props6.rangeProps;
-    var value = Number(String(this.state.value).replace(/\D/g, '')) || min;
+    var value = Number(String(this.state.value).replace(/\D/g, ''));
+    value = value < min || isNaN(value) ? min : value;
+    value = value > max ? max : value;
     return _react["default"].createElement("div", {
       onMouseDown: function onMouseDown(event) {
         return event.stopPropagation();

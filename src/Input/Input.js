@@ -324,7 +324,9 @@ export class Input extends React.Component {
 
   renderRange () {
     const { min, max, step, readOnly, disabled, rangeProps } = this.props
-    const value = Number(String(this.state.value).replace(/\D/g, '')) || min
+    let value = Number(String(this.state.value).replace(/\D/g, ''))
+    value = value < min || isNaN(value) ? min : value
+    value = value > max ? max : value
 
     return (
       <div onMouseDown={((event) => event.stopPropagation())}>
