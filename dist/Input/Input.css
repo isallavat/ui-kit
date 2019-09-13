@@ -12,7 +12,8 @@
     bottom: 0;
     border-style: solid;
     opacity: .5;
-    border-radius: inherit; }
+    border-radius: inherit;
+    transition: 200ms; }
   .Input__container {
     flex-grow: 1;
     position: relative; }
@@ -111,18 +112,22 @@
         margin-top: 5px;
         font-size: 85%;
         opacity: .6; }
-  .Input .rangeslider {
+  .Input .input-range {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0; }
-    .Input .rangeslider__fill {
+    .Input .input-range__track {
+      position: relative;
+      height: 2px; }
+      .Input .input-range__track--active {
+        position: absolute;
+        bottom: 0;
+        background-color: #398DFA; }
+    .Input .input-range__slider {
       position: absolute;
-      bottom: 0;
-      height: 2px;
-      background-color: #398DFA; }
-    .Input .rangeslider__handle {
-      position: absolute;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       width: 20px;
       height: 20px;
@@ -130,33 +135,40 @@
       border-radius: 50%;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4); }
-      .Input .rangeslider__handle:focus {
+      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
+      transition: 200ms; }
+      .Input .input-range__slider:focus {
         outline: none; }
-      .Input .rangeslider__handle:before {
+      .Input .input-range__slider:active {
+        transform: translate(-50%, -50%) scale(1.1); }
+      .Input .input-range__slider:before {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 12px;
-        height: 12px;
+        width: 60%;
+        height: 60%;
         background-color: #398DFA;
-        border-radius: 50%; }
-    .Input .rangeslider__labels {
+        border-radius: 50%;
+        transition: inherit; }
+      .Input .input-range__slider-container {
+        height: 100%; }
+    .Input .input-range__label {
       position: absolute;
-      left: 0;
-      right: 0;
       top: 100%;
-      padding: 0;
-      margin: 10px 0 0;
-      list-style: none;
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: space-between;
+      margin-top: 10px;
       opacity: .6;
       font-size: 14px;
       pointer-events: none; }
+      .Input .input-range__label--min {
+        left: 0; }
+      .Input .input-range__label--max {
+        right: 0; }
+      .Input .input-range__label--value {
+        display: none;
+        left: 50%;
+        transform: translateX(-50%); }
   .Input_size_s {
     font-size: 16px; }
     .Input_size_s.Input_rounded {

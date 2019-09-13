@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
-import Slider from 'react-rangeslider'
+import InputRange from 'react-input-range'
 import { excludeProps, formatPrice } from '../helpers'
 
 export class Input extends React.Component {
@@ -199,13 +199,7 @@ export class Input extends React.Component {
     onChange && onChange(event)
   }
 
-  handleSliderChange (value) {
-    const { disabled, readOnly } = this.props
-
-    if (readOnly || disabled) {
-      return
-    }
-
+  handleRangeChange (value) {
     const event = {
       type: 'change',
       target: this.inputEl
@@ -328,21 +322,22 @@ export class Input extends React.Component {
     )
   }
 
-  renderSlider () {
-    const { min, max, step, rangeProps } = this.props
+  renderRange () {
+    const { min, max, step, readOnly, disabled, rangeProps } = this.props
     const value = Number(String(this.state.value).replace(/\D/g, ''))
 
     return (
-      <Slider
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        tooltip={false}
-        labels={{ 0: min, 100: max }}
-        {...rangeProps}
-        onChange={::this.handleSliderChange}
-      />
+      <div onMouseDown={((event) => event.stopPropagation())}>
+        <InputRange
+          minValue={min}
+          maxValue={max}
+          step={step}
+          value={value}
+          disabled={readOnly || disabled}
+          {...rangeProps}
+          onChange={::this.handleRangeChange}
+        />
+      </div>
     )
   }
 
@@ -425,7 +420,7 @@ export class Input extends React.Component {
           </div>
         }
         {!!this.getMenu().length && this.renderMenu()}
-        {type === 'range' && this.renderSlider()}
+        {type === 'range' && this.renderRange()}
       </this.props.component>
     )
   }

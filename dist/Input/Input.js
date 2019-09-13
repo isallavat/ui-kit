@@ -7,11 +7,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Input = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
@@ -27,9 +25,13 @@ var _classnames3 = _interopRequireDefault(require("classnames"));
 
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
-var _reactRangeslider = _interopRequireDefault(require("react-rangeslider"));
+var _reactInputRange = _interopRequireDefault(require("react-input-range"));
 
 var _helpers = require("../helpers");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var Input =
 /*#__PURE__*/
@@ -251,15 +253,7 @@ function (_React$Component) {
     onChange && onChange(event);
   };
 
-  _proto.handleSliderChange = function handleSliderChange(value) {
-    var _this$props6 = this.props,
-        disabled = _this$props6.disabled,
-        readOnly = _this$props6.readOnly;
-
-    if (readOnly || disabled) {
-      return;
-    }
-
+  _proto.handleRangeChange = function handleRangeChange(value) {
     var event = {
       type: 'change',
       target: this.inputEl
@@ -320,7 +314,7 @@ function (_React$Component) {
     }
 
     props.beforeMaskedValueChange = function (newState, oldState, userInput) {
-      var state = (0, _objectSpread2["default"])({}, newState);
+      var state = _objectSpread({}, newState);
 
       if (readOnly && !oldState.value) {
         state.value = oldState.value;
@@ -379,51 +373,54 @@ function (_React$Component) {
     })));
   };
 
-  _proto.renderSlider = function renderSlider() {
-    var _this$props7 = this.props,
-        min = _this$props7.min,
-        max = _this$props7.max,
-        step = _this$props7.step,
-        rangeProps = _this$props7.rangeProps;
+  _proto.renderRange = function renderRange() {
+    var _this$props6 = this.props,
+        min = _this$props6.min,
+        max = _this$props6.max,
+        step = _this$props6.step,
+        readOnly = _this$props6.readOnly,
+        disabled = _this$props6.disabled,
+        rangeProps = _this$props6.rangeProps;
     var value = Number(String(this.state.value).replace(/\D/g, ''));
-    return _react["default"].createElement(_reactRangeslider["default"], (0, _extends2["default"])({
-      min: min,
-      max: max,
+    return _react["default"].createElement("div", {
+      onMouseDown: function onMouseDown(event) {
+        return event.stopPropagation();
+      }
+    }, _react["default"].createElement(_reactInputRange["default"], (0, _extends2["default"])({
+      minValue: min,
+      maxValue: max,
       step: step,
       value: value,
-      tooltip: false,
-      labels: {
-        0: min,
-        100: max
-      }
+      disabled: readOnly || disabled
     }, rangeProps, {
-      onChange: this.handleSliderChange.bind(this)
-    }));
+      onChange: this.handleRangeChange.bind(this)
+    })));
   };
 
   _proto.render = function render() {
     var _classnames,
         _this6 = this;
 
-    var _this$props8 = this.props,
-        className = _this$props8.className,
-        componentProps = _this$props8.componentProps,
-        size = _this$props8.size,
-        color = _this$props8.color,
-        variant = _this$props8.variant,
-        rounded = _this$props8.rounded,
-        invalid = _this$props8.invalid,
-        disabled = _this$props8.disabled,
-        type = _this$props8.type,
-        label = _this$props8.label,
-        mask = _this$props8.mask,
-        maskChar = _this$props8.maskChar,
-        adornment = _this$props8.adornment,
-        adornmentPosition = _this$props8.adornmentPosition;
+    var _this$props7 = this.props,
+        className = _this$props7.className,
+        componentProps = _this$props7.componentProps,
+        size = _this$props7.size,
+        color = _this$props7.color,
+        variant = _this$props7.variant,
+        rounded = _this$props7.rounded,
+        invalid = _this$props7.invalid,
+        disabled = _this$props7.disabled,
+        type = _this$props7.type,
+        label = _this$props7.label,
+        mask = _this$props7.mask,
+        maskChar = _this$props7.maskChar,
+        adornment = _this$props7.adornment,
+        adornmentPosition = _this$props7.adornmentPosition;
     var _this$state4 = this.state,
         value = _this$state4.value,
         focused = _this$state4.focused;
-    var inputProps = (0, _objectSpread2["default"])({}, (0, _helpers.excludeProps)(this), {
+
+    var inputProps = _objectSpread({}, (0, _helpers.excludeProps)(this), {
       className: 'Input__element',
       disabled: disabled,
       type: type,
@@ -463,7 +460,7 @@ function (_React$Component) {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Input__adornment': true
       }, "Input__adornment_".concat(adornmentPosition), true))
-    }, adornment), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderSlider());
+    }, adornment), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
   };
 
   return Input;
