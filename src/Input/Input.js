@@ -142,7 +142,7 @@ export class Input extends React.Component {
       dropdownVisible: true
     }
 
-    if (menuSeletedItemIndex < 0) {
+    if (menuSeletedItemIndex === undefined) {
       state.menuSeletedItemIndex = this.getMenuSeletedItemIndex()
     }
 
