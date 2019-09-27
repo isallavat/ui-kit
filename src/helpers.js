@@ -22,7 +22,7 @@ export function formatDate (date, format) {
 }
 
 export function formatPrice (value) {
-  const parts = String(value).replace('.', ',').replace(/[^\d,]/g, '').split(',')
+  const parts = String(value).replace(',', '.').replace(/[^\d.]/g, '').split('.')
 
   let _value = parts[0].split('').reverse().reduce((accumulator, item, index, arr) => {
     accumulator.unshift(item)
@@ -35,7 +35,7 @@ export function formatPrice (value) {
   }, []).join('')
 
   if (parts.length > 1) {
-    _value += ',' + parts[1].slice(0, 2)
+    _value += '.' + parts[1].slice(0, 2)
   }
 
   return _value

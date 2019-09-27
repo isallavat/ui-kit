@@ -26,7 +26,7 @@ function formatDate(date, format) {
 }
 
 function formatPrice(value) {
-  var parts = String(value).replace('.', ',').replace(/[^\d,]/g, '').split(',');
+  var parts = String(value).replace(',', '.').replace(/[^\d.]/g, '').split('.');
 
   var _value = parts[0].split('').reverse().reduce(function (accumulator, item, index, arr) {
     accumulator.unshift(item);
@@ -39,7 +39,7 @@ function formatPrice(value) {
   }, []).join('');
 
   if (parts.length > 1) {
-    _value += ',' + parts[1].slice(0, 2);
+    _value += '.' + parts[1].slice(0, 2);
   }
 
   return _value;

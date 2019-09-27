@@ -29,8 +29,8 @@ export class Input extends React.Component {
 
     if (format === 'price') {
       value = formatPrice(value)
-    } else if (['number', 'range'].indexOf(type) >= 0 && !mask) {
-      value = value.replace(/\D/, '')
+    } else if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
+      value = value.replace(/\D/g, '')
     }
 
     return value
