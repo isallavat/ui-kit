@@ -308,9 +308,19 @@ function (_React$Component) {
     }
 
     if (props.type === 'plain') {
+      var value = props.value;
+      var menu = this.getMenu();
+
+      if (menu.length) {
+        var selectedItem = menu.filter(function (item) {
+          return String(item.value) === String(props.value);
+        })[0];
+        value = selectedItem.primary;
+      }
+
       return _react["default"].createElement("div", {
         className: props.className
-      }, props.value);
+      }, value);
     }
 
     props.beforeMaskedValueChange = function (newState, oldState, userInput) {
@@ -454,15 +464,15 @@ function (_React$Component) {
       onMouseUp: function onMouseUp() {
         _this6.mouseDown = false;
       }
-    }), _react["default"].createElement("div", {
-      className: "Input__container"
-    }, label && _react["default"].createElement("div", {
-      className: "Input__label"
-    }, label), this.renderElement(inputProps)), adornment && _react["default"].createElement("div", {
+    }), adornment && _react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Input__adornment': true
       }, "Input__adornment_".concat(adornmentPosition), true))
-    }, adornment), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
+    }, adornment), _react["default"].createElement("div", {
+      className: "Input__container"
+    }, label && _react["default"].createElement("div", {
+      className: "Input__label"
+    }, label), this.renderElement(inputProps)), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
   };
 
   return Input;

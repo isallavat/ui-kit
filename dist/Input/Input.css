@@ -75,9 +75,9 @@
     opacity: .6;
     transition: 300ms; }
   .Input__adornment_start {
-    order: -1;
     margin-right: 10px; }
   .Input__adornment_end {
+    order: 1;
     margin-left: 10px; }
   .Input__icon {
     vertical-align: top;

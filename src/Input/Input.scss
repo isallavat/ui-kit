@@ -107,11 +107,11 @@ $this: '.Input';
 
   &__adornment {
     &_start {
-      order: -1;
       margin-right: 10px;
     }
 
     &_end {
+      order: 1;
       margin-left: 10px;
     }
   }

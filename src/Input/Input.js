@@ -252,9 +252,17 @@ export class Input extends React.Component {
     }
 
     if (props.type === 'plain') {
+      let value = props.value
+      const menu = this.getMenu()
+
+      if (menu.length) {
+        const selectedItem = menu.filter((item) => String(item.value) === String(props.value))[0]
+        value = selectedItem.primary
+      }
+
       return (
         <div className={props.className}>
-          {props.value}
+          {value}
         </div>
       )
     }
@@ -405,12 +413,6 @@ export class Input extends React.Component {
         }}
         onMouseUp={() => { this.mouseDown = false }}
       >
-        <div className='Input__container'>
-          {label &&
-            <div className='Input__label'>{label}</div>
-          }
-          {this.renderElement(inputProps)}
-        </div>
         {adornment &&
           <div
             className={classnames({
@@ -421,6 +423,12 @@ export class Input extends React.Component {
             {adornment}
           </div>
         }
+        <div className='Input__container'>
+          {label &&
+            <div className='Input__label'>{label}</div>
+          }
+          {this.renderElement(inputProps)}
+        </div>
         {!!this.getMenu().length && this.renderMenu()}
         {type === 'range' && this.renderRange()}
       </this.props.component>
