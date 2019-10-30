@@ -39,7 +39,10 @@ function (_React$Component) {
   _proto.componentDidMount = function componentDidMount() {
     var seconds = this.props.seconds;
     var root = this.refs.root;
-    var circleLength = Math.PI * (root.offsetWidth - root.offsetWidth * 0.08);
+    var strokeWidth = 4; // percent
+
+    var diamentr = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100);
+    var circleLength = Math.PI * diamentr;
     this.setState({
       circleLength: circleLength
     });
@@ -48,14 +51,6 @@ function (_React$Component) {
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.timeout && clearTimeout(this.timeout);
-  };
-
-  _proto.setCircleLength = function setCircleLength() {
-    var root = this.refs.root;
-    var circleLength = Math.PI * (root.offsetWidth - root.offsetWidth * 0.08);
-    this.setState({
-      circleLength: circleLength
-    });
   };
 
   _proto.countdownSeconds = function countdownSeconds(seconds) {
@@ -79,7 +74,8 @@ function (_React$Component) {
         className = _this$props.className,
         color = _this$props.color,
         variant = _this$props.variant,
-        percent = _this$props.percent;
+        percent = _this$props.percent,
+        children = _this$props.children;
     var _this$state = this.state,
         value = _this$state.value,
         circleLength = _this$state.circleLength;
@@ -123,7 +119,7 @@ function (_React$Component) {
       height: "100%"
     })), value && _react["default"].createElement("div", {
       className: "Progress__value"
-    }, value));
+    }, value), children);
   };
 
   return Progress;

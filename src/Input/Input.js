@@ -24,12 +24,10 @@ export class Input extends React.Component {
   }
 
   noramlizeValue (value) {
-    const { type, format, mask } = this.props
+    const { type, mask } = this.props
     value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
-    if (format === 'price') {
-      value = formatPrice(value)
-    } else if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
+    if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
       value = value.replace(/\D/g, '')
     }
 
@@ -245,24 +243,26 @@ export class Input extends React.Component {
   }
 
   renderElement (props) {
-    const { readOnly } = this.props
+    const { format, readOnly } = this.props
+    const menu = this.getMenu()
 
-    if (this.getMenu().length) {
+    if (menu.length) {
       props.autoComplete = 'off'
     }
 
-    if (props.type === 'plain') {
-      let value = props.value
-      const menu = this.getMenu()
+    if (format === 'price') {
+      props.value = formatPrice(props.value)
+    }
 
+    if (props.type === 'plain') {
       if (menu.length) {
         const selectedItem = menu.filter((item) => String(item.value) === String(props.value))[0]
-        value = selectedItem.primary
+        props.value = selectedItem.primary
       }
 
       return (
         <div className={props.className}>
-          {value}
+          {props.value}
         </div>
       )
     }

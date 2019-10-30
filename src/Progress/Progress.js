@@ -13,7 +13,9 @@ export class Progress extends React.Component {
   componentDidMount () {
     const { seconds } = this.props
     const root = this.refs.root
-    const circleLength = Math.PI * (root.offsetWidth - root.offsetWidth * 0.08)
+    const strokeWidth = 4 // percent
+    const diamentr = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100)
+    const circleLength = Math.PI * diamentr
 
     this.setState({ circleLength })
 
@@ -22,13 +24,6 @@ export class Progress extends React.Component {
 
   componentWillUnmount () {
     this.timeout && clearTimeout(this.timeout)
-  }
-
-  setCircleLength () {
-    const root = this.refs.root
-    const circleLength = Math.PI * (root.offsetWidth - root.offsetWidth * 0.08)
-
-    this.setState({ circleLength })
   }
 
   countdownSeconds (seconds) {
@@ -47,7 +42,8 @@ export class Progress extends React.Component {
       className,
       color,
       variant,
-      percent
+      percent,
+      children
     } = this.props
     const { value, circleLength } = this.state
 
@@ -84,6 +80,7 @@ export class Progress extends React.Component {
           </svg>
         }
         {value && <div className='Progress__value'>{value}</div>}
+        {children}
       </this.props.component>
     )
   }

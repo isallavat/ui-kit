@@ -63,13 +63,10 @@ function (_React$Component) {
   _proto.noramlizeValue = function noramlizeValue(value) {
     var _this$props = this.props,
         type = _this$props.type,
-        format = _this$props.format,
         mask = _this$props.mask;
     value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
-    if (format === 'price') {
-      value = (0, _helpers.formatPrice)(value);
-    } else if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
+    if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
       value = value.replace(/\D/g, '');
     }
 
@@ -301,26 +298,30 @@ function (_React$Component) {
   _proto.renderElement = function renderElement(props) {
     var _this4 = this;
 
-    var readOnly = this.props.readOnly;
+    var _this$props6 = this.props,
+        format = _this$props6.format,
+        readOnly = _this$props6.readOnly;
+    var menu = this.getMenu();
 
-    if (this.getMenu().length) {
+    if (menu.length) {
       props.autoComplete = 'off';
     }
 
-    if (props.type === 'plain') {
-      var value = props.value;
-      var menu = this.getMenu();
+    if (format === 'price') {
+      props.value = (0, _helpers.formatPrice)(props.value);
+    }
 
+    if (props.type === 'plain') {
       if (menu.length) {
         var selectedItem = menu.filter(function (item) {
           return String(item.value) === String(props.value);
         })[0];
-        value = selectedItem.primary;
+        props.value = selectedItem.primary;
       }
 
       return _react["default"].createElement("div", {
         className: props.className
-      }, value);
+      }, props.value);
     }
 
     props.beforeMaskedValueChange = function (newState, oldState, userInput) {
@@ -384,13 +385,13 @@ function (_React$Component) {
   };
 
   _proto.renderRange = function renderRange() {
-    var _this$props6 = this.props,
-        min = _this$props6.min,
-        max = _this$props6.max,
-        step = _this$props6.step,
-        readOnly = _this$props6.readOnly,
-        disabled = _this$props6.disabled,
-        rangeProps = _this$props6.rangeProps;
+    var _this$props7 = this.props,
+        min = _this$props7.min,
+        max = _this$props7.max,
+        step = _this$props7.step,
+        readOnly = _this$props7.readOnly,
+        disabled = _this$props7.disabled,
+        rangeProps = _this$props7.rangeProps;
     var value = Number(String(this.state.value).replace(/\D/g, ''));
     value = value < min || isNaN(value) ? min : value;
     value = value > max ? max : value;
@@ -413,21 +414,21 @@ function (_React$Component) {
     var _classnames,
         _this6 = this;
 
-    var _this$props7 = this.props,
-        className = _this$props7.className,
-        componentProps = _this$props7.componentProps,
-        size = _this$props7.size,
-        color = _this$props7.color,
-        variant = _this$props7.variant,
-        rounded = _this$props7.rounded,
-        invalid = _this$props7.invalid,
-        disabled = _this$props7.disabled,
-        type = _this$props7.type,
-        label = _this$props7.label,
-        mask = _this$props7.mask,
-        maskChar = _this$props7.maskChar,
-        adornment = _this$props7.adornment,
-        adornmentPosition = _this$props7.adornmentPosition;
+    var _this$props8 = this.props,
+        className = _this$props8.className,
+        componentProps = _this$props8.componentProps,
+        size = _this$props8.size,
+        color = _this$props8.color,
+        variant = _this$props8.variant,
+        rounded = _this$props8.rounded,
+        invalid = _this$props8.invalid,
+        disabled = _this$props8.disabled,
+        type = _this$props8.type,
+        label = _this$props8.label,
+        mask = _this$props8.mask,
+        maskChar = _this$props8.maskChar,
+        adornment = _this$props8.adornment,
+        adornmentPosition = _this$props8.adornmentPosition;
     var _this$state4 = this.state,
         value = _this$state4.value,
         focused = _this$state4.focused;

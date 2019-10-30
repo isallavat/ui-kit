@@ -57,8 +57,15 @@ max.setYear(max.getFullYear() + 1);
       type='range'
       label='Range'
       min={0}
-      max={100}
+      max={100000}
       step={1}
+    />
+  </GridItem>
+  <GridItem mobile={12} tablet={6}>
+    <Input
+      type='number'
+      label='Price'
+      format='price'
     />
   </GridItem>
 </GridContainer>
