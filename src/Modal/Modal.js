@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { Progress } from '../Progress'
 import { excludeProps } from '../helpers'
 
 export class Modal extends React.Component {
@@ -34,6 +35,15 @@ export class Modal extends React.Component {
     onClose && onClose()
   }
 
+  update (props) {
+    const { visible } = this.state
+
+    if (visible) {
+      this._props = props
+      this.forceUpdate()
+    }
+  }
+
   preventWindowScroll (event) {
     window.scrollTo(0, this.pageYOffset)
     event.preventDefault()
@@ -53,7 +63,10 @@ export class Modal extends React.Component {
   handleMouseDown (event) {
     const window = this.refs.window
 
-    if (window !== event.target && !window.contains(event.target)) {
+    if (
+      !window ||
+      (window !== event.target && !window.contains(event.target))
+    ) {
       this.close()
     }
   }
@@ -71,7 +84,8 @@ export class Modal extends React.Component {
       className,
       size,
       title,
-      closeButton
+      closeButton,
+      loading
     } = this.getMergedProps()
     const { visible } = this.state
 
@@ -88,16 +102,21 @@ export class Modal extends React.Component {
           onMouseDown={::this.handleMouseDown}
         >
           <div className='Modal__overlay' />
-          <div className='Modal__container'>
-            <div className='Modal__window' ref='window'>
-              <div className='Modal__header'>
-                <h3 className='Modal__title'>{title}</h3>
-                {closeButton === 'inside' && this.renderClose()}
+          {loading
+            ? <Progress className='Modal__progress' color='current' />
+            : <Fragment>
+              <div className='Modal__container'>
+                <div className='Modal__window' ref='window'>
+                  <div className='Modal__header'>
+                    <h3 className='Modal__title'>{title}</h3>
+                    {closeButton === 'inside' && this.renderClose()}
+                  </div>
+                  <div className='Modal__content'>{this.renderContent()}</div>
+                </div>
               </div>
-              <div className='Modal__content'>{this.renderContent()}</div>
-            </div>
-          </div>
-          {closeButton === 'outside' && this.renderClose()}
+              {closeButton === 'outside' && this.renderClose()}
+            </Fragment>
+          }
         </this.props.component>
         : ''
     )

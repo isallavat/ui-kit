@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,11 +15,13 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames2 = _interopRequireDefault(require("classnames"));
+
+var _Progress = require("../Progress");
 
 var _helpers = require("../helpers");
 
@@ -68,6 +72,15 @@ function (_React$Component) {
     onClose && onClose();
   };
 
+  _proto.update = function update(props) {
+    var visible = this.state.visible;
+
+    if (visible) {
+      this._props = props;
+      this.forceUpdate();
+    }
+  };
+
   _proto.preventWindowScroll = function preventWindowScroll(event) {
     window.scrollTo(0, this.pageYOffset);
     event.preventDefault();
@@ -87,7 +100,7 @@ function (_React$Component) {
   _proto.handleMouseDown = function handleMouseDown(event) {
     var window = this.refs.window;
 
-    if (window !== event.target && !window.contains(event.target)) {
+    if (!window || window !== event.target && !window.contains(event.target)) {
       this.close();
     }
   };
@@ -108,7 +121,8 @@ function (_React$Component) {
         className = _this$getMergedProps.className,
         size = _this$getMergedProps.size,
         title = _this$getMergedProps.title,
-        closeButton = _this$getMergedProps.closeButton;
+        closeButton = _this$getMergedProps.closeButton,
+        loading = _this$getMergedProps.loading;
 
     var visible = this.state.visible;
     var classNames = (0, _classnames2["default"])((0, _defineProperty2["default"])({
@@ -120,7 +134,10 @@ function (_React$Component) {
       onMouseDown: this.handleMouseDown.bind(this)
     }), _react["default"].createElement("div", {
       className: "Modal__overlay"
-    }), _react["default"].createElement("div", {
+    }), loading ? _react["default"].createElement(_Progress.Progress, {
+      className: "Modal__progress",
+      color: "current"
+    }) : _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
       className: "Modal__container"
     }, _react["default"].createElement("div", {
       className: "Modal__window",
@@ -131,7 +148,7 @@ function (_React$Component) {
       className: "Modal__title"
     }, title), closeButton === 'inside' && this.renderClose()), _react["default"].createElement("div", {
       className: "Modal__content"
-    }, this.renderContent()))), closeButton === 'outside' && this.renderClose()) : '';
+    }, this.renderContent()))), closeButton === 'outside' && this.renderClose())) : '';
   };
 
   return Modal;

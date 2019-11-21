@@ -60,6 +60,14 @@
       transform: translate(-50%, -50%) rotate(45deg); }
     .Modal__close:after {
       transform: translate(-50%, -50%) rotate(-45deg); }
+  .Modal__progress {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    width: 100px;
+    height: 100px; }
   .Modal_size_s .Modal__window {
     max-width: 320px; }
   .Modal_size_m .Modal__window {
