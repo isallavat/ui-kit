@@ -386,8 +386,10 @@ function (_React$Component) {
 
   _proto.renderRange = function renderRange() {
     var _this$props7 = this.props,
-        min = _this$props7.min,
-        max = _this$props7.max,
+        _this$props7$min = _this$props7.min,
+        min = _this$props7$min === void 0 ? 0 : _this$props7$min,
+        _this$props7$max = _this$props7.max,
+        max = _this$props7$max === void 0 ? 0 : _this$props7$max,
         step = _this$props7.step,
         readOnly = _this$props7.readOnly,
         disabled = _this$props7.disabled,

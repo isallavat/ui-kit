@@ -331,7 +331,7 @@ export class Input extends React.Component {
   }
 
   renderRange () {
-    const { min, max, step, readOnly, disabled, rangeProps } = this.props
+    const { min = 0, max = 0, step, readOnly, disabled, rangeProps } = this.props
     let value = Number(String(this.state.value).replace(/\D/g, ''))
     value = value < min || isNaN(value) ? min : value
     value = value > max ? max : value
