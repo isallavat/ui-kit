@@ -45,6 +45,11 @@ function (_React$Component) {
     _this.state = {
       value: _this.noramlizeValue(props.value) || _this.noramlizeValue(props.defaultValue)
     };
+
+    if (props.defaultValue !== undefined) {
+      _this.state.value = _this.noramlizeValue(props.defaultValue);
+    }
+
     return _this;
   }
 

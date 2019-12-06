@@ -13,6 +13,10 @@ export class Input extends React.Component {
     this.state = {
       value: this.noramlizeValue(props.value) || this.noramlizeValue(props.defaultValue)
     }
+
+    if (props.defaultValue !== undefined) {
+      this.state.value = this.noramlizeValue(props.defaultValue)
+    }
   }
 
   componentDidUpdate (prevProps) {
