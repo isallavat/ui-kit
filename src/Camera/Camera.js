@@ -177,6 +177,10 @@ export class Camera extends React.Component {
     const root = this.refs.root
     const video = this.refs.video
 
+    if (!video) {
+      return
+    }
+
     let height = root.offsetHeight
     let width = video.videoWidth * (height / video.videoHeight)
 

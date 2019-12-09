@@ -215,6 +215,11 @@ function (_React$Component) {
   _proto.setVideoDimensions = function setVideoDimensions() {
     var root = this.refs.root;
     var video = this.refs.video;
+
+    if (!video) {
+      return;
+    }
+
     var height = root.offsetHeight;
     var width = video.videoWidth * (height / video.videoHeight);
 
