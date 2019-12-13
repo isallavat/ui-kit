@@ -68,11 +68,13 @@ function (_React$Component) {
   _proto.noramlizeValue = function noramlizeValue(value) {
     var _this$props = this.props,
         type = _this$props.type,
-        mask = _this$props.mask;
+        format = _this$props.format;
     value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
-    if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
+    if (type === 'tel' || type === 'number' && format !== 'price') {
       value = value.replace(/\D/g, '');
+    } else if (['number', 'range'].indexOf(type) >= 0) {
+      value = value.replace(/[^\d.]/g, '');
     }
 
     return value;
@@ -399,7 +401,7 @@ function (_React$Component) {
         readOnly = _this$props7.readOnly,
         disabled = _this$props7.disabled,
         rangeProps = _this$props7.rangeProps;
-    var value = Number(String(this.state.value).replace(/\D/g, ''));
+    var value = Number(this.state.value);
     value = value < min || isNaN(value) ? min : value;
     value = value > max ? max : value;
     return _react["default"].createElement("div", {

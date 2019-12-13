@@ -28,11 +28,16 @@ export class Input extends React.Component {
   }
 
   noramlizeValue (value) {
-    const { type, mask } = this.props
+    const { type, format } = this.props
     value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
-    if (['tel', 'number', 'range'].indexOf(type) >= 0 && !mask) {
+    if (
+      type === 'tel' ||
+      (type === 'number' && format !== 'price')
+    ) {
       value = value.replace(/\D/g, '')
+    } else if (['number', 'range'].indexOf(type) >= 0) {
+      value = value.replace(/[^\d.]/g, '')
     }
 
     return value
@@ -336,7 +341,7 @@ export class Input extends React.Component {
 
   renderRange () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps } = this.props
-    let value = Number(String(this.state.value).replace(/\D/g, ''))
+    let value = Number(this.state.value)
     value = value < min || isNaN(value) ? min : value
     value = value > max ? max : value
 

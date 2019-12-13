@@ -58,7 +58,7 @@ max.setYear(max.getFullYear() + 1);
       label='Range'
       min={0}
       max={100000}
-      step={1}
+      step={1000}
     />
   </GridItem>
   <GridItem mobile={12} tablet={6}>
