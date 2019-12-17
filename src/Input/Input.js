@@ -189,11 +189,7 @@ export class Input extends React.Component {
       return
     }
 
-    const state = {
-      value
-    }
-
-    event.target.value = value
+    const state = { value }
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1

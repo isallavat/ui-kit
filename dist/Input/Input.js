@@ -244,7 +244,6 @@ function (_React$Component) {
     var state = {
       value: value
     };
-    event.target.value = value;
 
     if (event.type === 'change') {
       state.menuSeletedItemIndex = -1;
