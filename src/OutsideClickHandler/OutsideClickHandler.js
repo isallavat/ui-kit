@@ -9,11 +9,20 @@ export class OutsideClickHandler extends React.Component {
   }
 
   componentDidMount () {
-    document.addEventListener('click', this.handleClick, true)
+    if (this.isTouchableDevice()) {
+      document.addEventListener('touchstart', this.handleClick, true)
+    } else {
+      document.addEventListener('click', this.handleClick, true)
+    }
   }
 
   componentWillUnmount () {
+    document.removeEventListener('touchstart', this.handleClick, true)
     document.removeEventListener('click', this.handleClick, true)
+  }
+
+  isTouchableDevice () {
+    return 'ontouchstart' in window
   }
 
   handleClick (event) {

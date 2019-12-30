@@ -31,11 +31,20 @@ function (_React$Component) {
   var _proto = OutsideClickHandler.prototype;
 
   _proto.componentDidMount = function componentDidMount() {
-    document.addEventListener('click', this.handleClick, true);
+    if (this.isTouchableDevice()) {
+      document.addEventListener('touchstart', this.handleClick, true);
+    } else {
+      document.addEventListener('click', this.handleClick, true);
+    }
   };
 
   _proto.componentWillUnmount = function componentWillUnmount() {
+    document.removeEventListener('touchstart', this.handleClick, true);
     document.removeEventListener('click', this.handleClick, true);
+  };
+
+  _proto.isTouchableDevice = function isTouchableDevice() {
+    return 'ontouchstart' in window;
   };
 
   _proto.handleClick = function handleClick(event) {

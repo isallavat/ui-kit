@@ -131,7 +131,8 @@ function (_React$Component) {
     return visible ? _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
-      onMouseDown: this.handleMouseDown.bind(this)
+      onMouseDown: this.handleMouseDown.bind(this),
+      onTouchStart: this.handleMouseDown.bind(this)
     }), _react["default"].createElement("div", {
       className: "Modal__overlay"
     }), loading ? _react["default"].createElement(_Progress.Progress, {

@@ -100,6 +100,7 @@ export class Modal extends React.Component {
           className={classNames}
           {...excludeProps(this)}
           onMouseDown={::this.handleMouseDown}
+          onTouchStart={::this.handleMouseDown}
         >
           <div className='Modal__overlay' />
           {loading
