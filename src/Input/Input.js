@@ -76,8 +76,27 @@ export class Input extends React.Component {
     return filterMenu ? this.filterMenu(_menu, value) : _menu
   }
 
+  findString (children, value) {
+    const arr = []
+    for (let key in children) {
+      if (typeof children[key] === 'string') {
+        return !value || children[key].match(new RegExp(this.escapeString(value), 'i'))
+      } else if (children[key].props.children) {
+        arr.push(children[key].props.children)
+      }
+    }
+
+    if (arr.length) {
+      return this.findString(arr, value)
+    }
+  }
+
   filterMenu (menu, value) {
     return menu.filter((item) => {
+      if (value && typeof item.primary !== 'string') {
+        return this.findString(item.primary.props.children, value)
+      }
+
       return !value || item.primary.match(new RegExp(this.escapeString(value), 'i'))
     })
   }
