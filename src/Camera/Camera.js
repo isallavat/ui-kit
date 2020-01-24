@@ -20,6 +20,7 @@ export class Camera extends React.Component {
 
     this.handleKeyUp = ::this.handleKeyUp
     this.handleWindowResize = ::this.handleWindowResize
+    this.handleVisualViewportResize = ::this.handleVisualViewportResize
     this.preventWindowScroll = ::this.preventWindowScroll
   }
 
@@ -71,7 +72,12 @@ export class Camera extends React.Component {
     }
 
     document.addEventListener('keyup', this.handleKeyUp)
-    window.addEventListener('resize', this.handleWindowResize)
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', this.handleVisualViewportResize)
+    } else {
+      window.addEventListener('resize', this.handleWindowResize)
+    }
   }
 
   beforeClose () {
@@ -79,8 +85,14 @@ export class Camera extends React.Component {
 
     this.videoStreamTrack && this.videoStreamTrack.stop()
     document.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleWindowResize)
     window.removeEventListener('scroll', this.preventWindowScroll)
+
+    if (window.visualViewport) {
+      this.refs.root.removeAttribute('style')
+      window.visualViewport.removeEventListener('resize', this.handleVisualViewportResize)
+    } else {
+      window.removeEventListener('resize', this.handleWindowResize)
+    }
   }
 
   preventWindowScroll (event) {
@@ -283,6 +295,11 @@ export class Camera extends React.Component {
 
   handleWindowResize () {
     this.setVideoDimensions()
+  }
+
+  handleVisualViewportResize () {
+    this.refs.root.style.height = window.visualViewport.height + 'px'
+    this.handleWindowResize()
   }
 
   renderLeftSide () {
