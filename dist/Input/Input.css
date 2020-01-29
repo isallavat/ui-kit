@@ -98,6 +98,9 @@
       opacity: 1;
       visibility: visible;
       transform: translateY(5px); }
+    .Input__dropdown.--right {
+      right: 0;
+      left: unset; }
   .Input__menu {
     overflow-y: auto;
     max-height: 250px; }

@@ -139,6 +139,11 @@ $this: '.Input';
       visibility: visible;
       transform: translateY(5px);
     }
+
+    &.--right {
+      right: 0;
+      left: unset;
+    }
   }
 
   &__menu {
