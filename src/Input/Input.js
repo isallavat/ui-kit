@@ -313,13 +313,15 @@ export class Input extends React.Component {
 
   renderDropdown (children) {
     const { dropdownVisible } = this.state
+    const { position } = this.props
 
     return (
       <div
         ref='dropdown'
         className={classnames({
           'Input__dropdown': true,
-          '--visible': dropdownVisible
+          '--visible': dropdownVisible,
+          '--right': position === 'right'
         })}
       >
         {children}
@@ -501,7 +503,8 @@ Input.propTypes = {
   ]),
   filterMenu: PropTypes.bool,
   step: PropTypes.number,
-  rangeProps: PropTypes.object
+  rangeProps: PropTypes.object,
+  position: PropTypes.string
 }
 
 Input.defaultProps = {

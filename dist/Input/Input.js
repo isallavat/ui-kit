@@ -369,11 +369,13 @@ function (_React$Component) {
 
   _proto.renderDropdown = function renderDropdown(children) {
     var dropdownVisible = this.state.dropdownVisible;
+    var position = this.props.position;
     return _react["default"].createElement("div", {
       ref: "dropdown",
       className: (0, _classnames3["default"])({
         'Input__dropdown': true,
-        '--visible': dropdownVisible
+        '--visible': dropdownVisible,
+        '--right': position === 'right'
       })
     }, children);
   };
@@ -530,7 +532,8 @@ Input.propTypes = {
   menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   filterMenu: _propTypes["default"].bool,
   step: _propTypes["default"].number,
-  rangeProps: _propTypes["default"].object
+  rangeProps: _propTypes["default"].object,
+  position: _propTypes["default"].string
 };
 Input.defaultProps = {
   component: 'div',
