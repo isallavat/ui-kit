@@ -25,6 +25,7 @@ var _helpers = require("../helpers");
 
 require("./polyfill");
 
+// Была попытка использовать ImageCapture. Не подходит. Так как на android-планшете не фотка, а говно
 var Camera =
 /*#__PURE__*/
 function (_React$Component) {
@@ -40,7 +41,13 @@ function (_React$Component) {
     _this.constraints = {
       audio: false,
       video: {
-        facingMode: props.facingMode
+        facingMode: props.facingMode,
+        width: {
+          ideal: props.width
+        },
+        height: {
+          ideal: props.height
+        }
       }
     };
     _this.handleKeyUp = (_context = _this).handleKeyUp.bind(_context);
@@ -123,6 +130,7 @@ function (_React$Component) {
     this.setState({
       progress: true
     });
+    this.videoStreamTrack && this.videoStreamTrack.stop();
     return this.initCamera().then(function () {
       _this3.setState({
         progress: false
@@ -142,35 +150,31 @@ function (_React$Component) {
     var _this4 = this;
 
     return new Promise(function (resolve, reject) {
-      _this4.videoStreamTrack && _this4.videoStreamTrack.stop();
-
       _this4.getUserMedia(_this4.constraints).then(function (stream) {
         _this4.videoStreamTrack = stream.getVideoTracks()[0];
 
-        _this4.tryMaximize().then(function () {
-          _this4.setState({
-            visible: true
-          }, function () {
-            var video = _this4.refs.video;
+        _this4.setState({
+          visible: true
+        }, function () {
+          var video = _this4.refs.video;
 
-            if ('srcObject' in video) {
-              video.srcObject = stream;
-            } else {
-              video.src = URL.createObjectURL(stream);
+          if ('srcObject' in video) {
+            video.srcObject = stream;
+          } else {
+            video.src = URL.createObjectURL(stream);
+          }
+
+          video.muted = true;
+          video.setAttribute('playsinline', '');
+          video.play();
+
+          video.onloadeddata = function () {
+            if (_this4.opened) {
+              _this4.setVideoDimensions();
+
+              resolve();
             }
-
-            video.muted = true;
-            video.setAttribute('playsinline', '');
-            video.play();
-
-            video.onloadeddata = function () {
-              if (_this4.opened) {
-                _this4.setVideoDimensions();
-
-                resolve();
-              }
-            };
-          });
+          };
         });
       })["catch"](reject);
     });
@@ -198,17 +202,23 @@ function (_React$Component) {
   };
 
   _proto.tryMaximize = function tryMaximize() {
+    var _this5 = this;
+
     return new Promise(function (resolve, reject) {
-      resolve(); // var capabilities = this.videoStreamTrack.getCapabilities()
-      // if (capabilities) {
-      //   this.videoStreamTrack.applyConstraints({
-      //     advanced: [
-      //       { width: capabilities.width.max, height: capabilities.height.max }
-      //     ]
-      //   }).then(resolve).catch(resolve)
-      // } else {
-      //   resolve()
-      // }
+      var capabilities = _this5.videoStreamTrack.getCapabilities();
+
+      if (capabilities) {
+        _this5.videoStreamTrack.applyConstraints({
+          width: {
+            ideal: capabilities.width.max
+          },
+          height: {
+            ideal: capabilities.height.max
+          }
+        }).then(resolve)["catch"](resolve);
+      } else {
+        resolve();
+      }
     });
   };
 
@@ -251,13 +261,21 @@ function (_React$Component) {
   };
 
   _proto.getSnapshotCanvas = function getSnapshotCanvas() {
-    return this.getFrameCanvas();
+    var frameCanvas = this.getFrameCanvas();
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var video = this.refs.video;
+    var k = video.videoWidth / video.width;
+    canvas.width = frameCanvas.width * k;
+    canvas.height = frameCanvas.height * k;
+    ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
+    return canvas;
   };
 
   _proto.handleInit = function handleInit() {};
 
   _proto.handleCapture = function handleCapture() {
-    var _this5 = this;
+    var _this6 = this;
 
     var onCapture = this.props.onCapture;
 
@@ -270,7 +288,7 @@ function (_React$Component) {
       capturing: true
     });
     this.getSnapshotCanvas().toBlob(function (blob) {
-      _this5.setState({
+      _this6.setState({
         capturing: false,
         snapshot: blob
       });
@@ -453,6 +471,8 @@ Camera.propTypes = {
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   fullscreen: _propTypes["default"].bool,
   facingMode: _propTypes["default"].oneOf(['environment', 'user']),
+  width: _propTypes["default"].number,
+  height: _propTypes["default"].number,
   onCapture: _propTypes["default"].func,
   onApply: _propTypes["default"].func,
   onReset: _propTypes["default"].func,
@@ -460,6 +480,8 @@ Camera.propTypes = {
   onClose: _propTypes["default"].func
 };
 Camera.defaultProps = {
+  width: 1920,
+  height: 1080,
   component: 'div',
   facingMode: 'environment',
   fullscreen: true

@@ -5,6 +5,8 @@ import { Progress } from '../Progress'
 import { excludeProps } from '../helpers'
 import './polyfill'
 
+// Была попытка использовать ImageCapture. Не подходит. Так как на android-планшете не фотка, а говно
+
 export class Camera extends React.Component {
   constructor (props) {
     super(props)
@@ -14,7 +16,9 @@ export class Camera extends React.Component {
     this.constraints = {
       audio: false,
       video: {
-        facingMode: props.facingMode
+        facingMode: props.facingMode,
+        width: { ideal: props.width },
+        height: { ideal: props.height }
       }
     }
 
@@ -91,6 +95,7 @@ export class Camera extends React.Component {
 
   init () {
     this.setState({ progress: true })
+    this.videoStreamTrack && this.videoStreamTrack.stop()
 
     return this.initCamera()
       .then(() => {
@@ -105,31 +110,27 @@ export class Camera extends React.Component {
 
   initCamera () {
     return new Promise((resolve, reject) => {
-      this.videoStreamTrack && this.videoStreamTrack.stop()
-
       this.getUserMedia(this.constraints).then((stream) => {
         this.videoStreamTrack = stream.getVideoTracks()[0]
-        this.tryMaximize().then(() => {
-          this.setState({ visible: true }, () => {
-            const video = this.refs.video
+        this.setState({ visible: true }, () => {
+          const video = this.refs.video
 
-            if ('srcObject' in video) {
-              video.srcObject = stream
-            } else {
-              video.src = URL.createObjectURL(stream)
+          if ('srcObject' in video) {
+            video.srcObject = stream
+          } else {
+            video.src = URL.createObjectURL(stream)
+          }
+
+          video.muted = true
+          video.setAttribute('playsinline', '')
+          video.play()
+
+          video.onloadeddata = () => {
+            if (this.opened) {
+              this.setVideoDimensions()
+              resolve()
             }
-
-            video.muted = true
-            video.setAttribute('playsinline', '')
-            video.play()
-
-            video.onloadeddata = () => {
-              if (this.opened) {
-                this.setVideoDimensions()
-                resolve()
-              }
-            }
-          })
+          }
         })
       }).catch(reject)
     })
@@ -159,17 +160,15 @@ export class Camera extends React.Component {
 
   tryMaximize () {
     return new Promise((resolve, reject) => {
-      resolve()
-      // var capabilities = this.videoStreamTrack.getCapabilities()
-      // if (capabilities) {
-      //   this.videoStreamTrack.applyConstraints({
-      //     advanced: [
-      //       { width: capabilities.width.max, height: capabilities.height.max }
-      //     ]
-      //   }).then(resolve).catch(resolve)
-      // } else {
-      //   resolve()
-      // }
+      var capabilities = this.videoStreamTrack.getCapabilities()
+      if (capabilities) {
+        this.videoStreamTrack.applyConstraints({
+          width: { ideal: capabilities.width.max },
+          height: { ideal: capabilities.height.max }
+        }).then(resolve).catch(resolve)
+      } else {
+        resolve()
+      }
     })
   }
 
@@ -217,7 +216,18 @@ export class Camera extends React.Component {
   }
 
   getSnapshotCanvas () {
-    return this.getFrameCanvas()
+    const frameCanvas = this.getFrameCanvas()
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const video = this.refs.video
+    const k = video.videoWidth / video.width
+
+    canvas.width = frameCanvas.width * k
+    canvas.height = frameCanvas.height * k
+
+    ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height)
+
+    return canvas
   }
 
   handleInit () {}
@@ -419,6 +429,8 @@ Camera.propTypes = {
   facingMode: PropTypes.oneOf([
     'environment', 'user'
   ]),
+  width: PropTypes.number,
+  height: PropTypes.number,
   onCapture: PropTypes.func,
   onApply: PropTypes.func,
   onReset: PropTypes.func,
@@ -427,6 +439,8 @@ Camera.propTypes = {
 }
 
 Camera.defaultProps = {
+  width: 1920,
+  height: 1080,
   component: 'div',
   facingMode: 'environment',
   fullscreen: true
