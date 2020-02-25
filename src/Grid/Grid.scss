@@ -29,6 +29,12 @@ $this: '.Grid';
       &_right {
         justify-content: flex-end;
       }
+      &_between {
+        justify-content: space-between;
+      }
+      &_around {
+        justify-content: space-around;
+      }
     }
 
     &_valign {
