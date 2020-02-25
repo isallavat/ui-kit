@@ -56,7 +56,7 @@ GridContainer.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   spacing: _propTypes["default"].number,
-  align: _propTypes["default"].oneOf(['left', 'center', 'right']),
+  align: _propTypes["default"].oneOf(['left', 'center', 'right', 'around', 'between']),
   valign: _propTypes["default"].oneOf(['top', 'center', 'bottom'])
 };
 GridContainer.defaultProps = {

@@ -208,6 +208,10 @@
     justify-content: center; }
   .GridContainer_align_right {
     justify-content: flex-end; }
+  .GridContainer_align_between {
+    justify-content: space-between; }
+  .GridContainer_align_around {
+    justify-content: space-around; }
   .GridContainer_valign_top {
     align-items: flex-start; }
   .GridContainer_valign_center {

@@ -33,7 +33,7 @@ GridContainer.propTypes = {
   ]),
   spacing: PropTypes.number,
   align: PropTypes.oneOf([
-    'left', 'center', 'right'
+    'left', 'center', 'right', 'around', 'between'
   ]),
   valign: PropTypes.oneOf([
     'top', 'center', 'bottom'
