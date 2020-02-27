@@ -138,11 +138,11 @@ function (_React$Component) {
     var _this2 = this;
 
     return menu.filter(function (item) {
-      if (value && typeof item.primary !== 'string') {
+      if (value && typeof item.primary !== 'string' && item.primary.props) {
         return _this2.findString(item.primary.props.children, value);
       }
 
-      return !value || item.primary.match(new RegExp(_this2.escapeString(value), 'i'));
+      return !value || item.primary.toString().match(new RegExp(_this2.escapeString(value), 'i'));
     });
   };
 
@@ -301,7 +301,7 @@ function (_React$Component) {
       state.menuSeletedItemIndex = menuSeletedItemIndex > 0 ? menuSeletedItemIndex - 1 : menu.length - 1;
     } else if (event.keyCode === 40) {
       state.menuSeletedItemIndex = menuSeletedItemIndex < menu.length - 1 ? menuSeletedItemIndex + 1 : 0;
-    } else if (event.keyCode === 13) {
+    } else if (event.keyCode === 13 && dropdownVisible) {
       event.preventDefault();
       var selectedMenuItem = menu[menuSeletedItemIndex];
       selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSeletedItemIndex, event);

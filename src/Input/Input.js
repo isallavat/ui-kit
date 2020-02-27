@@ -93,11 +93,11 @@ export class Input extends React.Component {
 
   filterMenu (menu, value) {
     return menu.filter((item) => {
-      if (value && typeof item.primary !== 'string') {
+      if (value && typeof item.primary !== 'string' && item.primary.props) {
         return this.findString(item.primary.props.children, value)
       }
 
-      return !value || item.primary.match(new RegExp(this.escapeString(value), 'i'))
+      return !value || item.primary.toString().match(new RegExp(this.escapeString(value), 'i'))
     })
   }
 
@@ -246,7 +246,7 @@ export class Input extends React.Component {
       state.menuSeletedItemIndex = menuSeletedItemIndex > 0 ? menuSeletedItemIndex - 1 : menu.length - 1
     } else if (event.keyCode === 40) {
       state.menuSeletedItemIndex = menuSeletedItemIndex < menu.length - 1 ? menuSeletedItemIndex + 1 : 0
-    } else if (event.keyCode === 13) {
+    } else if (event.keyCode === 13 && dropdownVisible) {
       event.preventDefault()
       const selectedMenuItem = menu[menuSeletedItemIndex]
       selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSeletedItemIndex, event)
