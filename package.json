@@ -36,6 +36,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.0.2",
+    "nl2br": "0.0.3",
     "node-sass": "^4.11.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

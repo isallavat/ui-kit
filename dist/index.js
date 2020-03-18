@@ -75,6 +75,12 @@ Object.defineProperty(exports, "InputDate", {
     return _Input.InputDate;
   }
 });
+Object.defineProperty(exports, "InputArea", {
+  enumerable: true,
+  get: function get() {
+    return _Input.InputArea;
+  }
+});
 Object.defineProperty(exports, "Menu", {
   enumerable: true,
   get: function get() {

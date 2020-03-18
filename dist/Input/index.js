@@ -21,6 +21,12 @@ Object.defineProperty(exports, "InputSelect", {
     return _InputSelect.InputSelect;
   }
 });
+Object.defineProperty(exports, "InputArea", {
+  enumerable: true,
+  get: function get() {
+    return _InputArea.InputArea;
+  }
+});
 
 require("./Input.css");
 
@@ -29,3 +35,5 @@ var _Input2 = require("./Input");
 var _InputDate = require("./InputDate");
 
 var _InputSelect = require("./InputSelect");
+
+var _InputArea = require("./InputArea");

@@ -16,7 +16,7 @@ import { GridContainer, GridItem } from '../Grid';
 ```
 
 ```js
-import { Input, InputDate, InputSelect } from '../Input';
+import { Input, InputDate, InputSelect, InputArea } from '../Input';
 import { GridContainer, GridItem } from '../Grid';
 import menu from './menu';
 
@@ -67,6 +67,9 @@ max.setYear(max.getFullYear() + 1);
       label='Price'
       format='price'
     />
+  </GridItem>
+  <GridItem mobile={12} tablet={6}>
+    <InputArea label='InputArea' />
   </GridItem>
 </GridContainer>
 ```
