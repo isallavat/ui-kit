@@ -54,7 +54,7 @@ export class Input extends React.Component {
 
     if (type !== 'select' && !value) {
       return _menu
-    } if (menu instanceof Array) {
+    } else if (menu instanceof Array) {
       _menu = menu
     } else if (menu instanceof Object) {
       _menu = Object.keys(menu || {}).map((key) => {
@@ -279,8 +279,8 @@ export class Input extends React.Component {
     }
 
     if (props.type === 'plain') {
-      if (menu.length) {
-        const selectedItem = menu.filter((item) => String(item.value) === String(props.value))[0]
+      const selectedItem = menu.filter((item) => String(item.value) === String(props.value))[0]
+      if (selectedItem) {
         props.value = selectedItem.primary
       }
 

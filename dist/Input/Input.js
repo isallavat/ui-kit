@@ -94,9 +94,7 @@ function (_React$Component) {
 
     if (type !== 'select' && !value) {
       return _menu;
-    }
-
-    if (menu instanceof Array) {
+    } else if (menu instanceof Array) {
       _menu = menu;
     } else if (menu instanceof Object) {
       _menu = Object.keys(menu || {}).map(function (key) {
@@ -338,10 +336,11 @@ function (_React$Component) {
     }
 
     if (props.type === 'plain') {
-      if (menu.length) {
-        var selectedItem = menu.filter(function (item) {
-          return String(item.value) === String(props.value);
-        })[0];
+      var selectedItem = menu.filter(function (item) {
+        return String(item.value) === String(props.value);
+      })[0];
+
+      if (selectedItem) {
         props.value = selectedItem.primary;
       }
 

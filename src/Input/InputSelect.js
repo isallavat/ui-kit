@@ -49,14 +49,14 @@ export class InputSelect extends Input {
 
     return (
       <Fragment>
-        {!searchValue && selectedItem &&
+        {!searchValue &&
           <div
             className={classnames(
               props.className,
               'Input__element_fake'
             )}
           >
-            {selectedItem.primary}
+            {selectedItem ? selectedItem.primary : value}
           </div>
         }
         {super.renderElement(props)}

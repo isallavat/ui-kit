@@ -95,9 +95,9 @@ function (_Input) {
     props.type = 'text';
     props.value = searchValue;
     props.onChange = this.handleSearch.bind(this);
-    return _react["default"].createElement(_react.Fragment, null, !searchValue && selectedItem && _react["default"].createElement("div", {
+    return _react["default"].createElement(_react.Fragment, null, !searchValue && _react["default"].createElement("div", {
       className: (0, _classnames["default"])(props.className, 'Input__element_fake')
-    }, selectedItem.primary), _Input.prototype.renderElement.call(this, props));
+    }, selectedItem ? selectedItem.primary : value), _Input.prototype.renderElement.call(this, props));
   };
 
   return InputSelect;
