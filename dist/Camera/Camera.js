@@ -322,7 +322,9 @@ function (_React$Component) {
   };
 
   _proto.handleKeyUp = function handleKeyUp(event) {
-    var snapshot = this.state.snapshot;
+    var _this$state = this.state,
+        snapshot = _this$state.snapshot,
+        progress = _this$state.progress;
 
     if (event.keyCode === 13 && snapshot) {
       this.handleApply();
@@ -330,7 +332,7 @@ function (_React$Component) {
       this.handleReset();
     } else if (event.keyCode === 27) {
       this.close();
-    } else if (event.keyCode === 32) {
+    } else if (event.keyCode === 32 && !progress) {
       this.handleCapture();
     }
   };
@@ -340,9 +342,9 @@ function (_React$Component) {
   };
 
   _proto.renderLeftSide = function renderLeftSide() {
-    var _this$state = this.state,
-        snapshot = _this$state.snapshot,
-        rotate = _this$state.rotate;
+    var _this$state2 = this.state,
+        snapshot = _this$state2.snapshot,
+        rotate = _this$state2.rotate;
     return rotate && !snapshot && this.renderRotateControl();
   };
 
@@ -427,9 +429,9 @@ function (_React$Component) {
     var _this$props = this.props,
         className = _this$props.className,
         fullscreen = _this$props.fullscreen;
-    var _this$state2 = this.state,
-        visible = _this$state2.visible,
-        progress = _this$state2.progress;
+    var _this$state3 = this.state,
+        visible = _this$state3.visible,
+        progress = _this$state3.progress;
     var classNames = (0, _classnames["default"])({
       'Camera': true,
       'Camera_fullscreen': fullscreen,

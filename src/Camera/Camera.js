@@ -278,7 +278,7 @@ export class Camera extends React.Component {
   }
 
   handleKeyUp (event) {
-    const { snapshot } = this.state
+    const { snapshot, progress } = this.state
 
     if (event.keyCode === 13 && snapshot) {
       this.handleApply()
@@ -286,7 +286,7 @@ export class Camera extends React.Component {
       this.handleReset()
     } else if (event.keyCode === 27) {
       this.close()
-    } else if (event.keyCode === 32) {
+    } else if (event.keyCode === 32 && !progress) {
       this.handleCapture()
     }
   }
