@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react'
-import classnames from 'classnames'
+import React from 'react'
 import { Input } from './Input'
 
 const iconArrow = <svg className='Input__icon Input__icon_arrow' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
@@ -18,8 +17,19 @@ export class InputSelect extends Input {
   }
 
   handleBlur (event) {
+    const { searchValue } = this.state
+    if (searchValue === '') {
+      const event = {
+        type: 'change',
+        target: this.inputEl
+      }
+
+      event.target.value = searchValue
+      this.handleChange(event)
+    }
+
     if (super.handleBlur(event) !== false) {
-      this.setState({ searchValue: '' })
+      this.setState({ searchValue: undefined })
     }
   }
 
@@ -35,33 +45,24 @@ export class InputSelect extends Input {
 
   handleMenuItemClick (item, index, event) {
     super.handleMenuItemClick(item, index, event)
-    this.setState({ searchValue: '' })
+    this.setState({ searchValue: undefined })
   }
 
   renderElement (props) {
-    const { searchValue = '', value } = this.state
+    const { searchValue, value } = this.state
     const menu = this.getMenu()
     const selectedItem = menu.filter((item) => String(item.value) === String(value))[0]
 
+    if (searchValue !== undefined) {
+      props.value = searchValue
+    } else if (selectedItem) {
+      props.value = selectedItem.primary
+    }
+
     props.type = 'text'
-    props.value = searchValue
     props.onChange = ::this.handleSearch
 
-    return (
-      <Fragment>
-        {!searchValue &&
-          <div
-            className={classnames(
-              props.className,
-              'Input__element_fake'
-            )}
-          >
-            {selectedItem ? selectedItem.primary : value}
-          </div>
-        }
-        {super.renderElement(props)}
-      </Fragment>
-    )
+    return super.renderElement(props)
   }
 }
 

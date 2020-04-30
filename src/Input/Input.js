@@ -160,7 +160,7 @@ export class Input extends React.Component {
     const { menuSeletedItemIndex } = this.state
 
     if (readOnly) {
-      return
+      return false
     }
 
     const state = {
@@ -183,7 +183,7 @@ export class Input extends React.Component {
     const { readOnly, onBlur } = this.props
 
     if (readOnly) {
-      return
+      return false
     }
 
     if (this.mouseDown) {
@@ -205,7 +205,7 @@ export class Input extends React.Component {
     const value = this.noramlizeValue(event.target.value)
 
     if (readOnly) {
-      return
+      return false
     }
 
     const state = { value }
@@ -239,7 +239,7 @@ export class Input extends React.Component {
     const state = {}
 
     if (!menu.length || readOnly) {
-      return
+      return false
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true
     } else if (event.keyCode === 38) {
@@ -401,13 +401,16 @@ export class Input extends React.Component {
       disabled,
       type,
       value,
-      mask,
-      maskChar,
       onClick: ::this.handleFocus,
       onFocus: ::this.handleFocus,
       onBlur: ::this.handleBlur,
       onChange: ::this.handleChange,
       onKeyDown: ::this.handleKeyDown
+    }
+
+    if (mask) {
+      inputProps.mask = mask
+      inputProps.maskChar = maskChar
     }
 
     if (['number', 'range'].indexOf(type) >= 0) {

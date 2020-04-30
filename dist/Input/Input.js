@@ -209,7 +209,7 @@ function (_React$Component) {
     var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
 
     if (readOnly) {
-      return;
+      return false;
     }
 
     var state = {
@@ -233,7 +233,7 @@ function (_React$Component) {
         onBlur = _this$props4.onBlur;
 
     if (readOnly) {
-      return;
+      return false;
     }
 
     if (this.mouseDown) {
@@ -256,7 +256,7 @@ function (_React$Component) {
     var value = this.noramlizeValue(event.target.value);
 
     if (readOnly) {
-      return;
+      return false;
     }
 
     var state = {
@@ -292,7 +292,7 @@ function (_React$Component) {
     var state = {};
 
     if (!menu.length || readOnly) {
-      return;
+      return false;
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true;
     } else if (event.keyCode === 38) {
@@ -467,14 +467,17 @@ function (_React$Component) {
       disabled: disabled,
       type: type,
       value: value,
-      mask: mask,
-      maskChar: maskChar,
       onClick: this.handleFocus.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       onChange: this.handleChange.bind(this),
       onKeyDown: this.handleKeyDown.bind(this)
     });
+
+    if (mask) {
+      inputProps.mask = mask;
+      inputProps.maskChar = maskChar;
+    }
 
     if (['number', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text';

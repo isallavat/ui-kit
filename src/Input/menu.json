@@ -1,32 +1,42 @@
 [
   {
-    "value": "Item 1"
+    "name": "Женат / замужем",
+    "description": null,
+    "external_id": 3,
+    "id": 1,
+    "value": 1,
+    "primary": "Женат / замужем"
   },
   {
-    "value": "Item 2"
+    "name": "Холост / не замужем",
+    "description": null,
+    "external_id": 1,
+    "id": 2,
+    "value": 2,
+    "primary": "Холост / не замужем"
   },
   {
-    "value": "Item 3"
+    "name": "Вдовец / вдова",
+    "description": null,
+    "external_id": 4,
+    "id": 3,
+    "value": 3,
+    "primary": "Вдовец / вдова"
   },
   {
-    "value": "Item 4"
+    "name": "В разводе",
+    "description": null,
+    "external_id": 2,
+    "id": 4,
+    "value": 4,
+    "primary": "В разводе"
   },
   {
-    "value": "Item 5"
-  },
-  {
-    "value": "Item 6"
-  },
-  {
-    "value": "Item 7"
-  },
-  {
-    "value": "Item 8"
-  },
-  {
-    "value": "Item 9"
-  },
-  {
-    "value": "Item 10"
+    "name": "Гражданский брак / Сожительство",
+    "description": null,
+    "external_id": 5,
+    "id": 5,
+    "value": 5,
+    "primary": "Гражданский брак / Сожительство"
   }
 ]

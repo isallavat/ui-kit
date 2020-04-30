@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,9 +11,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
+var _react = _interopRequireDefault(require("react"));
 
 var _Input2 = require("./Input");
 
@@ -59,9 +55,20 @@ function (_Input) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
+    var searchValue = this.state.searchValue;
+
+    if (searchValue === '') {
+      var _event = {
+        type: 'change',
+        target: this.inputEl
+      };
+      _event.target.value = searchValue;
+      this.handleChange(_event);
+    }
+
     if (_Input.prototype.handleBlur.call(this, event) !== false) {
       this.setState({
-        searchValue: ''
+        searchValue: undefined
       });
     }
   };
@@ -79,25 +86,28 @@ function (_Input) {
     _Input.prototype.handleMenuItemClick.call(this, item, index, event);
 
     this.setState({
-      searchValue: ''
+      searchValue: undefined
     });
   };
 
   _proto.renderElement = function renderElement(props) {
     var _this$state = this.state,
-        _this$state$searchVal = _this$state.searchValue,
-        searchValue = _this$state$searchVal === void 0 ? '' : _this$state$searchVal,
+        searchValue = _this$state.searchValue,
         value = _this$state.value;
     var menu = this.getMenu();
     var selectedItem = menu.filter(function (item) {
       return String(item.value) === String(value);
     })[0];
+
+    if (searchValue !== undefined) {
+      props.value = searchValue;
+    } else if (selectedItem) {
+      props.value = selectedItem.primary;
+    }
+
     props.type = 'text';
-    props.value = searchValue;
     props.onChange = this.handleSearch.bind(this);
-    return _react["default"].createElement(_react.Fragment, null, !searchValue && _react["default"].createElement("div", {
-      className: (0, _classnames["default"])(props.className, 'Input__element_fake')
-    }, selectedItem ? selectedItem.primary : value), _Input.prototype.renderElement.call(this, props));
+    return _Input.prototype.renderElement.call(this, props);
   };
 
   return InputSelect;
