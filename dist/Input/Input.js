@@ -43,10 +43,10 @@ function (_React$Component) {
 
     _this = _React$Component.call(this, props) || this;
     _this.state = {
-      value: _this.noramlizeValue(props.value) || _this.noramlizeValue(props.defaultValue)
+      value: _this.noramlizeValue(props.value)
     };
 
-    if (props.defaultValue !== undefined) {
+    if (!_this.state.value && props.defaultValue !== undefined) {
       _this.state.value = _this.noramlizeValue(props.defaultValue);
     }
 
