@@ -492,7 +492,7 @@ function (_React$Component) {
     }, componentProps, {
       onMouseDown: function onMouseDown() {
         _this6.mouseDown = true;
-        _this6.inputEl && _this6.inputEl.focus();
+        !focused && _this6.inputEl && _this6.inputEl.focus();
       },
       onMouseUp: function onMouseUp() {
         _this6.mouseDown = false;

@@ -438,7 +438,7 @@ export class Input extends React.Component {
         {...componentProps}
         onMouseDown={() => {
           this.mouseDown = true
-          this.inputEl && this.inputEl.focus()
+          !focused && this.inputEl && this.inputEl.focus()
         }}
         onMouseUp={() => { this.mouseDown = false }}
       >
