@@ -13,7 +13,7 @@
     z-index: 99;
     transform: translateX(100%);
     transition: 300ms; }
-    .Camera_fullscreen.--visible {
+    .Camera_fullscreen.--opened {
       transform: translateX(0); }
   .Camera__video {
     vertical-align: top;

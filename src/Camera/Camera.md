@@ -12,12 +12,15 @@ openCamera = (err) => {
 
 onApply = (snapshot) => {
   setState({ snapshot: snapshot })
+  camera.close()
   modal.open()
 }
 
 onFail = (err) => {
-  setState({ isOpen: false })
-  alert(err.message)
+  modal.open({
+    title: err.name,
+    children: err.message
+  })
 }
 
 <div>

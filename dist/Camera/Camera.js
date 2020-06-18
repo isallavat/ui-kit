@@ -66,17 +66,18 @@ function (_React$Component) {
     var _this2 = this;
 
     this.beforeOpen();
+    this.setState({
+      opened: true
+    });
     this.init().then(function () {
       _this2.enumerateDevices().then(function (devices) {
         var videoDevices = devices.filter(function (item) {
           return item.kind === 'videoinput';
         });
 
-        if (videoDevices.length > 1) {
-          _this2.setState({
-            rotate: true
-          });
-        }
+        _this2.setState({
+          videoDevices: videoDevices
+        });
       });
     });
   };
@@ -85,8 +86,9 @@ function (_React$Component) {
     var onClose = this.props.onClose;
     this.beforeClose();
     this.setState({
-      visible: false,
-      snapshot: undefined
+      opened: false,
+      cameraInited: false,
+      snapshot: null
     });
     onClose && onClose();
   };
@@ -150,11 +152,15 @@ function (_React$Component) {
     var _this4 = this;
 
     return new Promise(function (resolve, reject) {
+      _this4.setState({
+        cameraInited: false
+      });
+
       _this4.getUserMedia(_this4.constraints).then(function (stream) {
         _this4.videoStreamTrack = stream.getVideoTracks()[0];
 
         _this4.setState({
-          visible: true
+          cameraInited: true
         }, function () {
           var video = _this4.refs.video;
 
@@ -186,7 +192,12 @@ function (_React$Component) {
         navigator.mediaDevices.getUserMedia(constraints).then(resolve)["catch"](reject);
       } else {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        navigator.getUserMedia(constraints, resolve, reject);
+
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia(constraints, resolve, reject);
+        } else {
+          reject(new Error('getUserMedia not supported'));
+        }
       }
     });
   };
@@ -196,7 +207,7 @@ function (_React$Component) {
       if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
         navigator.mediaDevices.enumerateDevices().then(resolve)["catch"](reject);
       } else {
-        resolve([]);
+        reject(new Error('enumerateDevices not supported'));
       }
     });
   };
@@ -307,17 +318,13 @@ function (_React$Component) {
     var onReset = this.props.onReset;
     this.refs.video.play();
     this.setState({
-      snapshot: undefined
+      snapshot: null
     });
     onReset && onReset();
   };
 
   _proto.handleFail = function handleFail(err) {
     var onFail = this.props.onFail;
-    this.beforeClose();
-    this.setState({
-      visible: false
-    });
     onFail && onFail(err);
   };
 
@@ -344,8 +351,8 @@ function (_React$Component) {
   _proto.renderLeftSide = function renderLeftSide() {
     var _this$state2 = this.state,
         snapshot = _this$state2.snapshot,
-        rotate = _this$state2.rotate;
-    return rotate && !snapshot && this.renderRotateControl();
+        videoDevices = _this$state2.videoDevices;
+    return videoDevices && videoDevices.length > 1 && !snapshot && this.renderRotateControl();
   };
 
   _proto.renderRightSide = function renderRightSide() {
@@ -430,35 +437,36 @@ function (_React$Component) {
         className = _this$props.className,
         fullscreen = _this$props.fullscreen;
     var _this$state3 = this.state,
-        visible = _this$state3.visible,
+        opened = _this$state3.opened,
+        cameraInited = _this$state3.cameraInited,
         progress = _this$state3.progress;
     var classNames = (0, _classnames["default"])({
       'Camera': true,
       'Camera_fullscreen': fullscreen,
-      '--visible': visible
+      '--opened': opened
     }, className);
     return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       ref: "root",
       tabIndex: "1"
-    }), visible && _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
+    }), cameraInited && _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
       className: "Camera__video-container"
     }, _react["default"].createElement("video", {
       className: "Camera__video",
       ref: "video",
       width: "0",
       height: "0"
-    })), progress ? _react["default"].createElement(_Progress.Progress, {
-      className: "Camera__progress",
-      color: "current"
-    }) : _react["default"].createElement(_react.Fragment, null, this.renderContent(), _react["default"].createElement("div", {
+    })), !progress && _react["default"].createElement(_react.Fragment, null, this.renderContent(), _react["default"].createElement("div", {
       className: "Camera__side Camera__side_left",
       ref: "leftSide"
     }, this.renderLeftSide()), _react["default"].createElement("div", {
       className: "Camera__side Camera__side_right",
       ref: "rightSide"
-    }, this.renderRightSide()))), _react["default"].createElement("div", {
+    }, this.renderRightSide()))), progress && _react["default"].createElement(_Progress.Progress, {
+      className: "Camera__progress",
+      color: "current"
+    }), _react["default"].createElement("div", {
       className: "Camera__close",
       onClick: this.close.bind(this)
     }));

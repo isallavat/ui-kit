@@ -34,12 +34,12 @@ export class Camera extends React.Component {
   open () {
     this.beforeOpen()
 
+    this.setState({ opened: true })
+
     this.init().then(() => {
       this.enumerateDevices().then((devices) => {
         const videoDevices = devices.filter((item) => item.kind === 'videoinput')
-        if (videoDevices.length > 1) {
-          this.setState({ rotate: true })
-        }
+        this.setState({ videoDevices })
       })
     })
   }
@@ -50,8 +50,9 @@ export class Camera extends React.Component {
     this.beforeClose()
 
     this.setState({
-      visible: false,
-      snapshot: undefined
+      opened: false,
+      cameraInited: false,
+      snapshot: null
     })
 
     onClose && onClose()
@@ -110,9 +111,10 @@ export class Camera extends React.Component {
 
   initCamera () {
     return new Promise((resolve, reject) => {
+      this.setState({ cameraInited: false })
       this.getUserMedia(this.constraints).then((stream) => {
         this.videoStreamTrack = stream.getVideoTracks()[0]
-        this.setState({ visible: true }, () => {
+        this.setState({ cameraInited: true }, () => {
           const video = this.refs.video
 
           if ('srcObject' in video) {
@@ -143,7 +145,12 @@ export class Camera extends React.Component {
       } else {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
           navigator.mozGetUserMedia || navigator.msGetUserMedia
-        navigator.getUserMedia(constraints, resolve, reject)
+
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia(constraints, resolve, reject)
+        } else {
+          reject(new Error('getUserMedia not supported'))
+        }
       }
     })
   }
@@ -153,7 +160,7 @@ export class Camera extends React.Component {
       if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
         navigator.mediaDevices.enumerateDevices().then(resolve).catch(reject)
       } else {
-        resolve([])
+        reject(new Error('enumerateDevices not supported'))
       }
     })
   }
@@ -262,17 +269,13 @@ export class Camera extends React.Component {
     const { onReset } = this.props
 
     this.refs.video.play()
-    this.setState({ snapshot: undefined })
+    this.setState({ snapshot: null })
 
     onReset && onReset()
   }
 
   handleFail (err) {
     const { onFail } = this.props
-
-    this.beforeClose()
-
-    this.setState({ visible: false })
 
     onFail && onFail(err)
   }
@@ -296,9 +299,9 @@ export class Camera extends React.Component {
   }
 
   renderLeftSide () {
-    const { snapshot, rotate } = this.state
+    const { snapshot, videoDevices } = this.state
 
-    return rotate && !snapshot && this.renderRotateControl()
+    return videoDevices && videoDevices.length > 1 && !snapshot && this.renderRotateControl()
   }
 
   renderRightSide () {
@@ -379,24 +382,23 @@ export class Camera extends React.Component {
 
   render () {
     const { className, fullscreen } = this.props
-    const { visible, progress } = this.state
+    const { opened, cameraInited, progress } = this.state
 
     const classNames = classnames({
       'Camera': true,
       'Camera_fullscreen': fullscreen,
-      '--visible': visible
+      '--opened': opened
     }, className)
 
     return (
       <this.props.component className={classNames} {...excludeProps(this)} ref='root' tabIndex='1'>
-        {visible &&
+        {cameraInited &&
           <Fragment>
             <div className='Camera__video-container'>
               <video className='Camera__video' ref='video' width='0' height='0' />
             </div>
-            {progress
-              ? <Progress className='Camera__progress' color='current' />
-              : <Fragment>
+            {!progress &&
+              <Fragment>
                 {this.renderContent()}
                 <div className='Camera__side Camera__side_left' ref='leftSide'>
                   {this.renderLeftSide()}
@@ -408,6 +410,7 @@ export class Camera extends React.Component {
             }
           </Fragment>
         }
+        {progress && <Progress className='Camera__progress' color='current' />}
         <div className='Camera__close' onClick={::this.close} />
       </this.props.component>
     )

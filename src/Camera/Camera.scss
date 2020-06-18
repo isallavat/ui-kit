@@ -21,7 +21,7 @@ $this: '.Camera';
     transform: translateX(100%);
     transition: 300ms;
 
-    &.--visible {
+    &.--opened {
       transform: translateX(0);
     }
   }

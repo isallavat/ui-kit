@@ -56,7 +56,7 @@ export class Progress extends React.Component {
     return (
       <this.props.component className={classNames} {...excludeProps(this)} ref='root'>
         {variant === 'circle'
-          ? circleLength &&
+          ? !!circleLength &&
             <svg xmlns='http://www.w3.org/2000/svg'>
               <circle
                 className='Progress__circle Progress__circle_1'
@@ -79,7 +79,7 @@ export class Progress extends React.Component {
             />
           </svg>
         }
-        {value && <div className='Progress__value'>{value}</div>}
+        {!!value && <div className='Progress__value'>{value}</div>}
         {children}
       </this.props.component>
     )

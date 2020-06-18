@@ -86,7 +86,7 @@ function (_React$Component) {
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       ref: "root"
-    }), variant === 'circle' ? circleLength && _react["default"].createElement("svg", {
+    }), variant === 'circle' ? !!circleLength && _react["default"].createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg"
     }, _react["default"].createElement("circle", {
       className: "Progress__circle Progress__circle_1",
@@ -117,7 +117,7 @@ function (_React$Component) {
       y: "0",
       width: percent + '%',
       height: "100%"
-    })), value && _react["default"].createElement("div", {
+    })), !!value && _react["default"].createElement("div", {
       className: "Progress__value"
     }, value), children);
   };
