@@ -21,9 +21,7 @@ var _classnames2 = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var GridItem =
-/*#__PURE__*/
-function (_React$Component) {
+var GridItem = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(GridItem, _React$Component);
 
   function GridItem() {
@@ -45,7 +43,7 @@ function (_React$Component) {
       'GridItem': true,
       'GridItem_full': full
     }, (0, _defineProperty2["default"])(_classnames, "GridItem_mobile_".concat(mobile), !!mobile), (0, _defineProperty2["default"])(_classnames, "GridItem_tablet_".concat(tablet), !!tablet), (0, _defineProperty2["default"])(_classnames, "GridItem_desktop_".concat(desktop), !!desktop), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this)));
   };

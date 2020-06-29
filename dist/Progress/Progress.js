@@ -21,9 +21,7 @@ var _classnames2 = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var Progress =
-/*#__PURE__*/
-function (_React$Component) {
+var Progress = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Progress, _React$Component);
 
   function Progress(props) {
@@ -82,20 +80,20 @@ function (_React$Component) {
     var classNames = (0, _classnames2["default"])((_classnames = {
       'Progress': true
     }, (0, _defineProperty2["default"])(_classnames, "Progress_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Progress_variant_".concat(variant), true), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       ref: "root"
-    }), variant === 'circle' ? !!circleLength && _react["default"].createElement("svg", {
+    }), variant === 'circle' ? !!circleLength && /*#__PURE__*/_react["default"].createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg"
-    }, _react["default"].createElement("circle", {
+    }, /*#__PURE__*/_react["default"].createElement("circle", {
       className: "Progress__circle Progress__circle_1",
       fill: "none",
       strokeWidth: "4%",
       cx: "50%",
       cy: "50%",
       r: "46%"
-    }), _react["default"].createElement("circle", {
+    }), /*#__PURE__*/_react["default"].createElement("circle", {
       className: "Progress__circle Progress__circle_2",
       fill: "none",
       strokeWidth: "4%",
@@ -103,21 +101,21 @@ function (_React$Component) {
       cy: "50%",
       r: "46%",
       strokeDasharray: "".concat(circleLength / 100 * percent, ",").concat(circleLength)
-    })) : _react["default"].createElement("svg", {
+    })) : /*#__PURE__*/_react["default"].createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg"
-    }, _react["default"].createElement("rect", {
+    }, /*#__PURE__*/_react["default"].createElement("rect", {
       className: "Progress__line Progress__line_1",
       x: "0",
       y: "0",
       width: "100%",
       height: "100%"
-    }), _react["default"].createElement("rect", {
+    }), /*#__PURE__*/_react["default"].createElement("rect", {
       className: "Progress__line Progress__line_2",
       x: "0",
       y: "0",
       width: percent + '%',
       height: "100%"
-    })), !!value && _react["default"].createElement("div", {
+    })), !!value && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__value"
     }, value), children);
   };

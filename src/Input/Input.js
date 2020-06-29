@@ -57,7 +57,7 @@ export class Input extends React.Component {
     } else if (menu instanceof Array) {
       _menu = menu
     } else if (menu instanceof Object) {
-      _menu = Object.keys(menu || {}).map((key) => {
+      _menu = Object.keys(menu).map((key) => {
         return {
           value: key,
           primary: menu[key]
@@ -65,12 +65,11 @@ export class Input extends React.Component {
       })
     }
 
-    _menu.map((item) => {
-      if (item.primary === undefined) {
-        item.primary = item.value
+    _menu = _menu.map((item) => {
+      return {
+        ...item,
+        primary: item.primary || item.value
       }
-
-      return item
     }, [])
 
     return filterMenu ? this.filterMenu(_menu, value) : _menu
@@ -80,7 +79,7 @@ export class Input extends React.Component {
     const arr = []
     for (let key in children) {
       if (typeof children[key] === 'string') {
-        return !value || children[key].match(new RegExp(this.escapeString(value), 'i'))
+        return children[key].match(new RegExp(this.escapeString(value), 'i'))
       } else if (children[key].props.children) {
         arr.push(children[key].props.children)
       }
@@ -93,11 +92,13 @@ export class Input extends React.Component {
 
   filterMenu (menu, value) {
     return menu.filter((item) => {
-      if (value && typeof item.primary !== 'string' && item.primary.props) {
+      if (!value) {
+        return true
+      } else if (typeof item.primary !== 'string' && item.primary.props) {
         return this.findString(item.primary.props.children, value)
       }
 
-      return !value || item.primary.toString().match(new RegExp(this.escapeString(value), 'i'))
+      return item.primary.toString().match(new RegExp(this.escapeString(value), 'i'))
     })
   }
 
@@ -233,7 +234,7 @@ export class Input extends React.Component {
   }
 
   handleKeyDown (event) {
-    const { readOnly } = this.props
+    const { readOnly, onKeyDown } = this.props
     const { menuSeletedItemIndex, dropdownVisible } = this.state
     const menu = this.getMenu()
     const state = {}
@@ -253,6 +254,8 @@ export class Input extends React.Component {
     }
 
     this.setState(state, this.scrollMenuToSelected)
+
+    onKeyDown && onKeyDown(event)
   }
 
   handleMenuItemClick (item, index, event) {
@@ -284,10 +287,23 @@ export class Input extends React.Component {
         props.value = selectedItem.primary
       }
 
+      if (props.mask) {
+        const inputMask = new InputMask(props)
+
+        props.value = inputMask.value
+      }
+
+      if (props.value) {
+        props.value = props.value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ')
+      }
+
       return (
-        <div className={props.className}>
-          {props.value}
-        </div>
+        <div
+          className={props.className}
+          dangerouslySetInnerHTML={{
+            __html: props.value
+          }}
+        />
       )
     }
 
@@ -411,6 +427,12 @@ export class Input extends React.Component {
     if (mask) {
       inputProps.mask = mask
       inputProps.maskChar = maskChar
+      inputProps.formatChars = {
+        '#': '[0-9]',
+        '9': '[0-9]',
+        'a': '[A-Za-z]',
+        '*': '[A-Za-z0-9]'
+      }
     }
 
     if (['number', 'range'].indexOf(type) >= 0) {
@@ -427,7 +449,7 @@ export class Input extends React.Component {
       'Input_rounded': rounded,
       'Input_labeled': !!label,
       '--focused': focused,
-      '--filled': !!value,
+      '--filled': [undefined, null, ''].indexOf(value) < 0,
       '--invalid': invalid,
       '--disabled': disabled
     }, className)
@@ -458,7 +480,7 @@ export class Input extends React.Component {
           }
           {this.renderElement(inputProps)}
         </div>
-        {!!this.getMenu().length && this.renderMenu()}
+        {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
         {type === 'range' && this.renderRange()}
       </this.props.component>
     )

@@ -29,9 +29,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var Modal =
-/*#__PURE__*/
-function (_React$Component) {
+var Modal = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Modal, _React$Component);
 
   function Modal(props) {
@@ -88,7 +86,7 @@ function (_React$Component) {
   };
 
   _proto.getMergedProps = function getMergedProps() {
-    return _objectSpread({}, this.props, {}, this._props);
+    return _objectSpread(_objectSpread({}, this.props), this._props);
   };
 
   _proto.handleKeyUp = function handleKeyUp(event) {
@@ -110,7 +108,7 @@ function (_React$Component) {
   };
 
   _proto.renderClose = function renderClose() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__close",
       onClick: this.close.bind(this)
     });
@@ -128,26 +126,26 @@ function (_React$Component) {
     var classNames = (0, _classnames2["default"])((0, _defineProperty2["default"])({
       'Modal': true
     }, "Modal_size_".concat(size), true), className);
-    return visible ? _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return visible ? /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       onMouseDown: this.handleMouseDown.bind(this),
       onTouchStart: this.handleMouseDown.bind(this)
-    }), _react["default"].createElement("div", {
+    }), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__overlay"
-    }), loading ? _react["default"].createElement(_Progress.Progress, {
+    }), loading ? /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Modal__progress",
       color: "current"
-    }) : _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
+    }) : /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__container"
-    }, _react["default"].createElement("div", {
+    }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__window",
       ref: "window"
-    }, _react["default"].createElement("div", {
+    }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__header"
-    }, _react["default"].createElement("h3", {
+    }, /*#__PURE__*/_react["default"].createElement("h3", {
       className: "Modal__title"
-    }, title), closeButton === 'inside' && this.renderClose()), _react["default"].createElement("div", {
+    }, title), closeButton === 'inside' && this.renderClose()), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__content"
     }, this.renderContent()))), closeButton === 'outside' && this.renderClose())) : '';
   };

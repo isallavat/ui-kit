@@ -26,9 +26,7 @@ var _helpers = require("../helpers");
 require("./polyfill");
 
 // Была попытка использовать ImageCapture. Не подходит. Так как на android-планшете не фотка, а говно
-var Camera =
-/*#__PURE__*/
-function (_React$Component) {
+var Camera = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Camera, _React$Component);
 
   function Camera(props) {
@@ -357,68 +355,68 @@ function (_React$Component) {
 
   _proto.renderRightSide = function renderRightSide() {
     var snapshot = this.state.snapshot;
-    return snapshot ? _react["default"].createElement(_react.Fragment, null, this.renderApplyControl(), this.renderResetControl()) : this.renderCaptureControl();
+    return snapshot ? /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, this.renderApplyControl(), this.renderResetControl()) : this.renderCaptureControl();
   };
 
   _proto.renderApplyControl = function renderApplyControl() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
       onClick: this.handleApply.bind(this)
-    }, _react["default"].createElement("svg", {
+    }, /*#__PURE__*/_react["default"].createElement("svg", {
       className: "Camera__control-icon",
       xmlns: "http://www.w3.org/2000/svg",
       width: "16.502",
       height: "12.502",
       viewBox: "0 0 16.502 12.502"
-    }, _react["default"].createElement("g", {
+    }, /*#__PURE__*/_react["default"].createElement("g", {
       fill: "currentColor"
-    }, _react["default"].createElement("path", {
+    }, /*#__PURE__*/_react["default"].createElement("path", {
       d: "M.519,12.252a1.279,1.279,0,0,1-.3-.221L-3.626,8.183a1.281,1.281,0,0,1,0-1.809,1.281,1.281,0,0,1,1.809,0L1.251,9.443,10.319.374a1.279,1.279,0,1,1,1.809,1.808L2.183,12.128a1.278,1.278,0,0,1-1.664.124Z",
       transform: "translate(4 0)"
     }))));
   };
 
   _proto.renderResetControl = function renderResetControl() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
       onClick: this.handleReset.bind(this)
-    }, _react["default"].createElement("svg", {
+    }, /*#__PURE__*/_react["default"].createElement("svg", {
       className: "Camera__control-icon",
       xmlns: "http://www.w3.org/2000/svg",
       width: "12.502",
       height: "12.502",
       viewBox: "0 0 12.502 12.502"
-    }, _react["default"].createElement("g", {
+    }, /*#__PURE__*/_react["default"].createElement("g", {
       fill: "currentColor"
-    }, _react["default"].createElement("path", {
+    }, /*#__PURE__*/_react["default"].createElement("path", {
       d: "M10.319,12.128,6.251,8.059,2.183,12.128A1.279,1.279,0,0,1,.374,10.319L4.443,6.251.374,2.183A1.279,1.279,0,0,1,2.183.374L6.251,4.443,10.319.374a1.279,1.279,0,1,1,1.809,1.808L8.059,6.251l4.068,4.068a1.279,1.279,0,1,1-1.808,1.808Z",
       transform: "translate(0 0)"
     }))));
   };
 
   _proto.renderRotateControl = function renderRotateControl() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
       onClick: this.toggleCamera.bind(this)
-    }, _react["default"].createElement("svg", {
+    }, /*#__PURE__*/_react["default"].createElement("svg", {
       className: "Camera__control-icon",
       xmlns: "http://www.w3.org/2000/svg",
       width: "18",
       height: "18",
       viewBox: "0 0 18 18"
-    }, _react["default"].createElement("g", {
+    }, /*#__PURE__*/_react["default"].createElement("g", {
       fill: "currentColor",
       transform: "translate(-3 -3)"
-    }, _react["default"].createElement("path", {
+    }, /*#__PURE__*/_react["default"].createElement("path", {
       d: "M20,4H16V8h1V5.707l.646.646.218.2A8,8,0,0,1,12,20a8.113,8.113,0,0,1-1.045-.067l-.128.992A9.191,9.191,0,0,0,12,21,9,9,0,0,0,18.363,5.636L17.719,5H20V4Z"
-    }), _react["default"].createElement("path", {
+    }), /*#__PURE__*/_react["default"].createElement("path", {
       d: "M3,12a8.94,8.94,0,0,0,2.637,6.364L6.281,19H4v1H8V16H7v2.293l-.646-.646-.218-.2A8,8,0,0,1,12,4a8.113,8.113,0,0,1,1.045.067l.129-.992A9.219,9.219,0,0,0,12,3a9.01,9.01,0,0,0-9,9Z"
     }))));
   };
 
   _proto.renderCaptureControl = function renderCaptureControl() {
     var capturing = this.state.capturing;
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
         'Camera__control': true,
         'Camera__control_capture': true,
@@ -445,28 +443,28 @@ function (_React$Component) {
       'Camera_fullscreen': fullscreen,
       '--opened': opened
     }, className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       ref: "root",
       tabIndex: "1"
-    }), cameraInited && _react["default"].createElement(_react.Fragment, null, _react["default"].createElement("div", {
+    }), cameraInited && /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__video-container"
-    }, _react["default"].createElement("video", {
+    }, /*#__PURE__*/_react["default"].createElement("video", {
       className: "Camera__video",
       ref: "video",
       width: "0",
       height: "0"
-    })), !progress && _react["default"].createElement(_react.Fragment, null, this.renderContent(), _react["default"].createElement("div", {
+    })), !progress && /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, this.renderContent(), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__side Camera__side_left",
       ref: "leftSide"
-    }, this.renderLeftSide()), _react["default"].createElement("div", {
+    }, this.renderLeftSide()), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__side Camera__side_right",
       ref: "rightSide"
-    }, this.renderRightSide()))), progress && _react["default"].createElement(_Progress.Progress, {
+    }, this.renderRightSide()))), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Camera__progress",
       color: "current"
-    }), _react["default"].createElement("div", {
+    }), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__close",
       onClick: this.close.bind(this)
     }));

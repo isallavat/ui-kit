@@ -21,9 +21,7 @@ var _classnames2 = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var GridContainer =
-/*#__PURE__*/
-function (_React$Component) {
+var GridContainer = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(GridContainer, _React$Component);
 
   function GridContainer() {
@@ -43,7 +41,7 @@ function (_React$Component) {
     var classNames = (0, _classnames2["default"])((_classnames = {
       'GridContainer': true
     }, (0, _defineProperty2["default"])(_classnames, "GridContainer_spacing_".concat(spacing), !!spacing), (0, _defineProperty2["default"])(_classnames, "GridContainer_align_".concat(align), !!align), (0, _defineProperty2["default"])(_classnames, "GridContainer_valign_".concat(valign), !!valign), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this)));
   };

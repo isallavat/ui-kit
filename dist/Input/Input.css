@@ -20,6 +20,7 @@
   .Input__element {
     box-sizing: border-box;
     width: 100%;
+    padding: 0;
     border: none;
     box-shadow: none;
     background: none;
@@ -73,7 +74,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     opacity: .6;
-    transition: 300ms; }
+    transition: 300ms;
+    cursor: text; }
   .Input__adornment_start {
     margin-right: 10px; }
   .Input__adornment_end {
@@ -119,13 +121,14 @@
     position: absolute;
     left: 0;
     top: 0;
-    padding: 0;
     height: 100%;
     overflow-y: auto; }
     .Input_type_area .Input__element_hidden {
       position: static;
       visibility: hidden;
       word-break: break-word; }
+  .Input_type_plain .Input__element {
+    word-break: break-word; }
   .Input .input-range {
     position: absolute;
     left: 0;
@@ -187,18 +190,14 @@
     font-size: 16px; }
     .Input_size_s.Input_rounded {
       border-radius: 20px; }
-    .Input_size_s:not(.Input_type_area) .Input__element {
-      height: 40px;
-      line-height: 40px; }
-    .Input_size_s.Input_type_area .Input__element {
-      min-height: 40px; }
-    .Input_size_s.Input_labeled:not(.Input_type_area) .Input__element {
-      padding-top: 10px;
-      line-height: 30px; }
-    .Input_size_s.Input_labeled.Input_type_area .Input__element {
-      padding-top: 16px;
-      padding-bottom: 4.8px;
+    .Input_size_s .Input__element {
+      min-height: 40px;
+      padding-top: 10.4px;
+      padding-bottom: 10.4px;
       line-height: 19.2px; }
+    .Input_size_s.Input_labeled .Input__element {
+      padding-top: 16px;
+      padding-bottom: 4.8px; }
     .Input_size_s .Input__label {
       top: 10px;
       padding: 7px 0; }
@@ -213,18 +212,14 @@
     font-size: 18px; }
     .Input_size_m.Input_rounded {
       border-radius: 25px; }
-    .Input_size_m:not(.Input_type_area) .Input__element {
-      height: 50px;
-      line-height: 50px; }
-    .Input_size_m.Input_type_area .Input__element {
-      min-height: 50px; }
-    .Input_size_m.Input_labeled:not(.Input_type_area) .Input__element {
-      padding-top: 12.5px;
-      line-height: 37.5px; }
-    .Input_size_m.Input_labeled.Input_type_area .Input__element {
-      padding-top: 20px;
-      padding-bottom: 8.4px;
+    .Input_size_m .Input__element {
+      min-height: 50px;
+      padding-top: 14.2px;
+      padding-bottom: 14.2px;
       line-height: 21.6px; }
+    .Input_size_m.Input_labeled .Input__element {
+      padding-top: 20px;
+      padding-bottom: 8.4px; }
     .Input_size_m .Input__label {
       top: 12.5px;
       padding: 9.75px 0; }
@@ -239,18 +234,14 @@
     font-size: 20px; }
     .Input_size_l.Input_rounded {
       border-radius: 30px; }
-    .Input_size_l:not(.Input_type_area) .Input__element {
-      height: 60px;
-      line-height: 60px; }
-    .Input_size_l.Input_type_area .Input__element {
-      min-height: 60px; }
-    .Input_size_l.Input_labeled:not(.Input_type_area) .Input__element {
-      padding-top: 15px;
-      line-height: 45px; }
-    .Input_size_l.Input_labeled.Input_type_area .Input__element {
-      padding-top: 24px;
-      padding-bottom: 12px;
+    .Input_size_l .Input__element {
+      min-height: 60px;
+      padding-top: 18px;
+      padding-bottom: 18px;
       line-height: 24px; }
+    .Input_size_l.Input_labeled .Input__element {
+      padding-top: 24px;
+      padding-bottom: 12px; }
     .Input_size_l .Input__label {
       top: 15px;
       padding: 12.5px 0; }

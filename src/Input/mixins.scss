@@ -2,37 +2,28 @@ $this: '.Input';
 
 @mixin size ($name, $height, $font-size) {
   &_size_#{$name} {
+    $line-height: $font-size * 1.2;
+    $vertical-padding: ($height - $line-height) / 2;
+
     font-size: $font-size;
 
     &#{$this}_rounded {
       border-radius: ($height / 2);
     }
 
-    &:not(#{$this}_type_area) #{$this}__element {
-      height: $height;
-      line-height: $height;
-    }
-
-    &#{$this}_type_area #{$this}__element {
+    #{$this}__element {
       min-height: $height;
+      padding-top: $vertical-padding;
+      padding-bottom: $vertical-padding;
+      line-height: $line-height;
     }
 
     &#{$this}_labeled {
-      &:not(#{$this}_type_area) #{$this}__element {
-        $padding-top: ($height / 4);
-        $element-height: $height - $padding-top;
-
-        padding-top: $padding-top;
-        line-height: $element-height;
-      }
-
-      &#{$this}_type_area #{$this}__element {
+      #{$this}__element {
         $padding-top: ($height / 2.5);
-        $line-height: ($font-size * 1.2);
 
         padding-top: $padding-top;
         padding-bottom: $height - $padding-top - $line-height;
-        line-height: $line-height;
       }
     }
 

@@ -23,9 +23,7 @@ var _Progress = require("../Progress");
 
 var _helpers = require("../helpers");
 
-var Button =
-/*#__PURE__*/
-function (_React$Component) {
+var Button = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Button, _React$Component);
 
   function Button() {
@@ -53,17 +51,17 @@ function (_React$Component) {
     var classNames = (0, _classnames2["default"])((_classnames = {
       'Button': true
     }, (0, _defineProperty2["default"])(_classnames, "Button_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Button_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Button_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Button_align_".concat(align), true), (0, _defineProperty2["default"])(_classnames, 'Button_full-width', fullWidth), (0, _defineProperty2["default"])(_classnames, 'Button_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Button_circular', circular), (0, _defineProperty2["default"])(_classnames, '--progress', progress), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, (0, _helpers.excludeProps)(this)), _react["default"].createElement("div", {
+    }, (0, _helpers.excludeProps)(this)), /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames2["default"])({
         'Button__content': true,
         'Button__content_centered': noresize,
         'Button__content_hidden': progress
       })
-    }, children), progress && _react["default"].createElement("div", {
+    }, children), progress && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Button__progress-container"
-    }, _react["default"].createElement(_Progress.Progress, {
+    }, /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Button__progress",
       color: "current"
     })));

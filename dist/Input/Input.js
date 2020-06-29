@@ -33,9 +33,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var Input =
-/*#__PURE__*/
-function (_React$Component) {
+var Input = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Input, _React$Component);
 
   function Input(props) {
@@ -97,7 +95,7 @@ function (_React$Component) {
     } else if (menu instanceof Array) {
       _menu = menu;
     } else if (menu instanceof Object) {
-      _menu = Object.keys(menu || {}).map(function (key) {
+      _menu = Object.keys(menu).map(function (key) {
         return {
           value: key,
           primary: menu[key]
@@ -105,14 +103,11 @@ function (_React$Component) {
       });
     }
 
-    _menu.map(function (item) {
-      if (item.primary === undefined) {
-        item.primary = item.value;
-      }
-
-      return item;
+    _menu = _menu.map(function (item) {
+      return _objectSpread(_objectSpread({}, item), {}, {
+        primary: item.primary || item.value
+      });
     }, []);
-
     return filterMenu ? this.filterMenu(_menu, value) : _menu;
   };
 
@@ -121,7 +116,7 @@ function (_React$Component) {
 
     for (var key in children) {
       if (typeof children[key] === 'string') {
-        return !value || children[key].match(new RegExp(this.escapeString(value), 'i'));
+        return children[key].match(new RegExp(this.escapeString(value), 'i'));
       } else if (children[key].props.children) {
         arr.push(children[key].props.children);
       }
@@ -136,11 +131,13 @@ function (_React$Component) {
     var _this2 = this;
 
     return menu.filter(function (item) {
-      if (value && typeof item.primary !== 'string' && item.primary.props) {
+      if (!value) {
+        return true;
+      } else if (typeof item.primary !== 'string' && item.primary.props) {
         return _this2.findString(item.primary.props.children, value);
       }
 
-      return !value || item.primary.toString().match(new RegExp(_this2.escapeString(value), 'i'));
+      return item.primary.toString().match(new RegExp(_this2.escapeString(value), 'i'));
     });
   };
 
@@ -284,7 +281,9 @@ function (_React$Component) {
   };
 
   _proto.handleKeyDown = function handleKeyDown(event) {
-    var readOnly = this.props.readOnly;
+    var _this$props6 = this.props,
+        readOnly = _this$props6.readOnly,
+        onKeyDown = _this$props6.onKeyDown;
     var _this$state2 = this.state,
         menuSeletedItemIndex = _this$state2.menuSeletedItemIndex,
         dropdownVisible = _this$state2.dropdownVisible;
@@ -306,6 +305,7 @@ function (_React$Component) {
     }
 
     this.setState(state, this.scrollMenuToSelected);
+    onKeyDown && onKeyDown(event);
   };
 
   _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
@@ -322,9 +322,9 @@ function (_React$Component) {
   _proto.renderElement = function renderElement(props) {
     var _this4 = this;
 
-    var _this$props6 = this.props,
-        format = _this$props6.format,
-        readOnly = _this$props6.readOnly;
+    var _this$props7 = this.props,
+        format = _this$props7.format,
+        readOnly = _this$props7.readOnly;
     var menu = this.getMenu();
 
     if (menu.length) {
@@ -344,9 +344,21 @@ function (_React$Component) {
         props.value = selectedItem.primary;
       }
 
-      return _react["default"].createElement("div", {
-        className: props.className
-      }, props.value);
+      if (props.mask) {
+        var inputMask = new _reactInputMask["default"](props);
+        props.value = inputMask.value;
+      }
+
+      if (props.value) {
+        props.value = props.value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ');
+      }
+
+      return /*#__PURE__*/_react["default"].createElement("div", {
+        className: props.className,
+        dangerouslySetInnerHTML: {
+          __html: props.value
+        }
+      });
     }
 
     props.beforeMaskedValueChange = function (newState, oldState, userInput) {
@@ -359,7 +371,7 @@ function (_React$Component) {
       return state;
     };
 
-    return _react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
+    return /*#__PURE__*/_react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
       inputRef: function inputRef(node) {
         _this4.inputEl = node;
       }
@@ -369,7 +381,7 @@ function (_React$Component) {
   _proto.renderDropdown = function renderDropdown(children) {
     var dropdownVisible = this.state.dropdownVisible;
     var position = this.props.position;
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       ref: "dropdown",
       className: (0, _classnames3["default"])({
         'Input__dropdown': true,
@@ -386,11 +398,11 @@ function (_React$Component) {
         dropdownVisible = _this$state3.dropdownVisible,
         menuSeletedItemIndex = _this$state3.menuSeletedItemIndex;
     var menu = this.getMenu();
-    return this.renderDropdown(_react["default"].createElement("div", {
+    return this.renderDropdown( /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__menu",
       ref: "menu"
     }, menu.map(function (item, index) {
-      return _react["default"].createElement("div", {
+      return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames3["default"])({
           'Input__menu-item': true,
           '--selected': index === menuSeletedItemIndex
@@ -403,32 +415,32 @@ function (_React$Component) {
           });
         },
         onClick: _this5.handleMenuItemClick.bind(_this5, item, index)
-      }, _react["default"].createElement("div", {
+      }, /*#__PURE__*/_react["default"].createElement("div", {
         className: "Input__menu-item-primary"
-      }, item.primary), !!item.secondary && _react["default"].createElement("div", {
+      }, item.primary), !!item.secondary && /*#__PURE__*/_react["default"].createElement("div", {
         className: "Input__menu-item-secondary"
       }, item.secondary));
     })));
   };
 
   _proto.renderRange = function renderRange() {
-    var _this$props7 = this.props,
-        _this$props7$min = _this$props7.min,
-        min = _this$props7$min === void 0 ? 0 : _this$props7$min,
-        _this$props7$max = _this$props7.max,
-        max = _this$props7$max === void 0 ? 0 : _this$props7$max,
-        step = _this$props7.step,
-        readOnly = _this$props7.readOnly,
-        disabled = _this$props7.disabled,
-        rangeProps = _this$props7.rangeProps;
+    var _this$props8 = this.props,
+        _this$props8$min = _this$props8.min,
+        min = _this$props8$min === void 0 ? 0 : _this$props8$min,
+        _this$props8$max = _this$props8.max,
+        max = _this$props8$max === void 0 ? 0 : _this$props8$max,
+        step = _this$props8.step,
+        readOnly = _this$props8.readOnly,
+        disabled = _this$props8.disabled,
+        rangeProps = _this$props8.rangeProps;
     var value = Number(this.state.value);
     value = value < min || isNaN(value) ? min : value;
     value = value > max ? max : value;
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       onMouseDown: function onMouseDown(event) {
         return event.stopPropagation();
       }
-    }, _react["default"].createElement(_reactInputRange["default"], (0, _extends2["default"])({
+    }, /*#__PURE__*/_react["default"].createElement(_reactInputRange["default"], (0, _extends2["default"])({
       minValue: min,
       maxValue: max,
       step: step,
@@ -443,26 +455,26 @@ function (_React$Component) {
     var _classnames,
         _this6 = this;
 
-    var _this$props8 = this.props,
-        className = _this$props8.className,
-        componentProps = _this$props8.componentProps,
-        size = _this$props8.size,
-        color = _this$props8.color,
-        variant = _this$props8.variant,
-        rounded = _this$props8.rounded,
-        invalid = _this$props8.invalid,
-        disabled = _this$props8.disabled,
-        type = _this$props8.type,
-        label = _this$props8.label,
-        mask = _this$props8.mask,
-        maskChar = _this$props8.maskChar,
-        adornment = _this$props8.adornment,
-        adornmentPosition = _this$props8.adornmentPosition;
+    var _this$props9 = this.props,
+        className = _this$props9.className,
+        componentProps = _this$props9.componentProps,
+        size = _this$props9.size,
+        color = _this$props9.color,
+        variant = _this$props9.variant,
+        rounded = _this$props9.rounded,
+        invalid = _this$props9.invalid,
+        disabled = _this$props9.disabled,
+        type = _this$props9.type,
+        label = _this$props9.label,
+        mask = _this$props9.mask,
+        maskChar = _this$props9.maskChar,
+        adornment = _this$props9.adornment,
+        adornmentPosition = _this$props9.adornmentPosition;
     var _this$state4 = this.state,
         value = _this$state4.value,
         focused = _this$state4.focused;
 
-    var inputProps = _objectSpread({}, (0, _helpers.excludeProps)(this), {
+    var inputProps = _objectSpread(_objectSpread({}, (0, _helpers.excludeProps)(this)), {}, {
       className: 'Input__element',
       disabled: disabled,
       type: type,
@@ -477,6 +489,12 @@ function (_React$Component) {
     if (mask) {
       inputProps.mask = mask;
       inputProps.maskChar = maskChar;
+      inputProps.formatChars = {
+        '#': '[0-9]',
+        '9': '[0-9]',
+        'a': '[A-Za-z]',
+        '*': '[A-Za-z0-9]'
+      };
     }
 
     if (['number', 'range'].indexOf(type) >= 0) {
@@ -486,8 +504,8 @@ function (_React$Component) {
 
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '--focused', focused), (0, _defineProperty2["default"])(_classnames, '--filled', !!value), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '--focused', focused), (0, _defineProperty2["default"])(_classnames, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {
       onMouseDown: function onMouseDown() {
@@ -497,15 +515,15 @@ function (_React$Component) {
       onMouseUp: function onMouseUp() {
         _this6.mouseDown = false;
       }
-    }), adornment && _react["default"].createElement("div", {
+    }), adornment && /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Input__adornment': true
       }, "Input__adornment_".concat(adornmentPosition), true))
-    }, adornment), _react["default"].createElement("div", {
+    }, adornment), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__container"
-    }, label && _react["default"].createElement("div", {
+    }, label && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__label"
-    }, label), this.renderElement(inputProps)), !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
+    }, label), this.renderElement(inputProps)), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
   };
 
   return Input;

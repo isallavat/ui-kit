@@ -21,9 +21,7 @@ var _classnames3 = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var Radio =
-/*#__PURE__*/
-function (_React$Component) {
+var Radio = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Radio, _React$Component);
 
   function Radio(props) {
@@ -64,7 +62,7 @@ function (_React$Component) {
   };
 
   _proto.renderElement = function renderElement() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Radio__element"
     });
   };
@@ -86,16 +84,16 @@ function (_React$Component) {
     var classNames = (0, _classnames3["default"])((_classnames = {
       'Radio': true
     }, (0, _defineProperty2["default"])(_classnames, "Radio_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Radio_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Radio_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, '--checked', checked), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, componentProps), _react["default"].createElement("label", {
+    }, componentProps), /*#__PURE__*/_react["default"].createElement("label", {
       className: "Radio__container"
-    }, _react["default"].createElement("input", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
+    }, /*#__PURE__*/_react["default"].createElement("input", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
       className: "Radio__input",
       type: "radio",
       checked: checked,
       onChange: this.handleChange.bind(this)
-    })), variant !== 'button' && this.renderElement(), !!label && _react["default"].createElement("div", {
+    })), variant !== 'button' && this.renderElement(), !!label && /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Radio__label': true
       }, "Radio__label_position_".concat(labelPosition), true))

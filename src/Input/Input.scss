@@ -30,6 +30,7 @@ $this: '.Input';
   &__element {
     box-sizing: border-box;
     width: 100%;
+    padding: 0;
     border: none;
     box-shadow: none;
     background: none;
@@ -103,6 +104,7 @@ $this: '.Input';
     text-overflow: ellipsis;
     opacity: .6;
     transition: 300ms;
+    cursor: text;
   }
 
   &__adornment {
@@ -174,7 +176,6 @@ $this: '.Input';
         position: absolute;
         left: 0;
         top: 0;
-        padding: 0;
         height: 100%;
         overflow-y: auto;
 
@@ -183,6 +184,12 @@ $this: '.Input';
           visibility: hidden;
           word-break: break-word;
         }
+      }
+    }
+
+    &_plain {
+      #{$this}__element {
+        word-break: break-word;
       }
     }
   }

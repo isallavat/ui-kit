@@ -1,6 +1,7 @@
 ```js
 import { Input } from '../Input';
 import { GridContainer, GridItem } from '../Grid';
+import menu from './menu';
 
 <GridContainer spacing={16}>
   <GridItem mobile={12} tablet={4}>
@@ -12,40 +13,20 @@ import { GridContainer, GridItem } from '../Grid';
   <GridItem mobile={12} tablet={4}>
     <Input label='Invalid' invalid />
   </GridItem>
-</GridContainer>
-```
-
-```js
-import { Input, InputDate, InputSelect, InputArea } from '../Input';
-import { GridContainer, GridItem } from '../Grid';
-import menu from './menu';
-
-const min = new Date();
-const max = new Date();
-min.setYear(min.getFullYear() - 1);
-max.setYear(max.getFullYear() + 1);
-
-<GridContainer spacing={16}>
-  <GridItem mobile={12} tablet={6}>
+  <GridItem mobile={12} tablet={4}>
+    <Input
+      type='text'
+      label='Mask'
+      mask='+7 (###) ###-##-##'
+    />
+  </GridItem>
+  <GridItem mobile={12} tablet={4}>
     <Input
       type='number'
       label='Number'
     />
   </GridItem>
-  <GridItem mobile={12} tablet={6}>
-    <InputDate
-      label='Date'
-      min={min.getTime()}
-      max={max.getTime()}
-    />
-  </GridItem>
-  <GridItem mobile={12} tablet={6}>
-    <InputSelect
-      label='Select'
-      menu={menu}
-    />
-  </GridItem>
-  <GridItem mobile={12} tablet={6}>
+  <GridItem mobile={12} tablet={4}>
     <Input
       label='Suggestions'
       menu={menu}
@@ -67,9 +48,6 @@ max.setYear(max.getFullYear() + 1);
       label='Price'
       format='price'
     />
-  </GridItem>
-  <GridItem mobile={12} tablet={6}>
-    <InputArea label='InputArea' />
   </GridItem>
 </GridContainer>
 ```

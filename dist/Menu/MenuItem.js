@@ -19,9 +19,7 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var MenuItem =
-/*#__PURE__*/
-function (_React$Component) {
+var MenuItem = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(MenuItem, _React$Component);
 
   function MenuItem() {
@@ -44,17 +42,17 @@ function (_React$Component) {
       'MenuItem_bordered': divider,
       '--selected': selected
     }, className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, (0, _helpers.excludeProps)(this)), icon && _react["default"].createElement("div", {
+    }, (0, _helpers.excludeProps)(this)), icon && /*#__PURE__*/_react["default"].createElement("div", {
       className: "MenuItem__icon"
-    }, icon), _react["default"].createElement("div", {
+    }, icon), /*#__PURE__*/_react["default"].createElement("div", {
       className: "MenuItem__text"
-    }, primary && _react["default"].createElement("div", {
+    }, primary && /*#__PURE__*/_react["default"].createElement("div", {
       className: "MenuItem__text-primary"
-    }, primary), secondary && _react["default"].createElement("div", {
+    }, primary), secondary && /*#__PURE__*/_react["default"].createElement("div", {
       className: "MenuItem__text-secondary"
-    }, secondary)), action && _react["default"].createElement("div", {
+    }, secondary)), action && /*#__PURE__*/_react["default"].createElement("div", {
       className: "MenuItem__action"
     }, action));
   };

@@ -7,7 +7,8 @@
   "rules": {
     "react/jsx-no-bind": 0,
     "react/no-did-update-set-state": 0,
-    "max-len": ["error", 120, {"ignoreTemplateLiterals": true, "ignoreStrings": true}]
+    "max-len": ["error", 120, {"ignoreTemplateLiterals": true, "ignoreStrings": true}],
+    "no-unused-vars": "warn"
   },
   "env": {
     "browser": true

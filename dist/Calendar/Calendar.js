@@ -40,9 +40,7 @@ function getValueProps(props) {
   return value;
 }
 
-var Calendar =
-/*#__PURE__*/
-function (_React$Component) {
+var Calendar = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Calendar, _React$Component);
 
   function Calendar(props) {
@@ -276,25 +274,25 @@ function (_React$Component) {
   };
 
   _proto.renderHeader = function renderHeader() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cells Calendar__cells_header"
-    }, _react["default"].createElement("div", {
+    }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cell"
-    }, _react["default"].createElement("button", {
+    }, /*#__PURE__*/_react["default"].createElement("button", {
       className: "Calendar__cell-button",
       type: "button",
       tabIndex: "-1",
       onClick: this.handleHeaderStepClick.bind(this, -1)
-    }, "<")), _react["default"].createElement("div", {
+    }, "<")), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cell"
-    }, _react["default"].createElement("button", {
+    }, /*#__PURE__*/_react["default"].createElement("button", {
       className: "Calendar__cell-button",
       type: "button",
       tabIndex: "-1",
       onClick: this.handleHeaderTitleClick.bind(this)
-    }, this.getHeaderTitle())), _react["default"].createElement("div", {
+    }, this.getHeaderTitle())), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cell"
-    }, _react["default"].createElement("button", {
+    }, /*#__PURE__*/_react["default"].createElement("button", {
       className: "Calendar__cell-button",
       type: "button",
       tabIndex: "-1",
@@ -303,10 +301,10 @@ function (_React$Component) {
   };
 
   _proto.renderWeekDays = function renderWeekDays() {
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cells Calendar__cells_weekdays"
     }, WEEKDAYS.map(function (item, index) {
-      return _react["default"].createElement("div", {
+      return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames2["default"])({
           'Calendar__cell': true,
           'Calendar__cell_type_weekday': true
@@ -327,15 +325,15 @@ function (_React$Component) {
       cellsKeys = cellsKeys.reverse();
     }
 
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Calendar__cells"
     }, cellsKeys.map(function (key, index) {
-      return _react["default"].createElement("div", {
+      return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames2["default"])((0, _defineProperty2["default"])({
           'Calendar__cell': true
         }, "Calendar__cell_type_".concat(cellType), true)),
         key: index
-      }, _react["default"].createElement("button", {
+      }, /*#__PURE__*/_react["default"].createElement("button", {
         className: (0, _classnames2["default"])({
           'Calendar__cell-button': true,
           'Calendar__cell-button_light': _this2.isCellOverrange(key),
@@ -356,7 +354,7 @@ function (_React$Component) {
     var classNames = (0, _classnames2["default"])({
       'Calendar': true
     }, className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this)), this.getHeaderTitle() && this.renderHeader(), cellType === 'day' && this.renderWeekDays(), this.renderCells());
   };

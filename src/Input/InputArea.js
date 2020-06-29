@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react'
-import nl2br from 'nl2br'
 import { Input } from './Input'
 
 export class InputArea extends Input {
   renderElement (props) {
     const { value } = this.state
-    const hiddenText = nl2br(value).replace(/\s\s/g, ' &nbsp;') + '&nbsp;'
+    const hiddenText = value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ')
 
     return (
       <Fragment>

@@ -19,28 +19,26 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var iconArrow = _react["default"].createElement("svg", {
+var iconArrow = /*#__PURE__*/_react["default"].createElement("svg", {
   className: "Input__icon Input__icon_arrow",
   xmlns: "http://www.w3.org/2000/svg",
   width: "24",
   height: "24",
   viewBox: "0 0 24 24"
-}, _react["default"].createElement("g", {
+}, /*#__PURE__*/_react["default"].createElement("g", {
   fill: "currentColor",
   transform: "translate(5)"
-}, _react["default"].createElement("path", {
+}, /*#__PURE__*/_react["default"].createElement("path", {
   d: "M-5,0H19V24H-5Z",
   fill: "none",
   fillRule: "evenodd"
-}), _react["default"].createElement("path", {
+}), /*#__PURE__*/_react["default"].createElement("path", {
   d: "M12.077,9,13,9.933,7,16,1,9.933,1.923,9,7,14.133Z",
   fill: "#0b1f35",
   fillRule: "evenodd"
 })));
 
-var InputSelect =
-/*#__PURE__*/
-function (_Input) {
+var InputSelect = /*#__PURE__*/function (_Input) {
   (0, _inheritsLoose2["default"])(InputSelect, _Input);
 
   function InputSelect() {
@@ -115,7 +113,7 @@ function (_Input) {
 
 exports.InputSelect = InputSelect;
 InputSelect.propTypes = _Input2.Input.propTypes;
-InputSelect.defaultProps = _objectSpread({}, _Input2.Input.defaultProps, {
+InputSelect.defaultProps = _objectSpread(_objectSpread({}, _Input2.Input.defaultProps), {}, {
   adornment: iconArrow,
   type: 'select',
   filterMenu: true

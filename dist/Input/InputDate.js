@@ -23,29 +23,27 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var iconCalendar = _react["default"].createElement("svg", {
+var iconCalendar = /*#__PURE__*/_react["default"].createElement("svg", {
   className: "Input__icon Input__icon_calendar",
   xmlns: "http://www.w3.org/2000/svg",
   width: "30",
   height: "30",
   viewBox: "0 0 30 30"
-}, _react["default"].createElement("g", {
+}, /*#__PURE__*/_react["default"].createElement("g", {
   fill: "currentColor"
-}, _react["default"].createElement("rect", {
+}, /*#__PURE__*/_react["default"].createElement("rect", {
   width: "30",
   height: "30",
   fill: "none"
-}), _react["default"].createElement("path", {
+}), /*#__PURE__*/_react["default"].createElement("path", {
   d: "M8.25,1A1.25,1.25,0,0,0,7,2.25V4.125H4.5A2.5,2.5,0,0,0,2,6.625v18.75a2.5,2.5,0,0,0,2.5,2.5h20a2.5,2.5,0,0,0,2.5-2.5V6.625a2.5,2.5,0,0,0-2.5-2.5H22V2.25a1.25,1.25,0,1,0-2.5,0V4.125H9.5V2.25A1.25,1.25,0,0,0,8.25,1ZM19.5,5.375V6A1.25,1.25,0,1,0,22,6V5.375h2.5a1.25,1.25,0,0,1,1.25,1.25v18.75a1.25,1.25,0,0,1-1.25,1.25H4.5a1.251,1.251,0,0,1-1.25-1.25V6.625A1.251,1.251,0,0,1,4.5,5.375H7V6A1.25,1.25,0,1,0,9.5,6V5.375Z",
   transform: "translate(0.501 0.25)"
-}), _react["default"].createElement("path", {
+}), /*#__PURE__*/_react["default"].createElement("path", {
   d: "M5,9h5v2.5H5Zm6.249,0h5v2.5h-5ZM5,15.251h5v2.5H5Zm6.249,0h5v2.5h-5ZM17.5,9h5v2.5h-5Z",
   transform: "translate(1.251 2.249)"
 })));
 
-var InputDate =
-/*#__PURE__*/
-function (_Input) {
+var InputDate = /*#__PURE__*/function (_Input) {
   (0, _inheritsLoose2["default"])(InputDate, _Input);
 
   function InputDate() {
@@ -88,7 +86,7 @@ function (_Input) {
     var date = this.valueToDate(value);
     props.type = 'text';
     props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
-    return _react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), this.renderDropdown(_react["default"].createElement(_Calendar.Calendar, {
+    return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
       value: date ? date.getTime() : 0,
       min: min,
       max: max,
@@ -101,7 +99,7 @@ function (_Input) {
 
 exports.InputDate = InputDate;
 InputDate.propTypes = _Input2.Input.propTypes;
-InputDate.defaultProps = _objectSpread({}, _Input2.Input.defaultProps, {
+InputDate.defaultProps = _objectSpread(_objectSpread({}, _Input2.Input.defaultProps), {}, {
   type: 'date',
   adornment: iconCalendar,
   format: 'DD.MM.YYYY'

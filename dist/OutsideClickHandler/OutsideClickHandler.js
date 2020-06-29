@@ -13,9 +13,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var OutsideClickHandler =
-/*#__PURE__*/
-function (_React$Component) {
+var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(OutsideClickHandler, _React$Component);
 
   function OutsideClickHandler(props) {
@@ -60,7 +58,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var className = this.props.className;
-    return _react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", {
       className: className,
       ref: "root"
     }, this.props.children);

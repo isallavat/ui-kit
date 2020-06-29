@@ -21,9 +21,7 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 var _helpers = require("../helpers");
 
-var Menu =
-/*#__PURE__*/
-function (_React$Component) {
+var Menu = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Menu, _React$Component);
 
   function Menu() {
@@ -55,7 +53,7 @@ function (_React$Component) {
     var classNames = (0, _classnames["default"])({
       'Menu': true
     }, className);
-    return _react["default"].createElement(this.props.component, (0, _extends2["default"])({
+    return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
       ref: "root"
