@@ -188,11 +188,11 @@ export class Camera extends React.Component {
     }
 
     let height = root.offsetHeight
-    let width = video.videoWidth * (height / video.videoHeight)
+    let width = height / video.videoHeight * video.videoWidth
 
     if (width < root.offsetWidth) {
       width = root.offsetWidth
-      height = video.videoHeight * (width / video.videoWidth)
+      height = width / video.videoWidth * video.videoHeight
     }
 
     video.width = width
@@ -206,33 +206,31 @@ export class Camera extends React.Component {
     this.init()
   }
 
-  getFrameCanvas () {
+  getFrameCanvas (asViewportSize) {
     const root = this.refs.root
     const video = this.refs.video
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
-    const left = (video.width - root.offsetWidth) / 2
-    const top = (video.height - root.offsetHeight) / 2
+    let width
+    let height
 
-    canvas.width = root.offsetWidth
-    canvas.height = root.offsetHeight
+    if (asViewportSize) {
+      canvas.width = root.offsetWidth
+      canvas.height = root.offsetHeight
+      width = video.width
+      height = video.height
+    } else {
+      const k = video.videoWidth / video.width
+      canvas.width = root.offsetWidth * k
+      canvas.height = root.offsetHeight * k
+      width = video.videoWidth
+      height = video.videoHeight
+    }
 
-    ctx.drawImage(video, -left, -top, video.width, video.height)
+    const left = (width - canvas.width) / 2
+    const top = (height - canvas.height) / 2
 
-    return canvas
-  }
-
-  getSnapshotCanvas () {
-    const frameCanvas = this.getFrameCanvas()
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    const video = this.refs.video
-    const k = video.videoWidth / video.width
-
-    canvas.width = frameCanvas.width * k
-    canvas.height = frameCanvas.height * k
-
-    ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height)
+    ctx.drawImage(video, -left, -top, width, height)
 
     return canvas
   }
@@ -248,7 +246,7 @@ export class Camera extends React.Component {
     this.refs.video.pause()
     this.setState({ capturing: true })
 
-    this.getSnapshotCanvas().toBlob((blob) => {
+    this.getFrameCanvas().toBlob((blob) => {
       this.setState({
         capturing: false,
         snapshot: blob

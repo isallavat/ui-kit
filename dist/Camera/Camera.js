@@ -240,11 +240,11 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     }
 
     var height = root.offsetHeight;
-    var width = video.videoWidth * (height / video.videoHeight);
+    var width = height / video.videoHeight * video.videoWidth;
 
     if (width < root.offsetWidth) {
       width = root.offsetWidth;
-      height = video.videoHeight * (width / video.videoWidth);
+      height = width / video.videoWidth * video.videoHeight;
     }
 
     video.width = width;
@@ -256,28 +256,30 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     this.init();
   };
 
-  _proto.getFrameCanvas = function getFrameCanvas() {
+  _proto.getFrameCanvas = function getFrameCanvas(asViewportSize) {
     var root = this.refs.root;
     var video = this.refs.video;
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
-    var left = (video.width - root.offsetWidth) / 2;
-    var top = (video.height - root.offsetHeight) / 2;
-    canvas.width = root.offsetWidth;
-    canvas.height = root.offsetHeight;
-    ctx.drawImage(video, -left, -top, video.width, video.height);
-    return canvas;
-  };
+    var width;
+    var height;
 
-  _proto.getSnapshotCanvas = function getSnapshotCanvas() {
-    var frameCanvas = this.getFrameCanvas();
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    var video = this.refs.video;
-    var k = video.videoWidth / video.width;
-    canvas.width = frameCanvas.width * k;
-    canvas.height = frameCanvas.height * k;
-    ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
+    if (asViewportSize) {
+      canvas.width = root.offsetWidth;
+      canvas.height = root.offsetHeight;
+      width = video.width;
+      height = video.height;
+    } else {
+      var k = video.videoWidth / video.width;
+      canvas.width = root.offsetWidth * k;
+      canvas.height = root.offsetHeight * k;
+      width = video.videoWidth;
+      height = video.videoHeight;
+    }
+
+    var left = (width - canvas.width) / 2;
+    var top = (height - canvas.height) / 2;
+    ctx.drawImage(video, -left, -top, width, height);
     return canvas;
   };
 
@@ -296,7 +298,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     this.setState({
       capturing: true
     });
-    this.getSnapshotCanvas().toBlob(function (blob) {
+    this.getFrameCanvas().toBlob(function (blob) {
       _this6.setState({
         capturing: false,
         snapshot: blob
