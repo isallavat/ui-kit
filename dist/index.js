@@ -123,6 +123,24 @@ Object.defineProperty(exports, "Switch", {
     return _Switch.Switch;
   }
 });
+Object.defineProperty(exports, "Table", {
+  enumerable: true,
+  get: function get() {
+    return _Table.Table;
+  }
+});
+Object.defineProperty(exports, "TableRow", {
+  enumerable: true,
+  get: function get() {
+    return _Table.TableRow;
+  }
+});
+Object.defineProperty(exports, "TableCell", {
+  enumerable: true,
+  get: function get() {
+    return _Table.TableCell;
+  }
+});
 
 var _Button = require("./Button");
 
@@ -149,3 +167,5 @@ var _Progress = require("./Progress");
 var _Radio = require("./Radio");
 
 var _Switch = require("./Switch");
+
+var _Table = require("./Table");

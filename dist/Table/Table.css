@@ -1,0 +1,7 @@
+.Table {
+  display: table;
+  width: 100%; }
+  .TableRow {
+    display: table-row; }
+  .TableCell {
+    display: table-cell; }

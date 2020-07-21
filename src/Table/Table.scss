@@ -1,0 +1,14 @@
+$this: '.Table';
+
+#{$this} {
+  display: table;
+  width: 100%;
+
+  &Row {
+    display: table-row;
+  }
+
+  &Cell {
+    display: table-cell;
+  }
+}
