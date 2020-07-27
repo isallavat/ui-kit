@@ -74,7 +74,7 @@
     max-width: 640px; }
   .Modal_size_l .Modal__window {
     max-width: 960px; }
-  @media (min-width: 640px), print {
+  @media (min-width: 640px) {
     .Modal__container {
       padding: 30px; }
     .Modal__window {

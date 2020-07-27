@@ -116,7 +116,7 @@
   border-color: #F04539; }
 
 .CheckBox.--checked .CheckBox__element:before {
-  top: 25%;
+  top: 23%;
   opacity: 1; }
 
 .CheckBox.--disabled {

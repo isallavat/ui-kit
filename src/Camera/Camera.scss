@@ -141,7 +141,7 @@ $this: '.Camera';
     }
   }
 
-  @media (min-width: $width-tablet), print {
+  @media (min-width: $width-tablet) {
     &__control {
       width: 64px;
       height: 64px;

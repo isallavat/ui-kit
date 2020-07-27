@@ -82,7 +82,7 @@ $this: '.CheckBox';
 
   &.--checked {
     #{$this}__element:before {
-      top: 25%;
+      top: 23%;
       opacity: 1;
     }
   }

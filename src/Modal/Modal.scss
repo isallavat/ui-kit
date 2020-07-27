@@ -100,7 +100,7 @@ $this: '.Modal';
   @include size('m', 640px);
   @include size('l', 960px);
 
-  @media (min-width: $width-tablet), print {
+  @media (min-width: $width-tablet) {
     &__container {
       padding: 30px;
     }

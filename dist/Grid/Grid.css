@@ -225,6 +225,13 @@
     padding: 0; }
   .GridItem_full {
     width: 100%; }
+
+@media (max-width: 319px) {
+  .GridItem {
+    flex-grow: 1;
+    width: 100%; } }
+
+@media (min-width: 320px) {
   .GridItem_mobile_1 {
     flex-grow: 0;
     width: 8.33333%; }
@@ -260,9 +267,9 @@
     width: 91.66667%; }
   .GridItem_mobile_12 {
     flex-grow: 0;
-    width: 100%; }
+    width: 100%; } }
 
-@media (min-width: 640px), print {
+@media (min-width: 640px) {
   .GridItem_tablet_1 {
     flex-grow: 0;
     width: 8.33333%; }

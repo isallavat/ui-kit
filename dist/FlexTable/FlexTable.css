@@ -6,7 +6,7 @@
   display: block;
   padding: 5px 0; }
 
-@media (min-width: 640px), print {
+@media (min-width: 640px) {
   .FlexTable {
     display: table;
     width: 100%; }

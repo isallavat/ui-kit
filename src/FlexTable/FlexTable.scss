@@ -13,7 +13,7 @@ $this: '.FlexTable';
     padding: 5px 0;
   }
 
-  @media (min-width: $width-tablet), print {
+  @media (min-width: $width-tablet) {
     display: table;
     width: 100%;
 

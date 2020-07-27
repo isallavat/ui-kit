@@ -62,16 +62,27 @@ $this: '.Grid';
     &_full {
       width: 100%;
     }
+  }
 
-    @for $i from 1 through 12 {
-      &_mobile_#{$i} {
-        flex-grow: 0;
-        width: (100% / 12 * $i);
+  @media (max-width: ($width-mobile - 1)) {
+    &Item {
+      flex-grow: 1;
+      width: 100%;
+    }
+  }
+
+  @media (min-width: $width-mobile) {
+    &Item {
+      @for $i from 1 through 12 {
+        &_mobile_#{$i} {
+          flex-grow: 0;
+          width: (100% / 12 * $i);
+        }
       }
     }
   }
 
-  @media (min-width: $width-tablet), print {
+  @media (min-width: $width-tablet) {
     &Item {
       @for $i from 1 through 12 {
         &_tablet_#{$i} {
