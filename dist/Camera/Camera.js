@@ -50,20 +50,31 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleKeyUp = (_context = _this).handleKeyUp.bind(_context);
     _this.handleWindowResize = (_context = _this).handleWindowResize.bind(_context);
-    _this.preventWindowScroll = (_context = _this).preventWindowScroll.bind(_context);
     return _this;
   }
 
   var _proto = Camera.prototype;
 
   _proto.componentWillUnmount = function componentWillUnmount() {
-    this.beforeClose();
+    if (this.opened) {
+      this.close();
+    }
   };
 
   _proto.open = function open() {
     var _this2 = this;
 
-    this.beforeOpen();
+    var fullscreen = this.props.fullscreen;
+    var root = this.refs.root;
+    this.opened = true;
+    root && root.focus();
+
+    if (fullscreen) {
+      (0, _helpers.preventWindowScroll)(true);
+    }
+
+    document.addEventListener('keyup', this.handleKeyUp);
+    window.addEventListener('resize', this.handleWindowResize);
     this.setState({
       opened: true
     });
@@ -82,7 +93,11 @@ var Camera = /*#__PURE__*/function (_React$Component) {
 
   _proto.close = function close() {
     var onClose = this.props.onClose;
-    this.beforeClose();
+    this.opened = false;
+    (0, _helpers.preventWindowScroll)(false);
+    this.videoStreamTrack && this.videoStreamTrack.stop();
+    document.removeEventListener('keyup', this.handleKeyUp);
+    window.removeEventListener('resize', this.handleWindowResize);
     this.setState({
       opened: false,
       cameraInited: false,
@@ -93,35 +108,6 @@ var Camera = /*#__PURE__*/function (_React$Component) {
 
   _proto.stop = function stop() {
     this.videoStreamTrack && this.videoStreamTrack.stop();
-  };
-
-  _proto.beforeOpen = function beforeOpen() {
-    var fullscreen = this.props.fullscreen;
-    var root = this.refs.root;
-    this.opened = true;
-    root && root.focus();
-
-    if (fullscreen) {
-      this.pageYOffset = window.pageYOffset;
-      window.addEventListener('scroll', this.preventWindowScroll);
-    }
-
-    document.addEventListener('keyup', this.handleKeyUp);
-    window.addEventListener('resize', this.handleWindowResize);
-  };
-
-  _proto.beforeClose = function beforeClose() {
-    this.opened = false;
-    this.videoStreamTrack && this.videoStreamTrack.stop();
-    document.removeEventListener('keyup', this.handleKeyUp);
-    window.removeEventListener('resize', this.handleWindowResize);
-    window.removeEventListener('scroll', this.preventWindowScroll);
-  };
-
-  _proto.preventWindowScroll = function preventWindowScroll(event) {
-    window.scrollTo(0, this.pageYOffset);
-    event.preventDefault();
-    event.returnValue = false;
   };
 
   _proto.init = function init() {
@@ -156,6 +142,10 @@ var Camera = /*#__PURE__*/function (_React$Component) {
 
       _this4.getUserMedia(_this4.constraints).then(function (stream) {
         _this4.videoStreamTrack = stream.getVideoTracks()[0];
+
+        if (!_this4.opened) {
+          return _this4.videoStreamTrack.stop();
+        }
 
         _this4.setState({
           cameraInited: true
@@ -469,7 +459,9 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     }), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__close",
       onClick: this.close.bind(this)
-    }));
+    }, /*#__PURE__*/_react["default"].createElement("div", {
+      className: "Camera__close-icon"
+    })));
   };
 
   return Camera;

@@ -393,6 +393,21 @@ export class Input extends React.Component {
     )
   }
 
+  renderAdornment () {
+    const { adornment, adornmentPosition } = this.props
+
+    return (
+      <div
+        className={classnames({
+          'Input__adornment': true,
+          [`Input__adornment_${adornmentPosition}`]: true
+        })}
+      >
+        {adornment}
+      </div>
+    )
+  }
+
   render () {
     const {
       className,
@@ -464,15 +479,8 @@ export class Input extends React.Component {
         }}
         onMouseUp={() => { this.mouseDown = false }}
       >
-        {adornment &&
-          <div
-            className={classnames({
-              'Input__adornment': true,
-              [`Input__adornment_${adornmentPosition}`]: true
-            })}
-          >
-            {adornment}
-          </div>
+        {adornment && adornmentPosition === 'start' &&
+          this.renderAdornment()
         }
         <div className='Input__container'>
           {label &&
@@ -480,6 +488,9 @@ export class Input extends React.Component {
           }
           {this.renderElement(inputProps)}
         </div>
+        {adornment && adornmentPosition === 'end' &&
+          this.renderAdornment()
+        }
         {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
         {type === 'range' && this.renderRange()}
       </this.props.component>

@@ -3,5 +3,9 @@ $this: '.Progress';
 @mixin color ($name, $color) {
   &#{$this}_color_#{$name} {
     color: $color;
+
+    #{$this}__line {
+      background-color: $color;
+    }
   }
 }

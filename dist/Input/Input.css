@@ -13,7 +13,7 @@
     border-style: solid;
     opacity: .5;
     border-radius: inherit;
-    transition: 200ms; }
+    transition: 200ms ease-out; }
   .Input__container {
     flex-grow: 1;
     position: relative; }
@@ -74,13 +74,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     opacity: .6;
-    transition: 300ms;
+    transition: 300ms ease-out;
     cursor: text; }
   .Input__adornment_start {
-    margin-right: 10px; }
+    padding-right: 10px; }
   .Input__adornment_end {
-    order: 1;
-    margin-left: 10px; }
+    padding-left: 10px; }
   .Input__icon {
     vertical-align: top;
     opacity: .6; }
@@ -92,10 +91,10 @@
     transform: translateY(20px);
     background-color: white;
     box-shadow: 0 5px 20px 0 rgba(128, 128, 128, 0.2);
-    z-index: 1;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
-    transition: 300ms; }
+    transition: 300ms ease-out; }
     .Input__dropdown.--visible {
       opacity: 1;
       visibility: visible;
@@ -153,7 +152,7 @@
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
-      transition: 200ms; }
+      transition: 200ms ease-out; }
       .Input .input-range__slider:focus {
         outline: none; }
       .Input .input-range__slider:active {

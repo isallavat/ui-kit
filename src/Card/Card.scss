@@ -9,7 +9,6 @@ $this: '.Card';
   &__header {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     padding: 16px;
     border-bottom: 1px solid $palette-grey-300;
 
@@ -21,6 +20,7 @@ $this: '.Card';
   &__title {
     font-size: 16px;
     line-height: 1.1;
+    flex-grow: 1;
   }
 
   &__switcher {

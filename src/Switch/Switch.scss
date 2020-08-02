@@ -9,7 +9,7 @@ $this: '.Switch';
     display: inline-flex;
     vertical-align: top;
     position: relative;
-    transition: 100ms;
+    transition: 100ms ease-out;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
@@ -21,9 +21,7 @@ $this: '.Switch';
     border: 1px solid $palette-grey-400;
     background-color: $palette-grey-100;
     position: relative;
-    transition:
-      border-color 100ms,
-      background-color 100ms;
+    transition: 100ms ease-out;
 
     &:before {
       content: '';
@@ -34,9 +32,7 @@ $this: '.Switch';
       background-color: white;
       border-radius: 50%;
       box-shadow: $shadow-1;
-      transition:
-        transform 100ms,
-        left 100ms;
+      transition: 100ms ease-out;
     }
   }
 

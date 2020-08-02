@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,7 +15,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -101,20 +103,16 @@ var Progress = /*#__PURE__*/function (_React$Component) {
       cy: "50%",
       r: "46%",
       strokeDasharray: "".concat(circleLength / 100 * percent, ",").concat(circleLength)
-    })) : /*#__PURE__*/_react["default"].createElement("svg", {
-      xmlns: "http://www.w3.org/2000/svg"
-    }, /*#__PURE__*/_react["default"].createElement("rect", {
+    })) : /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__line Progress__line_1",
-      x: "0",
-      y: "0",
-      width: "100%",
-      height: "100%"
-    }), /*#__PURE__*/_react["default"].createElement("rect", {
+      style: {
+        width: '100%'
+      }
+    }), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__line Progress__line_2",
-      x: "0",
-      y: "0",
-      width: percent + '%',
-      height: "100%"
+      style: {
+        width: percent + '%'
+      }
     })), !!value && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__value"
     }, value), children);

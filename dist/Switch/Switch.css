@@ -3,7 +3,7 @@
   display: inline-flex;
   vertical-align: top;
   position: relative;
-  transition: 100ms;
+  transition: 100ms ease-out;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
@@ -14,7 +14,7 @@
   border: 1px solid #ADB4BA;
   background-color: #F4F4F5;
   position: relative;
-  transition: border-color 100ms, background-color 100ms; }
+  transition: 100ms ease-out; }
   .Switch__element:before {
     content: '';
     position: absolute;
@@ -24,7 +24,7 @@
     background-color: white;
     border-radius: 50%;
     box-shadow: 0 3px 5px 0 rgba(128, 128, 128, 0.2);
-    transition: transform 100ms, left 100ms; }
+    transition: 100ms ease-out; }
 
 .Switch__label_position_start {
   order: -1; }

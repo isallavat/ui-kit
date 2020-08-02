@@ -3,7 +3,7 @@
   display: inline-flex;
   vertical-align: top;
   position: relative;
-  transition: 100ms;
+  transition: 100ms ease-out;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
@@ -15,7 +15,7 @@
   border: 1px solid #ADB4BA;
   background-color: #F4F4F5;
   border-radius: 50%;
-  transition: 100ms; }
+  transition: 100ms ease-out; }
   .Radio__element:before {
     content: '';
     position: absolute;
@@ -28,7 +28,7 @@
     border-radius: 50%;
     background-color: white;
     opacity: 0;
-    transition: 100ms; }
+    transition: 100ms ease-out; }
 
 .Radio__label_position_start {
   order: -1; }

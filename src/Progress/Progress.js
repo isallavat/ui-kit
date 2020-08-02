@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { excludeProps, formatDate } from '../helpers'
@@ -68,16 +68,16 @@ export class Progress extends React.Component {
                 strokeDasharray={`${circleLength / 100 * percent},${circleLength}`}
               />
             </svg>
-          : <svg xmlns='http://www.w3.org/2000/svg'>
-            <rect
+          : <Fragment>
+            <div
               className='Progress__line Progress__line_1'
-              x='0' y='0' width='100%' height='100%'
+              style={{ width: '100%' }}
             />
-            <rect
+            <div
               className='Progress__line Progress__line_2'
-              x='0' y='0' width={percent + '%'} height='100%'
+              style={{ width: percent + '%' }}
             />
-          </svg>
+          </Fragment>
         }
         {!!value && <div className='Progress__value'>{value}</div>}
         {children}

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Progress } from '../Progress'
-import { excludeProps } from '../helpers'
+import { excludeProps, preventWindowScroll } from '../helpers'
 import './polyfill'
 
 // Была попытка использовать ImageCapture. Не подходит. Так как на android-планшете не фотка, а говно
@@ -24,15 +24,27 @@ export class Camera extends React.Component {
 
     this.handleKeyUp = ::this.handleKeyUp
     this.handleWindowResize = ::this.handleWindowResize
-    this.preventWindowScroll = ::this.preventWindowScroll
   }
 
   componentWillUnmount () {
-    this.beforeClose()
+    if (this.opened) {
+      this.close()
+    }
   }
 
   open () {
-    this.beforeOpen()
+    const { fullscreen } = this.props
+    const root = this.refs.root
+    this.opened = true
+
+    root && root.focus()
+
+    if (fullscreen) {
+      preventWindowScroll(true)
+    }
+
+    document.addEventListener('keyup', this.handleKeyUp)
+    window.addEventListener('resize', this.handleWindowResize)
 
     this.setState({ opened: true })
 
@@ -46,8 +58,12 @@ export class Camera extends React.Component {
 
   close () {
     const { onClose } = this.props
+    this.opened = false
 
-    this.beforeClose()
+    preventWindowScroll(false)
+    this.videoStreamTrack && this.videoStreamTrack.stop()
+    document.removeEventListener('keyup', this.handleKeyUp)
+    window.removeEventListener('resize', this.handleWindowResize)
 
     this.setState({
       opened: false,
@@ -60,38 +76,6 @@ export class Camera extends React.Component {
 
   stop () {
     this.videoStreamTrack && this.videoStreamTrack.stop()
-  }
-
-  beforeOpen () {
-    const { fullscreen } = this.props
-    const root = this.refs.root
-
-    this.opened = true
-
-    root && root.focus()
-
-    if (fullscreen) {
-      this.pageYOffset = window.pageYOffset
-      window.addEventListener('scroll', this.preventWindowScroll)
-    }
-
-    document.addEventListener('keyup', this.handleKeyUp)
-    window.addEventListener('resize', this.handleWindowResize)
-  }
-
-  beforeClose () {
-    this.opened = false
-
-    this.videoStreamTrack && this.videoStreamTrack.stop()
-    document.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleWindowResize)
-    window.removeEventListener('scroll', this.preventWindowScroll)
-  }
-
-  preventWindowScroll (event) {
-    window.scrollTo(0, this.pageYOffset)
-    event.preventDefault()
-    event.returnValue = false
   }
 
   init () {
@@ -114,6 +98,11 @@ export class Camera extends React.Component {
       this.setState({ cameraInited: false })
       this.getUserMedia(this.constraints).then((stream) => {
         this.videoStreamTrack = stream.getVideoTracks()[0]
+
+        if (!this.opened) {
+          return this.videoStreamTrack.stop()
+        }
+
         this.setState({ cameraInited: true }, () => {
           const video = this.refs.video
 
@@ -409,7 +398,9 @@ export class Camera extends React.Component {
           </Fragment>
         }
         {progress && <Progress className='Camera__progress' color='current' />}
-        <div className='Camera__close' onClick={::this.close} />
+        <div className='Camera__close' onClick={::this.close}>
+          <div className='Camera__close-icon' />
+        </div>
       </this.props.component>
     )
   }

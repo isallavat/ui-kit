@@ -19,7 +19,7 @@ $this: '.Modal';
     right: 0;
     bottom: 0;
     background-color: rgba(0,0,0,.4);
-    animation: Dialog__overlay 300ms;
+    animation: Dialog__overlay 300ms ease-out;
   }
 
   &__container {
@@ -39,7 +39,7 @@ $this: '.Modal';
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 20px 30px rgba(0,0,0,.15);
-    animation: Dialog__window 300ms;
+    animation: Dialog__window 300ms ease-out;
   }
 
   &__header {

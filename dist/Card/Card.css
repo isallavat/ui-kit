@@ -4,14 +4,14 @@
   .Card__header {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     padding: 16px;
     border-bottom: 1px solid #D8D8D8; }
     .Card__header.--collapsed {
       border: none; }
   .Card__title {
     font-size: 16px;
-    line-height: 1.1; }
+    line-height: 1.1;
+    flex-grow: 1; }
   .Card__switcher {
     box-sizing: border-box;
     width: 50px;

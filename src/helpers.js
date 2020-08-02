@@ -40,3 +40,14 @@ export function formatPrice (value) {
 
   return _value
 }
+
+export function preventWindowScroll (prevent) {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+  if (prevent) {
+    document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = scrollbarWidth + 'px'
+  } else {
+    document.body.removeAttribute('style')
+  }
+}

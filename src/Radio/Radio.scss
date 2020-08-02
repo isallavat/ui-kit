@@ -9,7 +9,7 @@ $this: '.Radio';
     display: inline-flex;
     vertical-align: top;
     position: relative;
-    transition: 100ms;
+    transition: 100ms ease-out;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
@@ -22,7 +22,7 @@ $this: '.Radio';
     border: 1px solid $palette-grey-400;
     background-color: $palette-grey-100;
     border-radius: 50%;
-    transition: 100ms;
+    transition: 100ms ease-out;
 
     &:before {
       content: '';
@@ -36,7 +36,7 @@ $this: '.Radio';
       border-radius: 50%;
       background-color: white;
       opacity: 0;
-      transition: 100ms;
+      transition: 100ms ease-out;
     }
   }
 

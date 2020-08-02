@@ -29,8 +29,8 @@ export class Card extends React.Component {
             'Card__header': true,
             '--collapsed': collapsed
           })}>
-            <span className='Card__title'>{title}</span>
-            <span
+            <div className='Card__title'>{title}</div>
+            <div
               className={classnames({
                 'Card__switcher': true,
                 '--collapsed': collapsed
@@ -46,7 +46,7 @@ export class Card extends React.Component {
                   </g>
                 </g>
               </svg>
-            </span>
+            </div>
           </div>
         }
         <div className={classnames({

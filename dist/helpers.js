@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.excludeProps = excludeProps;
 exports.formatDate = formatDate;
 exports.formatPrice = formatPrice;
+exports.preventWindowScroll = preventWindowScroll;
 
 function excludeProps(_this) {
   return Object.keys(_this.props).reduce(function (accumulator, key) {
@@ -43,4 +44,15 @@ function formatPrice(value) {
   }
 
   return _value;
+}
+
+function preventWindowScroll(prevent) {
+  var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+  if (prevent) {
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = scrollbarWidth + 'px';
+  } else {
+    document.body.removeAttribute('style');
+  }
 }

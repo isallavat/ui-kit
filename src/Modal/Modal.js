@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Progress } from '../Progress'
-import { excludeProps } from '../helpers'
+import { excludeProps, preventWindowScroll } from '../helpers'
 
 export class Modal extends React.Component {
   constructor (props) {
@@ -11,26 +11,26 @@ export class Modal extends React.Component {
     this.state = {}
 
     this.handleKeyUp = ::this.handleKeyUp
-    this.preventWindowScroll = ::this.preventWindowScroll
   }
 
   componentWillUnmount () {
-    window.removeEventListener('scroll', this.preventWindowScroll)
-    document.removeEventListener('keyup', this.handleKeyUp)
+    if (this.state.visible) {
+      this.close()
+    }
   }
 
   open (props) {
     this._props = props
     this.setState({ visible: true })
-    this.pageYOffset = window.pageYOffset
-    window.addEventListener('scroll', this.preventWindowScroll)
+    preventWindowScroll(true)
     document.addEventListener('keyup', this.handleKeyUp)
   }
 
   close () {
     const { onClose } = this.props
-    this.componentWillUnmount()
     this.setState({ visible: false })
+    preventWindowScroll(false)
+    document.removeEventListener('keyup', this.handleKeyUp)
 
     onClose && onClose()
   }
@@ -42,12 +42,6 @@ export class Modal extends React.Component {
       this._props = props
       this.forceUpdate()
     }
-  }
-
-  preventWindowScroll (event) {
-    window.scrollTo(0, this.pageYOffset)
-    event.preventDefault()
-    event.returnValue = false
   }
 
   getMergedProps () {

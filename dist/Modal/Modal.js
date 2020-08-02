@@ -40,15 +40,15 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     _this = _React$Component.call(this, props) || this;
     _this.state = {};
     _this.handleKeyUp = (_context = _this).handleKeyUp.bind(_context);
-    _this.preventWindowScroll = (_context = _this).preventWindowScroll.bind(_context);
     return _this;
   }
 
   var _proto = Modal.prototype;
 
   _proto.componentWillUnmount = function componentWillUnmount() {
-    window.removeEventListener('scroll', this.preventWindowScroll);
-    document.removeEventListener('keyup', this.handleKeyUp);
+    if (this.state.visible) {
+      this.close();
+    }
   };
 
   _proto.open = function open(props) {
@@ -56,17 +56,17 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     this.setState({
       visible: true
     });
-    this.pageYOffset = window.pageYOffset;
-    window.addEventListener('scroll', this.preventWindowScroll);
+    (0, _helpers.preventWindowScroll)(true);
     document.addEventListener('keyup', this.handleKeyUp);
   };
 
   _proto.close = function close() {
     var onClose = this.props.onClose;
-    this.componentWillUnmount();
     this.setState({
       visible: false
     });
+    (0, _helpers.preventWindowScroll)(false);
+    document.removeEventListener('keyup', this.handleKeyUp);
     onClose && onClose();
   };
 
@@ -77,12 +77,6 @@ var Modal = /*#__PURE__*/function (_React$Component) {
       this._props = props;
       this.forceUpdate();
     }
-  };
-
-  _proto.preventWindowScroll = function preventWindowScroll(event) {
-    window.scrollTo(0, this.pageYOffset);
-    event.preventDefault();
-    event.returnValue = false;
   };
 
   _proto.getMergedProps = function getMergedProps() {

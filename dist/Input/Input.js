@@ -451,25 +451,36 @@ var Input = /*#__PURE__*/function (_React$Component) {
     })));
   };
 
-  _proto.render = function render() {
-    var _classnames,
-        _this6 = this;
-
+  _proto.renderAdornment = function renderAdornment() {
     var _this$props9 = this.props,
-        className = _this$props9.className,
-        componentProps = _this$props9.componentProps,
-        size = _this$props9.size,
-        color = _this$props9.color,
-        variant = _this$props9.variant,
-        rounded = _this$props9.rounded,
-        invalid = _this$props9.invalid,
-        disabled = _this$props9.disabled,
-        type = _this$props9.type,
-        label = _this$props9.label,
-        mask = _this$props9.mask,
-        maskChar = _this$props9.maskChar,
         adornment = _this$props9.adornment,
         adornmentPosition = _this$props9.adornmentPosition;
+    return /*#__PURE__*/_react["default"].createElement("div", {
+      className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
+        'Input__adornment': true
+      }, "Input__adornment_".concat(adornmentPosition), true))
+    }, adornment);
+  };
+
+  _proto.render = function render() {
+    var _classnames2,
+        _this6 = this;
+
+    var _this$props10 = this.props,
+        className = _this$props10.className,
+        componentProps = _this$props10.componentProps,
+        size = _this$props10.size,
+        color = _this$props10.color,
+        variant = _this$props10.variant,
+        rounded = _this$props10.rounded,
+        invalid = _this$props10.invalid,
+        disabled = _this$props10.disabled,
+        type = _this$props10.type,
+        label = _this$props10.label,
+        mask = _this$props10.mask,
+        maskChar = _this$props10.maskChar,
+        adornment = _this$props10.adornment,
+        adornmentPosition = _this$props10.adornmentPosition;
     var _this$state4 = this.state,
         value = _this$state4.value,
         focused = _this$state4.focused;
@@ -502,9 +513,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
       inputProps.inputMode = 'numeric';
     }
 
-    var classNames = (0, _classnames3["default"])((_classnames = {
+    var classNames = (0, _classnames3["default"])((_classnames2 = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '--focused', focused), (0, _defineProperty2["default"])(_classnames, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), _classnames), className);
+    }, (0, _defineProperty2["default"])(_classnames2, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames2, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames2, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames2, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames2, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames2, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames2, '--focused', focused), (0, _defineProperty2["default"])(_classnames2, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames2, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames2, '--disabled', disabled), _classnames2), className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {
@@ -515,15 +526,11 @@ var Input = /*#__PURE__*/function (_React$Component) {
       onMouseUp: function onMouseUp() {
         _this6.mouseDown = false;
       }
-    }), adornment && /*#__PURE__*/_react["default"].createElement("div", {
-      className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
-        'Input__adornment': true
-      }, "Input__adornment_".concat(adornmentPosition), true))
-    }, adornment), /*#__PURE__*/_react["default"].createElement("div", {
+    }), adornment && adornmentPosition === 'start' && this.renderAdornment(), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__container"
     }, label && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__label"
-    }, label), this.renderElement(inputProps)), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
+    }, label), this.renderElement(inputProps)), adornment && adornmentPosition === 'end' && this.renderAdornment(), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
   };
 
   return Input;

@@ -53,9 +53,9 @@ var Card = /*#__PURE__*/function (_React$Component) {
         'Card__header': true,
         '--collapsed': collapsed
       })
-    }, /*#__PURE__*/_react["default"].createElement("span", {
+    }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Card__title"
-    }, title), /*#__PURE__*/_react["default"].createElement("span", {
+    }, title), /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
         'Card__switcher': true,
         '--collapsed': collapsed

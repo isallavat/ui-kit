@@ -23,6 +23,7 @@ $this: '.Progress';
 
     &_line {
       height: 6px;
+      overflow: hidden;
     }
   }
 
@@ -40,19 +41,23 @@ $this: '.Progress';
     }
 
     &_2 {
-      transition: 300ms;
+      transition: 300ms ease-out;
     }
   }
 
   &__line {
-    fill: currentColor;
+    height: 100%;
 
     &_1 {
       opacity: .3;
     }
 
     &_2 {
-      transition: 300ms;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: 300ms ease-out;
+      animation: Progress__line 1s linear infinite;
     }
   }
 
@@ -70,5 +75,15 @@ $this: '.Progress';
 
   @keyframes Progress__circle {
     100% { transform: rotate(270deg); }
+  }
+
+  @keyframes Progress__line {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      left: 100%;
+      transform: translateX(0);
+    }
   }
 }

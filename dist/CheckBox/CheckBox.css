@@ -3,7 +3,7 @@
   display: inline-flex;
   vertical-align: top;
   position: relative;
-  transition: 100ms;
+  transition: 100ms ease-out;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; }
 
@@ -15,7 +15,7 @@
   border: 1px solid #ADB4BA;
   background-color: #F4F4F5;
   border-radius: 5px;
-  transition: 100ms; }
+  transition: 100ms ease-out; }
   .CheckBox__element:before {
     content: '';
     position: absolute;
@@ -29,7 +29,7 @@
     border-color: white;
     border-width: 0 0 2px 2px;
     opacity: 0;
-    transition: 100ms; }
+    transition: 100ms ease-out; }
 
 .CheckBox__label_position_start {
   order: -1; }
