@@ -1,9 +1,9 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import InputRange from 'react-input-range'
+import { ScrollArea } from '../ScrollArea'
 import { excludeProps, formatPrice } from '../helpers'
 
 export class Input extends React.Component {
@@ -116,24 +116,25 @@ export class Input extends React.Component {
 
   scrollMenuToSelected (exact) {
     const { menuSeletedItemIndex } = this.state
-    const menuEl = findDOMNode(this.refs.menu)
 
-    if (!menuEl) {
+    if (!this.menuEl) {
       return
     }
 
-    const selectedItemEl = menuEl.childNodes[menuSeletedItemIndex]
+    const selectedItemEl = this.menuEl.childNodes[menuSeletedItemIndex]
 
     if (menuSeletedItemIndex >= 0 && selectedItemEl) {
       if (exact) {
-        menuEl.scrollTop = selectedItemEl.offsetTop
-      } else if (selectedItemEl.offsetTop < menuEl.scrollTop) {
-        menuEl.scrollTop = selectedItemEl.offsetTop
-      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > menuEl.offsetHeight + menuEl.scrollTop) {
-        menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - menuEl.offsetHeight
+        this.menuEl.scrollTop = selectedItemEl.offsetTop
+      } else if (selectedItemEl.offsetTop < this.menuEl.scrollTop) {
+        this.menuEl.scrollTop = selectedItemEl.offsetTop
+      } else if (
+        selectedItemEl.offsetTop + selectedItemEl.offsetHeight > this.menuEl.offsetHeight + this.menuEl.scrollTop
+      ) {
+        this.menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - this.menuEl.offsetHeight
       }
     } else {
-      menuEl.scrollTop = 0
+      this.menuEl.scrollTop = 0
     }
   }
 
@@ -350,7 +351,7 @@ export class Input extends React.Component {
     const menu = this.getMenu()
 
     return this.renderDropdown(
-      <div className='Input__menu' ref='menu'>
+      <ScrollArea className='Input__menu' containerRef={(node) => { this.menuEl = node }}>
         {menu.map((item, index) =>
           <div
             className={classnames({
@@ -368,7 +369,7 @@ export class Input extends React.Component {
             }
           </div>
         )}
-      </div>
+      </ScrollArea>
     )
   }
 

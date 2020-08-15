@@ -7,11 +7,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.OutsideClickHandler = void 0;
 
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
 var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _helpers = require("../helpers");
 
 var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(OutsideClickHandler, _React$Component);
@@ -57,11 +61,9 @@ var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var className = this.props.className;
-    return /*#__PURE__*/_react["default"].createElement("div", {
-      className: className,
+    return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
       ref: "root"
-    }, this.props.children);
+    }), this.props.children);
   };
 
   return OutsideClickHandler;
@@ -69,7 +71,6 @@ var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
 
 exports.OutsideClickHandler = OutsideClickHandler;
 OutsideClickHandler.propTypes = {
-  className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   children: _propTypes["default"].any,
   disabled: _propTypes["default"].bool,
   onOutsideClick: _propTypes["default"].func

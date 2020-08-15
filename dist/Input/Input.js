@@ -17,8 +17,6 @@ var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inh
 
 var _react = _interopRequireDefault(require("react"));
 
-var _reactDom = require("react-dom");
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames3 = _interopRequireDefault(require("classnames"));
@@ -26,6 +24,8 @@ var _classnames3 = _interopRequireDefault(require("classnames"));
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
 var _reactInputRange = _interopRequireDefault(require("react-input-range"));
+
+var _ScrollArea = require("../ScrollArea");
 
 var _helpers = require("../helpers");
 
@@ -157,24 +157,23 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
   _proto.scrollMenuToSelected = function scrollMenuToSelected(exact) {
     var menuSeletedItemIndex = this.state.menuSeletedItemIndex;
-    var menuEl = (0, _reactDom.findDOMNode)(this.refs.menu);
 
-    if (!menuEl) {
+    if (!this.menuEl) {
       return;
     }
 
-    var selectedItemEl = menuEl.childNodes[menuSeletedItemIndex];
+    var selectedItemEl = this.menuEl.childNodes[menuSeletedItemIndex];
 
     if (menuSeletedItemIndex >= 0 && selectedItemEl) {
       if (exact) {
-        menuEl.scrollTop = selectedItemEl.offsetTop;
-      } else if (selectedItemEl.offsetTop < menuEl.scrollTop) {
-        menuEl.scrollTop = selectedItemEl.offsetTop;
-      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > menuEl.offsetHeight + menuEl.scrollTop) {
-        menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - menuEl.offsetHeight;
+        this.menuEl.scrollTop = selectedItemEl.offsetTop;
+      } else if (selectedItemEl.offsetTop < this.menuEl.scrollTop) {
+        this.menuEl.scrollTop = selectedItemEl.offsetTop;
+      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > this.menuEl.offsetHeight + this.menuEl.scrollTop) {
+        this.menuEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - this.menuEl.offsetHeight;
       }
     } else {
-      menuEl.scrollTop = 0;
+      this.menuEl.scrollTop = 0;
     }
   };
 
@@ -398,9 +397,11 @@ var Input = /*#__PURE__*/function (_React$Component) {
         dropdownVisible = _this$state3.dropdownVisible,
         menuSeletedItemIndex = _this$state3.menuSeletedItemIndex;
     var menu = this.getMenu();
-    return this.renderDropdown( /*#__PURE__*/_react["default"].createElement("div", {
+    return this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_ScrollArea.ScrollArea, {
       className: "Input__menu",
-      ref: "menu"
+      containerRef: function containerRef(node) {
+        _this5.menuEl = node;
+      }
     }, menu.map(function (item, index) {
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames3["default"])({

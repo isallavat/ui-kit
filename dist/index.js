@@ -117,6 +117,12 @@ Object.defineProperty(exports, "Radio", {
     return _Radio.Radio;
   }
 });
+Object.defineProperty(exports, "ScrollArea", {
+  enumerable: true,
+  get: function get() {
+    return _ScrollArea.ScrollArea;
+  }
+});
 Object.defineProperty(exports, "Switch", {
   enumerable: true,
   get: function get() {
@@ -165,6 +171,8 @@ var _OutsideClickHandler = require("./OutsideClickHandler");
 var _Progress = require("./Progress");
 
 var _Radio = require("./Radio");
+
+var _ScrollArea = require("./ScrollArea");
 
 var _Switch = require("./Switch");
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { excludeProps } from '../helpers'
 
 export class OutsideClickHandler extends React.Component {
   constructor (props) {
@@ -35,10 +36,8 @@ export class OutsideClickHandler extends React.Component {
   }
 
   render () {
-    const { className } = this.props
-
     return (
-      <div className={className} ref='root'>
+      <div {...excludeProps(this)} ref='root'>
         {this.props.children}
       </div>
     )
@@ -46,11 +45,6 @@ export class OutsideClickHandler extends React.Component {
 }
 
 OutsideClickHandler.propTypes = {
-  className: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.object.isRequired,
-    PropTypes.array.isRequired
-  ]),
   children: PropTypes.any,
   disabled: PropTypes.bool,
   onOutsideClick: PropTypes.func
