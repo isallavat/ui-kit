@@ -159,6 +159,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
           }
 
           video.muted = true;
+          video.controls = false;
           video.setAttribute('playsinline', '');
           video.play();
 

@@ -113,6 +113,7 @@ export class Camera extends React.Component {
           }
 
           video.muted = true
+          video.controls = false
           video.setAttribute('playsinline', '')
           video.play()
 
