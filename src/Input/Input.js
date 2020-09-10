@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import InputRange from 'react-input-range'
+// import RRSlider from 'react-rangeslider'
+import { Range } from 'react-range'
 import { ScrollArea } from '../ScrollArea'
 import { excludeProps, formatPrice } from '../helpers'
 
@@ -224,9 +226,21 @@ export class Input extends React.Component {
   }
 
   handleRangeChange (value) {
+    const { min, max, step, readOnly, disabled } = this.props
+
+    if (readOnly || disabled) {
+      return false
+    }
+
     const event = {
       type: 'change',
       target: this.inputEl
+    }
+
+    if (value > min && value < max) {
+      value -= min % step
+    } else if (value > max) {
+      value = max - max % step
     }
 
     event.target.value = value
@@ -373,7 +387,7 @@ export class Input extends React.Component {
     )
   }
 
-  renderRange () {
+  renderRangeRIR () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps } = this.props
     let value = Number(this.state.value)
     value = value < min || isNaN(value) ? min : value
@@ -390,6 +404,86 @@ export class Input extends React.Component {
           {...rangeProps}
           onChange={::this.handleRangeChange}
         />
+      </div>
+    )
+  }
+
+  // renderRangeRRS () {
+  //   const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
+  //   let value = Number(this.state.value) || min
+  //
+  //   const labels = {
+  //     [min]: rangeProps.formatLabel ? rangeProps.formatLabel(min, 'min') : min,
+  //     [max]: rangeProps.formatLabel ? rangeProps.formatLabel(max, 'max') : max
+  //   }
+  //
+  //   return (
+  //     <div onMouseDown={((event) => event.stopPropagation())}>
+  //       <RRSlider
+  //         min={min}
+  //         max={max}
+  //         step={step}
+  //         value={value}
+  //         tooltip={false}
+  //         labels={labels}
+  //         disabled={readOnly || disabled}
+  //         onChange={::this.handleRangeChange}
+  //       />
+  //     </div>
+  //   )
+  // }
+
+  renderRangeRCS () {
+    const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
+    let _max = max > min ? max : min + step
+    let value = Number(this.state.value) || min
+    let valuePercents = (value - min) / (_max - min) * 100
+
+    if (value < min) {
+      value = min
+      valuePercents = 0
+    } else if (value > max) {
+      value = max
+      valuePercents = 100
+    }
+
+    return (
+      <div
+        className='Input__slider'
+        onMouseDown={((event) => event.stopPropagation())}
+      >
+        <Range
+          min={min}
+          max={_max}
+          step={step}
+          values={[value]}
+          disabled={disabled || readOnly || max <= min}
+          renderTrack={({ props, children }) => (
+            <div {...props}>
+              {children}
+              <div
+                className='Input__slider-track'
+                style={{
+                  width: valuePercents + '%'
+                }}
+              />
+            </div>
+          )}
+          renderThumb={({ props }) => (
+            <div
+              className='Input__slider-handle'
+              {...props}
+              tabIndex='-1'
+            />
+          )}
+          onChange={(values) => { this.handleRangeChange(values[0]) }}
+        />
+        <div className='Input__slider-label-min'>
+          {rangeProps.formatLabel ? rangeProps.formatLabel(min, 'min') : min}
+        </div>
+        <div className='Input__slider-label-max'>
+          {rangeProps.formatLabel ? rangeProps.formatLabel(max, 'max') : max}
+        </div>
       </div>
     )
   }
@@ -424,7 +518,8 @@ export class Input extends React.Component {
       mask,
       maskChar,
       adornment,
-      adornmentPosition
+      adornmentPosition,
+      rangeV
     } = this.props
     const { value, focused } = this.state
     const inputProps = {
@@ -493,7 +588,9 @@ export class Input extends React.Component {
           this.renderAdornment()
         }
         {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
-        {type === 'range' && this.renderRange()}
+        {type === 'range' && rangeV === 'rir' && this.renderRangeRIR()}
+        {type === 'range' && rangeV === 'rcs' && this.renderRangeRCS()}
+        {/* type === 'range' && rangeV === 'rrs' && this.renderRangeRRS() */}
       </this.props.component>
     )
   }
@@ -540,6 +637,7 @@ Input.propTypes = {
   ]),
   filterMenu: PropTypes.bool,
   step: PropTypes.number,
+  rangeV: PropTypes.string,
   rangeProps: PropTypes.object,
   position: PropTypes.string
 }
@@ -550,5 +648,6 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
+  rangeV: 'rir',
   adornmentPosition: 'end'
 }

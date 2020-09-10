@@ -128,6 +128,32 @@
       word-break: break-word; }
   .Input_type_plain .Input__element {
     word-break: break-word; }
+  .Input__slider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px; }
+    .Input__slider-track {
+      height: 2px;
+      background-color: #398DFA; }
+    .Input__slider-handle {
+      width: 12px;
+      height: 12px;
+      border: 4px solid white;
+      background-color: #398DFA;
+      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
+      border-radius: 50%;
+      outline: none; }
+    .Input__slider-label-min, .Input__slider-label-max {
+      position: absolute;
+      top: 10px;
+      font-size: 14px;
+      opacity: .6; }
+    .Input__slider-label-min {
+      left: 0; }
+    .Input__slider-label-max {
+      right: 0; }
   .Input .input-range {
     position: absolute;
     left: 0;
@@ -185,6 +211,44 @@
         display: none;
         left: 50%;
         transform: translateX(-50%); }
+  .Input .rangeslider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    margin: 0; }
+    .Input .rangeslider__fill {
+      height: 100%;
+      background-color: #398DFA; }
+    .Input .rangeslider__handle {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border: 4px solid white;
+      background-color: #398DFA;
+      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none; }
+    .Input .rangeslider__labels {
+      position: absolute;
+      top: 100%;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      opacity: .6;
+      font-size: 14px;
+      pointer-events: none; }
+    .Input .rangeslider__label-item {
+      position: absolute; }
+      .Input .rangeslider__label-item:first-child {
+        transform: translateX(-75%); }
+      .Input .rangeslider__label-item:last-child {
+        transform: translateX(-25%); }
   .Input_size_s {
     font-size: 16px; }
     .Input_size_s.Input_rounded {

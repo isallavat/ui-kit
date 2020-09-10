@@ -33,7 +33,7 @@ import menu from './menu';
       filterMenu
     />
   </GridItem>
-  <GridItem mobile={12} tablet={6}>
+  <GridItem mobile={12} tablet={4}>
     <Input
       type='range'
       label='Range'
@@ -42,7 +42,17 @@ import menu from './menu';
       step={1000}
     />
   </GridItem>
-  <GridItem mobile={12} tablet={6}>
+  <GridItem mobile={12} tablet={4}>
+    <Input
+      type='range'
+      label='Range2'
+      rangeV='rcs'
+      min={3895}
+      max={58633}
+      step={1000}
+    />
+  </GridItem>
+  <GridItem mobile={12} tablet={4}>
     <Input
       type='number'
       label='Price'
