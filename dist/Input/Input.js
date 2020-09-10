@@ -25,7 +25,7 @@ var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
 var _reactInputRange = _interopRequireDefault(require("react-input-range"));
 
-var _rcSlider = _interopRequireDefault(require("rc-slider"));
+var _reactRange = require("react-range");
 
 var _ScrollArea = require("../ScrollArea");
 
@@ -272,8 +272,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
     onChange && onChange(event);
   };
 
-  _proto.handleRangeChange = function handleRangeChange(value) {
-    console.log(value);
+  _proto.handleRangeChange = function handleRangeChange(values) {
+    var value = values[0];
     var event = {
       type: 'change',
       target: this.inputEl
@@ -486,14 +486,34 @@ var Input = /*#__PURE__*/function (_React$Component) {
       onMouseDown: function onMouseDown(event) {
         return event.stopPropagation();
       }
-    }, /*#__PURE__*/_react["default"].createElement(_rcSlider["default"], {
+    }, /*#__PURE__*/_react["default"].createElement(_reactRange.Range, {
       min: min,
       max: max,
       step: step,
-      value: value,
-      disabled: readOnly || disabled,
-      tabIndex: "-1",
-      marks: marks,
+      values: [value],
+      renderTrack: function renderTrack(_ref) {
+        var props = _ref.props,
+            children = _ref.children;
+        return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({
+          className: "Input__track"
+        }, props, {
+          style: _objectSpread(_objectSpread({}, props.style), {}, {
+            height: '6px',
+            width: '100%',
+            backgroundColor: '#ccc'
+          })
+        }), children);
+      },
+      renderThumb: function renderThumb(_ref2) {
+        var props = _ref2.props;
+        return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({}, props, {
+          style: _objectSpread(_objectSpread({}, props.style), {}, {
+            height: '42px',
+            width: '42px',
+            backgroundColor: '#999'
+          })
+        }));
+      },
       onChange: this.handleRangeChange.bind(this)
     }));
   };

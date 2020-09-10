@@ -128,6 +128,11 @@
       word-break: break-word; }
   .Input_type_plain .Input__element {
     word-break: break-word; }
+  .Input__track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; }
   .Input .input-range {
     position: absolute;
     left: 0;
@@ -210,6 +215,12 @@
     .Input .rc-slider-mark {
       font-size: 75%;
       top: 10px; }
+  .Input .rangeslider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px; }
   .Input_size_s {
     font-size: 16px; }
     .Input_size_s.Input_rounded {

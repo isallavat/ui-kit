@@ -193,6 +193,13 @@ $this: '.Input';
     }
   }
 
+  &__track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   .input-range {
     position: absolute;
     left: 0;
@@ -307,6 +314,14 @@ $this: '.Input';
       font-size: 75%;
       top: 10px;
     }
+  }
+
+  .rangeslider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
   }
 
   @include size('s', 40px, 16px);

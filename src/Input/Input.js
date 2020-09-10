@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import InputRange from 'react-input-range'
-import RcSlider from 'rc-slider'
+import { Range } from 'react-range'
 import { ScrollArea } from '../ScrollArea'
 import { excludeProps, formatPrice } from '../helpers'
 
@@ -224,8 +224,8 @@ export class Input extends React.Component {
     onChange && onChange(event)
   }
 
-  handleRangeChange (value) {
-    console.log(value)
+  handleRangeChange (values) {
+    const value = values[0]
     const event = {
       type: 'change',
       target: this.inputEl
@@ -418,14 +418,36 @@ export class Input extends React.Component {
 
     return (
       <div onMouseDown={((event) => event.stopPropagation())}>
-        <RcSlider
+        <Range
           min={min}
           max={max}
           step={step}
-          value={value}
-          disabled={readOnly || disabled}
-          tabIndex='-1'
-          marks={marks}
+          values={[value]}
+          renderTrack={({ props, children }) => (
+            <div
+              className='Input__track'
+              {...props}
+              style={{
+                ...props.style,
+                height: '6px',
+                width: '100%',
+                backgroundColor: '#ccc'
+              }}
+            >
+              {children}
+            </div>
+          )}
+          renderThumb={({ props }) => (
+            <div
+              {...props}
+              style={{
+                ...props.style,
+                height: '42px',
+                width: '42px',
+                backgroundColor: '#999'
+              }}
+            />
+          )}
           onChange={::this.handleRangeChange}
         />
       </div>
