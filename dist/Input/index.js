@@ -28,6 +28,8 @@ Object.defineProperty(exports, "InputArea", {
   }
 });
 
+require("rc-slider/assets/index.css");
+
 require("./Input.css");
 
 var _Input2 = require("./Input");

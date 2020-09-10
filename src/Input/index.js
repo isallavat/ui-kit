@@ -1,3 +1,4 @@
+import 'rc-slider/assets/index.css'
 import './Input.scss'
 export { Input } from './Input'
 export { InputDate } from './InputDate'

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import InputRange from 'react-input-range'
+import RcSlider from 'rc-slider'
 import { ScrollArea } from '../ScrollArea'
 import { excludeProps, formatPrice } from '../helpers'
 
@@ -224,6 +225,7 @@ export class Input extends React.Component {
   }
 
   handleRangeChange (value) {
+    console.log(value)
     const event = {
       type: 'change',
       target: this.inputEl
@@ -373,7 +375,7 @@ export class Input extends React.Component {
     )
   }
 
-  renderRange () {
+  renderRangeOld () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps } = this.props
     let value = Number(this.state.value)
     value = value < min || isNaN(value) ? min : value
@@ -388,6 +390,42 @@ export class Input extends React.Component {
           value={value}
           disabled={readOnly || disabled}
           {...rangeProps}
+          onChange={::this.handleRangeChange}
+        />
+      </div>
+    )
+  }
+
+  renderRange () {
+    const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
+    const value = Number(this.state.value)
+    const marks = {
+      [min]: {
+        style: {
+          transform: 'none'
+        },
+        label: rangeProps.formatMark ? rangeProps.formatMark(min, 'min') : min
+      },
+      [max]: {
+        style: {
+          left: 'auto',
+          right: '0',
+          transform: 'none'
+        },
+        label: rangeProps.formatMark ? rangeProps.formatMark(max, 'max') : max
+      }
+    }
+
+    return (
+      <div onMouseDown={((event) => event.stopPropagation())}>
+        <RcSlider
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          disabled={readOnly || disabled}
+          tabIndex='-1'
+          marks={marks}
           onChange={::this.handleRangeChange}
         />
       </div>
@@ -424,7 +462,8 @@ export class Input extends React.Component {
       mask,
       maskChar,
       adornment,
-      adornmentPosition
+      adornmentPosition,
+      rangeV
     } = this.props
     const { value, focused } = this.state
     const inputProps = {
@@ -493,7 +532,8 @@ export class Input extends React.Component {
           this.renderAdornment()
         }
         {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
-        {type === 'range' && this.renderRange()}
+        {type === 'range' && rangeV === 'rir' && this.renderRangeOld()}
+        {type === 'range' && rangeV === 'rcs' && this.renderRange()}
       </this.props.component>
     )
   }
@@ -540,6 +580,7 @@ Input.propTypes = {
   ]),
   filterMenu: PropTypes.bool,
   step: PropTypes.number,
+  rangeV: PropTypes.string,
   rangeProps: PropTypes.object,
   position: PropTypes.string
 }
@@ -550,5 +591,6 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
+  rangeV: 'rir',
   adornmentPosition: 'end'
 }

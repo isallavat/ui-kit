@@ -274,6 +274,41 @@ $this: '.Input';
     }
   }
 
+  .rc-slider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    padding: 0;
+
+    &-rail, &-step {
+      display: none;
+    }
+
+    &-track {
+      bottom: 0;
+      height: 2px;
+      border-radius: 0;
+      background-color: $palette-primary;
+    }
+
+    &-handle {
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      margin-top: -10px;
+      border: 4px solid white;
+      background-color: $palette-primary;
+      box-shadow: 0 2px 5px rgba($palette-primary, .4);
+    }
+
+    &-mark {
+      font-size: 75%;
+      top: 10px;
+    }
+  }
+
   @include size('s', 40px, 16px);
   @include size('m', 50px, 18px);
   @include size('l', 60px, 20px);
