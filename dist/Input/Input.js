@@ -27,6 +27,8 @@ var _reactInputRange = _interopRequireDefault(require("react-input-range"));
 
 var _reactRange = require("react-range");
 
+var _Progress = require("../Progress");
+
 var _ScrollArea = require("../ScrollArea");
 
 var _helpers = require("../helpers");
@@ -277,6 +279,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
         min = _this$props6.min,
         max = _this$props6.max,
         step = _this$props6.step,
+        _this$props6$roundBy = _this$props6.roundBy,
+        roundBy = _this$props6$roundBy === void 0 ? step : _this$props6$roundBy,
         readOnly = _this$props6.readOnly,
         disabled = _this$props6.disabled;
 
@@ -290,9 +294,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
     };
 
     if (value > min && value < max) {
-      value -= min % step;
+      value -= min % roundBy;
     } else if (value > max) {
-      value = max - max % step;
+      value = max - max % roundBy;
     }
 
     event.target.value = value;
@@ -336,6 +340,15 @@ var Input = /*#__PURE__*/function (_React$Component) {
     event.target.value = item.value;
     event.target.index = index;
     this.handleChange(event);
+  };
+
+  _proto.handleSliderDown = function handleSliderDown() {
+    var min = this.props.min;
+    var value = this.state.value;
+
+    if (['', null].indexOf(value) >= 0) {
+      this.handleRangeChange(min);
+    }
   };
 
   _proto.renderElement = function renderElement(props) {
@@ -459,7 +472,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
     value = value > max ? max : value;
     return /*#__PURE__*/_react["default"].createElement("div", {
       onMouseDown: function onMouseDown(event) {
-        return event.stopPropagation();
+        event.stopPropagation();
       }
     }, /*#__PURE__*/_react["default"].createElement(_reactInputRange["default"], (0, _extends2["default"])({
       minValue: min,
@@ -470,31 +483,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }, rangeProps, {
       onChange: this.handleRangeChange.bind(this)
     })));
-  } // renderRangeRRS () {
-  //   const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
-  //   let value = Number(this.state.value) || min
-  //
-  //   const labels = {
-  //     [min]: rangeProps.formatLabel ? rangeProps.formatLabel(min, 'min') : min,
-  //     [max]: rangeProps.formatLabel ? rangeProps.formatLabel(max, 'max') : max
-  //   }
-  //
-  //   return (
-  //     <div onMouseDown={((event) => event.stopPropagation())}>
-  //       <RRSlider
-  //         min={min}
-  //         max={max}
-  //         step={step}
-  //         value={value}
-  //         tooltip={false}
-  //         labels={labels}
-  //         disabled={readOnly || disabled}
-  //         onChange={::this.handleRangeChange}
-  //       />
-  //     </div>
-  //   )
-  // }
-  ;
+  };
 
   _proto.renderRangeRCS = function renderRangeRCS() {
     var _this6 = this;
@@ -526,7 +515,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__slider",
       onMouseDown: function onMouseDown(event) {
-        return event.stopPropagation();
+        event.stopPropagation();
       }
     }, /*#__PURE__*/_react["default"].createElement(_reactRange.Range, {
       min: min,
@@ -549,7 +538,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({
           className: "Input__slider-handle"
         }, props, {
-          tabIndex: "-1"
+          tabIndex: "-1",
+          onMouseDown: _this6.handleSliderDown.bind(_this6)
         }));
       },
       onChange: function onChange(values) {
@@ -586,6 +576,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
         rounded = _this$props12.rounded,
         invalid = _this$props12.invalid,
         disabled = _this$props12.disabled,
+        progress = _this$props12.progress,
         type = _this$props12.type,
         label = _this$props12.label,
         mask = _this$props12.mask,
@@ -627,7 +618,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
     var classNames = (0, _classnames3["default"])((_classnames2 = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames2, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames2, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames2, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames2, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames2, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames2, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames2, '--focused', focused), (0, _defineProperty2["default"])(_classnames2, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames2, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames2, '--disabled', disabled), _classnames2), className);
+    }, (0, _defineProperty2["default"])(_classnames2, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames2, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames2, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames2, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames2, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames2, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames2, '--focused', focused), (0, _defineProperty2["default"])(_classnames2, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames2, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames2, '--disabled', disabled), (0, _defineProperty2["default"])(_classnames2, '--progress', progress), _classnames2), className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, componentProps, {
@@ -640,9 +631,12 @@ var Input = /*#__PURE__*/function (_React$Component) {
       }
     }), adornment && adornmentPosition === 'start' && this.renderAdornment(), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__container"
-    }, label && /*#__PURE__*/_react["default"].createElement("div", {
+    }, !!label && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__label"
-    }, label), this.renderElement(inputProps)), adornment && adornmentPosition === 'end' && this.renderAdornment(), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && rangeV === 'rir' && this.renderRangeRIR(), type === 'range' && rangeV === 'rcs' && this.renderRangeRCS());
+    }, label), this.renderElement(inputProps)), adornment && adornmentPosition === 'end' && this.renderAdornment(), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
+      className: "Input__progress",
+      color: "current"
+    }), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && rangeV === 'rir' && this.renderRangeRIR(), type === 'range' && rangeV === 'rcs' && this.renderRangeRCS());
   };
 
   return Input;
@@ -664,6 +658,7 @@ Input.propTypes = {
   format: _propTypes["default"].string,
   disabled: _propTypes["default"].bool,
   invalid: _propTypes["default"].bool,
+  progress: _propTypes["default"].bool,
   defaultValue: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   value: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   adornment: _propTypes["default"].any,
@@ -671,6 +666,7 @@ Input.propTypes = {
   menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   filterMenu: _propTypes["default"].bool,
   step: _propTypes["default"].number,
+  roundBy: _propTypes["default"].number,
   rangeV: _propTypes["default"].string,
   rangeProps: _propTypes["default"].object,
   position: _propTypes["default"].string

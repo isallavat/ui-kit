@@ -83,6 +83,9 @@
   .Input__icon {
     vertical-align: top;
     opacity: .6; }
+  .Input__progress {
+    position: absolute;
+    right: 0; }
   .Input__dropdown {
     position: absolute;
     left: 0;
@@ -211,44 +214,6 @@
         display: none;
         left: 50%;
         transform: translateX(-50%); }
-  .Input .rangeslider {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    margin: 0; }
-    .Input .rangeslider__fill {
-      height: 100%;
-      background-color: #398DFA; }
-    .Input .rangeslider__handle {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 12px;
-      height: 12px;
-      border: 4px solid white;
-      background-color: #398DFA;
-      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
-      border-radius: 50%;
-      cursor: pointer;
-      outline: none; }
-    .Input .rangeslider__labels {
-      position: absolute;
-      top: 100%;
-      margin: 10px 0 0;
-      padding: 0;
-      list-style: none;
-      opacity: .6;
-      font-size: 14px;
-      pointer-events: none; }
-    .Input .rangeslider__label-item {
-      position: absolute; }
-      .Input .rangeslider__label-item:first-child {
-        transform: translateX(-75%); }
-      .Input .rangeslider__label-item:last-child {
-        transform: translateX(-25%); }
   .Input_size_s {
     font-size: 16px; }
     .Input_size_s.Input_rounded {
@@ -258,6 +223,10 @@
       padding-top: 10.4px;
       padding-bottom: 10.4px;
       line-height: 19.2px; }
+    .Input_size_s .Input__progress {
+      top: 10.4px;
+      height: 19.2px;
+      width: 19.2px; }
     .Input_size_s.Input_labeled .Input__element {
       padding-top: 16px;
       padding-bottom: 4.8px; }
@@ -280,6 +249,10 @@
       padding-top: 14.2px;
       padding-bottom: 14.2px;
       line-height: 21.6px; }
+    .Input_size_m .Input__progress {
+      top: 14.2px;
+      height: 21.6px;
+      width: 21.6px; }
     .Input_size_m.Input_labeled .Input__element {
       padding-top: 20px;
       padding-bottom: 8.4px; }
@@ -302,6 +275,10 @@
       padding-top: 18px;
       padding-bottom: 18px;
       line-height: 24px; }
+    .Input_size_l .Input__progress {
+      top: 18px;
+      height: 24px;
+      width: 24px; }
     .Input_size_l.Input_labeled .Input__element {
       padding-top: 24px;
       padding-bottom: 12px; }
@@ -335,3 +312,5 @@
     border-bottom-width: 2px; }
   .Input.--disabled {
     opacity: .5; }
+  .Input.--progress .Input__adornment_end {
+    visibility: hidden; }

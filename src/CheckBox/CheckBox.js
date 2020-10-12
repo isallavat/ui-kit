@@ -70,7 +70,6 @@ export class CheckBox extends React.Component {
             className='CheckBox__input'
             type='checkbox'
             checked={checked}
-            value={String(checked)}
             onChange={::this.handleChange}
           />
           {variant !== 'button' && this.renderElement()}

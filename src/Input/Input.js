@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
 import InputRange from 'react-input-range'
-// import RRSlider from 'react-rangeslider'
 import { Range } from 'react-range'
+import { Progress } from '../Progress'
 import { ScrollArea } from '../ScrollArea'
 import { excludeProps, formatPrice } from '../helpers'
 
@@ -226,7 +226,7 @@ export class Input extends React.Component {
   }
 
   handleRangeChange (value) {
-    const { min, max, step, readOnly, disabled } = this.props
+    const { min, max, step, roundBy = step, readOnly, disabled } = this.props
 
     if (readOnly || disabled) {
       return false
@@ -238,9 +238,9 @@ export class Input extends React.Component {
     }
 
     if (value > min && value < max) {
-      value -= min % step
+      value -= min % roundBy
     } else if (value > max) {
-      value = max - max % step
+      value = max - max % roundBy
     }
 
     event.target.value = value
@@ -282,6 +282,15 @@ export class Input extends React.Component {
     event.target.index = index
 
     this.handleChange(event)
+  }
+
+  handleSliderDown () {
+    const { min } = this.props
+    const { value } = this.state
+
+    if (['', null].indexOf(value) >= 0) {
+      this.handleRangeChange(min)
+    }
   }
 
   renderElement (props) {
@@ -394,7 +403,7 @@ export class Input extends React.Component {
     value = value > max ? max : value
 
     return (
-      <div onMouseDown={((event) => event.stopPropagation())}>
+      <div onMouseDown={(event) => { event.stopPropagation() }}>
         <InputRange
           minValue={min}
           maxValue={max}
@@ -407,31 +416,6 @@ export class Input extends React.Component {
       </div>
     )
   }
-
-  // renderRangeRRS () {
-  //   const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
-  //   let value = Number(this.state.value) || min
-  //
-  //   const labels = {
-  //     [min]: rangeProps.formatLabel ? rangeProps.formatLabel(min, 'min') : min,
-  //     [max]: rangeProps.formatLabel ? rangeProps.formatLabel(max, 'max') : max
-  //   }
-  //
-  //   return (
-  //     <div onMouseDown={((event) => event.stopPropagation())}>
-  //       <RRSlider
-  //         min={min}
-  //         max={max}
-  //         step={step}
-  //         value={value}
-  //         tooltip={false}
-  //         labels={labels}
-  //         disabled={readOnly || disabled}
-  //         onChange={::this.handleRangeChange}
-  //       />
-  //     </div>
-  //   )
-  // }
 
   renderRangeRCS () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
@@ -450,7 +434,7 @@ export class Input extends React.Component {
     return (
       <div
         className='Input__slider'
-        onMouseDown={((event) => event.stopPropagation())}
+        onMouseDown={(event) => { event.stopPropagation() }}
       >
         <Range
           min={min}
@@ -474,6 +458,7 @@ export class Input extends React.Component {
               className='Input__slider-handle'
               {...props}
               tabIndex='-1'
+              onMouseDown={::this.handleSliderDown}
             />
           )}
           onChange={(values) => { this.handleRangeChange(values[0]) }}
@@ -513,6 +498,7 @@ export class Input extends React.Component {
       rounded,
       invalid,
       disabled,
+      progress,
       type,
       label,
       mask,
@@ -562,7 +548,8 @@ export class Input extends React.Component {
       '--focused': focused,
       '--filled': [undefined, null, ''].indexOf(value) < 0,
       '--invalid': invalid,
-      '--disabled': disabled
+      '--disabled': disabled,
+      '--progress': progress
     }, className)
 
     return (
@@ -579,7 +566,7 @@ export class Input extends React.Component {
           this.renderAdornment()
         }
         <div className='Input__container'>
-          {label &&
+          {!!label &&
             <div className='Input__label'>{label}</div>
           }
           {this.renderElement(inputProps)}
@@ -587,10 +574,12 @@ export class Input extends React.Component {
         {adornment && adornmentPosition === 'end' &&
           this.renderAdornment()
         }
+        {progress &&
+          <Progress className='Input__progress' color='current' />
+        }
         {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
         {type === 'range' && rangeV === 'rir' && this.renderRangeRIR()}
         {type === 'range' && rangeV === 'rcs' && this.renderRangeRCS()}
-        {/* type === 'range' && rangeV === 'rrs' && this.renderRangeRRS() */}
       </this.props.component>
     )
   }
@@ -619,6 +608,7 @@ Input.propTypes = {
   format: PropTypes.string,
   disabled: PropTypes.bool,
   invalid: PropTypes.bool,
+  progress: PropTypes.bool,
   defaultValue: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
@@ -637,6 +627,7 @@ Input.propTypes = {
   ]),
   filterMenu: PropTypes.bool,
   step: PropTypes.number,
+  roundBy: PropTypes.number,
   rangeV: PropTypes.string,
   rangeProps: PropTypes.object,
   position: PropTypes.string

@@ -18,6 +18,12 @@ $this: '.Input';
       line-height: $line-height;
     }
 
+    #{$this}__progress {
+      top: $vertical-padding;
+      height: $line-height;
+      width: $line-height;
+    }
+
     &#{$this}_labeled {
       #{$this}__element {
         $padding-top: ($height / 2.5);

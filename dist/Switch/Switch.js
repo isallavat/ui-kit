@@ -92,7 +92,6 @@ var Switch = /*#__PURE__*/function (_React$Component) {
       className: "Switch__input",
       type: "checkbox",
       checked: checked,
-      value: String(checked),
       onChange: this.handleChange.bind(this)
     })), variant !== 'button' && this.renderElement(), !!label && /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({

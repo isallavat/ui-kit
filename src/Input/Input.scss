@@ -122,6 +122,11 @@ $this: '.Input';
     opacity: .6;
   }
 
+  &__progress {
+    position: absolute;
+    right: 0;
+  }
+
   &__dropdown {
     position: absolute;
     left: 0;
@@ -314,58 +319,6 @@ $this: '.Input';
     }
   }
 
-  .rangeslider {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    margin: 0;
-
-    &__fill {
-      height: 100%;
-      background-color: $palette-primary;
-    }
-
-    &__handle {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 12px;
-      height: 12px;
-      border: 4px solid white;
-      background-color: $palette-primary;
-      box-shadow: 0 2px 5px rgba($palette-primary, .4);
-      border-radius: 50%;
-      cursor: pointer;
-      outline: none;
-    }
-
-    &__labels {
-      position: absolute;
-      top: 100%;
-      margin: 10px 0 0;
-      padding: 0;
-      list-style: none;
-      opacity: .6;
-      font-size: 14px;
-      pointer-events: none;
-    }
-
-    &__label-item {
-      position: absolute;
-
-      &:first-child {
-        transform: translateX(-75%);
-      }
-
-      &:last-child {
-        transform: translateX(-25%);
-      }
-    }
-  }
-
   @include size('s', 40px, 16px);
   @include size('m', 50px, 18px);
   @include size('l', 60px, 20px);
@@ -408,5 +361,11 @@ $this: '.Input';
 
   &.--disabled {
     opacity: .5;
+  }
+
+  &.--progress {
+    #{$this}__adornment_end {
+      visibility: hidden;
+    }
   }
 }
