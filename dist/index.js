@@ -147,6 +147,12 @@ Object.defineProperty(exports, "TableCell", {
     return _Table.TableCell;
   }
 });
+Object.defineProperty(exports, "Tooltip", {
+  enumerable: true,
+  get: function get() {
+    return _Tooltip.Tooltip;
+  }
+});
 
 var _Button = require("./Button");
 
@@ -177,3 +183,5 @@ var _ScrollArea = require("./ScrollArea");
 var _Switch = require("./Switch");
 
 var _Table = require("./Table");
+
+var _Tooltip = require("./Tooltip");
