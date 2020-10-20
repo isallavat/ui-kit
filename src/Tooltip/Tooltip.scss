@@ -1,0 +1,90 @@
+@import '../variables';
+
+$this: '.Tooltip';
+
+#{$this} {
+  position: relative;
+
+  &:hover {
+    #{$this}__content {
+      opacity: 1;
+      z-index: 10;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background-color: transparentize($palette-secondary-text, 0.1);
+    color: $palette-grey-100;
+    font-size: 12px;
+    min-width: 20px;
+    text-align: center;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.2s ease-in-out;
+
+    &:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+    }
+
+    &.--top {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 15px);
+
+      &:after {
+        border-width: 10px 10px 0 10px;
+        border-color: transparentize($palette-secondary-text, 0.1) transparent transparent transparent;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    &.--bottom {
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%);
+
+      &:after {
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent transparentize($palette-secondary-text, 0.1) transparent;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    &.--left {
+      right: calc(100% + 15px);
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:after {
+        border-width: 8px 0 8px 10px;
+        border-color: transparent transparent transparent transparentize($palette-secondary-text, 0.1);
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &.--right {
+      left: calc(100% + 15px);
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:after {
+        border-width: 8px 10px 8px 0;
+        border-color: transparent transparentize($palette-secondary-text, 0.1) transparent transparent;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.Tooltip {
+  position: relative; }
+  .Tooltip:hover .Tooltip__content {
+    opacity: 1;
+    z-index: 10; }
+  .Tooltip__content {
+    position: absolute;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background-color: rgba(109, 121, 134, 0.9);
+    color: #F4F4F5;
+    font-size: 12px;
+    min-width: 20px;
+    text-align: center;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.2s ease-in-out; }
+    .Tooltip__content:after {
+      content: '';
+      position: absolute;
+      border-style: solid; }
+    .Tooltip__content.--top {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 15px); }
+      .Tooltip__content.--top:after {
+        border-width: 10px 10px 0 10px;
+        border-color: rgba(109, 121, 134, 0.9) transparent transparent transparent;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%); }
+    .Tooltip__content.--bottom {
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%); }
+      .Tooltip__content.--bottom:after {
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent rgba(109, 121, 134, 0.9) transparent;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%); }
+    .Tooltip__content.--left {
+      right: calc(100% + 15px);
+      top: 50%;
+      transform: translateY(-50%); }
+      .Tooltip__content.--left:after {
+        border-width: 8px 0 8px 10px;
+        border-color: transparent transparent transparent rgba(109, 121, 134, 0.9);
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%); }
+    .Tooltip__content.--right {
+      left: calc(100% + 15px);
+      top: 50%;
+      transform: translateY(-50%); }
+      .Tooltip__content.--right:after {
+        border-width: 8px 10px 8px 0;
+        border-color: transparent rgba(109, 121, 134, 0.9) transparent transparent;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%); }
