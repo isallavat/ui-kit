@@ -4,6 +4,7 @@ $this: '.Tooltip';
 
 #{$this} {
   position: relative;
+  display: inline-block;
 
   &:hover {
     #{$this}__content {
@@ -19,6 +20,7 @@ $this: '.Tooltip';
     background-color: transparentize($palette-secondary-text, 0.1);
     color: $palette-grey-100;
     font-size: 12px;
+    font-weight: normal;
     min-width: 20px;
     text-align: center;
     opacity: 0;
