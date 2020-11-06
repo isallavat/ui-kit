@@ -54,7 +54,7 @@ export class InputDate extends Input {
         {super.renderElement(props)}
         {this.renderDropdown(
           <Calendar
-            value={date ? date.getTime() : 0}
+            value={date ? date.toISOString() : ''}
             min={min}
             max={max}
             onChange={::this.handleCalendarChange}

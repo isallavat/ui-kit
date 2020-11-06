@@ -11,15 +11,16 @@ const WEEKDAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
 
 function getValueProps (props) {
   let value
+  const now = new Date()
 
   if (props.value) {
     value = props.value
-  } else if (props.max && props.max < Date.now()) {
-    value = props.max
-  } else if (props.min && props.min > Date.now()) {
-    value = props.min
+  } else if (props.max && new Date(props.max) < now) {
+    value = new Date(props.max).toISOString()
+  } else if (props.min && new Date(props.min) > now) {
+    value = new Date(props.min).toISOString()
   } else {
-    value = Date.now()
+    value = new Date().toISOString()
   }
 
   return value
@@ -87,7 +88,7 @@ export class Calendar extends React.Component {
 
     for (let i = 0; i < count - 1; i++) {
       date.setDate(date.getDate() + 1)
-      cells[date.getTime()] = date.getDate()
+      cells[date.toISOString()] = date.getDate()
     }
 
     return cells
@@ -126,7 +127,7 @@ export class Calendar extends React.Component {
     const maxDate = new Date(max)
 
     if (cellType === 'day') {
-      const date = new Date(Number(cellValue))
+      const date = new Date(cellValue)
       return date > maxDate || date < minDate
     } else if (cellType === 'month') {
       const date = new Date(currentValue)
@@ -146,7 +147,7 @@ export class Calendar extends React.Component {
   isCellOverrange (cellValue) {
     const { currentValue, cellType } = this.state
     const date = new Date(currentValue)
-    const cellDate = new Date(Number(cellValue))
+    const cellDate = new Date(cellValue)
 
     if (cellType === 'day') {
       return cellDate.getMonth() !== date.getMonth()
@@ -155,7 +156,7 @@ export class Calendar extends React.Component {
 
   isCellSelected (cellValue) {
     const { value } = this.state
-    return Number(cellValue) === Number(value)
+    return String(cellValue) === String(value)
   }
 
   handleHeaderTitleClick () {
@@ -195,17 +196,17 @@ export class Calendar extends React.Component {
       return
     }
 
-    this.setState({ currentValue: date.getTime() })
+    this.setState({ currentValue: date.toISOString() })
   }
 
   handleCellSelect (cellValue) {
     const { onChange } = this.props
     const { currentValue, cellType } = this.state
-    const date = new Date(currentValue)
+    let date = new Date(currentValue)
     const state = {}
 
     if (cellType === 'day') {
-      date.setTime(cellValue)
+      date = new Date(cellValue)
     } else if (cellType === 'month') {
       date.setMonth(cellValue)
       state.cellType = 'day'
@@ -214,7 +215,7 @@ export class Calendar extends React.Component {
       state.cellType = 'month'
     }
 
-    state.currentValue = date.getTime()
+    state.currentValue = date.toISOString()
 
     if (cellType === 'day') {
       state.value = state.currentValue
@@ -345,9 +346,15 @@ Calendar.propTypes = {
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ]),
-  value: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  value: PropTypes.string,
+  min: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
+  max: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
   locale: PropTypes.string,
   onChange: PropTypes.func
 }

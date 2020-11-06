@@ -26,15 +26,16 @@ var WEEKDAYS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
 function getValueProps(props) {
   var value;
+  var now = new Date();
 
   if (props.value) {
     value = props.value;
-  } else if (props.max && props.max < Date.now()) {
-    value = props.max;
-  } else if (props.min && props.min > Date.now()) {
-    value = props.min;
+  } else if (props.max && new Date(props.max) < now) {
+    value = new Date(props.max).toISOString();
+  } else if (props.min && new Date(props.min) > now) {
+    value = new Date(props.min).toISOString();
   } else {
-    value = Date.now();
+    value = new Date().toISOString();
   }
 
   return value;
@@ -110,7 +111,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
 
     for (var i = 0; i < count - 1; i++) {
       date.setDate(date.getDate() + 1);
-      cells[date.getTime()] = date.getDate();
+      cells[date.toISOString()] = date.getDate();
     }
 
     return cells;
@@ -155,7 +156,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     var maxDate = new Date(max);
 
     if (cellType === 'day') {
-      var date = new Date(Number(cellValue));
+      var date = new Date(cellValue);
       return date > maxDate || date < minDate;
     } else if (cellType === 'month') {
       var _date = new Date(currentValue);
@@ -183,7 +184,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
         currentValue = _this$state3.currentValue,
         cellType = _this$state3.cellType;
     var date = new Date(currentValue);
-    var cellDate = new Date(Number(cellValue));
+    var cellDate = new Date(cellValue);
 
     if (cellType === 'day') {
       return cellDate.getMonth() !== date.getMonth();
@@ -192,7 +193,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
 
   _proto.isCellSelected = function isCellSelected(cellValue) {
     var value = this.state.value;
-    return Number(cellValue) === Number(value);
+    return String(cellValue) === String(value);
   };
 
   _proto.handleHeaderTitleClick = function handleHeaderTitleClick() {
@@ -241,7 +242,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     }
 
     this.setState({
-      currentValue: date.getTime()
+      currentValue: date.toISOString()
     });
   };
 
@@ -254,7 +255,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     var state = {};
 
     if (cellType === 'day') {
-      date.setTime(cellValue);
+      date = new Date(cellValue);
     } else if (cellType === 'month') {
       date.setMonth(cellValue);
       state.cellType = 'day';
@@ -263,7 +264,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
       state.cellType = 'month';
     }
 
-    state.currentValue = date.getTime();
+    state.currentValue = date.toISOString();
 
     if (cellType === 'day') {
       state.value = state.currentValue;
@@ -366,9 +367,9 @@ exports.Calendar = Calendar;
 Calendar.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
-  value: _propTypes["default"].number,
-  min: _propTypes["default"].number,
-  max: _propTypes["default"].number,
+  value: _propTypes["default"].string,
+  min: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
+  max: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   locale: _propTypes["default"].string,
   onChange: _propTypes["default"].func
 };

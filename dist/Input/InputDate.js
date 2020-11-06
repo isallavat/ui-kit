@@ -87,7 +87,7 @@ var InputDate = /*#__PURE__*/function (_Input) {
     props.type = 'text';
     props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
     return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
-      value: date ? date.getTime() : 0,
+      value: date ? date.toISOString() : '',
       min: min,
       max: max,
       onChange: this.handleCalendarChange.bind(this)
