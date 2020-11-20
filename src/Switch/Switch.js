@@ -46,6 +46,7 @@ export class Switch extends React.Component {
       color,
       variant,
       label,
+      value,
       labelPosition,
       invalid,
       disabled
@@ -69,6 +70,7 @@ export class Switch extends React.Component {
             {...excludeProps(this)}
             className='Switch__input'
             type='checkbox'
+            value={String(value)}
             checked={checked}
             onChange={::this.handleChange}
           />

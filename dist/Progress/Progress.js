@@ -41,8 +41,8 @@ var Progress = /*#__PURE__*/function (_React$Component) {
     var root = this.refs.root;
     var strokeWidth = 4; // percent
 
-    var diamentr = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100);
-    var circleLength = Math.PI * diamentr;
+    var diameter = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100);
+    var circleLength = Math.PI * diameter;
     this.setState({
       circleLength: circleLength
     });

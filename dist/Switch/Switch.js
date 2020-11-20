@@ -77,6 +77,7 @@ var Switch = /*#__PURE__*/function (_React$Component) {
         color = _this$props2.color,
         variant = _this$props2.variant,
         label = _this$props2.label,
+        value = _this$props2.value,
         labelPosition = _this$props2.labelPosition,
         invalid = _this$props2.invalid,
         disabled = _this$props2.disabled;
@@ -91,6 +92,7 @@ var Switch = /*#__PURE__*/function (_React$Component) {
     }, /*#__PURE__*/_react["default"].createElement("input", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
       className: "Switch__input",
       type: "checkbox",
+      value: String(value),
       checked: checked,
       onChange: this.handleChange.bind(this)
     })), variant !== 'button' && this.renderElement(), !!label && /*#__PURE__*/_react["default"].createElement("div", {

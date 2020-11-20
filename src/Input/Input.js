@@ -13,23 +13,23 @@ export class Input extends React.Component {
     super(props)
 
     this.state = {
-      value: this.noramlizeValue(props.value)
+      value: this.normalizeValue(props.value)
     }
 
     if (!this.state.value && props.defaultValue !== undefined) {
-      this.state.value = this.noramlizeValue(props.defaultValue)
+      this.state.value = this.normalizeValue(props.defaultValue)
     }
   }
 
   componentDidUpdate (prevProps) {
     const { value } = this.props
 
-    if (value !== prevProps.value && this.noramlizeValue(value) !== this.state.value) {
-      this.setState({ value: this.noramlizeValue(value) })
+    if (value !== prevProps.value && this.normalizeValue(value) !== this.state.value) {
+      this.setState({ value: this.normalizeValue(value) })
     }
   }
 
-  noramlizeValue (value) {
+  normalizeValue (value) {
     const { type, format } = this.props
     value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
@@ -104,8 +104,8 @@ export class Input extends React.Component {
     })
   }
 
-  getMenuSeletedItemIndex () {
-    const { value, menuSeletedItemIndex = -1 } = this.state
+  getMenuSelectedItemIndex () {
+    const { value } = this.state
 
     return this.getMenu().reduce((accumulator, item, index) => {
       if (String(item.value) === String(value)) {
@@ -113,19 +113,19 @@ export class Input extends React.Component {
       }
 
       return accumulator
-    }, menuSeletedItemIndex)
+    }, undefined)
   }
 
   scrollMenuToSelected (exact) {
-    const { menuSeletedItemIndex } = this.state
+    const { menuSelectedItemIndex } = this.state
 
     if (!this.menuEl) {
       return
     }
 
-    const selectedItemEl = this.menuEl.childNodes[menuSeletedItemIndex]
+    const selectedItemEl = this.menuEl.childNodes[menuSelectedItemIndex]
 
-    if (menuSeletedItemIndex >= 0 && selectedItemEl) {
+    if (menuSelectedItemIndex >= 0 && selectedItemEl) {
       if (exact) {
         this.menuEl.scrollTop = selectedItemEl.offsetTop
       } else if (selectedItemEl.offsetTop < this.menuEl.scrollTop) {
@@ -161,7 +161,7 @@ export class Input extends React.Component {
 
   handleFocus (event) {
     const { readOnly, onFocus } = this.props
-    const { menuSeletedItemIndex } = this.state
+    const menuSelectedItemIndex = this.getMenuSelectedItemIndex()
 
     if (readOnly) {
       return false
@@ -169,11 +169,8 @@ export class Input extends React.Component {
 
     const state = {
       focused: true,
-      dropdownVisible: true
-    }
-
-    if (menuSeletedItemIndex === undefined) {
-      state.menuSeletedItemIndex = this.getMenuSeletedItemIndex()
+      dropdownVisible: true,
+      menuSelectedItemIndex: menuSelectedItemIndex === undefined ? -1 : menuSelectedItemIndex
     }
 
     this.setState(state, () => {
@@ -190,12 +187,6 @@ export class Input extends React.Component {
       return false
     }
 
-    if (this.mouseDown) {
-      this.mouseDown = false
-      this.inputEl.focus()
-      return false
-    }
-
     this.setState({
       focused: false,
       dropdownVisible: false
@@ -206,7 +197,7 @@ export class Input extends React.Component {
 
   handleChange (event) {
     const { readOnly, onChange } = this.props
-    const value = this.noramlizeValue(event.target.value)
+    const value = this.normalizeValue(event.target.value)
 
     if (readOnly) {
       return false
@@ -215,7 +206,6 @@ export class Input extends React.Component {
     const state = { value }
 
     if (event.type === 'change') {
-      state.menuSeletedItemIndex = -1
       state.dropdownVisible = true
     } else {
       state.dropdownVisible = false
@@ -250,7 +240,7 @@ export class Input extends React.Component {
 
   handleKeyDown (event) {
     const { readOnly, onKeyDown } = this.props
-    const { menuSeletedItemIndex, dropdownVisible } = this.state
+    const { menuSelectedItemIndex, dropdownVisible } = this.state
     const menu = this.getMenu()
     const state = {}
 
@@ -259,13 +249,13 @@ export class Input extends React.Component {
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true
     } else if (event.keyCode === 38) {
-      state.menuSeletedItemIndex = menuSeletedItemIndex > 0 ? menuSeletedItemIndex - 1 : menu.length - 1
+      state.menuSelectedItemIndex = menuSelectedItemIndex > 0 ? menuSelectedItemIndex - 1 : menu.length - 1
     } else if (event.keyCode === 40) {
-      state.menuSeletedItemIndex = menuSeletedItemIndex < menu.length - 1 ? menuSeletedItemIndex + 1 : 0
+      state.menuSelectedItemIndex = menuSelectedItemIndex < menu.length - 1 ? menuSelectedItemIndex + 1 : 0
     } else if (event.keyCode === 13 && dropdownVisible) {
       event.preventDefault()
-      const selectedMenuItem = menu[menuSeletedItemIndex]
-      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSeletedItemIndex, event)
+      const selectedMenuItem = menu[menuSelectedItemIndex]
+      selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSelectedItemIndex, event)
     }
 
     this.setState(state, this.scrollMenuToSelected)
@@ -331,7 +321,7 @@ export class Input extends React.Component {
       )
     }
 
-    props.beforeMaskedValueChange = (newState, oldState, userInput) => {
+    props.beforeMaskedValueChange = (newState, oldState) => {
       const state = {
         ...newState
       }
@@ -370,7 +360,7 @@ export class Input extends React.Component {
   }
 
   renderMenu () {
-    const { dropdownVisible, menuSeletedItemIndex } = this.state
+    const { dropdownVisible, menuSelectedItemIndex } = this.state
     const menu = this.getMenu()
 
     return this.renderDropdown(
@@ -379,12 +369,12 @@ export class Input extends React.Component {
           <div
             className={classnames({
               'Input__menu-item': true,
-              '--selected': index === menuSeletedItemIndex
+              '--selected': index === menuSelectedItemIndex
             })}
             key={index}
             data-value={item.value}
-            onMouseMove={() => dropdownVisible && this.setState({ menuSeletedItemIndex: index })}
-            onClick={this.handleMenuItemClick.bind(this, item, index)}
+            onMouseMove={() => dropdownVisible && this.setState({ menuSelectedItemIndex: index })}
+            onMouseDown={this.handleMenuItemClick.bind(this, item, index)}
           >
             <div className='Input__menu-item-primary'>{item.primary}</div>
             {!!item.secondary &&
@@ -403,17 +393,15 @@ export class Input extends React.Component {
     value = value > max ? max : value
 
     return (
-      <div onMouseDown={(event) => { event.stopPropagation() }}>
-        <InputRange
-          minValue={min}
-          maxValue={max}
-          step={step}
-          value={value}
-          disabled={readOnly || disabled}
-          {...rangeProps}
-          onChange={::this.handleRangeChange}
-        />
-      </div>
+      <InputRange
+        minValue={min}
+        maxValue={max}
+        step={step}
+        value={value}
+        disabled={readOnly || disabled}
+        {...rangeProps}
+        onChange={::this.handleRangeChange}
+      />
     )
   }
 
@@ -432,10 +420,7 @@ export class Input extends React.Component {
     }
 
     return (
-      <div
-        className='Input__slider'
-        onMouseDown={(event) => { event.stopPropagation() }}
-      >
+      <div className='Input__slider'>
         <Range
           min={min}
           max={_max}
@@ -482,6 +467,9 @@ export class Input extends React.Component {
           'Input__adornment': true,
           [`Input__adornment_${adornmentPosition}`]: true
         })}
+        onClick={() => {
+          this.inputEl && this.inputEl.focus()
+        }}
       >
         {adornment}
       </div>
@@ -556,11 +544,6 @@ export class Input extends React.Component {
       <this.props.component
         className={classNames}
         {...componentProps}
-        onMouseDown={() => {
-          this.mouseDown = true
-          !focused && this.inputEl && this.inputEl.focus()
-        }}
-        onMouseUp={() => { this.mouseDown = false }}
       >
         {adornment && adornmentPosition === 'start' &&
           this.renderAdornment()

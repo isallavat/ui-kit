@@ -14,8 +14,8 @@ export class Progress extends React.Component {
     const { seconds } = this.props
     const root = this.refs.root
     const strokeWidth = 4 // percent
-    const diamentr = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100)
-    const circleLength = Math.PI * diamentr
+    const diameter = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100)
+    const circleLength = Math.PI * diameter
 
     this.setState({ circleLength })
 

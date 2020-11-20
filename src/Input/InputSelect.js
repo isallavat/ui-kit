@@ -28,9 +28,8 @@ export class InputSelect extends Input {
       this.handleChange(event)
     }
 
-    if (super.handleBlur(event) !== false) {
-      this.setState({ searchValue: undefined })
-    }
+    super.handleBlur(event)
+    this.setState({ searchValue: undefined })
   }
 
   handleSearch (event) {
@@ -38,7 +37,7 @@ export class InputSelect extends Input {
 
     this.setState({
       searchValue: value,
-      menuSeletedItemIndex: value && this.getMenu().length ? 0 : -1,
+      menuSelectedItemIndex: value && this.getMenu().length ? 0 : -1,
       dropdownVisible: true
     })
   }
@@ -49,6 +48,7 @@ export class InputSelect extends Input {
   }
 
   renderElement (props) {
+    const { filterMenu } = this.props
     const { searchValue, value } = this.state
     const menu = this.getMenu()
     const selectedItem = menu.filter((item) => String(item.value) === String(value))[0]
@@ -59,6 +59,7 @@ export class InputSelect extends Input {
       props.value = selectedItem.primary
     }
 
+    props.readOnly = props.readOnly || !filterMenu
     props.type = 'text'
     props.onChange = ::this.handleSearch
 

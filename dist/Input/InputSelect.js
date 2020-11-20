@@ -64,18 +64,18 @@ var InputSelect = /*#__PURE__*/function (_Input) {
       this.handleChange(_event);
     }
 
-    if (_Input.prototype.handleBlur.call(this, event) !== false) {
-      this.setState({
-        searchValue: undefined
-      });
-    }
+    _Input.prototype.handleBlur.call(this, event);
+
+    this.setState({
+      searchValue: undefined
+    });
   };
 
   _proto.handleSearch = function handleSearch(event) {
     var value = event.target.value;
     this.setState({
       searchValue: value,
-      menuSeletedItemIndex: value && this.getMenu().length ? 0 : -1,
+      menuSelectedItemIndex: value && this.getMenu().length ? 0 : -1,
       dropdownVisible: true
     });
   };
@@ -89,6 +89,7 @@ var InputSelect = /*#__PURE__*/function (_Input) {
   };
 
   _proto.renderElement = function renderElement(props) {
+    var filterMenu = this.props.filterMenu;
     var _this$state = this.state,
         searchValue = _this$state.searchValue,
         value = _this$state.value;
@@ -103,6 +104,7 @@ var InputSelect = /*#__PURE__*/function (_Input) {
       props.value = selectedItem.primary;
     }
 
+    props.readOnly = props.readOnly || !filterMenu;
     props.type = 'text';
     props.onChange = this.handleSearch.bind(this);
     return _Input.prototype.renderElement.call(this, props);
