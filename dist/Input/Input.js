@@ -156,6 +156,22 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }, undefined);
   };
 
+  _proto.shiftMenuSelectedItemIndex = function shiftMenuSelectedItemIndex(menuSelectedItemIndex, shift) {
+    var menu = this.getMenu();
+
+    var _menuSelectedItemIndex = menuSelectedItemIndex + shift;
+
+    if (_menuSelectedItemIndex > menu.length - 1) {
+      return this.shiftMenuSelectedItemIndex(-shift, shift);
+    } else if (_menuSelectedItemIndex < 0) {
+      return this.shiftMenuSelectedItemIndex(menu.length - 1 - shift, shift);
+    } else if (menu[_menuSelectedItemIndex].disabled) {
+      return this.shiftMenuSelectedItemIndex(_menuSelectedItemIndex, shift);
+    } else {
+      return _menuSelectedItemIndex;
+    }
+  };
+
   _proto.scrollMenuToSelected = function scrollMenuToSelected(exact) {
     var menuSelectedItemIndex = this.state.menuSelectedItemIndex;
 
@@ -297,16 +313,19 @@ var Input = /*#__PURE__*/function (_React$Component) {
         menuSelectedItemIndex = _this$state.menuSelectedItemIndex,
         dropdownVisible = _this$state.dropdownVisible;
     var menu = this.getMenu();
+    var menuOnlyEnabled = menu.filter(function (item) {
+      return !item.disabled;
+    });
     var state = {};
 
     if (!menu.length || readOnly) {
       return false;
     } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
       state.dropdownVisible = true;
-    } else if (event.keyCode === 38) {
-      state.menuSelectedItemIndex = menuSelectedItemIndex > 0 ? menuSelectedItemIndex - 1 : menu.length - 1;
-    } else if (event.keyCode === 40) {
-      state.menuSelectedItemIndex = menuSelectedItemIndex < menu.length - 1 ? menuSelectedItemIndex + 1 : 0;
+    } else if (event.keyCode === 38 && menuOnlyEnabled.length) {
+      state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, -1);
+    } else if (event.keyCode === 40 && menuOnlyEnabled.length) {
+      state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, 1);
     } else if (event.keyCode === 13 && dropdownVisible) {
       event.preventDefault();
       var selectedMenuItem = menu[menuSelectedItemIndex];
@@ -318,7 +337,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleMenuItemClick = function handleMenuItemClick(item, index, event) {
-    if (event.button) {
+    if (item.disabled || event.button) {
       return;
     }
 
@@ -425,7 +444,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames3["default"])({
           'Input__menu-item': true,
-          '--selected': index === menuSelectedItemIndex
+          '--selected': index === menuSelectedItemIndex,
+          '--disabled': item.disabled
         }),
         key: index,
         "data-value": item.value,

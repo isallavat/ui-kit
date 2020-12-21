@@ -115,6 +115,10 @@
       -webkit-tap-highlight-color: transparent; }
       .Input__menu-item.--selected {
         background-color: #E8EAEC; }
+      .Input__menu-item.--disabled {
+        cursor: default;
+        opacity: 0.4;
+        background: none; }
       .Input__menu-item-secondary {
         margin-top: 5px;
         font-size: 85%;

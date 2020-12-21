@@ -29,7 +29,8 @@
     "external_id": 2,
     "id": 4,
     "value": 4,
-    "primary": "В разводе"
+    "primary": "В разводе",
+    "disabled": true
   },
   {
     "name": "Гражданский брак / Сожительство",

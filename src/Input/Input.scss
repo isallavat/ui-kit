@@ -166,6 +166,12 @@ $this: '.Input';
         background-color: $palette-grey-200;
       }
 
+      &.--disabled {
+        cursor: default;
+        opacity: 0.4;
+        background: none;
+      }
+
       &-secondary {
         margin-top: 5px;
         font-size: 85%;
