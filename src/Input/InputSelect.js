@@ -5,7 +5,7 @@ const iconArrow = <svg className='Input__icon Input__icon_arrow' xmlns='http://w
   <g fill='currentColor' transform='translate(5)'>
     <path d='M-5,0H19V24H-5Z' fill='none' fillRule='evenodd' />
     <path
-      d='M12.077,9,13,9.933,7,16,1,9.933,1.923,9,7,14.133Z' fill='#0b1f35' fillRule='evenodd' />
+      d='M12.077,9,13,9.933,7,16,1,9.933,1.923,9,7,14.133Z' fill='currentColor' fillRule='evenodd' />
   </g>
 </svg>
 

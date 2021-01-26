@@ -34,7 +34,7 @@ var iconArrow = /*#__PURE__*/_react["default"].createElement("svg", {
   fillRule: "evenodd"
 }), /*#__PURE__*/_react["default"].createElement("path", {
   d: "M12.077,9,13,9.933,7,16,1,9.933,1.923,9,7,14.133Z",
-  fill: "#0b1f35",
+  fill: "currentColor",
   fillRule: "evenodd"
 })));
 
