@@ -27,7 +27,7 @@ export class Modal extends React.Component {
   }
 
   close () {
-    const { onClose } = this.props
+    const { onClose } = this.getMergedProps()
     this.setState({ visible: false })
     preventWindowScroll(false)
     document.removeEventListener('keyup', this.handleKeyUp)

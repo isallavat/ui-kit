@@ -61,7 +61,9 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.close = function close() {
-    var onClose = this.props.onClose;
+    var _this$getMergedProps = this.getMergedProps(),
+        onClose = _this$getMergedProps.onClose;
+
     this.setState({
       visible: false
     });
@@ -109,12 +111,12 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$getMergedProps = this.getMergedProps(),
-        className = _this$getMergedProps.className,
-        size = _this$getMergedProps.size,
-        title = _this$getMergedProps.title,
-        closeButton = _this$getMergedProps.closeButton,
-        loading = _this$getMergedProps.loading;
+    var _this$getMergedProps2 = this.getMergedProps(),
+        className = _this$getMergedProps2.className,
+        size = _this$getMergedProps2.size,
+        title = _this$getMergedProps2.title,
+        closeButton = _this$getMergedProps2.closeButton,
+        loading = _this$getMergedProps2.loading;
 
     var visible = this.state.visible;
     var classNames = (0, _classnames2["default"])((0, _defineProperty2["default"])({
