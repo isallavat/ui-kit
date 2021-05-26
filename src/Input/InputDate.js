@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Calendar } from '../Calendar'
 import { Input } from './Input'
 
@@ -50,7 +50,7 @@ export class InputDate extends Input {
       .replace('YYYY', '9999')
 
     return (
-      <Fragment>
+      <div>
         {super.renderElement(props)}
         {this.renderDropdown(
           <Calendar
@@ -60,7 +60,7 @@ export class InputDate extends Input {
             onChange={::this.handleCalendarChange}
           />
         )}
-      </Fragment>
+      </div>
     )
   }
 }

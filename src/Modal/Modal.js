@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Progress } from '../Progress'
@@ -99,19 +99,17 @@ export class Modal extends React.Component {
           <div className='Modal__overlay' />
           {loading
             ? <Progress className='Modal__progress' color='current' />
-            : <Fragment>
-              <div className='Modal__container'>
-                <div className='Modal__window' ref='window'>
-                  <div className='Modal__header'>
-                    <h3 className='Modal__title'>{title}</h3>
-                    {closeButton === 'inside' && this.renderClose()}
-                  </div>
-                  <div className='Modal__content'>{this.renderContent()}</div>
+            : <div className='Modal__container'>
+              <div className='Modal__window' ref='window'>
+                <div className='Modal__header'>
+                  <h3 className='Modal__title'>{title}</h3>
+                  {closeButton === 'inside' && this.renderClose()}
                 </div>
+                <div className='Modal__content'>{this.renderContent()}</div>
               </div>
-              {closeButton === 'outside' && this.renderClose()}
-            </Fragment>
+            </div>
           }
+          {closeButton === 'outside' && this.renderClose()}
         </this.props.component>
         : ''
     )

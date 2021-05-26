@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Progress } from '../Progress'
@@ -296,10 +296,10 @@ export class Camera extends React.Component {
     const { snapshot } = this.state
 
     return snapshot
-      ? <Fragment>
+      ? <div>
         {this.renderApplyControl()}
         {this.renderResetControl()}
-      </Fragment>
+      </div>
       : this.renderCaptureControl()
   }
 
@@ -381,12 +381,12 @@ export class Camera extends React.Component {
     return (
       <this.props.component className={classNames} {...excludeProps(this)} ref='root' tabIndex='1'>
         {cameraInited &&
-          <Fragment>
+          <div>
             <div className='Camera__video-container'>
               <video className='Camera__video' ref='video' width='0' height='0' />
             </div>
             {!progress &&
-              <Fragment>
+              <div>
                 {this.renderContent()}
                 <div className='Camera__side Camera__side_left' ref='leftSide'>
                   {this.renderLeftSide()}
@@ -394,9 +394,9 @@ export class Camera extends React.Component {
                 <div className='Camera__side Camera__side_right' ref='rightSide'>
                   {this.renderRightSide()}
                 </div>
-              </Fragment>
+              </div>
             }
-          </Fragment>
+          </div>
         }
         {progress && <Progress className='Camera__progress' color='current' />}
         <div className='Camera__close' onClick={::this.close}>

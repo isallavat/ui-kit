@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Input } from './Input'
 
 export class InputArea extends Input {
@@ -7,14 +7,14 @@ export class InputArea extends Input {
     const hiddenText = value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ')
 
     return (
-      <Fragment>
+      <div>
         <div className='Input__element Input__element_hidden'
           dangerouslySetInnerHTML={{ __html: hiddenText }} />
         <textarea
           {...props}
           ref={(node) => { this.inputEl = node }}
         />
-      </Fragment>
+      </div>
     )
   }
 }

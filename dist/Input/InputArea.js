@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -15,7 +13,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _Input2 = require("./Input");
 
@@ -37,7 +35,7 @@ var InputArea = /*#__PURE__*/function (_Input) {
 
     var value = this.state.value;
     var hiddenText = value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ');
-    return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
+    return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__element Input__element_hidden",
       dangerouslySetInnerHTML: {
         __html: hiddenText

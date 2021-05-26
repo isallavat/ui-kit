@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,7 +11,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _Calendar = require("../Calendar");
 
@@ -86,7 +84,7 @@ var InputDate = /*#__PURE__*/function (_Input) {
     var date = this.valueToDate(value);
     props.type = 'text';
     props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
-    return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
+    return /*#__PURE__*/_react["default"].createElement("div", null, _Input.prototype.renderElement.call(this, props), this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
       value: date ? date.toISOString() : '',
       min: min,
       max: max,

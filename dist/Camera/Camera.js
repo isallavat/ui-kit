@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,7 +11,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -348,7 +346,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
 
   _proto.renderRightSide = function renderRightSide() {
     var snapshot = this.state.snapshot;
-    return snapshot ? /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, this.renderApplyControl(), this.renderResetControl()) : this.renderCaptureControl();
+    return snapshot ? /*#__PURE__*/_react["default"].createElement("div", null, this.renderApplyControl(), this.renderResetControl()) : this.renderCaptureControl();
   };
 
   _proto.renderApplyControl = function renderApplyControl() {
@@ -441,14 +439,14 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     }, (0, _helpers.excludeProps)(this), {
       ref: "root",
       tabIndex: "1"
-    }), cameraInited && /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
+    }), cameraInited && /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__video-container"
     }, /*#__PURE__*/_react["default"].createElement("video", {
       className: "Camera__video",
       ref: "video",
       width: "0",
       height: "0"
-    })), !progress && /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, this.renderContent(), /*#__PURE__*/_react["default"].createElement("div", {
+    })), !progress && /*#__PURE__*/_react["default"].createElement("div", null, this.renderContent(), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__side Camera__side_left",
       ref: "leftSide"
     }, this.renderLeftSide()), /*#__PURE__*/_react["default"].createElement("div", {

@@ -22,7 +22,7 @@
     .Progress__circle_2 {
       transition: 300ms ease-out; }
   .Progress__line {
-    height: 100%; }
+    height: 6px; }
     .Progress__line_1 {
       opacity: .3; }
     .Progress__line_2 {

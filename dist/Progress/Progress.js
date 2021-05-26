@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -15,7 +13,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -103,7 +101,7 @@ var Progress = /*#__PURE__*/function (_React$Component) {
       cy: "50%",
       r: "46%",
       strokeDasharray: "".concat(circleLength / 100 * percent, ",").concat(circleLength)
-    })) : /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
+    })) : /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__line Progress__line_1",
       style: {
         width: '100%'

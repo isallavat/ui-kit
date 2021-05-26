@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -15,7 +13,7 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -132,7 +130,7 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     }), loading ? /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Modal__progress",
       color: "current"
-    }) : /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
+    }) : /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__container"
     }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__window",
@@ -143,7 +141,7 @@ var Modal = /*#__PURE__*/function (_React$Component) {
       className: "Modal__title"
     }, title), closeButton === 'inside' && this.renderClose()), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__content"
-    }, this.renderContent()))), closeButton === 'outside' && this.renderClose())) : '';
+    }, this.renderContent()))), closeButton === 'outside' && this.renderClose()) : '';
   };
 
   return Modal;
