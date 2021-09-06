@@ -157,7 +157,7 @@ export class Input extends React.Component {
 
   setDropdownPosition () {
     const { type } = this.props
-    const dropdown = this.refs.dropdown
+    const dropdown = this.refDropdown
 
     if (!dropdown) {
       return
@@ -363,7 +363,7 @@ export class Input extends React.Component {
 
     return (
       <div
-        ref='dropdown'
+        ref={(ref) => { this.refDropdown = ref }}
         className={classnames({
           'Input__dropdown': true,
           '--visible': dropdownVisible,

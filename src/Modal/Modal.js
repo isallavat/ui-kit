@@ -55,7 +55,7 @@ export class Modal extends React.Component {
   }
 
   handleMouseDown (event) {
-    const window = this.refs.window
+    const window = this.refWindow
 
     if (
       !window ||
@@ -100,7 +100,7 @@ export class Modal extends React.Component {
           {loading
             ? <Progress className='Modal__progress' color='current' />
             : <div className='Modal__container'>
-              <div className='Modal__window' ref='window'>
+              <div className='Modal__window' ref={(ref) => { this.refWindow = ref }}>
                 <div className='Modal__header'>
                   <h3 className='Modal__title'>{title}</h3>
                   {closeButton === 'inside' && this.renderClose()}

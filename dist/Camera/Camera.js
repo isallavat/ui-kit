@@ -63,7 +63,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     var _this2 = this;
 
     var fullscreen = this.props.fullscreen;
-    var root = this.refs.root;
+    var root = this.refRoot;
     this.opened = true;
     root && root.focus();
 
@@ -148,7 +148,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
         _this4.setState({
           cameraInited: true
         }, function () {
-          var video = _this4.refs.video;
+          var video = _this4.refVideo;
 
           if ('srcObject' in video) {
             video.srcObject = stream;
@@ -221,8 +221,8 @@ var Camera = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.setVideoDimensions = function setVideoDimensions() {
-    var root = this.refs.root;
-    var video = this.refs.video;
+    var root = this.refRoot;
+    var video = this.refVideo;
 
     if (!video) {
       return;
@@ -246,8 +246,8 @@ var Camera = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.getFrameCanvas = function getFrameCanvas(asViewportSize) {
-    var root = this.refs.root;
-    var video = this.refs.video;
+    var root = this.refRoot;
+    var video = this.refVideo;
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
     var width;
@@ -283,7 +283,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       return;
     }
 
-    this.refs.video.pause();
+    this.refVideo.pause();
     this.setState({
       capturing: true
     });
@@ -305,7 +305,7 @@ var Camera = /*#__PURE__*/function (_React$Component) {
 
   _proto.handleReset = function handleReset() {
     var onReset = this.props.onReset;
-    this.refs.video.play();
+    this.refVideo.play();
     this.setState({
       snapshot: null
     });
@@ -422,6 +422,8 @@ var Camera = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this7 = this;
+
     var _this$props = this.props,
         className = _this$props.className,
         fullscreen = _this$props.fullscreen;
@@ -437,21 +439,23 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
-      ref: "root",
+      ref: function ref(_ref2) {
+        _this7.refRoot = _ref2;
+      },
       tabIndex: "1"
     }), cameraInited && /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__video-container"
     }, /*#__PURE__*/_react["default"].createElement("video", {
       className: "Camera__video",
-      ref: "video",
+      ref: function ref(_ref) {
+        _this7.refVideo = _ref;
+      },
       width: "0",
       height: "0"
     })), !progress && /*#__PURE__*/_react["default"].createElement("div", null, this.renderContent(), /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Camera__side Camera__side_left",
-      ref: "leftSide"
+      className: "Camera__side Camera__side_left"
     }, this.renderLeftSide()), /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Camera__side Camera__side_right",
-      ref: "rightSide"
+      className: "Camera__side Camera__side_right"
     }, this.renderRightSide()))), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Camera__progress",
       color: "current"

@@ -36,7 +36,7 @@ var Progress = /*#__PURE__*/function (_React$Component) {
 
   _proto.componentDidMount = function componentDidMount() {
     var seconds = this.props.seconds;
-    var root = this.refs.root;
+    var root = this.refRoot;
     var strokeWidth = 4; // percent
 
     var diameter = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100);
@@ -66,7 +66,8 @@ var Progress = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _classnames;
+    var _classnames,
+        _this3 = this;
 
     var _this$props = this.props,
         className = _this$props.className,
@@ -83,7 +84,9 @@ var Progress = /*#__PURE__*/function (_React$Component) {
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
-      ref: "root"
+      ref: function ref(_ref) {
+        _this3.refRoot = _ref;
+      }
     }), variant === 'circle' ? !!circleLength && /*#__PURE__*/_react["default"].createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg"
     }, /*#__PURE__*/_react["default"].createElement("circle", {

@@ -196,7 +196,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
   _proto.setDropdownPosition = function setDropdownPosition() {
     var type = this.props.type;
-    var dropdown = this.refs.dropdown;
+    var dropdown = this.refDropdown;
 
     if (!dropdown) {
       return;
@@ -416,10 +416,14 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.renderDropdown = function renderDropdown(children) {
+    var _this5 = this;
+
     var dropdownVisible = this.state.dropdownVisible;
     var position = this.props.position;
     return /*#__PURE__*/_react["default"].createElement("div", {
-      ref: "dropdown",
+      ref: function ref(_ref) {
+        _this5.refDropdown = _ref;
+      },
       className: (0, _classnames3["default"])({
         'Input__dropdown': true,
         '--visible': dropdownVisible,
@@ -429,7 +433,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.renderMenu = function renderMenu() {
-    var _this5 = this;
+    var _this6 = this;
 
     var _this$state2 = this.state,
         dropdownVisible = _this$state2.dropdownVisible,
@@ -438,7 +442,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
     return this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_ScrollArea.ScrollArea, {
       className: "Input__menu",
       containerRef: function containerRef(node) {
-        _this5.menuEl = node;
+        _this6.menuEl = node;
       }
     }, menu.map(function (item, index) {
       return /*#__PURE__*/_react["default"].createElement("div", {
@@ -450,11 +454,11 @@ var Input = /*#__PURE__*/function (_React$Component) {
         key: index,
         "data-value": item.value,
         onMouseMove: function onMouseMove() {
-          return dropdownVisible && _this5.setState({
+          return dropdownVisible && _this6.setState({
             menuSelectedItemIndex: index
           });
         },
-        onMouseDown: _this5.handleMenuItemClick.bind(_this5, item, index)
+        onMouseDown: _this6.handleMenuItemClick.bind(_this6, item, index)
       }, /*#__PURE__*/_react["default"].createElement("div", {
         className: "Input__menu-item-primary"
       }, item.primary), !!item.secondary && /*#__PURE__*/_react["default"].createElement("div", {
@@ -488,7 +492,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.renderRangeRCS = function renderRangeRCS() {
-    var _this6 = this;
+    var _this7 = this;
 
     var _this$props10 = this.props,
         _this$props10$min = _this$props10.min,
@@ -522,9 +526,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
       step: step,
       values: [value],
       disabled: disabled || readOnly || max <= min,
-      renderTrack: function renderTrack(_ref) {
-        var props = _ref.props,
-            children = _ref.children;
+      renderTrack: function renderTrack(_ref2) {
+        var props = _ref2.props,
+            children = _ref2.children;
         return /*#__PURE__*/_react["default"].createElement("div", props, children, /*#__PURE__*/_react["default"].createElement("div", {
           className: "Input__slider-track",
           style: {
@@ -532,17 +536,17 @@ var Input = /*#__PURE__*/function (_React$Component) {
           }
         }));
       },
-      renderThumb: function renderThumb(_ref2) {
-        var props = _ref2.props;
+      renderThumb: function renderThumb(_ref3) {
+        var props = _ref3.props;
         return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({
           className: "Input__slider-handle"
         }, props, {
           tabIndex: "-1",
-          onMouseDown: _this6.handleSliderDown.bind(_this6)
+          onMouseDown: _this7.handleSliderDown.bind(_this7)
         }));
       },
       onChange: function onChange(values) {
-        _this6.handleRangeChange(values[0]);
+        _this7.handleRangeChange(values[0]);
       }
     }), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__slider-label-min"
@@ -552,7 +556,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.renderAdornment = function renderAdornment() {
-    var _this7 = this;
+    var _this8 = this;
 
     var _this$props11 = this.props,
         adornment = _this$props11.adornment,
@@ -562,7 +566,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
         'Input__adornment': true
       }, "Input__adornment_".concat(adornmentPosition), true)),
       onClick: function onClick() {
-        _this7.inputEl && _this7.inputEl.focus();
+        _this8.inputEl && _this8.inputEl.focus();
       }
     }, adornment);
   };

@@ -90,7 +90,7 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleMouseDown = function handleMouseDown(event) {
-    var window = this.refs.window;
+    var window = this.refWindow;
 
     if (!window || window !== event.target && !window.contains(event.target)) {
       this.close();
@@ -109,6 +109,8 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this2 = this;
+
     var _this$getMergedProps2 = this.getMergedProps(),
         className = _this$getMergedProps2.className,
         size = _this$getMergedProps2.size,
@@ -134,7 +136,9 @@ var Modal = /*#__PURE__*/function (_React$Component) {
       className: "Modal__container"
     }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__window",
-      ref: "window"
+      ref: function ref(_ref) {
+        _this2.refWindow = _ref;
+      }
     }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__header"
     }, /*#__PURE__*/_react["default"].createElement("h3", {

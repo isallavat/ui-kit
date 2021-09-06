@@ -31,7 +31,7 @@ var Menu = /*#__PURE__*/function (_React$Component) {
   var _proto = Menu.prototype;
 
   _proto.scrollToSelected = function scrollToSelected(index, exact) {
-    var rootEl = (0, _reactDom.findDOMNode)(this.refs.root);
+    var rootEl = (0, _reactDom.findDOMNode)(this.refRoot);
 
     if (index >= 0) {
       var selectedItemEl = rootEl.childNodes[index];
@@ -49,6 +49,8 @@ var Menu = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this = this;
+
     var className = this.props.className;
     var classNames = (0, _classnames["default"])({
       'Menu': true
@@ -56,7 +58,9 @@ var Menu = /*#__PURE__*/function (_React$Component) {
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this), {
-      ref: "root"
+      ref: function ref(_ref) {
+        _this.refRoot = _ref;
+      }
     }));
   };
 

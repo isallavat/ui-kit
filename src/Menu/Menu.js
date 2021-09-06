@@ -6,7 +6,7 @@ import { excludeProps } from '../helpers'
 
 export class Menu extends React.Component {
   scrollToSelected (index, exact) {
-    const rootEl = findDOMNode(this.refs.root)
+    const rootEl = findDOMNode(this.refRoot)
 
     if (index >= 0) {
       const selectedItemEl = rootEl.childNodes[index]
@@ -32,7 +32,7 @@ export class Menu extends React.Component {
     }, className)
 
     return (
-      <this.props.component className={classNames} {...excludeProps(this)} ref='root' />
+      <this.props.component className={classNames} {...excludeProps(this)} ref={(ref) => { this.refRoot = ref }} />
     )
   }
 }

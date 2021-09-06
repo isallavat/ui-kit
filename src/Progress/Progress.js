@@ -12,7 +12,7 @@ export class Progress extends React.Component {
 
   componentDidMount () {
     const { seconds } = this.props
-    const root = this.refs.root
+    const root = this.refRoot
     const strokeWidth = 4 // percent
     const diameter = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100)
     const circleLength = Math.PI * diameter
@@ -54,7 +54,7 @@ export class Progress extends React.Component {
     }, className)
 
     return (
-      <this.props.component className={classNames} {...excludeProps(this)} ref='root'>
+      <this.props.component className={classNames} {...excludeProps(this)} ref={(ref) => { this.refRoot = ref }}>
         {variant === 'circle'
           ? !!circleLength &&
             <svg xmlns='http://www.w3.org/2000/svg'>

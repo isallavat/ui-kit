@@ -53,7 +53,7 @@ var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
     var _this$props = this.props,
         disabled = _this$props.disabled,
         onOutsideClick = _this$props.onOutsideClick;
-    var root = this.refs.root;
+    var root = this.refRoot;
 
     if (!disabled && root !== event.target && !root.contains(event.target)) {
       onOutsideClick && onOutsideClick();
@@ -61,8 +61,12 @@ var OutsideClickHandler = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this2 = this;
+
     return /*#__PURE__*/_react["default"].createElement("div", (0, _extends2["default"])({}, (0, _helpers.excludeProps)(this), {
-      ref: "root"
+      ref: function ref(_ref) {
+        _this2.refRoot = _ref;
+      }
     }), this.props.children);
   };
 

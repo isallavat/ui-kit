@@ -34,7 +34,7 @@ export class Camera extends React.Component {
 
   open () {
     const { fullscreen } = this.props
-    const root = this.refs.root
+    const root = this.refRoot
     this.opened = true
 
     root && root.focus()
@@ -104,7 +104,7 @@ export class Camera extends React.Component {
         }
 
         this.setState({ cameraInited: true }, () => {
-          const video = this.refs.video
+          const video = this.refVideo
 
           if ('srcObject' in video) {
             video.srcObject = stream
@@ -170,8 +170,8 @@ export class Camera extends React.Component {
   }
 
   setVideoDimensions () {
-    const root = this.refs.root
-    const video = this.refs.video
+    const root = this.refRoot
+    const video = this.refVideo
 
     if (!video) {
       return
@@ -197,8 +197,8 @@ export class Camera extends React.Component {
   }
 
   getFrameCanvas (asViewportSize) {
-    const root = this.refs.root
-    const video = this.refs.video
+    const root = this.refRoot
+    const video = this.refVideo
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
     let width
@@ -233,7 +233,7 @@ export class Camera extends React.Component {
       return
     }
 
-    this.refs.video.pause()
+    this.refVideo.pause()
     this.setState({ capturing: true })
 
     this.getFrameCanvas().toBlob((blob) => {
@@ -256,7 +256,7 @@ export class Camera extends React.Component {
   handleReset () {
     const { onReset } = this.props
 
-    this.refs.video.play()
+    this.refVideo.play()
     this.setState({ snapshot: null })
 
     onReset && onReset()
@@ -379,19 +379,19 @@ export class Camera extends React.Component {
     }, className)
 
     return (
-      <this.props.component className={classNames} {...excludeProps(this)} ref='root' tabIndex='1'>
+      <this.props.component className={classNames} {...excludeProps(this)} ref={(ref) => { this.refRoot = ref }} tabIndex='1'>
         {cameraInited &&
           <div>
             <div className='Camera__video-container'>
-              <video className='Camera__video' ref='video' width='0' height='0' />
+              <video className='Camera__video' ref={(ref) => { this.refVideo = ref }} width='0' height='0' />
             </div>
             {!progress &&
               <div>
                 {this.renderContent()}
-                <div className='Camera__side Camera__side_left' ref='leftSide'>
+                <div className='Camera__side Camera__side_left'>
                   {this.renderLeftSide()}
                 </div>
-                <div className='Camera__side Camera__side_right' ref='rightSide'>
+                <div className='Camera__side Camera__side_right'>
                   {this.renderRightSide()}
                 </div>
               </div>

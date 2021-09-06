@@ -28,7 +28,7 @@ export class OutsideClickHandler extends React.Component {
 
   handleClick (event) {
     const { disabled, onOutsideClick } = this.props
-    const root = this.refs.root
+    const root = this.refRoot
 
     if (!disabled && root !== event.target && !root.contains(event.target)) {
       onOutsideClick && onOutsideClick()
@@ -37,7 +37,7 @@ export class OutsideClickHandler extends React.Component {
 
   render () {
     return (
-      <div {...excludeProps(this)} ref='root'>
+      <div {...excludeProps(this)} ref={(ref) => { this.refRoot = ref }}>
         {this.props.children}
       </div>
     )
