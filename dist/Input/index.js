@@ -9,6 +9,12 @@ Object.defineProperty(exports, "Input", {
     return _Input2.Input;
   }
 });
+Object.defineProperty(exports, "InputArea", {
+  enumerable: true,
+  get: function get() {
+    return _InputArea.InputArea;
+  }
+});
 Object.defineProperty(exports, "InputDate", {
   enumerable: true,
   get: function get() {
@@ -19,12 +25,6 @@ Object.defineProperty(exports, "InputSelect", {
   enumerable: true,
   get: function get() {
     return _InputSelect.InputSelect;
-  }
-});
-Object.defineProperty(exports, "InputArea", {
-  enumerable: true,
-  get: function get() {
-    return _InputArea.InputArea;
   }
 });
 

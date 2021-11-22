@@ -33,16 +33,16 @@ Object.defineProperty(exports, "FlexTable", {
     return _FlexTable.FlexTable;
   }
 });
-Object.defineProperty(exports, "FlexTableRow", {
-  enumerable: true,
-  get: function get() {
-    return _FlexTable.FlexTableRow;
-  }
-});
 Object.defineProperty(exports, "FlexTableCell", {
   enumerable: true,
   get: function get() {
     return _FlexTable.FlexTableCell;
+  }
+});
+Object.defineProperty(exports, "FlexTableRow", {
+  enumerable: true,
+  get: function get() {
+    return _FlexTable.FlexTableRow;
   }
 });
 Object.defineProperty(exports, "GridContainer", {
@@ -63,10 +63,10 @@ Object.defineProperty(exports, "Input", {
     return _Input.Input;
   }
 });
-Object.defineProperty(exports, "InputSelect", {
+Object.defineProperty(exports, "InputArea", {
   enumerable: true,
   get: function get() {
-    return _Input.InputSelect;
+    return _Input.InputArea;
   }
 });
 Object.defineProperty(exports, "InputDate", {
@@ -75,10 +75,10 @@ Object.defineProperty(exports, "InputDate", {
     return _Input.InputDate;
   }
 });
-Object.defineProperty(exports, "InputArea", {
+Object.defineProperty(exports, "InputSelect", {
   enumerable: true,
   get: function get() {
-    return _Input.InputArea;
+    return _Input.InputSelect;
   }
 });
 Object.defineProperty(exports, "Menu", {
@@ -135,16 +135,16 @@ Object.defineProperty(exports, "Table", {
     return _Table.Table;
   }
 });
-Object.defineProperty(exports, "TableRow", {
-  enumerable: true,
-  get: function get() {
-    return _Table.TableRow;
-  }
-});
 Object.defineProperty(exports, "TableCell", {
   enumerable: true,
   get: function get() {
     return _Table.TableCell;
+  }
+});
+Object.defineProperty(exports, "TableRow", {
+  enumerable: true,
+  get: function get() {
+    return _Table.TableRow;
   }
 });
 Object.defineProperty(exports, "Tooltip", {

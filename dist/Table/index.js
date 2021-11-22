@@ -9,16 +9,16 @@ Object.defineProperty(exports, "Table", {
     return _Table2.Table;
   }
 });
-Object.defineProperty(exports, "TableRow", {
-  enumerable: true,
-  get: function get() {
-    return _TableRow.TableRow;
-  }
-});
 Object.defineProperty(exports, "TableCell", {
   enumerable: true,
   get: function get() {
     return _TableCell.TableCell;
+  }
+});
+Object.defineProperty(exports, "TableRow", {
+  enumerable: true,
+  get: function get() {
+    return _TableRow.TableRow;
   }
 });
 

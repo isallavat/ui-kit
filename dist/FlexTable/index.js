@@ -9,16 +9,16 @@ Object.defineProperty(exports, "FlexTable", {
     return _FlexTable2.FlexTable;
   }
 });
-Object.defineProperty(exports, "FlexTableRow", {
-  enumerable: true,
-  get: function get() {
-    return _FlexTableRow.FlexTableRow;
-  }
-});
 Object.defineProperty(exports, "FlexTableCell", {
   enumerable: true,
   get: function get() {
     return _FlexTableCell.FlexTableCell;
+  }
+});
+Object.defineProperty(exports, "FlexTableRow", {
+  enumerable: true,
+  get: function get() {
+    return _FlexTableRow.FlexTableRow;
   }
 });
 

@@ -70,7 +70,7 @@ export class Input extends React.Component {
     _menu = _menu.map((item) => {
       return {
         ...item,
-        primary: item.primary || item.value
+        primary: item.primary || item.label || item.value
       }
     }, [])
 
