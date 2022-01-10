@@ -57,6 +57,7 @@ export class InputSelect extends Input {
       props.value = searchValue
     } else if (selectedItem) {
       props.value = selectedItem.primary
+      props['data-value'] = selectedItem.value
     }
 
     props.readOnly = props.readOnly || !filterMenu
