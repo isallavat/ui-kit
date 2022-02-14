@@ -88,15 +88,12 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
   _proto.getMenu = function getMenu() {
     var _this$props2 = this.props,
-        type = _this$props2.type,
         menu = _this$props2.menu,
         filterMenu = _this$props2.filterMenu;
     var value = this.state.value;
     var _menu = [];
 
-    if (type !== 'select' && !value) {
-      return _menu;
-    } else if (menu instanceof Array) {
+    if (menu instanceof Array) {
       _menu = menu;
     } else if (menu instanceof Object) {
       _menu = Object.keys(menu).map(function (key) {

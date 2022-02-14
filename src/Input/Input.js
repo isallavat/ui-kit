@@ -50,13 +50,11 @@ export class Input extends React.Component {
   }
 
   getMenu () {
-    const { type, menu, filterMenu } = this.props
+    const { menu, filterMenu } = this.props
     const { value } = this.state
     let _menu = []
 
-    if (type !== 'select' && !value) {
-      return _menu
-    } else if (menu instanceof Array) {
+    if (menu instanceof Array) {
       _menu = menu
     } else if (menu instanceof Object) {
       _menu = Object.keys(menu).map((key) => {
