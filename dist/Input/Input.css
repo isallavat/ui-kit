@@ -161,63 +161,6 @@
       left: 0; }
     .Input__slider-label-max {
       right: 0; }
-  .Input .input-range {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0; }
-    .Input .input-range__track {
-      position: relative;
-      height: 2px; }
-      .Input .input-range__track--active {
-        position: absolute;
-        bottom: 0;
-        background-color: #398DFA; }
-    .Input .input-range__slider {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
-      background-color: white;
-      border-radius: 50%;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 2px 5px rgba(57, 141, 250, 0.4);
-      transition: 200ms ease-out; }
-      .Input .input-range__slider:focus {
-        outline: none; }
-      .Input .input-range__slider:active {
-        transform: translate(-50%, -50%) scale(1.1); }
-      .Input .input-range__slider:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60%;
-        height: 60%;
-        background-color: #398DFA;
-        border-radius: 50%;
-        transition: inherit; }
-      .Input .input-range__slider-container {
-        height: 100%; }
-    .Input .input-range__label {
-      position: absolute;
-      top: 100%;
-      margin-top: 10px;
-      opacity: .6;
-      font-size: 14px;
-      pointer-events: none; }
-      .Input .input-range__label--min {
-        left: 0; }
-      .Input .input-range__label--max {
-        right: 0; }
-      .Input .input-range__label--value {
-        display: none;
-        left: 50%;
-        transform: translateX(-50%); }
   .Input_size_s {
     font-size: 16px; }
     .Input_size_s.Input_rounded {

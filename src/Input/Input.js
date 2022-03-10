@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import InputMask from 'react-input-mask'
-import InputRange from 'react-input-range'
 import { Range } from 'react-range'
 import { Progress } from '../Progress'
 import { ScrollArea } from '../ScrollArea'
@@ -401,26 +400,7 @@ export class Input extends React.Component {
     )
   }
 
-  renderRangeRIR () {
-    const { min = 0, max = 0, step, readOnly, disabled, rangeProps } = this.props
-    let value = Number(this.state.value)
-    value = value < min || isNaN(value) ? min : value
-    value = value > max ? max : value
-
-    return (
-      <InputRange
-        minValue={min}
-        maxValue={max}
-        step={step}
-        value={value}
-        disabled={readOnly || disabled}
-        {...rangeProps}
-        onChange={::this.handleRangeChange}
-      />
-    )
-  }
-
-  renderRangeRCS () {
+  renderRange () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
     let _max = max > min ? max : min + step
     let value = Number(this.state.value) || min
@@ -507,8 +487,7 @@ export class Input extends React.Component {
       mask,
       maskChar,
       adornment,
-      adornmentPosition,
-      rangeV
+      adornmentPosition
     } = this.props
     const { value, focused } = this.state
     const inputProps = {
@@ -576,8 +555,7 @@ export class Input extends React.Component {
           <Progress className='Input__progress' color='current' />
         }
         {type !== 'plain' && !!this.getMenu().length && this.renderMenu()}
-        {type === 'range' && rangeV === 'rir' && this.renderRangeRIR()}
-        {type === 'range' && rangeV === 'rcs' && this.renderRangeRCS()}
+        {type === 'range' && this.renderRange()}
       </this.props.component>
     )
   }
@@ -626,7 +604,6 @@ Input.propTypes = {
   filterMenu: PropTypes.bool,
   step: PropTypes.number,
   roundBy: PropTypes.number,
-  rangeV: PropTypes.string,
   rangeProps: PropTypes.object,
   position: PropTypes.string
 }
@@ -637,6 +614,5 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
-  rangeV: 'rir',
   adornmentPosition: 'end'
 }
