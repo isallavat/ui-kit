@@ -71,9 +71,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
         format = _this$props.format;
     value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
-    if (type === 'tel' || type === 'number' && format !== 'price') {
+    if (type === 'tel' || type === 'range' || type === 'number' && format !== 'price') {
       value = value.replace(/\D/g, '');
-    } else if (['number', 'range'].indexOf(type) >= 0) {
+    } else if (type === 'decimal') {
       value = value.replace(/[^\d.]/g, '');
     }
 
@@ -251,14 +251,14 @@ var Input = /*#__PURE__*/function (_React$Component) {
     var _this$props5 = this.props,
         readOnly = _this$props5.readOnly,
         onChange = _this$props5.onChange;
-    var value = this.normalizeValue(event.target.value);
+    event.target.value = this.normalizeValue(event.target.value);
 
     if (readOnly) {
       return false;
     }
 
     var state = {
-      value: value
+      value: event.target.value
     };
 
     if (event.type === 'change') {
@@ -588,7 +588,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       };
     }
 
-    if (['number', 'range'].indexOf(type) >= 0) {
+    if (['number', 'decimal', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text';
       inputProps.inputMode = 'numeric';
     }

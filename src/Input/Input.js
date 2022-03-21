@@ -34,10 +34,11 @@ export class Input extends React.Component {
 
     if (
       type === 'tel' ||
+      type === 'range' ||
       (type === 'number' && format !== 'price')
     ) {
       value = value.replace(/\D/g, '')
-    } else if (['number', 'range'].indexOf(type) >= 0) {
+    } else if (type === 'decimal') {
       value = value.replace(/[^\d.]/g, '')
     }
 
@@ -209,13 +210,13 @@ export class Input extends React.Component {
 
   handleChange (event) {
     const { readOnly, onChange } = this.props
-    const value = this.normalizeValue(event.target.value)
+    event.target.value = this.normalizeValue(event.target.value)
 
     if (readOnly) {
       return false
     }
 
-    const state = { value }
+    const state = { value: event.target.value }
 
     if (event.type === 'change') {
       state.dropdownVisible = true
@@ -514,7 +515,7 @@ export class Input extends React.Component {
       }
     }
 
-    if (['number', 'range'].indexOf(type) >= 0) {
+    if (['number', 'decimal', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text'
       inputProps.inputMode = 'numeric'
     }
