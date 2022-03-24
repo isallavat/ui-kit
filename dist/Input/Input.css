@@ -91,17 +91,15 @@
     left: 0;
     top: 100%;
     width: 100%;
-    transform: translateY(20px);
     background-color: white;
     box-shadow: 0 5px 20px 0 rgba(128, 128, 128, 0.2);
     z-index: 2;
     opacity: 0;
     visibility: hidden;
-    transition: 300ms ease-out; }
+    transition: opacity 300ms ease-out; }
     .Input__dropdown.--visible {
       opacity: 1;
-      visibility: visible;
-      transform: translateY(5px); }
+      visibility: visible; }
     .Input__dropdown.--right {
       right: 0;
       left: unset; }

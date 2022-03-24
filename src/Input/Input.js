@@ -20,11 +20,16 @@ export class Input extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState, snapshot) {
     const { value } = this.props
+    const { dropdownVisible } = this.state
 
     if (value !== prevProps.value && this.normalizeValue(value) !== this.state.value) {
       this.setState({ value: this.normalizeValue(value) })
+    }
+
+    if (dropdownVisible && !prevState.dropdownVisible) {
+      this.setDropdownPosition()
     }
   }
 
@@ -154,21 +159,18 @@ export class Input extends React.Component {
   }
 
   setDropdownPosition () {
-    const { type } = this.props
     const dropdown = this.refDropdown
 
     if (!dropdown) {
       return
     }
 
+    dropdown.removeAttribute('style')
     const dropdownBottom = dropdown.getBoundingClientRect().bottom
 
-    if (type === 'select') {
-      if (dropdownBottom > window.innerHeight) {
-        dropdown.style.top = -(dropdownBottom - window.innerHeight) + 'px'
-      } else {
-        dropdown.style.top = '0px'
-      }
+    if (dropdownBottom > window.innerHeight) {
+      dropdown.style.top = 'auto'
+      dropdown.style.bottom = '100%'
     }
   }
 
@@ -210,21 +212,16 @@ export class Input extends React.Component {
 
   handleChange (event) {
     const { readOnly, onChange } = this.props
-    event.target.value = this.normalizeValue(event.target.value)
 
     if (readOnly) {
       return false
     }
 
-    const state = { value: event.target.value }
+    this.setState({
+      value: this.normalizeValue(event.target.value),
+      dropdownVisible: event.type === 'change'
+    })
 
-    if (event.type === 'change') {
-      state.dropdownVisible = true
-    } else {
-      state.dropdownVisible = false
-    }
-
-    this.setState(state)
     onChange && onChange(event)
   }
 

@@ -55,13 +55,18 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
   var _proto = Input.prototype;
 
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState, snapshot) {
     var value = this.props.value;
+    var dropdownVisible = this.state.dropdownVisible;
 
     if (value !== prevProps.value && this.normalizeValue(value) !== this.state.value) {
       this.setState({
         value: this.normalizeValue(value)
       });
+    }
+
+    if (dropdownVisible && !prevState.dropdownVisible) {
+      this.setDropdownPosition();
     }
   };
 
@@ -190,21 +195,18 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.setDropdownPosition = function setDropdownPosition() {
-    var type = this.props.type;
     var dropdown = this.refDropdown;
 
     if (!dropdown) {
       return;
     }
 
+    dropdown.removeAttribute('style');
     var dropdownBottom = dropdown.getBoundingClientRect().bottom;
 
-    if (type === 'select') {
-      if (dropdownBottom > window.innerHeight) {
-        dropdown.style.top = -(dropdownBottom - window.innerHeight) + 'px';
-      } else {
-        dropdown.style.top = '0px';
-      }
+    if (dropdownBottom > window.innerHeight) {
+      dropdown.style.top = 'auto';
+      dropdown.style.bottom = '100%';
     }
   };
 
@@ -251,23 +253,15 @@ var Input = /*#__PURE__*/function (_React$Component) {
     var _this$props5 = this.props,
         readOnly = _this$props5.readOnly,
         onChange = _this$props5.onChange;
-    event.target.value = this.normalizeValue(event.target.value);
 
     if (readOnly) {
       return false;
     }
 
-    var state = {
-      value: event.target.value
-    };
-
-    if (event.type === 'change') {
-      state.dropdownVisible = true;
-    } else {
-      state.dropdownVisible = false;
-    }
-
-    this.setState(state);
+    this.setState({
+      value: this.normalizeValue(event.target.value),
+      dropdownVisible: event.type === 'change'
+    });
     onChange && onChange(event);
   };
 

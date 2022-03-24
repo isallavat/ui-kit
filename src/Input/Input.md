@@ -46,7 +46,6 @@ import menu from './menu';
     <Input
       type='range'
       label='Range2'
-      rangeV='rcs'
       min={3895}
       max={58633}
       step={1000}
