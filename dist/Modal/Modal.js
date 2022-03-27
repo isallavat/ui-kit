@@ -17,9 +17,11 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _classnames2 = _interopRequireDefault(require("classnames"));
+var _classnames4 = _interopRequireDefault(require("classnames"));
 
 var _Progress = require("../Progress");
+
+var _Button = require("../Button");
 
 var _helpers = require("../helpers");
 
@@ -89,21 +91,25 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     }
   };
 
-  _proto.handleMouseDown = function handleMouseDown(event) {
-    var window = this.refWindow;
-
-    if (!window || window !== event.target && !window.contains(event.target)) {
-      this.close();
-    }
-  };
-
   _proto.renderContent = function renderContent() {
     return this.getMergedProps().children;
   };
 
+  _proto.renderOkButton = function renderOkButton() {
+    return /*#__PURE__*/_react["default"].createElement(_Button.Button, {
+      className: "Modal__ok",
+      size: "s",
+      rounded: true,
+      onClick: this.close.bind(this)
+    }, "OK");
+  };
+
   _proto.renderClose = function renderClose() {
+    var closeButtonPosition = this.props.closeButtonPosition;
     return /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Modal__close",
+      className: (0, _classnames4["default"])((0, _defineProperty2["default"])({
+        'Modal__close': true
+      }, "Modal__close_".concat(closeButtonPosition), true)),
       onClick: this.close.bind(this)
     });
   };
@@ -114,38 +120,51 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     var _this$getMergedProps2 = this.getMergedProps(),
         className = _this$getMergedProps2.className,
         size = _this$getMergedProps2.size,
+        image = _this$getMergedProps2.image,
         title = _this$getMergedProps2.title,
-        closeButton = _this$getMergedProps2.closeButton,
+        type = _this$getMergedProps2.type,
+        okButton = _this$getMergedProps2.okButton,
+        closeButtonPosition = _this$getMergedProps2.closeButtonPosition,
+        canClose = _this$getMergedProps2.canClose,
         loading = _this$getMergedProps2.loading;
 
     var visible = this.state.visible;
-    var classNames = (0, _classnames2["default"])((0, _defineProperty2["default"])({
+
+    var _size = type === 'alert' ? 's' : size;
+
+    var classNames = (0, _classnames4["default"])((0, _defineProperty2["default"])({
       'Modal': true
-    }, "Modal_size_".concat(size), true), className);
+    }, "Modal_".concat(type), true), className);
     return visible ? /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, (0, _helpers.excludeProps)(this), {
-      onMouseDown: this.handleMouseDown.bind(this),
-      onTouchStart: this.handleMouseDown.bind(this)
-    }), /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Modal__overlay"
+    }, (0, _helpers.excludeProps)(this)), /*#__PURE__*/_react["default"].createElement("div", {
+      className: "Modal__container"
+    }, /*#__PURE__*/_react["default"].createElement("div", {
+      className: "Modal__overlay",
+      onClick: function onClick() {
+        canClose && _this2.close();
+      }
     }), loading ? /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Modal__progress",
       color: "current"
     }) : /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Modal__container"
-    }, /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Modal__window",
+      className: (0, _classnames4["default"])((0, _defineProperty2["default"])({
+        'Modal__window': true
+      }, "Modal__window_size_".concat(_size), true)),
       ref: function ref(_ref) {
         _this2.refWindow = _ref;
       }
-    }, /*#__PURE__*/_react["default"].createElement("div", {
-      className: "Modal__header"
-    }, /*#__PURE__*/_react["default"].createElement("h3", {
+    }, image && /*#__PURE__*/_react["default"].createElement("img", {
+      className: "Modal__image",
+      src: image,
+      alt: ""
+    }), !!title && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__title"
-    }, title), closeButton === 'inside' && this.renderClose()), /*#__PURE__*/_react["default"].createElement("div", {
+    }, title), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__content"
-    }, this.renderContent()))), closeButton === 'outside' && this.renderClose()) : '';
+    }, this.renderContent()), type === 'alert' && /*#__PURE__*/_react["default"].createElement("div", {
+      className: "Modal__footer"
+    }, okButton || this.renderOkButton()), closeButtonPosition === 'inside' && canClose && this.renderClose()), closeButtonPosition === 'outside' && canClose && this.renderClose())) : '';
   };
 
   return Modal;
@@ -156,12 +175,18 @@ Modal.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   size: _propTypes["default"].string.isRequired,
+  image: _propTypes["default"].string,
   title: _propTypes["default"].any,
-  closeButton: _propTypes["default"].oneOf(['inside', 'outside', false]),
+  okButton: _propTypes["default"].any,
+  type: _propTypes["default"].oneOf(['default', 'alert']).isRequired,
+  closeButtonPosition: _propTypes["default"].oneOf(['inside', 'outside', false]),
+  canClose: _propTypes["default"].bool.isRequired,
   onClose: _propTypes["default"].func
 };
 Modal.defaultProps = {
   component: 'div',
+  type: 'default',
   size: 'm',
-  closeButton: 'inside'
+  closeButtonPosition: 'inside',
+  canClose: true
 };

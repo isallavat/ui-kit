@@ -1,15 +1,15 @@
 .Progress {
   position: relative; }
   .Progress_variant_circle {
-    width: 150px;
-    height: 150px; }
+    width: 50px;
+    height: 50px; }
     .Progress_variant_circle svg {
       transform: rotate(-90deg);
       animation: Progress__circle 1s linear infinite; }
     .Progress_variant_circle .Progress__value {
       font-size: 38px; }
   .Progress_variant_line {
-    height: 6px;
+    height: 5px;
     overflow: hidden; }
   .Progress svg {
     vertical-align: top;
@@ -22,7 +22,7 @@
     .Progress__circle_2 {
       transition: 300ms ease-out; }
   .Progress__line {
-    height: 6px; }
+    height: 5px; }
     .Progress__line_1 {
       opacity: .3; }
     .Progress__line_2 {

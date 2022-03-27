@@ -34,15 +34,11 @@ export class Input extends React.Component {
   }
 
   normalizeValue (value) {
-    const { type, format } = this.props
+    const { type } = this.props
     value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
-    if (
-      type === 'tel' ||
-      type === 'range' ||
-      (type === 'number' && format !== 'price')
-    ) {
-      value = value.replace(/\D/g, '')
+    if (['tel', 'number', 'range'].includes(type)) {
+      value = value.replace(/[^\d]/g, '')
     } else if (type === 'decimal') {
       value = value.replace(/[^\d.]/g, '')
     }

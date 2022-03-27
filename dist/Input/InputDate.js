@@ -2,6 +2,8 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+var _typeof = require("@babel/runtime/helpers/typeof");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -11,11 +13,15 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _Calendar = require("../Calendar");
 
 var _Input2 = require("./Input");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -75,7 +81,24 @@ var InputDate = /*#__PURE__*/function (_Input) {
     this.handleChange(event);
   };
 
+  _proto.handleBlur = function handleBlur(event) {
+    var readOnly = this.props.readOnly;
+
+    if (readOnly) {
+      return false;
+    }
+
+    if (this.dropDownMouseDown) {
+      this.inputEl.focus();
+      this.dropDownMouseDown = false;
+    } else {
+      _Input.prototype.handleBlur.call(this, event);
+    }
+  };
+
   _proto.renderElement = function renderElement(props) {
+    var _this = this;
+
     var _this$props = this.props,
         min = _this$props.min,
         max = _this$props.max,
@@ -84,12 +107,16 @@ var InputDate = /*#__PURE__*/function (_Input) {
     var date = this.valueToDate(value);
     props.type = 'text';
     props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
-    return /*#__PURE__*/_react["default"].createElement("div", null, _Input.prototype.renderElement.call(this, props), this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
+    return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), /*#__PURE__*/_react["default"].createElement("div", {
+      onMouseDown: function onMouseDown() {
+        _this.dropDownMouseDown = true;
+      }
+    }, this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
       value: date ? date.toISOString() : '',
       min: min,
       max: max,
       onChange: this.handleCalendarChange.bind(this)
-    })));
+    }))));
   };
 
   return InputDate;

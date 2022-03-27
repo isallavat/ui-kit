@@ -12,6 +12,16 @@ $this: '.Modal';
   z-index: 100;
   overflow-y: auto;
 
+  &__container {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
   &__overlay {
     position: fixed;
     left: 0;
@@ -22,49 +32,60 @@ $this: '.Modal';
     animation: Dialog__overlay 300ms ease-out;
   }
 
-  &__container {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-    padding: 20px;
-  }
-
   &__window {
     box-sizing: border-box;
     position: relative;
-    width: 100%;
-    padding: 32px;
+    max-width: 100%;
+    padding: 15px;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 10px;
     box-shadow: 0 20px 30px rgba(0,0,0,.15);
     animation: Dialog__window 300ms ease-out;
   }
 
-  &__header {
-    display: flex;
-    margin: 0 0 24px;
+  &__image {
+    display: block;
+    margin: 0 auto 15px;
+    height: 100px;
   }
 
   &__title {
-    flex-grow: 1;
-    margin: 0;
-    font-size: 24px;
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0 30px 15px 0;
+  }
+
+  &__footer {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  &__ok {
+    min-width: 120px;
   }
 
   &__close {
-    flex-shrink: 0;
-    width: 26px;
-    height: 26px;
-    margin-left: 20px;
-    position: relative;
-    opacity: .6;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    background-color: $palette-grey-200;
+    border-radius: 50%;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 
+    &_outside {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+    }
+
     &:hover {
-      opacity: 1;
+      background-color: $palette-grey-300;
     }
 
     &:before, &:after {
@@ -72,8 +93,8 @@ $this: '.Modal';
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 1px;
-      height: 80%;
+      width: 1.3px;
+      height: 50%;
       background-color: currentColor;
     }
 
@@ -96,17 +117,26 @@ $this: '.Modal';
     height: 100px;
   }
 
-  @include size('s', 320px);
-  @include size('m', 640px);
-  @include size('l', 960px);
+  &_alert {
+    text-align: center;
+
+    #{$this}__window {
+      padding-top: 40px;
+    }
+
+    #{$this}__title {
+      margin-right: 0;
+    }
+  }
+
+  @include size('s', 360px);
+  @include size('m', 480px);
+  @include size('l', 840px);
+  @include size('xl', 980px);
 
   @media (min-width: $width-tablet) {
     &__container {
       padding: 30px;
-    }
-
-    &__window {
-      padding: 50px 40px;
     }
   }
 

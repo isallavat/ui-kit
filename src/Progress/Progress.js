@@ -60,11 +60,11 @@ export class Progress extends React.Component {
             <svg xmlns='http://www.w3.org/2000/svg'>
               <circle
                 className='Progress__circle Progress__circle_1'
-                fill='none' strokeWidth='4%' cx='50%' cy='50%' r='46%'
+                fill='none' strokeWidth='6%' cx='50%' cy='50%' r='44%'
               />
               <circle
                 className='Progress__circle Progress__circle_2'
-                fill='none' strokeWidth='4%' cx='50%' cy='50%' r='46%'
+                fill='none' strokeWidth='6%' cx='50%' cy='50%' r='44%'
                 strokeDasharray={`${circleLength / 100 * percent},${circleLength}`}
               />
             </svg>

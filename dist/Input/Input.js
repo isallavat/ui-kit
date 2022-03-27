@@ -71,13 +71,11 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.normalizeValue = function normalizeValue(value) {
-    var _this$props = this.props,
-        type = _this$props.type,
-        format = _this$props.format;
+    var type = this.props.type;
     value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
-    if (type === 'tel' || type === 'range' || type === 'number' && format !== 'price') {
-      value = value.replace(/\D/g, '');
+    if (['tel', 'number', 'range'].includes(type)) {
+      value = value.replace(/[^\d]/g, '');
     } else if (type === 'decimal') {
       value = value.replace(/[^\d.]/g, '');
     }
@@ -90,9 +88,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.getMenu = function getMenu() {
-    var _this$props2 = this.props,
-        menu = _this$props2.menu,
-        filterMenu = _this$props2.filterMenu;
+    var _this$props = this.props,
+        menu = _this$props.menu,
+        filterMenu = _this$props.filterMenu;
     var value = this.state.value;
     var _menu = [];
 
@@ -213,9 +211,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.handleFocus = function handleFocus(event) {
     var _this3 = this;
 
-    var _this$props3 = this.props,
-        readOnly = _this$props3.readOnly,
-        onFocus = _this$props3.onFocus;
+    var _this$props2 = this.props,
+        readOnly = _this$props2.readOnly,
+        onFocus = _this$props2.onFocus;
     var menuSelectedItemIndex = this.getMenuSelectedItemIndex();
 
     if (readOnly) {
@@ -234,9 +232,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    var _this$props4 = this.props,
-        readOnly = _this$props4.readOnly,
-        onBlur = _this$props4.onBlur;
+    var _this$props3 = this.props,
+        readOnly = _this$props3.readOnly,
+        onBlur = _this$props3.onBlur;
 
     if (readOnly) {
       return false;
@@ -250,9 +248,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleChange = function handleChange(event) {
-    var _this$props5 = this.props,
-        readOnly = _this$props5.readOnly,
-        onChange = _this$props5.onChange;
+    var _this$props4 = this.props,
+        readOnly = _this$props4.readOnly,
+        onChange = _this$props4.onChange;
 
     if (readOnly) {
       return false;
@@ -266,14 +264,14 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleRangeChange = function handleRangeChange(value) {
-    var _this$props6 = this.props,
-        min = _this$props6.min,
-        max = _this$props6.max,
-        step = _this$props6.step,
-        _this$props6$roundBy = _this$props6.roundBy,
-        roundBy = _this$props6$roundBy === void 0 ? step : _this$props6$roundBy,
-        readOnly = _this$props6.readOnly,
-        disabled = _this$props6.disabled;
+    var _this$props5 = this.props,
+        min = _this$props5.min,
+        max = _this$props5.max,
+        step = _this$props5.step,
+        _this$props5$roundBy = _this$props5.roundBy,
+        roundBy = _this$props5$roundBy === void 0 ? step : _this$props5$roundBy,
+        readOnly = _this$props5.readOnly,
+        disabled = _this$props5.disabled;
 
     if (readOnly || disabled) {
       return false;
@@ -295,9 +293,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleKeyDown = function handleKeyDown(event) {
-    var _this$props7 = this.props,
-        readOnly = _this$props7.readOnly,
-        onKeyDown = _this$props7.onKeyDown;
+    var _this$props6 = this.props,
+        readOnly = _this$props6.readOnly,
+        onKeyDown = _this$props6.onKeyDown;
     var _this$state = this.state,
         menuSelectedItemIndex = _this$state.menuSelectedItemIndex,
         dropdownVisible = _this$state.dropdownVisible;
@@ -348,9 +346,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.renderElement = function renderElement(props) {
     var _this4 = this;
 
-    var _this$props8 = this.props,
-        format = _this$props8.format,
-        readOnly = _this$props8.readOnly;
+    var _this$props7 = this.props,
+        format = _this$props7.format,
+        readOnly = _this$props7.readOnly;
     var menu = this.getMenu();
 
     if (menu.length) {
@@ -459,16 +457,16 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.renderRange = function renderRange() {
     var _this7 = this;
 
-    var _this$props9 = this.props,
-        _this$props9$min = _this$props9.min,
-        min = _this$props9$min === void 0 ? 0 : _this$props9$min,
-        _this$props9$max = _this$props9.max,
-        max = _this$props9$max === void 0 ? 0 : _this$props9$max,
-        step = _this$props9.step,
-        readOnly = _this$props9.readOnly,
-        disabled = _this$props9.disabled,
-        _this$props9$rangePro = _this$props9.rangeProps,
-        rangeProps = _this$props9$rangePro === void 0 ? {} : _this$props9$rangePro;
+    var _this$props8 = this.props,
+        _this$props8$min = _this$props8.min,
+        min = _this$props8$min === void 0 ? 0 : _this$props8$min,
+        _this$props8$max = _this$props8.max,
+        max = _this$props8$max === void 0 ? 0 : _this$props8$max,
+        step = _this$props8.step,
+        readOnly = _this$props8.readOnly,
+        disabled = _this$props8.disabled,
+        _this$props8$rangePro = _this$props8.rangeProps,
+        rangeProps = _this$props8$rangePro === void 0 ? {} : _this$props8$rangePro;
 
     var _max = max > min ? max : min + step;
 
@@ -523,9 +521,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.renderAdornment = function renderAdornment() {
     var _this8 = this;
 
-    var _this$props10 = this.props,
-        adornment = _this$props10.adornment,
-        adornmentPosition = _this$props10.adornmentPosition;
+    var _this$props9 = this.props,
+        adornment = _this$props9.adornment,
+        adornmentPosition = _this$props9.adornmentPosition;
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
         'Input__adornment': true
@@ -539,22 +537,22 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.render = function render() {
     var _classnames2;
 
-    var _this$props11 = this.props,
-        className = _this$props11.className,
-        componentProps = _this$props11.componentProps,
-        size = _this$props11.size,
-        color = _this$props11.color,
-        variant = _this$props11.variant,
-        rounded = _this$props11.rounded,
-        invalid = _this$props11.invalid,
-        disabled = _this$props11.disabled,
-        progress = _this$props11.progress,
-        type = _this$props11.type,
-        label = _this$props11.label,
-        mask = _this$props11.mask,
-        maskChar = _this$props11.maskChar,
-        adornment = _this$props11.adornment,
-        adornmentPosition = _this$props11.adornmentPosition;
+    var _this$props10 = this.props,
+        className = _this$props10.className,
+        componentProps = _this$props10.componentProps,
+        size = _this$props10.size,
+        color = _this$props10.color,
+        variant = _this$props10.variant,
+        rounded = _this$props10.rounded,
+        invalid = _this$props10.invalid,
+        disabled = _this$props10.disabled,
+        progress = _this$props10.progress,
+        type = _this$props10.type,
+        label = _this$props10.label,
+        mask = _this$props10.mask,
+        maskChar = _this$props10.maskChar,
+        adornment = _this$props10.adornment,
+        adornmentPosition = _this$props10.adornmentPosition;
     var _this$state3 = this.state,
         value = _this$state3.value,
         focused = _this$state3.focused;

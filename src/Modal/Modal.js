@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { Progress } from '../Progress'
+import { Button } from '../Button'
 import { excludeProps, preventWindowScroll } from '../helpers'
 
 export class Modal extends React.Component {
@@ -54,38 +55,55 @@ export class Modal extends React.Component {
     }
   }
 
-  handleMouseDown (event) {
-    const window = this.refWindow
-
-    if (
-      !window ||
-      (window !== event.target && !window.contains(event.target))
-    ) {
-      this.close()
-    }
-  }
-
   renderContent () {
     return this.getMergedProps().children
   }
 
+  renderOkButton () {
+    return (
+      <Button
+        className='Modal__ok'
+        size='s'
+        rounded
+        onClick={::this.close}
+      >
+        OK
+      </Button>
+    )
+  }
+
   renderClose () {
-    return <div className='Modal__close' onClick={::this.close} />
+    const { closeButtonPosition } = this.props
+
+    return (
+      <div
+        className={classnames({
+          'Modal__close': true,
+          [`Modal__close_${closeButtonPosition}`]: true
+        })}
+        onClick={::this.close}
+      />
+    )
   }
 
   render () {
     const {
       className,
       size,
+      image,
       title,
-      closeButton,
+      type,
+      okButton,
+      closeButtonPosition,
+      canClose,
       loading
     } = this.getMergedProps()
     const { visible } = this.state
+    const _size = type === 'alert' ? 's' : size
 
     const classNames = classnames({
       'Modal': true,
-      [`Modal_size_${size}`]: true
+      [`Modal_${type}`]: true
     }, className)
 
     return (
@@ -93,23 +111,31 @@ export class Modal extends React.Component {
         ? <this.props.component
           className={classNames}
           {...excludeProps(this)}
-          onMouseDown={::this.handleMouseDown}
-          onTouchStart={::this.handleMouseDown}
         >
-          <div className='Modal__overlay' />
-          {loading
-            ? <Progress className='Modal__progress' color='current' />
-            : <div className='Modal__container'>
-              <div className='Modal__window' ref={(ref) => { this.refWindow = ref }}>
-                <div className='Modal__header'>
-                  <h3 className='Modal__title'>{title}</h3>
-                  {closeButton === 'inside' && this.renderClose()}
-                </div>
+          <div className='Modal__container'>
+            <div className='Modal__overlay' onClick={() => { canClose && this.close() }} />
+            {loading
+              ? <Progress className='Modal__progress' color='current' />
+              : <div
+                className={classnames({
+                  'Modal__window': true,
+                  [`Modal__window_size_${_size}`]: true
+                })}
+                ref={(ref) => { this.refWindow = ref }}
+              >
+                {image && <img className='Modal__image' src={image} alt='' />}
+                {!!title && <div className='Modal__title'>{title}</div>}
                 <div className='Modal__content'>{this.renderContent()}</div>
+                {type === 'alert' &&
+                  <div className='Modal__footer'>
+                    {okButton || this.renderOkButton()}
+                  </div>
+                }
+                {closeButtonPosition === 'inside' && canClose && this.renderClose()}
               </div>
-            </div>
-          }
-          {closeButton === 'outside' && this.renderClose()}
+            }
+            {closeButtonPosition === 'outside' && canClose && this.renderClose()}
+          </div>
         </this.props.component>
         : ''
     )
@@ -128,15 +154,23 @@ Modal.propTypes = {
     PropTypes.array.isRequired
   ]),
   size: PropTypes.string.isRequired,
+  image: PropTypes.string,
   title: PropTypes.any,
-  closeButton: PropTypes.oneOf([
+  okButton: PropTypes.any,
+  type: PropTypes.oneOf([
+    'default', 'alert'
+  ]).isRequired,
+  closeButtonPosition: PropTypes.oneOf([
     'inside', 'outside', false
   ]),
+  canClose: PropTypes.bool.isRequired,
   onClose: PropTypes.func
 }
 
 Modal.defaultProps = {
   component: 'div',
+  type: 'default',
   size: 'm',
-  closeButton: 'inside'
+  closeButtonPosition: 'inside',
+  canClose: true
 }

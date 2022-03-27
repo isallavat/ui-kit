@@ -1,9 +1,7 @@
 $this: '.Modal';
 
 @mixin size ($name, $width) {
-  &_size_#{$name} {
-    #{$this}__window {
-      max-width: $width;
-    }
+  #{$this}__window_size_#{$name} {
+    width: $width;
   }
 }

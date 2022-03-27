@@ -92,17 +92,17 @@ var Progress = /*#__PURE__*/function (_React$Component) {
     }, /*#__PURE__*/_react["default"].createElement("circle", {
       className: "Progress__circle Progress__circle_1",
       fill: "none",
-      strokeWidth: "4%",
+      strokeWidth: "6%",
       cx: "50%",
       cy: "50%",
-      r: "46%"
+      r: "44%"
     }), /*#__PURE__*/_react["default"].createElement("circle", {
       className: "Progress__circle Progress__circle_2",
       fill: "none",
-      strokeWidth: "4%",
+      strokeWidth: "6%",
       cx: "50%",
       cy: "50%",
-      r: "46%",
+      r: "44%",
       strokeDasharray: "".concat(circleLength / 100 * percent, ",").concat(circleLength)
     })) : /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Progress__line Progress__line_1",

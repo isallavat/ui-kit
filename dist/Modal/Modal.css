@@ -6,6 +6,14 @@
   bottom: 0;
   z-index: 100;
   overflow-y: auto; }
+  .Modal__container {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; }
   .Modal__overlay {
     position: fixed;
     left: 0;
@@ -14,47 +22,54 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.4);
     animation: Dialog__overlay 300ms ease-out; }
-  .Modal__container {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-    padding: 20px; }
   .Modal__window {
     box-sizing: border-box;
     position: relative;
-    width: 100%;
-    padding: 32px;
+    max-width: 100%;
+    padding: 15px;
     background-color: white;
-    border-radius: 6px;
+    border-radius: 10px;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
     animation: Dialog__window 300ms ease-out; }
-  .Modal__header {
-    display: flex;
-    margin: 0 0 24px; }
+  .Modal__image {
+    display: block;
+    margin: 0 auto 15px;
+    height: 100px; }
   .Modal__title {
-    flex-grow: 1;
-    margin: 0;
-    font-size: 24px; }
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0 30px 15px 0; }
+  .Modal__footer {
+    margin-top: 15px;
+    text-align: center; }
+  .Modal__ok {
+    min-width: 120px; }
   .Modal__close {
-    flex-shrink: 0;
-    width: 26px;
-    height: 26px;
-    margin-left: 20px;
-    position: relative;
-    opacity: .6;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    background-color: #E8EAEC;
+    border-radius: 50%;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent; }
+    .Modal__close_outside {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px; }
     .Modal__close:hover {
-      opacity: 1; }
+      background-color: #D8D8D8; }
     .Modal__close:before, .Modal__close:after {
       content: '';
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 1px;
-      height: 80%;
+      width: 1.3px;
+      height: 50%;
       background-color: currentColor; }
     .Modal__close:before {
       transform: translate(-50%, -50%) rotate(45deg); }
@@ -68,17 +83,23 @@
     color: white;
     width: 100px;
     height: 100px; }
-  .Modal_size_s .Modal__window {
-    max-width: 320px; }
-  .Modal_size_m .Modal__window {
-    max-width: 640px; }
-  .Modal_size_l .Modal__window {
-    max-width: 960px; }
+  .Modal_alert {
+    text-align: center; }
+    .Modal_alert .Modal__window {
+      padding-top: 40px; }
+    .Modal_alert .Modal__title {
+      margin-right: 0; }
+  .Modal .Modal__window_size_s {
+    width: 360px; }
+  .Modal .Modal__window_size_m {
+    width: 480px; }
+  .Modal .Modal__window_size_l {
+    width: 840px; }
+  .Modal .Modal__window_size_xl {
+    width: 980px; }
   @media (min-width: 640px) {
     .Modal__container {
-      padding: 30px; }
-    .Modal__window {
-      padding: 50px 40px; } }
+      padding: 30px; } }
 
 @keyframes Dialog__overlay {
   0% {

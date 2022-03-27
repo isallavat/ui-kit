@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Calendar } from '../Calendar'
 import { Input } from './Input'
 
@@ -38,6 +38,21 @@ export class InputDate extends Input {
     this.handleChange(event)
   }
 
+  handleBlur (event) {
+    const { readOnly } = this.props
+
+    if (readOnly) {
+      return false
+    }
+
+    if (this.dropDownMouseDown) {
+      this.inputEl.focus()
+      this.dropDownMouseDown = false
+    } else {
+      super.handleBlur(event)
+    }
+  }
+
   renderElement (props) {
     const { min, max, format } = this.props
     const { value } = this.state
@@ -50,17 +65,19 @@ export class InputDate extends Input {
       .replace('YYYY', '9999')
 
     return (
-      <div>
+      <Fragment>
         {super.renderElement(props)}
-        {this.renderDropdown(
-          <Calendar
-            value={date ? date.toISOString() : ''}
-            min={min}
-            max={max}
-            onChange={::this.handleCalendarChange}
-          />
-        )}
-      </div>
+        <div onMouseDown={() => { this.dropDownMouseDown = true }}>
+          {this.renderDropdown(
+            <Calendar
+              value={date ? date.toISOString() : ''}
+              min={min}
+              max={max}
+              onChange={::this.handleCalendarChange}
+            />
+          )}
+        </div>
+      </Fragment>
     )
   }
 }

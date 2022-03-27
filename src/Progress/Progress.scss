@@ -8,8 +8,8 @@ $this: '.Progress';
 
   &_variant {
     &_circle {
-      width: 150px;
-      height: 150px;
+      width: 50px;
+      height: 50px;
 
       svg {
         transform: rotate(-90deg);
@@ -22,7 +22,7 @@ $this: '.Progress';
     }
 
     &_line {
-      height: 6px;
+      height: 5px;
       overflow: hidden;
     }
   }
@@ -46,7 +46,7 @@ $this: '.Progress';
   }
 
   &__line {
-    height: 6px;
+    height: 5px;
 
     &_1 {
       opacity: .3;
