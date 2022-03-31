@@ -18,8 +18,8 @@ $this: '.Switch';
     flex-shrink: 0;
     box-sizing: border-box;
     display: inline-block;
-    border: 1px solid $palette-grey-400;
-    background-color: $palette-grey-100;
+    border: 2px solid $palette-grey-200;
+    background-color: $palette-grey-200;
     position: relative;
     transition: 100ms ease-out;
 
@@ -31,7 +31,7 @@ $this: '.Switch';
       display: inline-block;
       background-color: white;
       border-radius: 50%;
-      box-shadow: $shadow-1;
+      // box-shadow: $shadow-1;
       transition: 100ms ease-out;
     }
   }

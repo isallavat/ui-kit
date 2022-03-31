@@ -12,8 +12,8 @@ $this: '.Switch';
         border-radius: ($height / 2);
 
         &:before {
-          width: ($height - 2);
-          height: ($height - 2);
+          width: ($height - 4);
+          height: ($height - 4);
         }
       }
 
