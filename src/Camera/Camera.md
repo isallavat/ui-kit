@@ -30,7 +30,7 @@ onFail = (err) => {
     onApply={onApply}
     onFail={onFail}
   />
-  <Modal ref={(ref) => (modal = ref)} closeButton='outside'>
+  <Modal ref={(ref) => (modal = ref)} closeButtonPosition='outside'>
     {state.snapshot &&
       <img src={URL.createObjectURL(state.snapshot)} style={{ maxWidth: '100%' }} />
     }

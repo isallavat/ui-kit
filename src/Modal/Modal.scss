@@ -113,8 +113,8 @@ $this: '.Modal';
     top: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
   }
 
   &_alert {
@@ -149,7 +149,10 @@ $this: '.Modal';
   @keyframes Dialog__window {
     0% {
       opacity: 0;
-      transform: scale(0.5);
+      transform: scale(0.3);
+    }
+    70% {
+      transform: scale(1.05);
     }
   }
 }
