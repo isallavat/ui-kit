@@ -36,7 +36,7 @@ $this: '.Modal';
     box-sizing: border-box;
     position: relative;
     max-width: 100%;
-    padding: 15px;
+    padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 20px 30px rgba(0,0,0,.15);
@@ -67,8 +67,8 @@ $this: '.Modal';
 
   &__close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 20px;
     width: 20px;
     height: 20px;
     background-color: $palette-grey-200;
@@ -78,8 +78,6 @@ $this: '.Modal';
 
     &_outside {
       position: fixed;
-      top: 20px;
-      right: 20px;
       width: 30px;
       height: 30px;
     }

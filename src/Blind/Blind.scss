@@ -1,0 +1,52 @@
+@import '../variables';
+
+$this: '.Blind';
+
+#{$this} {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  &__overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.4);
+    animation: Blind__overlay 300ms ease-out;
+  }
+  
+  &__window {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    animation: Blind__window 300ms ease-out;
+  }
+
+  &__progress {
+    margin: 0 auto;
+  }
+
+  @keyframes Blind__overlay {
+    0% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes Blind__window {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+}
