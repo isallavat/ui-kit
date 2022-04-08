@@ -522,16 +522,16 @@ var Input = /*#__PURE__*/function (_React$Component) {
     var _this8 = this;
 
     var _this$props9 = this.props,
-        adornment = _this$props9.adornment,
-        adornmentPosition = _this$props9.adornmentPosition;
+        icon = _this$props9.icon,
+        iconPosition = _this$props9.iconPosition;
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
-        'Input__adornment': true
-      }, "Input__adornment_".concat(adornmentPosition), true)),
+        'Input__icon': true
+      }, "Input__icon_".concat(iconPosition), true)),
       onClick: function onClick() {
         _this8.inputEl && _this8.inputEl.focus();
       }
-    }, adornment);
+    }, icon);
   };
 
   _proto.render = function render() {
@@ -551,8 +551,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
         label = _this$props10.label,
         mask = _this$props10.mask,
         maskChar = _this$props10.maskChar,
-        adornment = _this$props10.adornment,
-        adornmentPosition = _this$props10.adornmentPosition;
+        icon = _this$props10.icon,
+        iconPosition = _this$props10.iconPosition;
     var _this$state3 = this.state,
         value = _this$state3.value,
         focused = _this$state3.focused;
@@ -590,11 +590,11 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }, (0, _defineProperty2["default"])(_classnames2, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames2, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames2, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames2, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames2, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames2, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames2, '--focused', focused), (0, _defineProperty2["default"])(_classnames2, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames2, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames2, '--disabled', disabled), (0, _defineProperty2["default"])(_classnames2, '--progress', progress), _classnames2), className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, componentProps), adornment && adornmentPosition === 'start' && this.renderAdornment(), /*#__PURE__*/_react["default"].createElement("div", {
+    }, componentProps), icon && iconPosition === 'start' && this.renderAdornment(), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__container"
     }, !!label && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__label"
-    }, label), this.renderElement(inputProps)), adornment && adornmentPosition === 'end' && this.renderAdornment(), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
+    }, label), this.renderElement(inputProps)), icon && iconPosition === 'end' && this.renderAdornment(), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Input__progress",
       color: "current"
     }), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
@@ -622,8 +622,8 @@ Input.propTypes = {
   progress: _propTypes["default"].bool,
   defaultValue: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   value: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
-  adornment: _propTypes["default"].any,
-  adornmentPosition: _propTypes["default"].oneOf(['start', 'end']),
+  icon: _propTypes["default"].any,
+  iconPosition: _propTypes["default"].oneOf(['start', 'end']),
   menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   filterMenu: _propTypes["default"].bool,
   step: _propTypes["default"].number,
@@ -637,5 +637,5 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
-  adornmentPosition: 'end'
+  iconPosition: 'end'
 };

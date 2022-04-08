@@ -76,9 +76,9 @@
     opacity: .6;
     transition: 300ms ease-out;
     cursor: text; }
-  .Input__adornment_start {
+  .Input__icon_start {
     padding-right: 10px; }
-  .Input__adornment_end {
+  .Input__icon_end {
     padding-left: 10px; }
   .Input__icon {
     vertical-align: top;
@@ -260,5 +260,5 @@
     border-bottom-width: 2px; }
   .Input.--disabled {
     opacity: .5; }
-  .Input.--progress .Input__adornment_end {
+  .Input.--progress .Input__icon_end {
     visibility: hidden; }

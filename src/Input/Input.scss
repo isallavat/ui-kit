@@ -107,7 +107,7 @@ $this: '.Input';
     cursor: text;
   }
 
-  &__adornment {
+  &__icon {
     &_start {
       padding-right: 10px;
     }
@@ -290,7 +290,7 @@ $this: '.Input';
   }
 
   &.--progress {
-    #{$this}__adornment_end {
+    #{$this}__icon_end {
       visibility: hidden;
     }
   }

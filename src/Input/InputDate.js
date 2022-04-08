@@ -87,6 +87,6 @@ InputDate.propTypes = Input.propTypes
 InputDate.defaultProps = {
   ...Input.defaultProps,
   type: 'date',
-  adornment: iconCalendar,
+  icon: iconCalendar,
   format: 'DD.MM.YYYY'
 }

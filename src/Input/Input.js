@@ -448,19 +448,19 @@ export class Input extends React.Component {
   }
 
   renderAdornment () {
-    const { adornment, adornmentPosition } = this.props
+    const { icon, iconPosition } = this.props
 
     return (
       <div
         className={classnames({
-          'Input__adornment': true,
-          [`Input__adornment_${adornmentPosition}`]: true
+          'Input__icon': true,
+          [`Input__icon_${iconPosition}`]: true
         })}
         onClick={() => {
           this.inputEl && this.inputEl.focus()
         }}
       >
-        {adornment}
+        {icon}
       </div>
     )
   }
@@ -480,8 +480,8 @@ export class Input extends React.Component {
       label,
       mask,
       maskChar,
-      adornment,
-      adornmentPosition
+      icon,
+      iconPosition
     } = this.props
     const { value, focused } = this.state
     const inputProps = {
@@ -533,7 +533,7 @@ export class Input extends React.Component {
         className={classNames}
         {...componentProps}
       >
-        {adornment && adornmentPosition === 'start' &&
+        {icon && iconPosition === 'start' &&
           this.renderAdornment()
         }
         <div className='Input__container'>
@@ -542,7 +542,7 @@ export class Input extends React.Component {
           }
           {this.renderElement(inputProps)}
         </div>
-        {adornment && adornmentPosition === 'end' &&
+        {icon && iconPosition === 'end' &&
           this.renderAdornment()
         }
         {progress &&
@@ -587,8 +587,8 @@ Input.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
   ]),
-  adornment: PropTypes.any,
-  adornmentPosition: PropTypes.oneOf([
+  icon: PropTypes.any,
+  iconPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
   menu: PropTypes.oneOfType([
@@ -608,5 +608,5 @@ Input.defaultProps = {
   color: 'default',
   variant: 'default',
   type: 'text',
-  adornmentPosition: 'end'
+  iconPosition: 'end'
 }
