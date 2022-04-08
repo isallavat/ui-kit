@@ -127,6 +127,18 @@ $this: '.Modal';
     }
   }
 
+  &_blind {
+    #{$this}__container {
+      padding: 0;
+      align-items: flex-end;
+    }
+
+    #{$this}__window {
+      border-radius: 20px 20px 0 0;
+      animation: Blind__window 300ms ease-out;
+    }
+  }
+
   @include size('s', 360px);
   @include size('m', 480px);
   @include size('l', 840px);
@@ -151,6 +163,13 @@ $this: '.Modal';
     }
     70% {
       transform: scale(1.05);
+    }
+  }
+
+  @keyframes Blind__window {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
     }
   }
 }

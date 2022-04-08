@@ -87,6 +87,12 @@
       padding-top: 40px; }
     .Modal_alert .Modal__title {
       margin-right: 0; }
+  .Modal_blind .Modal__container {
+    padding: 0;
+    align-items: flex-end; }
+  .Modal_blind .Modal__window {
+    border-radius: 20px 20px 0 0;
+    animation: Blind__window 300ms ease-out; }
   .Modal .Modal__window_size_s {
     width: 360px; }
   .Modal .Modal__window_size_m {
@@ -109,3 +115,8 @@
     transform: scale(0.3); }
   70% {
     transform: scale(1.05); } }
+
+@keyframes Blind__window {
+  0% {
+    opacity: 0;
+    transform: translateY(100%); } }

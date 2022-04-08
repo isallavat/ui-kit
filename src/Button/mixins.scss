@@ -27,6 +27,8 @@ $this: '.Button';
   &_color_#{$name} {
     &#{$this}_variant {
       &_default {
+        background-color: $color;
+
         @if $text-color {
           color: $text-color;
         } @else {
@@ -37,86 +39,60 @@ $this: '.Button';
           }
         }
 
-        @include colorVariantDefault($color);
+        @media (hover: hover) {
+          @if $lightness > 40% {
+            &:hover {
+              background-color: darken($color, 5%);
+            }
+
+            &:active {
+              background-color: darken($color, 8%);
+            }
+          } @else {
+            &:hover {
+              background-color: lighten($color, 5%);
+            }
+
+            &:active {
+              background-color: lighten($color, 8%);
+            }
+          }
+        }
       }
 
       &_text, &_outlined {
         @if $text-color {
           color: $text-color;
         } @else {
-          color: $color;
+          color: black;
+        }
+
+        @media (hover: hover) {
+          &:hover, &:active {
+            @if $text-color {
+              color: $text-color;
+            } @else {
+              @if $lightness > 70% {
+                color: black;
+              } @else {
+                color: white;
+              }
+            }
+          }
+
+          &:hover {
+            background-color: $color;
+          }
+
+          &:active {
+            background-color: darken($color, 1.5);
+          }
         }
       }
 
-      &_text {
-        @include colorVariantText($color);
-      }
-
       &_outlined {
-        @include colorVariantOutlined($color);
+        border-color: $color;
       }
     }
-  }
-}
-
-@mixin colorVariantDefault ($color, $amount: 0) {
-  $_color: darken($color, $amount);
-  $lightness: lightness($_color);
-
-  @if $lightness == 100% or $lightness == 0% {
-    background-color: $color;
-  } @else if $lightness < 45% {
-    background-color: $color;
-
-    &:hover {
-      background-color: darken($color, $amount);
-    }
-
-    &:active {
-      background-color: darken($color, $amount * 1.8);
-    }
-  } @else {
-    @include colorVariantDefault($color, $amount + 1);
-  }
-}
-
-@mixin colorVariantText ($color, $amount: 0) {
-  $_color: lighten($color, $amount);
-  $lightness: lightness($_color);
-
-  @if $lightness == 100% or $lightness == 0% {
-  } @else if $lightness > 90% {
-    &:hover {
-      background-color: lighten($color, $amount);
-    }
-
-    &:active {
-      background-color: lighten($color, $amount * .8);
-    }
-  } @else {
-    @include colorVariantText($color, $amount + 1);
-  }
-}
-
-@mixin colorVariantOutlined ($color, $amount: 0) {
-  $_color: lighten($color, $amount);
-  $lightness: lightness($_color);
-
-  @if $lightness == 100% or $lightness == 0% {
-    border-color: $color;
-  } @else if $lightness > 90% {
-    border-color: lighten($color, $amount * .8);
-
-    &:hover {
-      border-color: lighten($color, $amount * .6);
-      background-color: lighten($color, $amount);
-    }
-
-    &:active {
-      border-color: lighten($color, $amount * .4);
-      background-color: lighten($color, $amount * .8);
-    }
-  } @else {
-    @include colorVariantOutlined($color, $amount + 1);
   }
 }

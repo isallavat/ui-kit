@@ -80,26 +80,24 @@
       width: 36px;
       height: 36px; }
   .Button_color_default.Button_variant_default {
-    color: white;
-    background-color: #398DFA; }
-    .Button_color_default.Button_variant_default:hover {
-      background-color: #0663dc; }
-    .Button_color_default.Button_variant_default:active {
-      background-color: #04469c; }
+    background-color: #398DFA;
+    color: white; }
+    @media (hover: hover) {
+      .Button_color_default.Button_variant_default:hover {
+        background-color: #207ff9; }
+      .Button_color_default.Button_variant_default:active {
+        background-color: #1176f9; } }
   .Button_color_default.Button_variant_text, .Button_color_default.Button_variant_outlined {
-    color: #398DFA; }
-  .Button_color_default.Button_variant_text:hover {
-    background-color: #cee3fe; }
-  .Button_color_default.Button_variant_text:active {
-    background-color: #b0d2fd; }
+    color: black; }
+    @media (hover: hover) {
+      .Button_color_default.Button_variant_text:hover, .Button_color_default.Button_variant_text:active, .Button_color_default.Button_variant_outlined:hover, .Button_color_default.Button_variant_outlined:active {
+        color: white; }
+      .Button_color_default.Button_variant_text:hover, .Button_color_default.Button_variant_outlined:hover {
+        background-color: #398DFA; }
+      .Button_color_default.Button_variant_text:active, .Button_color_default.Button_variant_outlined:active {
+        background-color: #3289fa; } }
   .Button_color_default.Button_variant_outlined {
-    border-color: #b0d2fd; }
-    .Button_color_default.Button_variant_outlined:hover {
-      border-color: #93c1fc;
-      background-color: #cee3fe; }
-    .Button_color_default.Button_variant_outlined:active {
-      border-color: #75affc;
-      background-color: #b0d2fd; }
+    border-color: #398DFA; }
   .Button.--disabled {
     cursor: default;
     pointer-events: none;
