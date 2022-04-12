@@ -13,16 +13,19 @@ $this: '.Progress';
 
       svg {
         transform: rotate(-90deg);
-        animation: Progress__circle 1s linear infinite;
+
+        &.--animated {
+          animation: Progress__circle 1s linear infinite;
+        }
       }
 
       #{$this}__value {
-        font-size: 38px;
+        font-size: 14px;
       }
     }
 
     &_line {
-      height: 5px;
+      height: 3px;
       overflow: hidden;
     }
   }
@@ -46,7 +49,7 @@ $this: '.Progress';
   }
 
   &__line {
-    height: 5px;
+    height: 100%;
 
     &_1 {
       opacity: .3;
@@ -57,7 +60,10 @@ $this: '.Progress';
       top: 0;
       left: 0;
       transition: 300ms ease-out;
-      animation: Progress__line 1s linear infinite;
+
+      &.--animated {
+        animation: Progress__line 1s linear infinite;
+      }
     }
   }
 

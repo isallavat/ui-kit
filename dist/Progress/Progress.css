@@ -4,12 +4,13 @@
     width: 50px;
     height: 50px; }
     .Progress_variant_circle svg {
-      transform: rotate(-90deg);
-      animation: Progress__circle 1s linear infinite; }
+      transform: rotate(-90deg); }
+      .Progress_variant_circle svg.--animated {
+        animation: Progress__circle 1s linear infinite; }
     .Progress_variant_circle .Progress__value {
-      font-size: 38px; }
+      font-size: 14px; }
   .Progress_variant_line {
-    height: 5px;
+    height: 3px;
     overflow: hidden; }
   .Progress svg {
     vertical-align: top;
@@ -22,15 +23,16 @@
     .Progress__circle_2 {
       transition: 300ms ease-out; }
   .Progress__line {
-    height: 5px; }
+    height: 100%; }
     .Progress__line_1 {
       opacity: .3; }
     .Progress__line_2 {
       position: absolute;
       top: 0;
       left: 0;
-      transition: 300ms ease-out;
-      animation: Progress__line 1s linear infinite; }
+      transition: 300ms ease-out; }
+      .Progress__line_2.--animated {
+        animation: Progress__line 1s linear infinite; }
   .Progress__value {
     position: absolute;
     left: 50%;
@@ -39,9 +41,9 @@
     font-weight: bold;
     font-family: Helvetica;
     color: #172A3F; }
-  .Progress.Progress_color_default {
+  .Progress_color_default {
     color: #398DFA; }
-    .Progress.Progress_color_default .Progress__line {
+    .Progress_color_default .Progress__line {
       background-color: #398DFA; }
 
 @keyframes Progress__circle {

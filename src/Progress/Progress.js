@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { excludeProps, formatDate } from '../helpers'
@@ -11,13 +11,12 @@ export class Progress extends React.Component {
   }
 
   componentDidMount () {
-    const { seconds } = this.props
+    const { seconds, strokeWidth } = this.props
     const root = this.refRoot
-    const strokeWidth = 4 // percent
-    const diameter = root.offsetWidth - root.offsetWidth * (strokeWidth * 2 / 100)
+    const diameter = root.offsetWidth - strokeWidth * 2
     const circleLength = Math.PI * diameter
 
-    this.setState({ circleLength })
+    this.setState({ diameter, circleLength })
 
     seconds && this.countdownSeconds()
   }
@@ -42,10 +41,12 @@ export class Progress extends React.Component {
       className,
       color,
       variant,
+      animated,
       percent,
+      strokeWidth,
       children
     } = this.props
-    const { value, circleLength } = this.state
+    const { value, diameter, circleLength } = this.state
 
     const classNames = classnames({
       'Progress': true,
@@ -55,29 +56,38 @@ export class Progress extends React.Component {
 
     return (
       <this.props.component className={classNames} {...excludeProps(this)} ref={(ref) => { this.refRoot = ref }}>
-        {variant === 'circle'
-          ? !!circleLength &&
-            <svg xmlns='http://www.w3.org/2000/svg'>
-              <circle
-                className='Progress__circle Progress__circle_1'
-                fill='none' strokeWidth='6%' cx='50%' cy='50%' r='44%'
-              />
-              <circle
-                className='Progress__circle Progress__circle_2'
-                fill='none' strokeWidth='6%' cx='50%' cy='50%' r='44%'
-                strokeDasharray={`${circleLength / 100 * percent},${circleLength}`}
-              />
-            </svg>
-          : <div>
+        {variant === 'circle' && !!circleLength &&
+          <svg
+            className={classnames({
+              '--animated': animated
+            })}
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <circle
+              className='Progress__circle Progress__circle_1'
+              fill='none' strokeWidth={strokeWidth} cx='50%' cy='50%' r={diameter / 2}
+            />
+            <circle
+              className='Progress__circle Progress__circle_2'
+              fill='none' strokeWidth={strokeWidth} cx='50%' cy='50%' r={diameter / 2}
+              strokeDasharray={`${circleLength / 100 * percent},${circleLength}`}
+            />
+          </svg>
+        }
+        {variant === 'line' &&
+          <Fragment>
             <div
               className='Progress__line Progress__line_1'
               style={{ width: '100%' }}
             />
             <div
-              className='Progress__line Progress__line_2'
+              className={classnames({
+                'Progress__line Progress__line_2': true,
+                '--animated': animated
+              })}
               style={{ width: percent + '%' }}
             />
-          </div>
+          </Fragment>
         }
         {!!value && <div className='Progress__value'>{value}</div>}
         {children}
@@ -101,6 +111,8 @@ Progress.propTypes = {
   variant: PropTypes.oneOf([
     'circle', 'line'
   ]).isRequired,
+  animated: PropTypes.bool,
+  strokeWidth: PropTypes.number,
   seconds: PropTypes.number,
   percent: PropTypes.number
 }
@@ -109,5 +121,7 @@ Progress.defaultProps = {
   component: 'div',
   color: 'default',
   variant: 'circle',
+  animated: true,
+  strokeWidth: 3,
   percent: 25
 }
