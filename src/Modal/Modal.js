@@ -158,7 +158,7 @@ Modal.propTypes = {
   title: PropTypes.any,
   okButton: PropTypes.any,
   type: PropTypes.oneOf([
-    'default', 'alert'
+    'default', 'alert', 'blind'
   ]).isRequired,
   closeButtonPosition: PropTypes.oneOf([
     'inside', 'outside', false

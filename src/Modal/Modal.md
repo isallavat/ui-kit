@@ -33,7 +33,7 @@ let modalBlind;
   <Modal
     ref={(ref) => (modalBlind = ref)}
     type='blind'
-    closeButtonPosition='none'
+    closeButtonPosition={false}
   >
     Blind content
   </Modal>

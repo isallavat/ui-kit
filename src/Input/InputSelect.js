@@ -72,7 +72,7 @@ InputSelect.propTypes = Input.propTypes
 
 InputSelect.defaultProps = {
   ...Input.defaultProps,
-  icon: iconArrow,
+  suffix: iconArrow,
   type: 'select',
   filterMenu: true
 }

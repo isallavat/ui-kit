@@ -178,7 +178,7 @@ Modal.propTypes = {
   image: _propTypes["default"].string,
   title: _propTypes["default"].any,
   okButton: _propTypes["default"].any,
-  type: _propTypes["default"].oneOf(['default', 'alert']).isRequired,
+  type: _propTypes["default"].oneOf(['default', 'alert', 'blind']).isRequired,
   closeButtonPosition: _propTypes["default"].oneOf(['inside', 'outside', false]),
   canClose: _propTypes["default"].bool.isRequired,
   onClose: _propTypes["default"].func

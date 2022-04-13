@@ -1,7 +1,7 @@
 .Input {
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   position: relative; }
   .Input:before {
     content: '';
@@ -76,13 +76,14 @@
     opacity: .6;
     transition: 300ms ease-out;
     cursor: text; }
-  .Input__icon_start {
-    padding-right: 10px; }
-  .Input__icon_end {
-    padding-left: 10px; }
-  .Input__icon {
-    vertical-align: top;
+  .Input__prefix {
+    margin-right: 10px;
     opacity: .6; }
+  .Input__suffix {
+    margin-left: 10px;
+    opacity: .6; }
+  .Input__icon {
+    vertical-align: top; }
   .Input__progress {
     position: absolute;
     right: 0; }
@@ -171,6 +172,9 @@
       padding-top: 10.4px;
       padding-bottom: 10.4px;
       line-height: 19.2px; }
+    .Input_size_s .Input__prefix, .Input_size_s .Input__suffix {
+      line-height: 19.2px;
+      margin-bottom: 10.4px; }
     .Input_size_s .Input__progress {
       top: 10.4px;
       height: 19.2px;
@@ -178,12 +182,15 @@
     .Input_size_s.Input_labeled .Input__element {
       padding-top: 16px;
       padding-bottom: 4.8px; }
+    .Input_size_s.Input_labeled .Input__prefix, .Input_size_s.Input_labeled .Input__suffix {
+      margin-bottom: 4.8px; }
     .Input_size_s .Input__label {
-      top: 10px;
-      padding: 7px 0; }
-    .Input_size_s.--focused .Input__label, .Input_size_s.--filled .Input__label {
       top: 0;
-      padding: 1px 0;
+      line-height: 19.2px;
+      padding-top: 16px;
+      padding-bottom: 4.8px; }
+    .Input_size_s.--focused .Input__label, .Input_size_s.--filled .Input__label {
+      padding-top: 0;
       font-size: 75%; }
     .Input_size_s .Input__icon {
       height: 20px;
@@ -197,6 +204,9 @@
       padding-top: 14.2px;
       padding-bottom: 14.2px;
       line-height: 21.6px; }
+    .Input_size_m .Input__prefix, .Input_size_m .Input__suffix {
+      line-height: 21.6px;
+      margin-bottom: 14.2px; }
     .Input_size_m .Input__progress {
       top: 14.2px;
       height: 21.6px;
@@ -204,12 +214,15 @@
     .Input_size_m.Input_labeled .Input__element {
       padding-top: 20px;
       padding-bottom: 8.4px; }
+    .Input_size_m.Input_labeled .Input__prefix, .Input_size_m.Input_labeled .Input__suffix {
+      margin-bottom: 8.4px; }
     .Input_size_m .Input__label {
-      top: 12.5px;
-      padding: 9.75px 0; }
-    .Input_size_m.--focused .Input__label, .Input_size_m.--filled .Input__label {
       top: 0;
-      padding: 1px 0;
+      line-height: 21.6px;
+      padding-top: 20px;
+      padding-bottom: 8.4px; }
+    .Input_size_m.--focused .Input__label, .Input_size_m.--filled .Input__label {
+      padding-top: 0;
       font-size: 75%; }
     .Input_size_m .Input__icon {
       height: 25px;
@@ -223,6 +236,9 @@
       padding-top: 18px;
       padding-bottom: 18px;
       line-height: 24px; }
+    .Input_size_l .Input__prefix, .Input_size_l .Input__suffix {
+      line-height: 24px;
+      margin-bottom: 18px; }
     .Input_size_l .Input__progress {
       top: 18px;
       height: 24px;
@@ -230,12 +246,15 @@
     .Input_size_l.Input_labeled .Input__element {
       padding-top: 24px;
       padding-bottom: 12px; }
+    .Input_size_l.Input_labeled .Input__prefix, .Input_size_l.Input_labeled .Input__suffix {
+      margin-bottom: 12px; }
     .Input_size_l .Input__label {
-      top: 15px;
-      padding: 12.5px 0; }
-    .Input_size_l.--focused .Input__label, .Input_size_l.--filled .Input__label {
       top: 0;
-      padding: 1px 0;
+      line-height: 24px;
+      padding-top: 24px;
+      padding-bottom: 12px; }
+    .Input_size_l.--focused .Input__label, .Input_size_l.--filled .Input__label {
+      padding-top: 0;
       font-size: 75%; }
     .Input_size_l .Input__icon {
       height: 30px;

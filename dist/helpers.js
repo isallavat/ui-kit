@@ -27,23 +27,24 @@ function formatDate(date, format) {
 }
 
 function formatPrice(value) {
-  var parts = String(value).replace(',', '.').replace(/[^\d.]/g, '').split('.');
+  value = value.replace(/[^\d.]/g, '');
+  var matches = value.match(/(\d+)(\.\d+)?/);
 
-  var _value = parts[0].split('').reverse().reduce(function (accumulator, item, index, arr) {
-    accumulator.unshift(item);
+  if (!matches) {
+    return value;
+  }
+
+  var _value = matches[1].split('').reverse().reduce(function (accumulator, item, index, arr) {
+    accumulator.push(item);
 
     if ((index + 1) % 3 === 0 && index + 1 < arr.length) {
-      accumulator.unshift(' ');
+      accumulator.push(' ');
     }
 
     return accumulator;
-  }, []).join('');
+  }, []).reverse().join('');
 
-  if (parts.length > 1) {
-    _value += '.' + parts[1].slice(0, 2);
-  }
-
-  return _value;
+  return value.replace(new RegExp("^".concat(matches[1])), _value);
 }
 
 function preventWindowScroll(prevent) {

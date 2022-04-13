@@ -4,6 +4,8 @@ $this: '.Input';
   &_size_#{$name} {
     $line-height: $font-size * 1.2;
     $vertical-padding: ($height - $line-height) / 2;
+    $padding-top-labeled: ($height / 2.5);
+    $padding-bottom-labeled: $height - $padding-top-labeled - $line-height;
 
     font-size: $font-size;
 
@@ -18,6 +20,11 @@ $this: '.Input';
       line-height: $line-height;
     }
 
+    #{$this}__prefix, #{$this}__suffix {
+      line-height: $line-height;
+      margin-bottom: $vertical-padding;
+    }
+
     #{$this}__progress {
       top: $vertical-padding;
       height: $line-height;
@@ -26,26 +33,25 @@ $this: '.Input';
 
     &#{$this}_labeled {
       #{$this}__element {
-        $padding-top: ($height / 2.5);
+        padding-top: $padding-top-labeled;
+        padding-bottom: $padding-bottom-labeled;
+      }
 
-        padding-top: $padding-top;
-        padding-bottom: $height - $padding-top - $line-height;
+      #{$this}__prefix, #{$this}__suffix {
+        margin-bottom: $padding-bottom-labeled;
       }
     }
 
     #{$this}__label {
-      $top: ($height / 4);
-      $label-height: $height - $top;
-      $padding-top: ($label-height - $font-size) / 2;
-
-      top: $top;
-      padding: $padding-top 0;
+      top: 0;
+      line-height: $line-height;
+      padding-top: $padding-top-labeled;
+      padding-bottom: $padding-bottom-labeled;
     }
 
     &.--focused, &.--filled {
       #{$this}__label {
-        top: 0;
-        padding: 1px 0;
+        padding-top: 0;
         font-size: 75%;
       }
     }

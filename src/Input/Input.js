@@ -34,16 +34,19 @@ export class Input extends React.Component {
   }
 
   normalizeValue (value) {
+    return ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
+  }
+
+  isValueValid (value) {
     const { type } = this.props
-    value = ['string', 'number'].indexOf(typeof value) >= 0 ? String(value) : ''
 
     if (['tel', 'number', 'range'].includes(type)) {
-      value = value.replace(/[^\d]/g, '')
+      return /\d+/.test(value)
     } else if (type === 'decimal') {
-      value = value.replace(/[^\d.]/g, '')
+      return /[\d.]+/.test(value)
+    } else {
+      return true
     }
-
-    return value
   }
 
   escapeString (str) {
@@ -214,11 +217,19 @@ export class Input extends React.Component {
     }
 
     this.setState({
-      value: this.normalizeValue(event.target.value),
+      value: event.target.value,
       dropdownVisible: event.type === 'change'
     })
 
     onChange && onChange(event)
+  }
+
+  handlePaste (event) {
+    const value = (event.clipboardData || window.clipboardData).getData('text')
+
+    if (!this.isValueValid(value)) {
+      event.preventDefault()
+    }
   }
 
   handleRangeChange (value) {
@@ -250,6 +261,14 @@ export class Input extends React.Component {
     const menu = this.getMenu()
     const menuOnlyEnabled = menu.filter((item) => !item.disabled)
     const state = {}
+
+    if (
+      event.key !== undefined &&
+      event.key.length === 1 &&
+      !this.isValueValid(event.key)
+    ) {
+      event.preventDefault()
+    }
 
     if (!menu.length || readOnly) {
       return false
@@ -300,6 +319,8 @@ export class Input extends React.Component {
 
     if (format === 'price') {
       props.value = formatPrice(props.value)
+    } else if (typeof format === 'function') {
+      props.value = format(props.value)
     }
 
     if (props.type === 'plain') {
@@ -397,7 +418,7 @@ export class Input extends React.Component {
   renderRange () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
     let _max = max > min ? max : min + step
-    let value = Number(this.state.value) || min
+    let value = parseFloat(this.state.value) || min
     let valuePercents = (value - min) / (_max - min) * 100
 
     if (value < min) {
@@ -447,20 +468,15 @@ export class Input extends React.Component {
     )
   }
 
-  renderAdornment () {
-    const { icon, iconPosition } = this.props
-
+  renderSuffix (element, type) {
     return (
       <div
-        className={classnames({
-          'Input__icon': true,
-          [`Input__icon_${iconPosition}`]: true
-        })}
+        className={`Input__${type}`}
         onClick={() => {
           this.inputEl && this.inputEl.focus()
         }}
       >
-        {icon}
+        {element}
       </div>
     )
   }
@@ -480,8 +496,8 @@ export class Input extends React.Component {
       label,
       mask,
       maskChar,
-      icon,
-      iconPosition
+      prefix,
+      suffix
     } = this.props
     const { value, focused } = this.state
     const inputProps = {
@@ -494,7 +510,8 @@ export class Input extends React.Component {
       onFocus: ::this.handleFocus,
       onBlur: ::this.handleBlur,
       onChange: ::this.handleChange,
-      onKeyDown: ::this.handleKeyDown
+      onKeyDown: ::this.handleKeyDown,
+      onPaste: ::this.handlePaste
     }
 
     if (mask) {
@@ -533,18 +550,14 @@ export class Input extends React.Component {
         className={classNames}
         {...componentProps}
       >
-        {icon && iconPosition === 'start' &&
-          this.renderAdornment()
-        }
+        {prefix && this.renderSuffix(prefix, 'prefix')}
         <div className='Input__container'>
           {!!label &&
             <div className='Input__label'>{label}</div>
           }
           {this.renderElement(inputProps)}
         </div>
-        {icon && iconPosition === 'end' &&
-          this.renderAdornment()
-        }
+        {suffix && this.renderSuffix(suffix, 'suffix')}
         {progress &&
           <Progress className='Input__progress' color='current' />
         }
@@ -575,7 +588,10 @@ Input.propTypes = {
   label: PropTypes.any,
   mask: PropTypes.string,
   maskChar: PropTypes.string,
-  format: PropTypes.string,
+  format: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   disabled: PropTypes.bool,
   invalid: PropTypes.bool,
   progress: PropTypes.bool,
@@ -587,10 +603,8 @@ Input.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
   ]),
-  icon: PropTypes.any,
-  iconPosition: PropTypes.oneOf([
-    'start', 'end'
-  ]),
+  prefix: PropTypes.any,
+  suffix: PropTypes.any,
   menu: PropTypes.oneOfType([
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
@@ -607,6 +621,5 @@ Input.defaultProps = {
   size: 'm',
   color: 'default',
   variant: 'default',
-  type: 'text',
-  iconPosition: 'end'
+  type: 'text'
 }

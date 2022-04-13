@@ -126,6 +126,6 @@ exports.InputDate = InputDate;
 InputDate.propTypes = _Input2.Input.propTypes;
 InputDate.defaultProps = _objectSpread(_objectSpread({}, _Input2.Input.defaultProps), {}, {
   type: 'date',
-  icon: iconCalendar,
+  suffix: iconCalendar,
   format: 'DD.MM.YYYY'
 });

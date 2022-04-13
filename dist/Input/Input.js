@@ -19,7 +19,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _classnames3 = _interopRequireDefault(require("classnames"));
+var _classnames2 = _interopRequireDefault(require("classnames"));
 
 var _reactInputMask = _interopRequireDefault(require("react-input-mask"));
 
@@ -71,16 +71,19 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.normalizeValue = function normalizeValue(value) {
+    return ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
+  };
+
+  _proto.isValueValid = function isValueValid(value) {
     var type = this.props.type;
-    value = ['string', 'number'].indexOf((0, _typeof2["default"])(value)) >= 0 ? String(value) : '';
 
     if (['tel', 'number', 'range'].includes(type)) {
-      value = value.replace(/[^\d]/g, '');
+      return /\d+/.test(value);
     } else if (type === 'decimal') {
-      value = value.replace(/[^\d.]/g, '');
+      return /[\d.]+/.test(value);
+    } else {
+      return true;
     }
-
-    return value;
   };
 
   _proto.escapeString = function escapeString(str) {
@@ -257,10 +260,18 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }
 
     this.setState({
-      value: this.normalizeValue(event.target.value),
+      value: event.target.value,
       dropdownVisible: event.type === 'change'
     });
     onChange && onChange(event);
+  };
+
+  _proto.handlePaste = function handlePaste(event) {
+    var value = (event.clipboardData || window.clipboardData).getData('text');
+
+    if (!this.isValueValid(value)) {
+      event.preventDefault();
+    }
   };
 
   _proto.handleRangeChange = function handleRangeChange(value) {
@@ -304,6 +315,10 @@ var Input = /*#__PURE__*/function (_React$Component) {
       return !item.disabled;
     });
     var state = {};
+
+    if (event.key !== undefined && event.key.length === 1 && !this.isValueValid(event.key)) {
+      event.preventDefault();
+    }
 
     if (!menu.length || readOnly) {
       return false;
@@ -357,6 +372,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
     if (format === 'price') {
       props.value = (0, _helpers.formatPrice)(props.value);
+    } else if (typeof format === 'function') {
+      props.value = format(props.value);
     }
 
     if (props.type === 'plain') {
@@ -411,7 +428,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       ref: function ref(_ref) {
         _this5.refDropdown = _ref;
       },
-      className: (0, _classnames3["default"])({
+      className: (0, _classnames2["default"])({
         'Input__dropdown': true,
         '--visible': dropdownVisible,
         '--right': position === 'right'
@@ -433,7 +450,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       }
     }, menu.map(function (item, index) {
       return /*#__PURE__*/_react["default"].createElement("div", {
-        className: (0, _classnames3["default"])({
+        className: (0, _classnames2["default"])({
           'Input__menu-item': true,
           '--selected': index === menuSelectedItemIndex,
           '--disabled': item.disabled
@@ -470,7 +487,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
     var _max = max > min ? max : min + step;
 
-    var value = Number(this.state.value) || min;
+    var value = parseFloat(this.state.value) || min;
     var valuePercents = (value - min) / (_max - min) * 100;
 
     if (value < min) {
@@ -518,41 +535,36 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }, rangeProps.formatLabel ? rangeProps.formatLabel(max, 'max') : max));
   };
 
-  _proto.renderAdornment = function renderAdornment() {
+  _proto.renderSuffix = function renderSuffix(element, type) {
     var _this8 = this;
 
-    var _this$props9 = this.props,
-        icon = _this$props9.icon,
-        iconPosition = _this$props9.iconPosition;
     return /*#__PURE__*/_react["default"].createElement("div", {
-      className: (0, _classnames3["default"])((0, _defineProperty2["default"])({
-        'Input__icon': true
-      }, "Input__icon_".concat(iconPosition), true)),
+      className: "Input__".concat(type),
       onClick: function onClick() {
         _this8.inputEl && _this8.inputEl.focus();
       }
-    }, icon);
+    }, element);
   };
 
   _proto.render = function render() {
-    var _classnames2;
+    var _classnames;
 
-    var _this$props10 = this.props,
-        className = _this$props10.className,
-        componentProps = _this$props10.componentProps,
-        size = _this$props10.size,
-        color = _this$props10.color,
-        variant = _this$props10.variant,
-        rounded = _this$props10.rounded,
-        invalid = _this$props10.invalid,
-        disabled = _this$props10.disabled,
-        progress = _this$props10.progress,
-        type = _this$props10.type,
-        label = _this$props10.label,
-        mask = _this$props10.mask,
-        maskChar = _this$props10.maskChar,
-        icon = _this$props10.icon,
-        iconPosition = _this$props10.iconPosition;
+    var _this$props9 = this.props,
+        className = _this$props9.className,
+        componentProps = _this$props9.componentProps,
+        size = _this$props9.size,
+        color = _this$props9.color,
+        variant = _this$props9.variant,
+        rounded = _this$props9.rounded,
+        invalid = _this$props9.invalid,
+        disabled = _this$props9.disabled,
+        progress = _this$props9.progress,
+        type = _this$props9.type,
+        label = _this$props9.label,
+        mask = _this$props9.mask,
+        maskChar = _this$props9.maskChar,
+        prefix = _this$props9.prefix,
+        suffix = _this$props9.suffix;
     var _this$state3 = this.state,
         value = _this$state3.value,
         focused = _this$state3.focused;
@@ -566,7 +578,8 @@ var Input = /*#__PURE__*/function (_React$Component) {
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       onChange: this.handleChange.bind(this),
-      onKeyDown: this.handleKeyDown.bind(this)
+      onKeyDown: this.handleKeyDown.bind(this),
+      onPaste: this.handlePaste.bind(this)
     });
 
     if (mask) {
@@ -585,16 +598,16 @@ var Input = /*#__PURE__*/function (_React$Component) {
       inputProps.inputMode = 'numeric';
     }
 
-    var classNames = (0, _classnames3["default"])((_classnames2 = {
+    var classNames = (0, _classnames2["default"])((_classnames = {
       'Input': true
-    }, (0, _defineProperty2["default"])(_classnames2, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames2, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames2, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames2, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames2, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames2, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames2, '--focused', focused), (0, _defineProperty2["default"])(_classnames2, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames2, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames2, '--disabled', disabled), (0, _defineProperty2["default"])(_classnames2, '--progress', progress), _classnames2), className);
+    }, (0, _defineProperty2["default"])(_classnames, "Input_size_".concat(size), true), (0, _defineProperty2["default"])(_classnames, "Input_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Input_variant_".concat(variant), true), (0, _defineProperty2["default"])(_classnames, "Input_type_".concat(type), true), (0, _defineProperty2["default"])(_classnames, 'Input_rounded', rounded), (0, _defineProperty2["default"])(_classnames, 'Input_labeled', !!label), (0, _defineProperty2["default"])(_classnames, '--focused', focused), (0, _defineProperty2["default"])(_classnames, '--filled', [undefined, null, ''].indexOf(value) < 0), (0, _defineProperty2["default"])(_classnames, '--invalid', invalid), (0, _defineProperty2["default"])(_classnames, '--disabled', disabled), (0, _defineProperty2["default"])(_classnames, '--progress', progress), _classnames), className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, componentProps), icon && iconPosition === 'start' && this.renderAdornment(), /*#__PURE__*/_react["default"].createElement("div", {
+    }, componentProps), prefix && this.renderSuffix(prefix, 'prefix'), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__container"
     }, !!label && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__label"
-    }, label), this.renderElement(inputProps)), icon && iconPosition === 'end' && this.renderAdornment(), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
+    }, label), this.renderElement(inputProps)), suffix && this.renderSuffix(suffix, 'suffix'), progress && /*#__PURE__*/_react["default"].createElement(_Progress.Progress, {
       className: "Input__progress",
       color: "current"
     }), type !== 'plain' && !!this.getMenu().length && this.renderMenu(), type === 'range' && this.renderRange());
@@ -616,14 +629,14 @@ Input.propTypes = {
   label: _propTypes["default"].any,
   mask: _propTypes["default"].string,
   maskChar: _propTypes["default"].string,
-  format: _propTypes["default"].string,
+  format: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
   disabled: _propTypes["default"].bool,
   invalid: _propTypes["default"].bool,
   progress: _propTypes["default"].bool,
   defaultValue: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
   value: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].number.isRequired]),
-  icon: _propTypes["default"].any,
-  iconPosition: _propTypes["default"].oneOf(['start', 'end']),
+  prefix: _propTypes["default"].any,
+  suffix: _propTypes["default"].any,
   menu: _propTypes["default"].oneOfType([_propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   filterMenu: _propTypes["default"].bool,
   step: _propTypes["default"].number,
@@ -636,6 +649,5 @@ Input.defaultProps = {
   size: 'm',
   color: 'default',
   variant: 'default',
-  type: 'text',
-  iconPosition: 'end'
+  type: 'text'
 };

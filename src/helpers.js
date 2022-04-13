@@ -22,23 +22,24 @@ export function formatDate (date, format) {
 }
 
 export function formatPrice (value) {
-  const parts = String(value).replace(',', '.').replace(/[^\d.]/g, '').split('.')
+  value = value.replace(/[^\d.]/g, '')
+  const matches = value.match(/(\d+)(\.\d+)?/)
 
-  let _value = parts[0].split('').reverse().reduce((accumulator, item, index, arr) => {
-    accumulator.unshift(item)
+  if (!matches) {
+    return value
+  }
+
+  let _value = matches[1].split('').reverse().reduce((accumulator, item, index, arr) => {
+    accumulator.push(item)
 
     if ((index + 1) % 3 === 0 && index + 1 < arr.length) {
-      accumulator.unshift(' ')
+      accumulator.push(' ')
     }
 
     return accumulator
-  }, []).join('')
+  }, []).reverse().join('')
 
-  if (parts.length > 1) {
-    _value += '.' + parts[1].slice(0, 2)
-  }
-
-  return _value
+  return value.replace(new RegExp(`^${matches[1]}`), _value)
 }
 
 export function preventWindowScroll (prevent) {

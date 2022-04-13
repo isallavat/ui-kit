@@ -6,7 +6,7 @@ $this: '.Input';
 #{$this} {
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
 
   &:before {
@@ -107,19 +107,18 @@ $this: '.Input';
     cursor: text;
   }
 
-  &__icon {
-    &_start {
-      padding-right: 10px;
-    }
+  &__prefix {
+    margin-right: 10px;
+    opacity: .6;
+  }
 
-    &_end {
-      padding-left: 10px;
-    }
+  &__suffix {
+    margin-left: 10px;
+    opacity: .6;
   }
 
   &__icon {
     vertical-align: top;
-    opacity: .6;
   }
 
   &__progress {

@@ -117,7 +117,7 @@ var InputSelect = /*#__PURE__*/function (_Input) {
 exports.InputSelect = InputSelect;
 InputSelect.propTypes = _Input2.Input.propTypes;
 InputSelect.defaultProps = _objectSpread(_objectSpread({}, _Input2.Input.defaultProps), {}, {
-  icon: iconArrow,
+  suffix: iconArrow,
   type: 'select',
   filterMenu: true
 });
