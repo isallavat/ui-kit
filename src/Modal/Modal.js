@@ -40,7 +40,7 @@ export class Modal extends React.Component {
     const { visible } = this.state
 
     if (visible) {
-      this._props = props
+      this._props = { ...this._props, ...props }
       this.forceUpdate()
     }
   }

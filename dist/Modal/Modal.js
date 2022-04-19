@@ -76,7 +76,7 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     var visible = this.state.visible;
 
     if (visible) {
-      this._props = props;
+      this._props = _objectSpread(_objectSpread({}, this._props), props);
       this.forceUpdate();
     }
   };
