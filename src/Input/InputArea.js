@@ -12,6 +12,7 @@ export class InputArea extends Input {
           dangerouslySetInnerHTML={{ __html: hiddenText }} />
         <textarea
           {...props}
+          className='Input__element Input__element_visible'
           ref={(node) => { this.inputEl = node }}
         />
       </div>

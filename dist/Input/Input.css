@@ -126,15 +126,15 @@
         font-size: 85%;
         opacity: .6; }
   .Input_type_area .Input__element {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
     overflow-y: auto; }
     .Input_type_area .Input__element_hidden {
-      position: static;
       visibility: hidden;
       word-break: break-word; }
+    .Input_type_area .Input__element_visible {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%; }
   .Input_type_plain .Input__element {
     word-break: break-word; }
   .Input__slider {

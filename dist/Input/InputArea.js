@@ -41,6 +41,7 @@ var InputArea = /*#__PURE__*/function (_Input) {
         __html: hiddenText
       }
     }), /*#__PURE__*/_react["default"].createElement("textarea", (0, _extends2["default"])({}, props, {
+      className: "Input__element Input__element_visible",
       ref: function ref(node) {
         _this.inputEl = node;
       }

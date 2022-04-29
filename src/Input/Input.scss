@@ -183,16 +183,18 @@ $this: '.Input';
   &_type {
     &_area {
       #{$this}__element {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
         overflow-y: auto;
 
         &_hidden {
-          position: static;
           visibility: hidden;
           word-break: break-word;
+        }
+
+        &_visible {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
         }
       }
     }
