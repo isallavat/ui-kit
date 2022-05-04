@@ -87,12 +87,6 @@
       padding-top: 40px; }
     .Modal_alert .Modal__title {
       margin-right: 0; }
-  .Modal_blind .Modal__container {
-    padding: 0;
-    align-items: flex-end; }
-  .Modal_blind .Modal__window {
-    border-radius: 20px 20px 0 0;
-    animation: Blind__window 300ms ease-out; }
   .Modal .Modal__window_size_s {
     width: 360px; }
   .Modal .Modal__window_size_m {
@@ -101,6 +95,14 @@
     width: 840px; }
   .Modal .Modal__window_size_xl {
     width: 980px; }
+  @media (max-width: 639px) {
+    .Modal_blind .Modal__container {
+      padding: 0;
+      align-items: flex-end; }
+    .Modal_blind .Modal__window {
+      width: 100%;
+      border-radius: 20px 20px 0 0;
+      animation: Blind__window 300ms ease-out; } }
   @media (min-width: 640px) {
     .Modal__container {
       padding: 30px; } }
