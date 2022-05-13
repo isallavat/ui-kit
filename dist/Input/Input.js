@@ -320,9 +320,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
       event.preventDefault();
     }
 
-    if (!menu.length || readOnly) {
+    if (readOnly) {
       return false;
-    } else if ([38, 40].indexOf(event.keyCode) >= 0 && !dropdownVisible) {
+    } else if ([38, 40].indexOf(event.keyCode) >= 0 && menuOnlyEnabled.length && !dropdownVisible) {
       state.dropdownVisible = true;
     } else if (event.keyCode === 38 && menuOnlyEnabled.length) {
       state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, -1);
@@ -334,7 +334,10 @@ var Input = /*#__PURE__*/function (_React$Component) {
       selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSelectedItemIndex, event);
     }
 
-    this.setState(state, this.scrollMenuToSelected);
+    if (state.dropdownVisible) {
+      this.setState(state, this.scrollMenuToSelected);
+    }
+
     onKeyDown && onKeyDown(event);
   };
 
