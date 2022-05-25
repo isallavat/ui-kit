@@ -366,11 +366,22 @@ var Input = /*#__PURE__*/function (_React$Component) {
 
     var _this$props7 = this.props,
         format = _this$props7.format,
-        readOnly = _this$props7.readOnly;
+        readOnly = _this$props7.readOnly,
+        maskChar = _this$props7.maskChar;
     var menu = this.getMenu();
 
     if (menu.length) {
       props.autoComplete = 'off';
+    }
+
+    if (props.mask) {
+      props.maskChar = maskChar;
+      props.formatChars = {
+        '#': '[0-9]',
+        '9': '[0-9]',
+        'a': '[A-Za-z]',
+        '*': '[A-Za-z0-9]'
+      };
     }
 
     if (format === 'price') {
@@ -565,7 +576,6 @@ var Input = /*#__PURE__*/function (_React$Component) {
         type = _this$props9.type,
         label = _this$props9.label,
         mask = _this$props9.mask,
-        maskChar = _this$props9.maskChar,
         prefix = _this$props9.prefix,
         suffix = _this$props9.suffix;
     var _this$state3 = this.state,
@@ -577,6 +587,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       disabled: disabled,
       type: type,
       value: value,
+      mask: mask,
       onClick: this.handleFocus.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
@@ -584,17 +595,6 @@ var Input = /*#__PURE__*/function (_React$Component) {
       onKeyDown: this.handleKeyDown.bind(this),
       onPaste: this.handlePaste.bind(this)
     });
-
-    if (mask) {
-      inputProps.mask = mask;
-      inputProps.maskChar = maskChar;
-      inputProps.formatChars = {
-        '#': '[0-9]',
-        '9': '[0-9]',
-        'a': '[A-Za-z]',
-        '*': '[A-Za-z0-9]'
-      };
-    }
 
     if (['number', 'decimal', 'range'].indexOf(type) >= 0) {
       inputProps.type = 'text';

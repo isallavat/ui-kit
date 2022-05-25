@@ -312,11 +312,21 @@ export class Input extends React.Component {
   }
 
   renderElement (props) {
-    const { format, readOnly } = this.props
+    const { format, readOnly, maskChar } = this.props
     const menu = this.getMenu()
 
     if (menu.length) {
       props.autoComplete = 'off'
+    }
+
+    if (props.mask) {
+      props.maskChar = maskChar
+      props.formatChars = {
+        '#': '[0-9]',
+        '9': '[0-9]',
+        'a': '[A-Za-z]',
+        '*': '[A-Za-z0-9]'
+      }
     }
 
     if (format === 'price') {
@@ -497,7 +507,6 @@ export class Input extends React.Component {
       type,
       label,
       mask,
-      maskChar,
       prefix,
       suffix
     } = this.props
@@ -508,23 +517,13 @@ export class Input extends React.Component {
       disabled,
       type,
       value,
+      mask,
       onClick: ::this.handleFocus,
       onFocus: ::this.handleFocus,
       onBlur: ::this.handleBlur,
       onChange: ::this.handleChange,
       onKeyDown: ::this.handleKeyDown,
       onPaste: ::this.handlePaste
-    }
-
-    if (mask) {
-      inputProps.mask = mask
-      inputProps.maskChar = maskChar
-      inputProps.formatChars = {
-        '#': '[0-9]',
-        '9': '[0-9]',
-        'a': '[A-Za-z]',
-        '*': '[A-Za-z0-9]'
-      }
     }
 
     if (['number', 'decimal', 'range'].indexOf(type) >= 0) {

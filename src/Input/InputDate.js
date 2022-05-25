@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Calendar } from '../Calendar'
 import { Input } from './Input'
+import { formatDate } from '../helpers'
 
 const iconCalendar = <svg className='Input__icon Input__icon_calendar' xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'>
   <g fill='currentColor'>
@@ -11,21 +12,18 @@ const iconCalendar = <svg className='Input__icon Input__icon_calendar' xmlns='ht
 </svg>
 
 export class InputDate extends Input {
-  formatDate (date, format) {
-    return format
-      .replace('YYYY', date.getFullYear())
-      .replace('MM', ('0' + (date.getMonth() + 1)).slice(-2))
-      .replace('DD', ('0' + date.getDate()).slice(-2))
-  }
-
   valueToDate (value) {
     const { format } = this.props
     const year = value.substr(format.indexOf('YYYY'), 4) * 1
     const month = value.substr(format.indexOf('MM'), 2) * 1 - 1
     const day = value.substr(format.indexOf('DD'), 2) * 1
+    const hours = value.substr(format.indexOf('HH'), 2) * 1
+    const minutes = value.substr(format.indexOf('mm'), 2) * 1
+    const seconds = value.substr(format.indexOf('ss'), 2) * 1
+    const milliseconds = value.substr(format.indexOf('sss'), 3) * 1
 
     if (year && month && day) {
-      return new Date(year, month, day)
+      return new Date(year, month, day, hours, minutes, seconds, milliseconds)
     }
   }
 
@@ -33,7 +31,7 @@ export class InputDate extends Input {
     const { format } = this.props
     const date = new Date(value)
     const event = { target: this.inputEl }
-    event.target.value = this.formatDate(date, format)
+    event.target.value = formatDate(date, format)
 
     this.handleChange(event)
   }
@@ -60,9 +58,13 @@ export class InputDate extends Input {
 
     props.type = 'text'
     props.mask = format
-      .replace('DD', '99')
-      .replace('MM', '99')
-      .replace('YYYY', '9999')
+      .replace('YYYY', '####')
+      .replace('MM', '##')
+      .replace('DD', '##')
+      .replace('HH', '##')
+      .replace('mm', '##')
+      .replace('ss', '##')
+      .replace('sss', '###')
 
     return (
       <Fragment>
@@ -70,7 +72,7 @@ export class InputDate extends Input {
         <div onMouseDown={() => { this.dropDownMouseDown = true }}>
           {this.renderDropdown(
             <Calendar
-              value={date ? date.toISOString() : ''}
+              value={date && String(date) !== 'Invalid Date' ? date.toISOString() : ''}
               min={min}
               max={max}
               onChange={::this.handleCalendarChange}

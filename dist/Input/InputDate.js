@@ -19,6 +19,8 @@ var _Calendar = require("../Calendar");
 
 var _Input2 = require("./Input");
 
+var _helpers = require("../helpers");
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -56,18 +58,18 @@ var InputDate = /*#__PURE__*/function (_Input) {
 
   var _proto = InputDate.prototype;
 
-  _proto.formatDate = function formatDate(date, format) {
-    return format.replace('YYYY', date.getFullYear()).replace('MM', ('0' + (date.getMonth() + 1)).slice(-2)).replace('DD', ('0' + date.getDate()).slice(-2));
-  };
-
   _proto.valueToDate = function valueToDate(value) {
     var format = this.props.format;
     var year = value.substr(format.indexOf('YYYY'), 4) * 1;
     var month = value.substr(format.indexOf('MM'), 2) * 1 - 1;
     var day = value.substr(format.indexOf('DD'), 2) * 1;
+    var hours = value.substr(format.indexOf('HH'), 2) * 1;
+    var minutes = value.substr(format.indexOf('mm'), 2) * 1;
+    var seconds = value.substr(format.indexOf('ss'), 2) * 1;
+    var milliseconds = value.substr(format.indexOf('sss'), 3) * 1;
 
     if (year && month && day) {
-      return new Date(year, month, day);
+      return new Date(year, month, day, hours, minutes, seconds, milliseconds);
     }
   };
 
@@ -77,7 +79,7 @@ var InputDate = /*#__PURE__*/function (_Input) {
     var event = {
       target: this.inputEl
     };
-    event.target.value = this.formatDate(date, format);
+    event.target.value = (0, _helpers.formatDate)(date, format);
     this.handleChange(event);
   };
 
@@ -106,13 +108,13 @@ var InputDate = /*#__PURE__*/function (_Input) {
     var value = this.state.value;
     var date = this.valueToDate(value);
     props.type = 'text';
-    props.mask = format.replace('DD', '99').replace('MM', '99').replace('YYYY', '9999');
+    props.mask = format.replace('YYYY', '####').replace('MM', '##').replace('DD', '##').replace('HH', '##').replace('mm', '##').replace('ss', '##').replace('sss', '###');
     return /*#__PURE__*/_react["default"].createElement(_react.Fragment, null, _Input.prototype.renderElement.call(this, props), /*#__PURE__*/_react["default"].createElement("div", {
       onMouseDown: function onMouseDown() {
         _this.dropDownMouseDown = true;
       }
     }, this.renderDropdown( /*#__PURE__*/_react["default"].createElement(_Calendar.Calendar, {
-      value: date ? date.toISOString() : '',
+      value: date && String(date) !== 'Invalid Date' ? date.toISOString() : '',
       min: min,
       max: max,
       onChange: this.handleCalendarChange.bind(this)

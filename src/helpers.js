@@ -19,6 +19,7 @@ export function formatDate (date, format) {
     .replace('HH', ('0' + date.getHours()).slice(-2))
     .replace('mm', ('0' + date.getMinutes()).slice(-2))
     .replace('ss', ('0' + date.getSeconds()).slice(-2))
+    .replace('sss', ('0' + date.getMilliseconds()).slice(-3))
 }
 
 export function formatPrice (value) {
