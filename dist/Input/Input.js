@@ -211,12 +211,25 @@ var Input = /*#__PURE__*/function (_React$Component) {
     }
   };
 
+  _proto.handleClick = function handleClick(event) {
+    var _this$props2 = this.props,
+        readOnly = _this$props2.readOnly,
+        onClick = _this$props2.onClick;
+
+    if (readOnly) {
+      return false;
+    }
+
+    this.handleFocus(event);
+    onClick && onClick(event);
+  };
+
   _proto.handleFocus = function handleFocus(event) {
     var _this3 = this;
 
-    var _this$props2 = this.props,
-        readOnly = _this$props2.readOnly,
-        onFocus = _this$props2.onFocus;
+    var _this$props3 = this.props,
+        readOnly = _this$props3.readOnly,
+        onFocus = _this$props3.onFocus;
     var menuSelectedItemIndex = this.getMenuSelectedItemIndex();
 
     if (readOnly) {
@@ -235,9 +248,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleBlur = function handleBlur(event) {
-    var _this$props3 = this.props,
-        readOnly = _this$props3.readOnly,
-        onBlur = _this$props3.onBlur;
+    var _this$props4 = this.props,
+        readOnly = _this$props4.readOnly,
+        onBlur = _this$props4.onBlur;
 
     if (readOnly) {
       return false;
@@ -251,9 +264,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleChange = function handleChange(event) {
-    var _this$props4 = this.props,
-        readOnly = _this$props4.readOnly,
-        onChange = _this$props4.onChange;
+    var _this$props5 = this.props,
+        readOnly = _this$props5.readOnly,
+        onChange = _this$props5.onChange;
 
     if (readOnly) {
       return false;
@@ -275,14 +288,14 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleRangeChange = function handleRangeChange(value) {
-    var _this$props5 = this.props,
-        min = _this$props5.min,
-        max = _this$props5.max,
-        step = _this$props5.step,
-        _this$props5$roundBy = _this$props5.roundBy,
-        roundBy = _this$props5$roundBy === void 0 ? step : _this$props5$roundBy,
-        readOnly = _this$props5.readOnly,
-        disabled = _this$props5.disabled;
+    var _this$props6 = this.props,
+        min = _this$props6.min,
+        max = _this$props6.max,
+        step = _this$props6.step,
+        _this$props6$roundBy = _this$props6.roundBy,
+        roundBy = _this$props6$roundBy === void 0 ? step : _this$props6$roundBy,
+        readOnly = _this$props6.readOnly,
+        disabled = _this$props6.disabled;
 
     if (readOnly || disabled) {
       return false;
@@ -304,9 +317,9 @@ var Input = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleKeyDown = function handleKeyDown(event) {
-    var _this$props6 = this.props,
-        readOnly = _this$props6.readOnly,
-        onKeyDown = _this$props6.onKeyDown;
+    var _this$props7 = this.props,
+        readOnly = _this$props7.readOnly,
+        onKeyDown = _this$props7.onKeyDown;
     var _this$state = this.state,
         menuSelectedItemIndex = _this$state.menuSelectedItemIndex,
         dropdownVisible = _this$state.dropdownVisible;
@@ -364,10 +377,10 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.renderElement = function renderElement(props) {
     var _this4 = this;
 
-    var _this$props7 = this.props,
-        format = _this$props7.format,
-        readOnly = _this$props7.readOnly,
-        maskChar = _this$props7.maskChar;
+    var _this$props8 = this.props,
+        format = _this$props8.format,
+        readOnly = _this$props8.readOnly,
+        maskChar = _this$props8.maskChar;
     var menu = this.getMenu();
 
     if (menu.length) {
@@ -488,16 +501,16 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.renderRange = function renderRange() {
     var _this7 = this;
 
-    var _this$props8 = this.props,
-        _this$props8$min = _this$props8.min,
-        min = _this$props8$min === void 0 ? 0 : _this$props8$min,
-        _this$props8$max = _this$props8.max,
-        max = _this$props8$max === void 0 ? 0 : _this$props8$max,
-        step = _this$props8.step,
-        readOnly = _this$props8.readOnly,
-        disabled = _this$props8.disabled,
-        _this$props8$rangePro = _this$props8.rangeProps,
-        rangeProps = _this$props8$rangePro === void 0 ? {} : _this$props8$rangePro;
+    var _this$props9 = this.props,
+        _this$props9$min = _this$props9.min,
+        min = _this$props9$min === void 0 ? 0 : _this$props9$min,
+        _this$props9$max = _this$props9.max,
+        max = _this$props9$max === void 0 ? 0 : _this$props9$max,
+        step = _this$props9.step,
+        readOnly = _this$props9.readOnly,
+        disabled = _this$props9.disabled,
+        _this$props9$rangePro = _this$props9.rangeProps,
+        rangeProps = _this$props9$rangePro === void 0 ? {} : _this$props9$rangePro;
 
     var _max = max > min ? max : min + step;
 
@@ -563,21 +576,21 @@ var Input = /*#__PURE__*/function (_React$Component) {
   _proto.render = function render() {
     var _classnames;
 
-    var _this$props9 = this.props,
-        className = _this$props9.className,
-        componentProps = _this$props9.componentProps,
-        size = _this$props9.size,
-        color = _this$props9.color,
-        variant = _this$props9.variant,
-        rounded = _this$props9.rounded,
-        invalid = _this$props9.invalid,
-        disabled = _this$props9.disabled,
-        progress = _this$props9.progress,
-        type = _this$props9.type,
-        label = _this$props9.label,
-        mask = _this$props9.mask,
-        prefix = _this$props9.prefix,
-        suffix = _this$props9.suffix;
+    var _this$props10 = this.props,
+        className = _this$props10.className,
+        componentProps = _this$props10.componentProps,
+        size = _this$props10.size,
+        color = _this$props10.color,
+        variant = _this$props10.variant,
+        rounded = _this$props10.rounded,
+        invalid = _this$props10.invalid,
+        disabled = _this$props10.disabled,
+        progress = _this$props10.progress,
+        type = _this$props10.type,
+        label = _this$props10.label,
+        mask = _this$props10.mask,
+        prefix = _this$props10.prefix,
+        suffix = _this$props10.suffix;
     var _this$state3 = this.state,
         value = _this$state3.value,
         focused = _this$state3.focused;

@@ -173,6 +173,18 @@ export class Input extends React.Component {
     }
   }
 
+  handleClick (event) {
+    const { readOnly, onClick } = this.props
+
+    if (readOnly) {
+      return false
+    }
+
+    this.handleFocus(event)
+
+    onClick && onClick(event)
+  }
+
   handleFocus (event) {
     const { readOnly, onFocus } = this.props
     const menuSelectedItemIndex = this.getMenuSelectedItemIndex()
