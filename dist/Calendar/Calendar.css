@@ -52,3 +52,10 @@
       .Calendar__cell-button.--disabled {
         opacity: .3;
         cursor: default; }
+  .Calendar__time {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .Calendar__time select {
+      margin: 0 5px; }

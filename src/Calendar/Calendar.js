@@ -20,7 +20,7 @@ function getValueProps (props) {
   } else if (props.min && new Date(props.min) > now) {
     value = new Date(props.min).toISOString()
   } else {
-    value = new Date().toISOString()
+    value = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
   }
 
   return value
@@ -110,7 +110,7 @@ export class Calendar extends React.Component {
     const minDate = new Date(min)
     const maxDate = new Date(max)
     const minYear = minDate.getFullYear() || now.getFullYear() - 100
-    const maxYear = maxDate.getFullYear() || now.getFullYear()
+    const maxYear = maxDate.getFullYear() || now.getFullYear() + 100
     const cells = {}
 
     for (let i = maxYear; i >= minYear; i--) {
@@ -200,7 +200,6 @@ export class Calendar extends React.Component {
   }
 
   handleCellSelect (cellValue) {
-    const { onChange } = this.props
     const { currentValue, cellType } = this.state
     let date = new Date(currentValue)
     const state = {}
@@ -217,12 +216,19 @@ export class Calendar extends React.Component {
 
     state.currentValue = date.toISOString()
 
-    if (cellType === 'day') {
-      state.value = state.currentValue
-      onChange && onChange(state.value)
-    }
-
     this.setState(state)
+
+    if (cellType === 'day') {
+      this.handleChange(state.currentValue)
+    }
+  }
+
+  handleChange (value) {
+    const { onChange } = this.props
+
+    this.setState({ value, currentValue: value })
+
+    onChange && onChange(value)
   }
 
   renderHeader () {
@@ -317,6 +323,63 @@ export class Calendar extends React.Component {
     )
   }
 
+  renderTime () {
+    const { currentValue } = this.state
+    const date = new Date(currentValue)
+    const arr24 = new Array(24).fill(null)
+    const arr60 = new Array(60).fill(null)
+    const arr1000 = new Array(1000).fill(null)
+
+    return (
+      <div className='Calendar__time'>
+        <select
+          value={date.getHours()}
+          onChange={(event) => {
+            date.setHours(+event.target.value)
+            this.handleChange(date.toISOString())
+          }}
+        >
+          {arr24.map((item, index) =>
+            <option value={index} key={index}>{('0' + index).slice(-2)}</option>
+          )}
+        </select>
+        <select
+          value={date.getMinutes()}
+          onChange={(event) => {
+            date.setMinutes(+event.target.value)
+            this.handleChange(date.toISOString())
+          }}
+        >
+          {arr60.map((item, index) =>
+            <option value={index} key={index}>{('0' + index).slice(-2)}</option>
+          )}
+        </select>
+        <select
+          value={date.getSeconds()}
+          onChange={(event) => {
+            date.setSeconds(+event.target.value)
+            this.handleChange(date.toISOString())
+          }}
+        >
+          {arr60.map((item, index) =>
+            <option value={index} key={index}>{('0' + index).slice(-2)}</option>
+          )}
+        </select>
+        <select
+          value={date.getMilliseconds()}
+          onChange={(event) => {
+            date.setMilliseconds(+event.target.value)
+            this.handleChange(date.toISOString())
+          }}
+        >
+          {arr1000.map((item, index) =>
+            <option value={index} key={index}>{('00' + index).slice(-3)}</option>
+          )}
+        </select>
+      </div>
+    )
+  }
+
   render () {
     const { className } = this.props
     const { cellType } = this.state
@@ -330,6 +393,7 @@ export class Calendar extends React.Component {
         {this.getHeaderTitle() && this.renderHeader()}
         {cellType === 'day' && this.renderWeekDays()}
         {this.renderCells()}
+        {this.renderTime()}
       </this.props.component>
     )
   }

@@ -84,4 +84,15 @@ $this: '.Calendar';
       }
     }
   }
+
+  &__time {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    select {
+      margin: 0 5px;
+    }
+  }
 }

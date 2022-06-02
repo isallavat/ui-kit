@@ -35,7 +35,7 @@ function getValueProps(props) {
   } else if (props.min && new Date(props.min) > now) {
     value = new Date(props.min).toISOString();
   } else {
-    value = new Date().toISOString();
+    value = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
   }
 
   return value;
@@ -135,7 +135,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     var minDate = new Date(min);
     var maxDate = new Date(max);
     var minYear = minDate.getFullYear() || now.getFullYear() - 100;
-    var maxYear = maxDate.getFullYear() || now.getFullYear();
+    var maxYear = maxDate.getFullYear() || now.getFullYear() + 100;
     var cells = {};
 
     for (var i = maxYear; i >= minYear; i--) {
@@ -247,7 +247,6 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
   };
 
   _proto.handleCellSelect = function handleCellSelect(cellValue) {
-    var onChange = this.props.onChange;
     var _this$state5 = this.state,
         currentValue = _this$state5.currentValue,
         cellType = _this$state5.cellType;
@@ -265,13 +264,20 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     }
 
     state.currentValue = date.toISOString();
+    this.setState(state);
 
     if (cellType === 'day') {
-      state.value = state.currentValue;
-      onChange && onChange(state.value);
+      this.handleChange(state.currentValue);
     }
+  };
 
-    this.setState(state);
+  _proto.handleChange = function handleChange(value) {
+    var onChange = this.props.onChange;
+    this.setState({
+      value: value,
+      currentValue: value
+    });
+    onChange && onChange(value);
   };
 
   _proto.renderHeader = function renderHeader() {
@@ -349,6 +355,67 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     }));
   };
 
+  _proto.renderTime = function renderTime() {
+    var _this3 = this;
+
+    var currentValue = this.state.currentValue;
+    var date = new Date(currentValue);
+    var arr24 = new Array(24).fill(null);
+    var arr60 = new Array(60).fill(null);
+    var arr1000 = new Array(1000).fill(null);
+    return /*#__PURE__*/_react["default"].createElement("div", {
+      className: "Calendar__time"
+    }, /*#__PURE__*/_react["default"].createElement("select", {
+      value: date.getHours(),
+      onChange: function onChange(event) {
+        date.setHours(+event.target.value);
+
+        _this3.handleChange(date.toISOString());
+      }
+    }, arr24.map(function (item, index) {
+      return /*#__PURE__*/_react["default"].createElement("option", {
+        value: index,
+        key: index
+      }, ('0' + index).slice(-2));
+    })), /*#__PURE__*/_react["default"].createElement("select", {
+      value: date.getMinutes(),
+      onChange: function onChange(event) {
+        date.setMinutes(+event.target.value);
+
+        _this3.handleChange(date.toISOString());
+      }
+    }, arr60.map(function (item, index) {
+      return /*#__PURE__*/_react["default"].createElement("option", {
+        value: index,
+        key: index
+      }, ('0' + index).slice(-2));
+    })), /*#__PURE__*/_react["default"].createElement("select", {
+      value: date.getSeconds(),
+      onChange: function onChange(event) {
+        date.setSeconds(+event.target.value);
+
+        _this3.handleChange(date.toISOString());
+      }
+    }, arr60.map(function (item, index) {
+      return /*#__PURE__*/_react["default"].createElement("option", {
+        value: index,
+        key: index
+      }, ('0' + index).slice(-2));
+    })), /*#__PURE__*/_react["default"].createElement("select", {
+      value: date.getMilliseconds(),
+      onChange: function onChange(event) {
+        date.setMilliseconds(+event.target.value);
+
+        _this3.handleChange(date.toISOString());
+      }
+    }, arr1000.map(function (item, index) {
+      return /*#__PURE__*/_react["default"].createElement("option", {
+        value: index,
+        key: index
+      }, ('00' + index).slice(-3));
+    })));
+  };
+
   _proto.render = function render() {
     var className = this.props.className;
     var cellType = this.state.cellType;
@@ -357,7 +424,7 @@ var Calendar = /*#__PURE__*/function (_React$Component) {
     }, className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
-    }, (0, _helpers.excludeProps)(this)), this.getHeaderTitle() && this.renderHeader(), cellType === 'day' && this.renderWeekDays(), this.renderCells());
+    }, (0, _helpers.excludeProps)(this)), this.getHeaderTitle() && this.renderHeader(), cellType === 'day' && this.renderWeekDays(), this.renderCells(), this.renderTime());
   };
 
   return Calendar;
