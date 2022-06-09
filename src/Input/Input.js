@@ -530,7 +530,7 @@ export class Input extends React.Component {
       type,
       value,
       mask,
-      onClick: ::this.handleFocus,
+      onClick: ::this.handleClick,
       onFocus: ::this.handleFocus,
       onBlur: ::this.handleBlur,
       onChange: ::this.handleChange,

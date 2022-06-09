@@ -601,7 +601,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       type: type,
       value: value,
       mask: mask,
-      onClick: this.handleFocus.bind(this),
+      onClick: this.handleClick.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       onChange: this.handleChange.bind(this),
