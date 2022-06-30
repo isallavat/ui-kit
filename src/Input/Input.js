@@ -337,7 +337,7 @@ export class Input extends React.Component {
         '#': '[0-9]',
         '9': '[0-9]',
         'a': '[A-Za-z]',
-        '*': '[A-Za-z0-9]'
+        '*': '.'
       }
     }
 
