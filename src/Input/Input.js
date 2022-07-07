@@ -284,9 +284,11 @@ export class Input extends React.Component {
 
     if (readOnly) {
       return false
-    } else if ([38, 40].indexOf(event.keyCode) >= 0 && menuOnlyEnabled.length && !dropdownVisible) {
+    } else if ([38, 40].indexOf(event.keyCode) >= 0 && menu.length) {
       state.dropdownVisible = true
-    } else if (event.keyCode === 38 && menuOnlyEnabled.length) {
+    }
+
+    if (event.keyCode === 38 && menuOnlyEnabled.length) {
       state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, -1)
     } else if (event.keyCode === 40 && menuOnlyEnabled.length) {
       state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, 1)
