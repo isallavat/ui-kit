@@ -114,9 +114,7 @@
 @keyframes Dialog__window {
   0% {
     opacity: 0;
-    transform: scale(0.3); }
-  70% {
-    transform: scale(1.05); } }
+    transform: scale(0.3); } }
 
 @keyframes Blind__window {
   0% {
