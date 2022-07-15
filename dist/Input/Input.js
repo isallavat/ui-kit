@@ -343,7 +343,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
       state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, -1);
     } else if (event.keyCode === 40 && menuOnlyEnabled.length) {
       state.menuSelectedItemIndex = this.shiftMenuSelectedItemIndex(menuSelectedItemIndex, 1);
-    } else if (event.keyCode === 13 && dropdownVisible) {
+    } else if (event.keyCode === 13 && dropdownVisible && menuOnlyEnabled.length) {
       event.preventDefault();
       var selectedMenuItem = menu[menuSelectedItemIndex];
       selectedMenuItem && this.handleMenuItemClick(selectedMenuItem, menuSelectedItemIndex, event);
