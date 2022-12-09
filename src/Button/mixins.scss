@@ -67,27 +67,27 @@ $this: '.Button';
           color: black;
         }
 
-        @media (hover: hover) {
-          &:hover, &:active {
-            @if $text-color {
-              color: $text-color;
-            } @else {
-              @if $lightness > 70% {
-                color: black;
-              } @else {
-                color: white;
-              }
-            }
-          }
-
-          &:hover {
-            background-color: $color;
-          }
-
-          &:active {
-            background-color: darken($color, 1.5);
-          }
-        }
+        //@media (hover: hover) {
+        //  &:hover, &:active {
+        //    @if $text-color {
+        //      color: $text-color;
+        //    } @else {
+        //      @if $lightness > 70% {
+        //        color: black;
+        //      } @else {
+        //        color: white;
+        //      }
+        //    }
+        //  }
+        //
+        //  &:hover {
+        //    background-color: $color;
+        //  }
+        //
+        //  &:active {
+        //    background-color: darken($color, 1.5);
+        //  }
+        //}
       }
 
       &_outlined {
