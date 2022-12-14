@@ -100,8 +100,9 @@ var Modal = /*#__PURE__*/function (_React$Component) {
       className: "Modal__ok",
       size: "s",
       rounded: true,
+      children: "OK",
       onClick: this.close.bind(this)
-    }, "OK");
+    });
   };
 
   _proto.renderClose = function renderClose() {
@@ -131,6 +132,8 @@ var Modal = /*#__PURE__*/function (_React$Component) {
     var visible = this.state.visible;
 
     var _size = type === 'alert' ? 's' : size;
+
+    var _okButton = okButton || type === 'alert' && this.renderOkButton();
 
     var classNames = (0, _classnames4["default"])((0, _defineProperty2["default"])({
       'Modal': true
@@ -162,9 +165,9 @@ var Modal = /*#__PURE__*/function (_React$Component) {
       className: "Modal__title"
     }, title), /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__content"
-    }, this.renderContent()), type === 'alert' && /*#__PURE__*/_react["default"].createElement("div", {
+    }, this.renderContent()), _okButton && /*#__PURE__*/_react["default"].createElement("div", {
       className: "Modal__footer"
-    }, okButton || this.renderOkButton()), closeButtonPosition === 'inside' && canClose && this.renderClose()), closeButtonPosition === 'outside' && canClose && this.renderClose())) : '';
+    }, _okButton), closeButtonPosition === 'inside' && canClose && this.renderClose()), closeButtonPosition === 'outside' && canClose && this.renderClose())) : '';
   };
 
   return Modal;
@@ -177,7 +180,7 @@ Modal.propTypes = {
   size: _propTypes["default"].string.isRequired,
   image: _propTypes["default"].string,
   title: _propTypes["default"].any,
-  okButton: _propTypes["default"].any,
+  okButton: _propTypes["default"].object,
   type: _propTypes["default"].oneOf(['default', 'alert', 'blind']).isRequired,
   closeButtonPosition: _propTypes["default"].oneOf(['inside', 'outside', false]),
   canClose: _propTypes["default"].bool.isRequired,

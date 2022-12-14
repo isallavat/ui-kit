@@ -42,7 +42,7 @@
     margin: 0 30px 15px 0; }
   .Modal__footer {
     margin-top: 15px;
-    text-align: center; }
+    text-align: right; }
   .Modal__ok {
     min-width: 120px; }
   .Modal__close {
@@ -87,6 +87,8 @@
       padding-top: 40px; }
     .Modal_alert .Modal__title {
       margin-right: 0; }
+    .Modal_alert .Modal__footer {
+      text-align: center; }
   .Modal .Modal__window_size_s {
     width: 360px; }
   .Modal .Modal__window_size_m {

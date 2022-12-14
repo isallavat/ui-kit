@@ -89,13 +89,6 @@
         background-color: #1176f9; } }
   .Button_color_default.Button_variant_text, .Button_color_default.Button_variant_outlined {
     color: black; }
-    @media (hover: hover) {
-      .Button_color_default.Button_variant_text:hover, .Button_color_default.Button_variant_text:active, .Button_color_default.Button_variant_outlined:hover, .Button_color_default.Button_variant_outlined:active {
-        color: white; }
-      .Button_color_default.Button_variant_text:hover, .Button_color_default.Button_variant_outlined:hover {
-        background-color: #398DFA; }
-      .Button_color_default.Button_variant_text:active, .Button_color_default.Button_variant_outlined:active {
-        background-color: #3289fa; } }
   .Button_color_default.Button_variant_outlined {
     border-color: #398DFA; }
   .Button.--disabled {

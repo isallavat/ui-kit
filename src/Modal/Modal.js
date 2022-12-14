@@ -65,10 +65,9 @@ export class Modal extends React.Component {
         className='Modal__ok'
         size='s'
         rounded
+        children='OK'
         onClick={::this.close}
-      >
-        OK
-      </Button>
+      />
     )
   }
 
@@ -100,6 +99,7 @@ export class Modal extends React.Component {
     } = this.getMergedProps()
     const { visible } = this.state
     const _size = type === 'alert' ? 's' : size
+    let _okButton = okButton || (type === 'alert' && this.renderOkButton())
 
     const classNames = classnames({
       'Modal': true,
@@ -126,9 +126,9 @@ export class Modal extends React.Component {
                 {image && <img className='Modal__image' src={image} alt='' />}
                 {!!title && <div className='Modal__title'>{title}</div>}
                 <div className='Modal__content'>{this.renderContent()}</div>
-                {type === 'alert' &&
+                {_okButton &&
                   <div className='Modal__footer'>
-                    {okButton || this.renderOkButton()}
+                    {_okButton}
                   </div>
                 }
                 {closeButtonPosition === 'inside' && canClose && this.renderClose()}
@@ -156,7 +156,7 @@ Modal.propTypes = {
   size: PropTypes.string.isRequired,
   image: PropTypes.string,
   title: PropTypes.any,
-  okButton: PropTypes.any,
+  okButton: PropTypes.object,
   type: PropTypes.oneOf([
     'default', 'alert', 'blind'
   ]).isRequired,

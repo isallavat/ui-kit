@@ -58,7 +58,7 @@ $this: '.Modal';
 
   &__footer {
     margin-top: 15px;
-    text-align: center;
+    text-align: right;
   }
 
   &__ok {
@@ -124,6 +124,10 @@ $this: '.Modal';
 
     #{$this}__title {
       margin-right: 0;
+    }
+
+    #{$this}__footer {
+      text-align: center;
     }
   }
 
