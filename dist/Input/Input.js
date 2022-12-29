@@ -329,7 +329,7 @@ var Input = /*#__PURE__*/function (_React$Component) {
     });
     var state = {};
 
-    if (event.key !== undefined && event.key.length === 1 && !this.isValueValid(event.key)) {
+    if (event.key !== undefined && event.key.length === 1 && !event.metaKey && !this.isValueValid(event.key)) {
       event.preventDefault();
     }
 

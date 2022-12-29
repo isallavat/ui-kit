@@ -277,6 +277,7 @@ export class Input extends React.Component {
     if (
       event.key !== undefined &&
       event.key.length === 1 &&
+      !event.metaKey &&
       !this.isValueValid(event.key)
     ) {
       event.preventDefault()
