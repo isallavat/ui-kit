@@ -52,6 +52,19 @@
   "scripts": {
     "styleguide:server": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "compile": "gulp && npm run styleguide:build"
+    "compile": "gulp && npm run styleguide:build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack4": "^6.5.15",
+    "@storybook/manager-webpack4": "^6.5.15",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.5.15",
+    "@storybook/testing-library": "0.0.13"
   }
 }
