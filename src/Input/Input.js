@@ -374,26 +374,33 @@ export class Input extends React.Component {
           }}
         />
       )
-    }
+    } else if (props.mask) {
+      props.beforeMaskedValueChange = (newState, oldState) => {
+        const state = {
+          ...newState
+        }
 
-    props.beforeMaskedValueChange = (newState, oldState) => {
-      const state = {
-        ...newState
+        if (readOnly && !oldState.value) {
+          state.value = oldState.value
+        }
+
+        return state
       }
 
-      if (readOnly && !oldState.value) {
-        state.value = oldState.value
-      }
-
-      return state
+      return (
+        <InputMask
+          {...props}
+          inputRef={(node) => { this.inputEl = node }}
+        />
+      )
+    } else {
+      return (
+        <input
+          {...props}
+          ref={(node) => { this.inputEl = node }}
+        />
+      )
     }
-
-    return (
-      <InputMask
-        {...props}
-        inputRef={(node) => { this.inputEl = node }}
-      />
-    )
   }
 
   renderDropdown (children) {
@@ -531,7 +538,6 @@ export class Input extends React.Component {
       className: 'Input__element',
       disabled,
       type,
-      value,
       mask,
       onClick: ::this.handleClick,
       onFocus: ::this.handleFocus,
