@@ -429,23 +429,29 @@ var Input = /*#__PURE__*/function (_React$Component) {
           __html: props.value
         }
       });
+    } else if (props.mask) {
+      props.beforeMaskedValueChange = function (newState, oldState) {
+        var state = _objectSpread({}, newState);
+
+        if (readOnly && !oldState.value) {
+          state.value = oldState.value;
+        }
+
+        return state;
+      };
+
+      return /*#__PURE__*/_react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
+        inputRef: function inputRef(node) {
+          _this4.inputEl = node;
+        }
+      }));
+    } else {
+      return /*#__PURE__*/_react["default"].createElement("input", (0, _extends2["default"])({}, props, {
+        ref: function ref(node) {
+          _this4.inputEl = node;
+        }
+      }));
     }
-
-    props.beforeMaskedValueChange = function (newState, oldState) {
-      var state = _objectSpread({}, newState);
-
-      if (readOnly && !oldState.value) {
-        state.value = oldState.value;
-      }
-
-      return state;
-    };
-
-    return /*#__PURE__*/_react["default"].createElement(_reactInputMask["default"], (0, _extends2["default"])({}, props, {
-      inputRef: function inputRef(node) {
-        _this4.inputEl = node;
-      }
-    }));
   };
 
   _proto.renderDropdown = function renderDropdown(children) {
