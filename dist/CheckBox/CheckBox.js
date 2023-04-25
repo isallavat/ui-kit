@@ -117,6 +117,7 @@ CheckBox.propTypes = {
   labelPosition: _propTypes["default"].oneOf(['start', 'end']),
   invalid: _propTypes["default"].bool,
   checked: _propTypes["default"].bool,
+  defaultValue: _propTypes["default"].any,
   defaultChecked: _propTypes["default"].bool
 };
 CheckBox.defaultProps = {

@@ -108,6 +108,7 @@ Radio.propTypes = {
   ]),
   invalid: PropTypes.bool,
   checked: PropTypes.bool,
+  defaultValue: PropTypes.any,
   defaultChecked: PropTypes.bool
 }
 
