@@ -4,7 +4,7 @@ import { Input } from './Input'
 export class InputArea extends Input {
   renderElement (props) {
     const { value } = this.state
-    const hiddenText = value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ')
+    const hiddenText = value.replace(/\n$/g, '<br />&nbsp;')
 
     return (
       <div>

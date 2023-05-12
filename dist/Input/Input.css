@@ -129,7 +129,7 @@
     overflow-y: auto; }
     .Input_type_area .Input__element_hidden {
       visibility: hidden;
-      word-break: break-word; }
+      white-space: pre-wrap; }
     .Input_type_area .Input__element_visible {
       position: absolute;
       left: 0;

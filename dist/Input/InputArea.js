@@ -34,7 +34,7 @@ var InputArea = /*#__PURE__*/function (_Input) {
     var _this = this;
 
     var value = this.state.value;
-    var hiddenText = value.replace(/\n/g, '<br />').replace(/\s\s/g, '&nbsp; ');
+    var hiddenText = value.replace(/\n$/g, '<br />&nbsp;');
     return /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Input__element Input__element_hidden",
       dangerouslySetInnerHTML: {
