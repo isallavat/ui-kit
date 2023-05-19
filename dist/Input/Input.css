@@ -37,15 +37,19 @@
       opacity: 1; }
     .Input__element::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
+      color: inherit;
       opacity: .5; }
     .Input__element::-moz-placeholder {
       /* Firefox 19+ */
+      color: inherit;
       opacity: .5; }
     .Input__element:-ms-input-placeholder {
       /* IE 10+ */
+      color: inherit;
       opacity: .5; }
     .Input__element:-moz-placeholder {
       /* Firefox 18- */
+      color: inherit;
       opacity: .5; }
     .Input__element::-ms-clear {
       display: none; }

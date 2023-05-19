@@ -339,7 +339,8 @@ export class Input extends React.Component {
       props.formatChars = {
         '#': '[0-9]',
         '9': '[0-9]',
-        'a': '[A-Za-z]',
+        'a': '[A-Za-zА-Яа-яЁё]',
+        'w': '[A-Za-zА-Яа-яЁё\\d]',
         '*': '.'
       }
     }
