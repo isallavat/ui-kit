@@ -25,6 +25,7 @@ $this: '.Input';
   &__container {
     flex-grow: 1;
     position: relative;
+    max-width: 100%;
   }
 
   &__element {
@@ -111,13 +112,7 @@ $this: '.Input';
     cursor: text;
   }
 
-  &__prefix {
-    margin-right: 10px;
-    opacity: .6;
-  }
-
-  &__suffix {
-    margin-left: 10px;
+  &__prefix, &__suffix {
     opacity: .6;
   }
 

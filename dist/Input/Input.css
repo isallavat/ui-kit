@@ -16,7 +16,8 @@
     transition: 200ms ease-out; }
   .Input__container {
     flex-grow: 1;
-    position: relative; }
+    position: relative;
+    max-width: 100%; }
   .Input__element {
     box-sizing: border-box;
     width: 100%;
@@ -80,11 +81,7 @@
     opacity: .6;
     transition: 300ms ease-out;
     cursor: text; }
-  .Input__prefix {
-    margin-right: 10px;
-    opacity: .6; }
-  .Input__suffix {
-    margin-left: 10px;
+  .Input__prefix, .Input__suffix {
     opacity: .6; }
   .Input__icon {
     vertical-align: top; }
