@@ -8,7 +8,7 @@ export class FlexTableRow extends React.Component {
     const { className } = this.props
 
     const classNames = classnames({
-      'FlexTableRow': true
+      FlexTableRow: true
     }, className)
 
     return (

@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Camera", {
     return _Camera2.Camera;
   }
 });
-
 require("./Camera.css");
-
 var _Camera2 = require("./Camera");

@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Radio", {
     return _Radio2.Radio;
   }
 });
-
 require("./Radio.css");
-
 var _Radio2 = require("./Radio");

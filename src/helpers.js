@@ -1,6 +1,6 @@
 export function excludeProps (_this) {
   return Object.keys(_this.props).reduce((accumulator, key) => {
-    if (!_this.constructor.propTypes.hasOwnProperty(key)) {
+    if (!(key in _this.constructor.propTypes)) {
       accumulator[key] = _this.props[key]
     }
     return accumulator
@@ -30,7 +30,7 @@ export function formatPrice (value) {
     return value
   }
 
-  let _value = matches[1].split('').reverse().reduce((accumulator, item, index, arr) => {
+  const _value = matches[1].split('').reverse().reduce((accumulator, item, index, arr) => {
     accumulator.push(item)
 
     if ((index + 1) % 3 === 0 && index + 1 < arr.length) {

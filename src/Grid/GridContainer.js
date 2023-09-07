@@ -8,7 +8,7 @@ export class GridContainer extends React.Component {
     const { className, spacing, align, valign } = this.props
 
     const classNames = classnames({
-      'GridContainer': true,
+      GridContainer: true,
       [`GridContainer_spacing_${spacing}`]: !!spacing,
       [`GridContainer_align_${align}`]: !!align,
       [`GridContainer_valign_${valign}`]: !!valign

@@ -27,13 +27,8 @@ Object.defineProperty(exports, "InputSelect", {
     return _InputSelect.InputSelect;
   }
 });
-
 require("./Input.css");
-
 var _Input2 = require("./Input");
-
 var _InputDate = require("./InputDate");
-
 var _InputSelect = require("./InputSelect");
-
 var _InputArea = require("./InputArea");

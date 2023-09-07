@@ -54,7 +54,7 @@ export class CheckBox extends React.Component {
     const { checked } = this.state
 
     const classNames = classnames({
-      'CheckBox': true,
+      CheckBox: true,
       [`CheckBox_size_${size}`]: true,
       [`CheckBox_color_${color}`]: true,
       [`CheckBox_variant_${variant}`]: true,
@@ -77,7 +77,7 @@ export class CheckBox extends React.Component {
           {variant !== 'button' && this.renderElement()}
           {!!label &&
             <div className={classnames({
-              'CheckBox__label': true,
+              CheckBox__label: true,
               [`CheckBox__label_position_${labelPosition}`]: true
             })}>{label}</div>
           }
@@ -104,14 +104,18 @@ CheckBox.propTypes = {
   variant: PropTypes.oneOf([
     'default', 'button'
   ]),
+  value: PropTypes.any,
   label: PropTypes.any,
   labelPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
   invalid: PropTypes.bool,
   checked: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   defaultValue: PropTypes.any,
-  defaultChecked: PropTypes.bool
+  defaultChecked: PropTypes.bool,
+  onChange: PropTypes.func
 }
 
 CheckBox.defaultProps = {

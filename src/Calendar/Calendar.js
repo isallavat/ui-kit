@@ -273,8 +273,8 @@ export class Calendar extends React.Component {
       <div className='Calendar__cells Calendar__cells_weekdays'>
         {WEEKDAYS.map((item, index) =>
           <div className={classnames({
-            'Calendar__cell': true,
-            'Calendar__cell_type_weekday': true
+            Calendar__cell: true,
+            Calendar__cell_type_weekday: true
           })} key={index}
           >
             {item}
@@ -298,7 +298,7 @@ export class Calendar extends React.Component {
         {cellsKeys.map((key, index) =>
           <div
             className={classnames({
-              'Calendar__cell': true,
+              Calendar__cell: true,
               [`Calendar__cell_type_${cellType}`]: true
             })}
             key={index}
@@ -385,7 +385,7 @@ export class Calendar extends React.Component {
     const { cellType } = this.state
 
     const classNames = classnames({
-      'Calendar': true
+      Calendar: true
     }, className)
 
     return (

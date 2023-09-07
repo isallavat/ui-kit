@@ -1,34 +1,21 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 var _typeof = require("@babel/runtime/helpers/typeof");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.InputDate = void 0;
-
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _Calendar = require("../Calendar");
-
 var _Input2 = require("./Input");
-
 var _helpers = require("../helpers");
-
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var iconCalendar = /*#__PURE__*/_react["default"].createElement("svg", {
   className: "Input__icon Input__icon_calendar",
   xmlns: "http://www.w3.org/2000/svg",
@@ -48,16 +35,12 @@ var iconCalendar = /*#__PURE__*/_react["default"].createElement("svg", {
   d: "M5,9h5v2.5H5Zm6.249,0h5v2.5h-5ZM5,15.251h5v2.5H5Zm6.249,0h5v2.5h-5ZM17.5,9h5v2.5h-5Z",
   transform: "translate(1.251 2.249)"
 })));
-
 var InputDate = /*#__PURE__*/function (_Input) {
   (0, _inheritsLoose2["default"])(InputDate, _Input);
-
   function InputDate() {
     return _Input.apply(this, arguments) || this;
   }
-
   var _proto = InputDate.prototype;
-
   _proto.valueToDate = function valueToDate(value) {
     var format = this.props.format;
     var year = value.substr(format.indexOf('YYYY'), 4) * 1;
@@ -67,12 +50,10 @@ var InputDate = /*#__PURE__*/function (_Input) {
     var minutes = value.substr(format.indexOf('mm'), 2) * 1;
     var seconds = value.substr(format.indexOf('ss'), 2) * 1;
     var milliseconds = value.substr(format.indexOf('sss'), 3) * 1;
-
     if (year && month && day) {
       return new Date(year, month, day, hours, minutes, seconds, milliseconds);
     }
   };
-
   _proto.handleCalendarChange = function handleCalendarChange(value) {
     var format = this.props.format;
     var date = new Date(value);
@@ -82,14 +63,11 @@ var InputDate = /*#__PURE__*/function (_Input) {
     event.target.value = (0, _helpers.formatDate)(date, format);
     this.handleChange(event);
   };
-
   _proto.handleBlur = function handleBlur(event) {
     var readOnly = this.props.readOnly;
-
     if (readOnly) {
       return false;
     }
-
     if (this.dropDownMouseDown) {
       this.inputEl.focus();
       this.dropDownMouseDown = false;
@@ -97,14 +75,12 @@ var InputDate = /*#__PURE__*/function (_Input) {
       _Input.prototype.handleBlur.call(this, event);
     }
   };
-
   _proto.renderElement = function renderElement(props) {
     var _this = this;
-
     var _this$props = this.props,
-        min = _this$props.min,
-        max = _this$props.max,
-        format = _this$props.format;
+      min = _this$props.min,
+      max = _this$props.max,
+      format = _this$props.format;
     var value = this.state.value;
     var date = this.valueToDate(value);
     props.type = 'text';
@@ -120,10 +96,8 @@ var InputDate = /*#__PURE__*/function (_Input) {
       onChange: this.handleCalendarChange.bind(this)
     }))));
   };
-
   return InputDate;
 }(_Input2.Input);
-
 exports.InputDate = InputDate;
 InputDate.propTypes = _Input2.Input.propTypes;
 InputDate.defaultProps = _objectSpread(_objectSpread({}, _Input2.Input.defaultProps), {}, {

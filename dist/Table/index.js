@@ -21,11 +21,7 @@ Object.defineProperty(exports, "TableRow", {
     return _TableRow.TableRow;
   }
 });
-
 require("./Table.css");
-
 var _Table2 = require("./Table");
-
 var _TableRow = require("./TableRow");
-
 var _TableCell = require("./TableCell");

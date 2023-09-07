@@ -49,7 +49,7 @@ export class Progress extends React.Component {
     const { value, diameter, circleLength } = this.state
 
     const classNames = classnames({
-      'Progress': true,
+      Progress: true,
       [`Progress_color_${color}`]: true,
       [`Progress_variant_${variant}`]: true
     }, className)
@@ -114,7 +114,8 @@ Progress.propTypes = {
   animated: PropTypes.bool,
   strokeWidth: PropTypes.number,
   seconds: PropTypes.number,
-  percent: PropTypes.number
+  percent: PropTypes.number,
+  children: PropTypes.any
 }
 
 Progress.defaultProps = {

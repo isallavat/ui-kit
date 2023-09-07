@@ -8,7 +8,7 @@ export class Table extends React.Component {
     const { className } = this.props
 
     const classNames = classnames({
-      'Table': true
+      Table: true
     }, className)
 
     return (

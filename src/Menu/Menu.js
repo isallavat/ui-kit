@@ -1,24 +1,23 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { excludeProps } from '../helpers'
 
 export class Menu extends React.Component {
   scrollToSelected (index, exact) {
-    const rootEl = findDOMNode(this.refRoot)
-
     if (index >= 0) {
-      const selectedItemEl = rootEl.childNodes[index]
+      const selectedItemEl = this.refRoot.childNodes[index]
       if (exact) {
-        rootEl.scrollTop = selectedItemEl.offsetTop
-      } else if (selectedItemEl.offsetTop < rootEl.scrollTop) {
-        rootEl.scrollTop = selectedItemEl.offsetTop
-      } else if (selectedItemEl.offsetTop + selectedItemEl.offsetHeight > rootEl.offsetHeight + rootEl.scrollTop) {
-        rootEl.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - rootEl.offsetHeight
+        this.refRoot.scrollTop = selectedItemEl.offsetTop
+      } else if (selectedItemEl.offsetTop < this.refRoot.scrollTop) {
+        this.refRoot.scrollTop = selectedItemEl.offsetTop
+      } else if (
+        selectedItemEl.offsetTop + selectedItemEl.offsetHeight > this.refRoot.offsetHeight + this.refRoot.scrollTop
+      ) {
+        this.refRoot.scrollTop = selectedItemEl.offsetTop + selectedItemEl.offsetHeight - this.refRoot.offsetHeight
       }
     } else {
-      rootEl.scrollTop = 0
+      this.refRoot.scrollTop = 0
     }
   }
 
@@ -28,7 +27,7 @@ export class Menu extends React.Component {
     } = this.props
 
     const classNames = classnames({
-      'Menu': true
+      Menu: true
     }, className)
 
     return (

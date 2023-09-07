@@ -53,7 +53,7 @@ export class Radio extends React.Component {
     const { checked } = this.state
 
     const classNames = classnames({
-      'Radio': true,
+      Radio: true,
       [`Radio_size_${size}`]: true,
       [`Radio_color_${color}`]: true,
       [`Radio_variant_${variant}`]: true,
@@ -75,7 +75,7 @@ export class Radio extends React.Component {
           {variant !== 'button' && this.renderElement()}
           {!!label &&
             <div className={classnames({
-              'Radio__label': true,
+              Radio__label: true,
               [`Radio__label_position_${labelPosition}`]: true
             })}>{label}</div>
           }
@@ -108,8 +108,11 @@ Radio.propTypes = {
   ]),
   invalid: PropTypes.bool,
   checked: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   defaultValue: PropTypes.any,
-  defaultChecked: PropTypes.bool
+  defaultChecked: PropTypes.bool,
+  onChange: PropTypes.func
 }
 
 Radio.defaultProps = {

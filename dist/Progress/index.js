@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Progress", {
     return _Progress2.Progress;
   }
 });
-
 require("./Progress.css");
-
 var _Progress2 = require("./Progress");

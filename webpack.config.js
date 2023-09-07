@@ -1,3 +1,5 @@
+const ESLintPlugin = require('eslint-webpack-plugin')
+
 module.exports = {
   devServer: {
     host: '0.0.0.0',
@@ -8,15 +10,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        options: {
-          fix: true
-        }
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
         loader: 'babel-loader'
       },
       {
@@ -24,5 +17,10 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
-  }
+  },
+  plugins: [
+    new ESLintPlugin({
+      fix: true
+    })
+  ]
 }

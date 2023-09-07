@@ -8,7 +8,7 @@ export class FlexTableCell extends React.Component {
     const { className } = this.props
 
     const classNames = classnames({
-      'FlexTableCell': true
+      FlexTableCell: true
     }, className)
 
     return (

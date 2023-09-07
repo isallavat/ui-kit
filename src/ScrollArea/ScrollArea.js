@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const div = document.createElement('div')
@@ -35,4 +36,8 @@ export class ScrollArea extends React.Component {
       </Component>
     )
   }
+}
+
+ScrollArea.propTypes = {
+  children: PropTypes.any
 }

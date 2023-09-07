@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Calendar", {
     return _Calendar2.Calendar;
   }
 });
-
 require("./Calendar.css");
-
 var _Calendar2 = require("./Calendar");

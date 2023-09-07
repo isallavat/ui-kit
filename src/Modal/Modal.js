@@ -65,9 +65,8 @@ export class Modal extends React.Component {
         className='Modal__ok'
         size='s'
         rounded
-        children='OK'
         onClick={::this.close}
-      />
+      >OK</Button>
     )
   }
 
@@ -77,7 +76,7 @@ export class Modal extends React.Component {
     return (
       <div
         className={classnames({
-          'Modal__close': true,
+          Modal__close: true,
           [`Modal__close_${closeButtonPosition}`]: true
         })}
         onClick={::this.close}
@@ -99,10 +98,10 @@ export class Modal extends React.Component {
     } = this.getMergedProps()
     const { visible } = this.state
     const _size = type === 'alert' ? 's' : size
-    let _okButton = okButton || (type === 'alert' && this.renderOkButton())
+    const _okButton = okButton || (type === 'alert' && this.renderOkButton())
 
     const classNames = classnames({
-      'Modal': true,
+      Modal: true,
       [`Modal_${type}`]: true
     }, className)
 
@@ -118,7 +117,7 @@ export class Modal extends React.Component {
               ? <Progress className='Modal__progress' color='current' />
               : <div
                 className={classnames({
-                  'Modal__window': true,
+                  Modal__window: true,
                   [`Modal__window_size_${_size}`]: true
                 })}
                 ref={(ref) => { this.refWindow = ref }}
