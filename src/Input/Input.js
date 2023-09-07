@@ -81,7 +81,7 @@ export class Input extends React.Component {
 
   findString (children, value) {
     const arr = []
-    for (let key in children) {
+    for (const key in children) {
       if (typeof children[key] === 'string') {
         return children[key].match(new RegExp(this.escapeString(value), 'i'))
       } else if (children[key].props.children) {
@@ -338,9 +338,9 @@ export class Input extends React.Component {
       props.maskChar = maskChar
       props.formatChars = {
         '#': '[0-9]',
-        '9': '[0-9]',
-        'a': '[A-Za-zА-Яа-яЁё]',
-        'w': '[A-Za-zА-Яа-яЁё\\d]',
+        9: '[0-9]',
+        a: '[A-Za-zА-Яа-яЁё]',
+        w: '[A-Za-zА-Яа-яЁё\\d]',
         '*': '.'
       }
     }
@@ -412,7 +412,7 @@ export class Input extends React.Component {
       <div
         ref={(ref) => { this.refDropdown = ref }}
         className={classnames({
-          'Input__dropdown': true,
+          Input__dropdown: true,
           '--visible': dropdownVisible,
           '--right': position === 'right'
         })}
@@ -452,7 +452,7 @@ export class Input extends React.Component {
 
   renderRange () {
     const { min = 0, max = 0, step, readOnly, disabled, rangeProps = {} } = this.props
-    let _max = max > min ? max : min + step
+    const _max = max > min ? max : min + step
     let value = parseFloat(this.state.value) || min
     let valuePercents = (value - min) / (_max - min) * 100
 
@@ -555,13 +555,13 @@ export class Input extends React.Component {
     }
 
     const classNames = classnames({
-      'Input': true,
+      Input: true,
       [`Input_size_${size}`]: true,
       [`Input_color_${color}`]: true,
       [`Input_variant_${variant}`]: true,
       [`Input_type_${type}`]: true,
-      'Input_rounded': rounded,
-      'Input_labeled': !!label,
+      Input_rounded: rounded,
+      Input_labeled: !!label,
       '--focused': focused,
       '--filled': [undefined, null, ''].indexOf(value) < 0,
       '--invalid': invalid,
@@ -616,6 +616,9 @@ Input.propTypes = {
     PropTypes.string,
     PropTypes.func
   ]),
+  min: PropTypes.number,
+  max: PropTypes.number,
+  readOnly: PropTypes.bool,
   disabled: PropTypes.bool,
   invalid: PropTypes.bool,
   progress: PropTypes.bool,
@@ -637,7 +640,12 @@ Input.propTypes = {
   step: PropTypes.number,
   roundBy: PropTypes.number,
   rangeProps: PropTypes.object,
-  position: PropTypes.string
+  position: PropTypes.string,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onClick: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 Input.defaultProps = {

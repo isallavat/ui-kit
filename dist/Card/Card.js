@@ -1,63 +1,50 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Card = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
 var _helpers = require("../helpers");
-
 var Card = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Card, _React$Component);
-
   function Card(props) {
     var _this;
-
     _this = _React$Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
-
   var _proto = Card.prototype;
-
   _proto.toggle = function toggle(collapsed) {
     this.setState({
       collapsed: collapsed
     });
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        title = _this$props.title;
+      className = _this$props.className,
+      title = _this$props.title;
     var collapsed = this.state.collapsed;
     var classNames = (0, _classnames["default"])({
-      'Card': true
+      Card: true
     }, className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
     }, (0, _helpers.excludeProps)(this)), !!title && /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
-        'Card__header': true,
+        Card__header: true,
         '--collapsed': collapsed
       })
     }, /*#__PURE__*/_react["default"].createElement("div", {
       className: "Card__title"
     }, title), /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
-        'Card__switcher': true,
+        Card__switcher: true,
         '--collapsed': collapsed
       }),
       onClick: this.toggle.bind(this, !collapsed)
@@ -83,20 +70,19 @@ var Card = /*#__PURE__*/function (_React$Component) {
       id: "Arrow"
     })))))), /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
-        'Card__content': true,
+        Card__content: true,
         '--hidden': collapsed
       })
     }, this.props.children));
   };
-
   return Card;
 }(_react["default"].Component);
-
 exports.Card = Card;
 Card.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
-  title: _propTypes["default"].string
+  title: _propTypes["default"].string,
+  children: _propTypes["default"].any
 };
 Card.defaultProps = {
   component: 'div'

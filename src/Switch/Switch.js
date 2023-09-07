@@ -54,7 +54,7 @@ export class Switch extends React.Component {
     const { checked } = this.state
 
     const classNames = classnames({
-      'Switch': true,
+      Switch: true,
       [`Switch_size_${size}`]: true,
       [`Switch_color_${color}`]: true,
       [`Switch_variant_${variant}`]: true,
@@ -77,7 +77,7 @@ export class Switch extends React.Component {
           {variant !== 'button' && this.renderElement()}
           {!!label &&
             <div className={classnames({
-              'Switch__label': true,
+              Switch__label: true,
               [`Switch__label_position_${labelPosition}`]: true
             })}>{label}</div>
           }
@@ -104,14 +104,18 @@ Switch.propTypes = {
   variant: PropTypes.oneOf([
     'default'
   ]),
+  value: PropTypes.any,
   label: PropTypes.any,
   labelPosition: PropTypes.oneOf([
     'start', 'end'
   ]),
   invalid: PropTypes.bool,
   checked: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   defaultValue: PropTypes.any,
-  defaultChecked: PropTypes.bool
+  defaultChecked: PropTypes.bool,
+  onChange: PropTypes.func
 }
 
 Switch.defaultProps = {

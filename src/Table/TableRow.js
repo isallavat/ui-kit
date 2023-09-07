@@ -8,7 +8,7 @@ export class TableRow extends React.Component {
     const { className } = this.props
 
     const classNames = classnames({
-      'TableRow': true
+      TableRow: true
     }, className)
 
     return (

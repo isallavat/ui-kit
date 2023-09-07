@@ -1,37 +1,24 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Camera = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
 var _react = _interopRequireDefault(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
-
 var _Progress = require("../Progress");
-
 var _helpers = require("../helpers");
-
 require("./polyfill");
-
 // Была попытка использовать ImageCapture. Не подходит. Так как на android-планшете не фотка, а говно
 var Camera = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Camera, _React$Component);
-
   function Camera(props) {
     var _context;
-
     var _this;
-
     _this = _React$Component.call(this, props) || this;
     _this.state = {};
     _this.constraints = {
@@ -50,27 +37,21 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     _this.handleWindowResize = (_context = _this).handleWindowResize.bind(_context);
     return _this;
   }
-
   var _proto = Camera.prototype;
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     if (this.opened) {
       this.close();
     }
   };
-
   _proto.open = function open() {
     var _this2 = this;
-
     var fullscreen = this.props.fullscreen;
     var root = this.refRoot;
     this.opened = true;
     root && root.focus();
-
     if (fullscreen) {
       (0, _helpers.preventWindowScroll)(true);
     }
-
     document.addEventListener('keyup', this.handleKeyUp);
     window.addEventListener('resize', this.handleWindowResize);
     this.setState({
@@ -81,14 +62,12 @@ var Camera = /*#__PURE__*/function (_React$Component) {
         var videoDevices = devices.filter(function (item) {
           return item.kind === 'videoinput';
         });
-
         _this2.setState({
           videoDevices: videoDevices
         });
       });
     });
   };
-
   _proto.close = function close() {
     var onClose = this.props.onClose;
     this.opened = false;
@@ -103,14 +82,11 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     });
     onClose && onClose();
   };
-
   _proto.stop = function stop() {
     this.videoStreamTrack && this.videoStreamTrack.stop();
   };
-
   _proto.init = function init() {
     var _this3 = this;
-
     this.setState({
       progress: true
     });
@@ -119,52 +95,41 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       _this3.setState({
         progress: false
       });
-
       _this3.handleInit();
     })["catch"](function (err) {
       _this3.setState({
         progress: false
       });
-
       _this3.handleFail(err);
     });
   };
-
   _proto.initCamera = function initCamera() {
     var _this4 = this;
-
     return new Promise(function (resolve, reject) {
       _this4.setState({
         cameraInited: false
       });
-
       _this4.getUserMedia(_this4.constraints).then(function (stream) {
         _this4.videoStreamTrack = stream.getVideoTracks()[0];
-
         if (!_this4.opened) {
           return _this4.videoStreamTrack.stop();
         }
-
         _this4.setState({
           cameraInited: true
         }, function () {
           var video = _this4.refVideo;
-
           if ('srcObject' in video) {
             video.srcObject = stream;
           } else {
             video.src = URL.createObjectURL(stream);
           }
-
           video.muted = true;
           video.controls = false;
           video.setAttribute('playsinline', '');
           video.play();
-
           video.onloadeddata = function () {
             if (_this4.opened) {
               _this4.setVideoDimensions();
-
               resolve();
             }
           };
@@ -172,14 +137,12 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       })["catch"](reject);
     });
   };
-
   _proto.getUserMedia = function getUserMedia(constraints) {
     return new Promise(function (resolve, reject) {
       if (navigator.mediaDevices) {
         navigator.mediaDevices.getUserMedia(constraints).then(resolve)["catch"](reject);
       } else {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
         if (navigator.getUserMedia) {
           navigator.getUserMedia(constraints, resolve, reject);
         } else {
@@ -188,7 +151,6 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       }
     });
   };
-
   _proto.enumerateDevices = function enumerateDevices() {
     return new Promise(function (resolve, reject) {
       if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
@@ -198,13 +160,10 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       }
     });
   };
-
   _proto.tryMaximize = function tryMaximize() {
     var _this5 = this;
-
     return new Promise(function (resolve, reject) {
       var capabilities = _this5.videoStreamTrack.getCapabilities();
-
       if (capabilities) {
         _this5.videoStreamTrack.applyConstraints({
           width: {
@@ -219,32 +178,25 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       }
     });
   };
-
   _proto.setVideoDimensions = function setVideoDimensions() {
     var root = this.refRoot;
     var video = this.refVideo;
-
     if (!video) {
       return;
     }
-
     var height = root.offsetHeight;
     var width = height / video.videoHeight * video.videoWidth;
-
     if (width < root.offsetWidth) {
       width = root.offsetWidth;
       height = width / video.videoWidth * video.videoHeight;
     }
-
     video.width = width;
     video.height = height;
   };
-
   _proto.toggleCamera = function toggleCamera() {
     this.constraints.video.facingMode = this.constraints.video.facingMode === 'environment' ? 'user' : 'environment';
     this.init();
   };
-
   _proto.getFrameCanvas = function getFrameCanvas(asViewportSize) {
     var root = this.refRoot;
     var video = this.refVideo;
@@ -252,7 +204,6 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     var ctx = canvas.getContext('2d');
     var width;
     var height;
-
     if (asViewportSize) {
       canvas.width = root.offsetWidth;
       canvas.height = root.offsetHeight;
@@ -265,24 +216,18 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       width = video.videoWidth;
       height = video.videoHeight;
     }
-
     var left = (width - canvas.width) / 2;
     var top = (height - canvas.height) / 2;
     ctx.drawImage(video, -left, -top, width, height);
     return canvas;
   };
-
   _proto.handleInit = function handleInit() {};
-
   _proto.handleCapture = function handleCapture() {
     var _this6 = this;
-
     var onCapture = this.props.onCapture;
-
     if (this.state.capturing) {
       return;
     }
-
     this.refVideo.pause();
     this.setState({
       capturing: true
@@ -292,17 +237,14 @@ var Camera = /*#__PURE__*/function (_React$Component) {
         capturing: false,
         snapshot: blob
       });
-
       onCapture && onCapture(blob);
     });
   };
-
   _proto.handleApply = function handleApply() {
     var onApply = this.props.onApply;
     var snapshot = this.state.snapshot;
     onApply && onApply(snapshot);
   };
-
   _proto.handleReset = function handleReset() {
     var onReset = this.props.onReset;
     this.refVideo.play();
@@ -311,17 +253,14 @@ var Camera = /*#__PURE__*/function (_React$Component) {
     });
     onReset && onReset();
   };
-
   _proto.handleFail = function handleFail(err) {
     var onFail = this.props.onFail;
     onFail && onFail(err);
   };
-
   _proto.handleKeyUp = function handleKeyUp(event) {
     var _this$state = this.state,
-        snapshot = _this$state.snapshot,
-        progress = _this$state.progress;
-
+      snapshot = _this$state.snapshot,
+      progress = _this$state.progress;
     if (event.keyCode === 13 && snapshot) {
       this.handleApply();
     } else if (event.keyCode === 27 && snapshot) {
@@ -332,23 +271,19 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       this.handleCapture();
     }
   };
-
   _proto.handleWindowResize = function handleWindowResize() {
     this.setVideoDimensions();
   };
-
   _proto.renderLeftSide = function renderLeftSide() {
     var _this$state2 = this.state,
-        snapshot = _this$state2.snapshot,
-        videoDevices = _this$state2.videoDevices;
+      snapshot = _this$state2.snapshot,
+      videoDevices = _this$state2.videoDevices;
     return videoDevices && videoDevices.length > 1 && !snapshot && this.renderRotateControl();
   };
-
   _proto.renderRightSide = function renderRightSide() {
     var snapshot = this.state.snapshot;
     return snapshot ? /*#__PURE__*/_react["default"].createElement("div", null, this.renderApplyControl(), this.renderResetControl()) : this.renderCaptureControl();
   };
-
   _proto.renderApplyControl = function renderApplyControl() {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
@@ -366,7 +301,6 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       transform: "translate(4 0)"
     }))));
   };
-
   _proto.renderResetControl = function renderResetControl() {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
@@ -384,7 +318,6 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       transform: "translate(0 0)"
     }))));
   };
-
   _proto.renderRotateControl = function renderRotateControl() {
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: "Camera__control",
@@ -404,36 +337,32 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       d: "M3,12a8.94,8.94,0,0,0,2.637,6.364L6.281,19H4v1H8V16H7v2.293l-.646-.646-.218-.2A8,8,0,0,1,12,4a8.113,8.113,0,0,1,1.045.067l.129-.992A9.219,9.219,0,0,0,12,3a9.01,9.01,0,0,0-9,9Z"
     }))));
   };
-
   _proto.renderCaptureControl = function renderCaptureControl() {
     var capturing = this.state.capturing;
     return /*#__PURE__*/_react["default"].createElement("div", {
       className: (0, _classnames["default"])({
-        'Camera__control': true,
-        'Camera__control_capture': true,
+        Camera__control: true,
+        Camera__control_capture: true,
         '--animated': capturing
       }),
       onClick: this.handleCapture.bind(this)
     });
   };
-
   _proto.renderContent = function renderContent() {
     return this.props.children;
   };
-
   _proto.render = function render() {
     var _this7 = this;
-
     var _this$props = this.props,
-        className = _this$props.className,
-        fullscreen = _this$props.fullscreen;
+      className = _this$props.className,
+      fullscreen = _this$props.fullscreen;
     var _this$state3 = this.state,
-        opened = _this$state3.opened,
-        cameraInited = _this$state3.cameraInited,
-        progress = _this$state3.progress;
+      opened = _this$state3.opened,
+      cameraInited = _this$state3.cameraInited,
+      progress = _this$state3.progress;
     var classNames = (0, _classnames["default"])({
-      'Camera': true,
-      'Camera_fullscreen': fullscreen,
+      Camera: true,
+      Camera_fullscreen: fullscreen,
       '--opened': opened
     }, className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
@@ -466,16 +395,15 @@ var Camera = /*#__PURE__*/function (_React$Component) {
       className: "Camera__close-icon"
     })));
   };
-
   return Camera;
 }(_react["default"].Component);
-
 exports.Camera = Camera;
 Camera.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
   className: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].object.isRequired, _propTypes["default"].array.isRequired]),
   fullscreen: _propTypes["default"].bool,
   facingMode: _propTypes["default"].oneOf(['environment', 'user']),
+  children: _propTypes["default"].any,
   width: _propTypes["default"].number,
   height: _propTypes["default"].number,
   onCapture: _propTypes["default"].func,

@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Switch", {
     return _Switch2.Switch;
   }
 });
-
 require("./Switch.css");
-
 var _Switch2 = require("./Switch");

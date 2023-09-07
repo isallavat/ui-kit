@@ -15,9 +15,6 @@ Object.defineProperty(exports, "MenuItem", {
     return _MenuItem.MenuItem;
   }
 });
-
 require("./Menu.css");
-
 var _Menu2 = require("./Menu");
-
 var _MenuItem = require("./MenuItem");

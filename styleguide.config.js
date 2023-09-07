@@ -1,10 +1,10 @@
-var fs = require('fs')
+const fs = require('fs')
 
 module.exports = {
   components: 'src/**/[A-Z]*.js',
   styleguideDir: 'docs',
   getExampleFilename (componentPath) {
-    var exampleFile = componentPath.replace(/\.jsx?$/, '.md')
+    const exampleFile = componentPath.replace(/\.jsx?$/, '.md')
 
     if (fs.existsSync(exampleFile)) {
       return exampleFile

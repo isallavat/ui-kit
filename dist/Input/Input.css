@@ -127,10 +127,11 @@
         font-size: 85%;
         opacity: .6; }
   .Input_type_area .Input__element {
-    overflow-y: auto; }
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word; }
     .Input_type_area .Input__element_hidden {
-      visibility: hidden;
-      white-space: pre-wrap; }
+      visibility: hidden; }
     .Input_type_area .Input__element_visible {
       position: absolute;
       left: 0;

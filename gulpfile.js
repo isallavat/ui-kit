@@ -1,6 +1,6 @@
 const gulp = require('gulp')
 const babel = require('gulp-babel')
-const sass = require('gulp-sass')
+const sass = require('gulp-sass')(require('node-sass'))
 const replace = require('gulp-replace')
 
 function compileSass () {

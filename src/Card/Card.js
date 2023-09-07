@@ -19,20 +19,20 @@ export class Card extends React.Component {
     const { collapsed } = this.state
 
     const classNames = classnames({
-      'Card': true
+      Card: true
     }, className)
 
     return (
       <this.props.component className={classNames} {...excludeProps(this)}>
         {!!title &&
           <div className={classnames({
-            'Card__header': true,
+            Card__header: true,
             '--collapsed': collapsed
           })}>
             <div className='Card__title'>{title}</div>
             <div
               className={classnames({
-                'Card__switcher': true,
+                Card__switcher: true,
                 '--collapsed': collapsed
               })}
               onClick={this.toggle.bind(this, !collapsed)}
@@ -50,7 +50,7 @@ export class Card extends React.Component {
           </div>
         }
         <div className={classnames({
-          'Card__content': true,
+          Card__content: true,
           '--hidden': collapsed
         })}>
           {this.props.children}
@@ -71,7 +71,8 @@ Card.propTypes = {
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ]),
-  title: PropTypes.string
+  title: PropTypes.string,
+  children: PropTypes.any
 }
 
 Card.defaultProps = {

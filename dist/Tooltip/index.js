@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Tooltip", {
     return _Tooltip2.Tooltip;
   }
 });
-
 require("./Tooltip.css");
-
 var _Tooltip2 = require("./Tooltip");

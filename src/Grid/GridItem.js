@@ -14,8 +14,8 @@ export class GridItem extends React.Component {
     } = this.props
 
     const classNames = classnames({
-      'GridItem': true,
-      'GridItem_full': full,
+      GridItem: true,
+      GridItem_full: full,
       [`GridItem_mobile_${mobile}`]: !!mobile,
       [`GridItem_tablet_${tablet}`]: !!tablet,
       [`GridItem_desktop_${desktop}`]: !!desktop
