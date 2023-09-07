@@ -1,49 +1,33 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 var _typeof = require("@babel/runtime/helpers/typeof");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Progress = void 0;
-
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
-
 var _react = _interopRequireWildcard(require("react"));
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _classnames2 = _interopRequireDefault(require("classnames"));
-
 var _helpers = require("../helpers");
-
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 var Progress = /*#__PURE__*/function (_React$Component) {
   (0, _inheritsLoose2["default"])(Progress, _React$Component);
-
   function Progress(props) {
     var _this;
-
     _this = _React$Component.call(this, props) || this;
     _this.state = {};
     return _this;
   }
-
   var _proto = Progress.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     var _this$props = this.props,
-        seconds = _this$props.seconds,
-        strokeWidth = _this$props.strokeWidth;
+      seconds = _this$props.seconds,
+      strokeWidth = _this$props.strokeWidth;
     var root = this.refRoot;
     var diameter = root.offsetWidth - strokeWidth * 2;
     var circleLength = Math.PI * diameter;
@@ -53,14 +37,11 @@ var Progress = /*#__PURE__*/function (_React$Component) {
     });
     seconds && this.countdownSeconds();
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.timeout && clearTimeout(this.timeout);
   };
-
   _proto.countdownSeconds = function countdownSeconds(seconds) {
     var _this2 = this;
-
     seconds = seconds || this.props.seconds;
     var date = new Date(null);
     date.setSeconds(seconds);
@@ -71,25 +52,23 @@ var Progress = /*#__PURE__*/function (_React$Component) {
       _this2.timeout = setTimeout(_this2.countdownSeconds.bind(_this2, seconds - 1), 1000);
     });
   };
-
   _proto.render = function render() {
     var _classnames,
-        _this3 = this;
-
+      _this3 = this;
     var _this$props2 = this.props,
-        className = _this$props2.className,
-        color = _this$props2.color,
-        variant = _this$props2.variant,
-        animated = _this$props2.animated,
-        percent = _this$props2.percent,
-        strokeWidth = _this$props2.strokeWidth,
-        children = _this$props2.children;
+      className = _this$props2.className,
+      color = _this$props2.color,
+      variant = _this$props2.variant,
+      animated = _this$props2.animated,
+      percent = _this$props2.percent,
+      strokeWidth = _this$props2.strokeWidth,
+      children = _this$props2.children;
     var _this$state = this.state,
-        value = _this$state.value,
-        diameter = _this$state.diameter,
-        circleLength = _this$state.circleLength;
+      value = _this$state.value,
+      diameter = _this$state.diameter,
+      circleLength = _this$state.circleLength;
     var classNames = (0, _classnames2["default"])((_classnames = {
-      'Progress': true
+      Progress: true
     }, (0, _defineProperty2["default"])(_classnames, "Progress_color_".concat(color), true), (0, _defineProperty2["default"])(_classnames, "Progress_variant_".concat(variant), true), _classnames), className);
     return /*#__PURE__*/_react["default"].createElement(this.props.component, (0, _extends2["default"])({
       className: classNames
@@ -134,10 +113,8 @@ var Progress = /*#__PURE__*/function (_React$Component) {
       className: "Progress__value"
     }, value), children);
   };
-
   return Progress;
 }(_react["default"].Component);
-
 exports.Progress = Progress;
 Progress.propTypes = {
   component: _propTypes["default"].oneOfType([_propTypes["default"].string.isRequired, _propTypes["default"].func.isRequired, _propTypes["default"].object.isRequired]).isRequired,
@@ -147,7 +124,8 @@ Progress.propTypes = {
   animated: _propTypes["default"].bool,
   strokeWidth: _propTypes["default"].number,
   seconds: _propTypes["default"].number,
-  percent: _propTypes["default"].number
+  percent: _propTypes["default"].number,
+  children: _propTypes["default"].any
 };
 Progress.defaultProps = {
   component: 'div',

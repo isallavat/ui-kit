@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Card", {
     return _Card2.Card;
   }
 });
-
 require("./Card.css");
-
 var _Card2 = require("./Card");

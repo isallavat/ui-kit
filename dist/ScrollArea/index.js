@@ -9,7 +9,5 @@ Object.defineProperty(exports, "ScrollArea", {
     return _ScrollArea.ScrollArea;
   }
 });
-
 require("react-perfect-scrollbar/dist/css/styles.css");
-
 var _ScrollArea = require("./ScrollArea");

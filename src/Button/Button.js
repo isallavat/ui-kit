@@ -22,14 +22,14 @@ export class Button extends React.Component {
     } = this.props
 
     const classNames = classnames({
-      'Button': true,
+      Button: true,
       [`Button_size_${size}`]: true,
       [`Button_color_${color}`]: true,
       [`Button_variant_${variant}`]: true,
       [`Button_align_${align}`]: true,
       'Button_full-width': fullWidth,
-      'Button_rounded': rounded,
-      'Button_circular': circular,
+      Button_rounded: rounded,
+      Button_circular: circular,
       '--progress': progress,
       '--disabled': disabled
     }, className)
@@ -37,9 +37,9 @@ export class Button extends React.Component {
     return (
       <this.props.component className={classNames} {...excludeProps(this)}>
         <div className={classnames({
-          'Button__content': true,
-          'Button__content_centered': noresize,
-          'Button__content_hidden': progress
+          Button__content: true,
+          Button__content_centered: noresize,
+          Button__content_hidden: progress
         })}>{children}</div>
         {progress &&
           <div className='Button__progress-container'>
@@ -65,6 +65,7 @@ Button.propTypes = {
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ]),
+  children: PropTypes.any,
   size: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   variant: PropTypes.string.isRequired,
@@ -73,6 +74,7 @@ Button.propTypes = {
   noresize: PropTypes.bool,
   progress: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  disabled: PropTypes.bool,
   align: PropTypes.oneOf([
     'left', 'center', 'right', 'justify'
   ]).isRequired

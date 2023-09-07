@@ -157,7 +157,7 @@ export class Camera extends React.Component {
 
   tryMaximize () {
     return new Promise((resolve, reject) => {
-      var capabilities = this.videoStreamTrack.getCapabilities()
+      const capabilities = this.videoStreamTrack.getCapabilities()
       if (capabilities) {
         this.videoStreamTrack.applyConstraints({
           width: { ideal: capabilities.width.max },
@@ -355,8 +355,8 @@ export class Camera extends React.Component {
     return (
       <div
         className={classnames({
-          'Camera__control': true,
-          'Camera__control_capture': true,
+          Camera__control: true,
+          Camera__control_capture: true,
           '--animated': capturing
         })}
         onClick={::this.handleCapture}
@@ -373,8 +373,8 @@ export class Camera extends React.Component {
     const { opened, cameraInited, progress } = this.state
 
     const classNames = classnames({
-      'Camera': true,
-      'Camera_fullscreen': fullscreen,
+      Camera: true,
+      Camera_fullscreen: fullscreen,
       '--opened': opened
     }, className)
 
@@ -422,6 +422,7 @@ Camera.propTypes = {
   facingMode: PropTypes.oneOf([
     'environment', 'user'
   ]),
+  children: PropTypes.any,
   width: PropTypes.number,
   height: PropTypes.number,
   onCapture: PropTypes.func,

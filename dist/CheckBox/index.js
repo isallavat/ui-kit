@@ -9,7 +9,5 @@ Object.defineProperty(exports, "CheckBox", {
     return _CheckBox2.CheckBox;
   }
 });
-
 require("./CheckBox.css");
-
 var _CheckBox2 = require("./CheckBox");

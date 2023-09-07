@@ -9,5 +9,4 @@ Object.defineProperty(exports, "OutsideClickHandler", {
     return _OutsideClickHandler.OutsideClickHandler;
   }
 });
-
 var _OutsideClickHandler = require("./OutsideClickHandler");

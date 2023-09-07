@@ -15,9 +15,6 @@ Object.defineProperty(exports, "GridItem", {
     return _GridItem.GridItem;
   }
 });
-
 require("./Grid.css");
-
 var _GridContainer = require("./GridContainer");
-
 var _GridItem = require("./GridItem");

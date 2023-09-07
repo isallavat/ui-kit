@@ -9,7 +9,5 @@ Object.defineProperty(exports, "Button", {
     return _Button2.Button;
   }
 });
-
 require("./Button.css");
-
 var _Button2 = require("./Button");

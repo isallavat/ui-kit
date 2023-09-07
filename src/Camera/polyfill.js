@@ -5,13 +5,13 @@
   if (!HTMLCanvasElement.prototype.toBlob) {
     Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
       value: function (callback, type, quality) {
-        var dataURL = this.toDataURL(type, quality).split(',')[1]
+        const dataURL = this.toDataURL(type, quality).split(',')[1]
         setTimeout(function () {
-          var binStr = atob(dataURL)
-          var len = binStr.length
-          var arr = new Uint8Array(len)
+          const binStr = atob(dataURL)
+          const len = binStr.length
+          const arr = new Uint8Array(len)
 
-          for (var i = 0; i < len; i++) {
+          for (let i = 0; i < len; i++) {
             arr[i] = binStr.charCodeAt(i)
           }
 

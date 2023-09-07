@@ -8,7 +8,7 @@ export class Tooltip extends React.Component {
     const { className, tooltip, position } = this.props
 
     const classNames = classnames({
-      'Tooltip': true
+      Tooltip: true
     }, className)
 
     return (
@@ -37,7 +37,8 @@ Tooltip.propTypes = {
   ]),
   position: PropTypes.oneOf([
     'top', 'left', 'right', 'bottom'
-  ])
+  ]),
+  children: PropTypes.any
 }
 
 Tooltip.defaultProps = {

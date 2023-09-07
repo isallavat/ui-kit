@@ -21,11 +21,7 @@ Object.defineProperty(exports, "FlexTableRow", {
     return _FlexTableRow.FlexTableRow;
   }
 });
-
 require("./FlexTable.css");
-
 var _FlexTable2 = require("./FlexTable");
-
 var _FlexTableRow = require("./FlexTableRow");
-
 var _FlexTableCell = require("./FlexTableCell");
